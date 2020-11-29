@@ -93,7 +93,7 @@ class Program
       stream.WriteLine();
       foreach (var item in enums)
       {
-        stream.WriteLine("pub const {0} = {1};", item.Name, item.Value);
+        stream.WriteLine("pub const {0} = {1};", MakeZigIdent(RemovePrefix(item.Name)), item.Value);
       }
       stream.WriteLine();
       foreach (var cmd in commands)
@@ -164,6 +164,14 @@ class Program
     }
 
     return 0;
+  }
+
+  public static string MakeZigIdent(string text)
+  {
+    if (!char.IsLetter(text[0]))
+      return "@\"" + text + "\"";
+    else
+      return text;
   }
 
   public static string RemovePrefix(string text)
