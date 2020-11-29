@@ -1,0 +1,546 @@
+using System;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
+
+class Program
+{
+  static int Main(string[] args)
+  {
+    string registry_file = args[0];
+    string result_file = args[1];
+    string api_version = args[2];
+    string[] extensions = args.Skip(3).ToArray();
+
+    var serializer = new XmlSerializer(typeof(Registry));
+
+    Registry registry;
+    using (var sr = new StreamReader(registry_file))
+    {
+      registry = (Registry)serializer.Deserialize(sr);
+    }
+
+
+    var target_feature = registry.Features.First(f => f.Name == api_version);
+
+    var required_features = registry.Features
+      .Where(f => f.API == target_feature.API)
+      .Where(f => f.Number.CompareTo(target_feature.Number) <= 0)
+      .OrderBy(f => f.Number)
+      .ToArray();
+
+    var final_feature_set = new HashSet<FeatureComponent>();
+
+
+    foreach (var feat in required_features)
+    {
+      var empty = new FeatureComponent[0];
+
+      if (feat.Removes != null)
+      {
+        foreach (var item in feat.Removes.SelectMany(f => f.Items ?? empty))
+        {
+          final_feature_set.Remove(item);
+        }
+      }
+
+      if (feat.Requires != null)
+      {
+        foreach (var item in feat.Requires.SelectMany(f => f.Items ?? empty))
+        {
+          final_feature_set.Add(item);
+        }
+      }
+    }
+
+    var commands = new List<Command>();
+    var enums = new List<Enum>();
+    var types = new List<GLType>();
+    foreach (var feature in final_feature_set)
+    {
+
+      if (feature is CommandFeature cmd)
+      {
+        commands.Add(registry.Commands.SelectMany(c => c.Items).Single(c => c.Prototype.Name == cmd.Name));
+      }
+      else if (feature is EnumFeature en)
+      {
+        var empty = new Enum[0];
+        enums.Add(registry.Enums.SelectMany(e => e.Items ?? empty).Single(e => e.Name == en.Name));
+      }
+      else if (feature is TypeFeature type)
+      {
+        types.Add(registry.Types.Single(t => t.Name == type.Name));
+      }
+    }
+
+    Console.WriteLine("Final API has {0} commands, {1} enums and {2} types.",
+      commands.Count,
+      enums.Count,
+      types.Count
+      );
+
+    using (var stream = new StreamWriter(result_file, false, Encoding.UTF8))
+    {
+      stream.WriteLine("const std = @import(\"std\");");
+      stream.WriteLine("const log = std.log.scoped(.OpenGL);");
+      stream.WriteLine();
+      stream.WriteLine(preamble);
+      stream.WriteLine();
+      foreach (var item in enums)
+      {
+        stream.WriteLine("pub const {0} = {1};", item.Name, item.Value);
+      }
+      stream.WriteLine();
+      foreach (var cmd in commands)
+      {
+        stream.WriteLine();
+        stream.Write("pub ");
+        stream.Write(cmd.GetSignature(true));
+        stream.WriteLine(" {");
+
+        stream.Write("    return (function_pointers.{0} orelse @panic(\"{0} was not bound.\"))(", cmd.Prototype.Name);
+        if (cmd.Parameters != null)
+        {
+          int i = 0;
+          foreach (var param in cmd.Parameters)
+          {
+            if (i > 0)
+              stream.Write(", ");
+            stream.Write(param.Name);
+            i += 1;
+          }
+        }
+        stream.WriteLine(");");
+
+        stream.WriteLine("}");
+      }
+
+
+      stream.WriteLine();
+      stream.WriteLine("// Loader API:");
+      stream.WriteLine("pub fn load(load_ctx: anytype, get_proc_address: fn(@TypeOf(load_ctx), [:0]const u8) ?*c_void) !void {");
+      stream.WriteLine("    var success = true;");
+      foreach (var cmd in commands)
+      {
+        stream.WriteLine("    if(get_proc_address(load_ctx, \"{0}\")) |proc| {{", cmd.Prototype.Name);
+        stream.WriteLine("        function_pointers.{0} = @ptrCast(?function_signatures.{0},  proc);", cmd.Prototype.Name);
+        stream.WriteLine("    } else {");
+        stream.WriteLine("        log.emerg(\"entry point {0} not found!\", .{{}});", cmd.Prototype.Name);
+        stream.WriteLine("        success = false;");
+        stream.WriteLine("    }");
+      }
+      stream.WriteLine("    if(!success)");
+      stream.WriteLine("        return error.EntryPointNotFound;");
+      stream.WriteLine("}");
+
+      stream.WriteLine();
+
+      stream.WriteLine("const function_signatures = struct {");
+      foreach (var cmd in commands)
+      {
+        stream.WriteLine("    const {0} = {1};", cmd.Prototype.Name, cmd.GetSignature(false));
+      }
+      stream.WriteLine("};");
+
+      stream.WriteLine();
+
+      stream.WriteLine("const function_pointers = struct {");
+      foreach (var cmd in commands)
+      {
+        stream.WriteLine("    var {0}: ?function_signatures.{0} = null;", cmd.Prototype.Name);
+      }
+      stream.WriteLine("};");
+
+      stream.WriteLine();
+
+      stream.WriteLine("test \"\" {");
+      stream.WriteLine("    _ = load;");
+      stream.WriteLine("}");
+    }
+
+    return 0;
+  }
+
+  public static string RemovePrefix(string text)
+  {
+    if (text.StartsWith("gl"))
+      return text.Substring(2, 1).ToLower() + text.Substring(3);
+    else if (text.StartsWith("GL_"))
+      return text.Substring(3);
+    else
+      return text;
+  }
+
+  public static string TranslateC(string type)
+  {
+    type = type.Trim();
+
+    if (type == "void")
+      return "void";
+
+    // this is left-const bullshittery, let's reverse it
+    if (type.StartsWith("const"))
+    {
+      var rest = type.Substring(5).Trim();
+      var index = rest.IndexOfAny(new char[] { '*', ' ' });
+      if (index >= 0)
+      {
+        type = rest.Substring(0, index) + " const" + rest.Substring(index);
+      }
+    }
+
+    var tokens = new List<string>();
+
+    var pattern = new Regex("(\\w+)|\\*");
+    foreach (Match pat in pattern.Matches(type))
+    {
+      tokens.Add(pat.Value);
+    }
+
+    var result = "";
+    int i = tokens.Count;
+    while (i > 0)
+    {
+      i -= 1;
+      var tok = tokens[i];
+
+      if (tok == "*")
+      {
+        if ((i > 0 && tokens[i - 1] == "void") || (i > 1 && tokens[i - 2] == "void"))
+        {
+          result += "*";
+        }
+        else
+        {
+          result += "[*c]";
+        }
+      }
+      else if (tok == "const")
+        result += "const ";
+      else
+      {
+        switch (tok)
+        {
+          case "void": result += "c_void"; break;
+          case "int": result += "c_int"; break;
+          case "short": result += "c_short"; break;
+          case "long": result += "c_long"; break;
+          default:
+            result += tok;
+            break;
+        }
+      }
+    }
+    if (result == "[*c]const GLubyte")
+    {
+      // assume a string:
+      return "[*:0]const GLubyte";
+    }
+    return result;
+  }
+
+  const string preamble =
+  @"pub const GLenum = c_uint;
+pub const GLboolean = u8;
+pub const GLbitfield = c_uint;
+pub const GLbyte = i8;
+pub const GLubyte = u8;
+pub const GLshort = i16;
+pub const GLushort = u16;
+pub const GLint = c_int;
+pub const GLuint = c_uint;
+pub const GLclampx = i32;
+pub const GLsizei = c_int;
+pub const GLfloat = f32;
+pub const GLclampf = f32;
+pub const GLdouble = f64;
+pub const GLclampd = f64;
+pub const GLeglClientBufferEXT = void;
+pub const GLeglImageOES = void;
+pub const GLchar = u8;
+pub const GLcharARB = u8;
+
+pub const GLhandleARB = if (std.builtin.os.tag == .macos) *c_void else c_uint;
+
+pub const GLhalf = u16;
+pub const GLhalfARB = u16;
+pub const GLfixed = i32;
+pub const GLintptr = usize;
+pub const GLintptrARB = usize;
+pub const GLsizeiptr = isize;
+pub const GLsizeiptrARB = isize;
+pub const GLint64 = i64;
+pub const GLint64EXT = i64;
+pub const GLuint64 = u64;
+pub const GLuint64EXT = u64;
+
+pub const GLsync = *opaque {};
+
+pub const _cl_context = opaque {};
+pub const _cl_event = opaque {};
+
+pub const GLDEBUGPROC = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: *c_void) callconv(.C) void;
+pub const GLDEBUGPROCARB = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: *c_void) callconv(.C) void;
+pub const GLDEBUGPROCKHR = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: *c_void) callconv(.C) void;
+
+pub const GLDEBUGPROCAMD = fn (id: GLuint, category: GLenum, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: *c_void) callconv(.C) void;
+
+pub const GLhalfNV = u16;
+pub const GLvdpauSurfaceNV = GLintptr;
+pub const GLVULKANPROCNV = fn (void) callconv(.C) void;";
+}
+
+[XmlRoot("registry")]
+public class Registry
+{
+  [XmlElement("comment")]
+  public string Comment { get; set; }
+
+  [XmlArray("types")]
+  [XmlArrayItem("type")]
+  public GLType[] Types { get; set; }
+
+  [XmlArray("groups")]
+  [XmlArrayItem("group")]
+  public Group[] Groups { get; set; }
+
+  [XmlElement("enums")]
+  public EnumSet[] Enums { get; set; }
+
+  [XmlElement("commands")]
+  public CommandSet[] Commands { get; set; }
+
+  [XmlElement("feature")]
+  public Feature[] Features { get; set; }
+
+  [XmlArray("extensions")]
+  [XmlArrayItem("extension")]
+  public Feature[] Extensions { get; set; }
+}
+
+public class GLType
+{
+  [XmlElement("name")]
+  public string Name { get; set; }
+}
+
+public class Group
+{
+  [XmlAttribute("name")]
+  public string Name { get; set; }
+
+  [XmlElement("enum")]
+  public Enum[] Items { get; set; }
+}
+
+public class Enum
+{
+  [XmlAttribute("name")]
+  public string Name { get; set; }
+
+  [XmlAttribute("value")]
+  public string Value { get; set; }
+}
+
+public class EnumSet
+{
+  [XmlAttribute("namespace")]
+  public string Namespace { get; set; }
+
+  [XmlAttribute("group")]
+  public string Group { get; set; }
+
+  [XmlAttribute("type")]
+  public string Type { get; set; }
+
+  [XmlAttribute("comment")]
+  public string Comment { get; set; }
+
+  [XmlElement("enum")]
+  public Enum[] Items { get; set; }
+
+}
+
+public class CommandSet
+{
+  [XmlAttribute("namespace")]
+  public string Namespace { get; set; }
+
+  [XmlElement("command")]
+  public Command[] Items { get; set; }
+}
+
+public class Command
+{
+  [XmlElement("proto")]
+  public Parameter Prototype { get; set; }
+
+  [XmlElement("param")]
+  public Parameter[] Parameters { get; set; }
+
+  public string GetSignature(bool includeName)
+  {
+    var stream = new StringWriter();
+
+    var full_signature = Prototype.FullText;
+    var return_type = "void";
+    {
+      var index = full_signature.LastIndexOf(" ");
+      if (index >= 0)
+      {
+        return_type = full_signature.Substring(0, index).Trim();
+      }
+    }
+
+    if (includeName)
+      stream.Write("fn {0}(", Program.RemovePrefix(Prototype.Name));
+    else
+      stream.Write("fn(");
+    if (Parameters != null)
+    {
+      int count = 0;
+      foreach (var param in Parameters)
+      {
+        var name = param.Name;
+        var type = param.TranslatedType;
+
+        if (count > 0)
+          stream.Write(", ");
+
+        stream.Write("{0}: {1}", name, type);
+
+        count += 1;
+      }
+    }
+    stream.Write(") ");
+
+    stream.Write(Program.TranslateC(return_type));
+
+    return stream.ToString();
+  }
+}
+
+public class Parameter
+{
+  [XmlAttribute("group")]
+  public string Group { get; set; }
+
+
+  [XmlText(typeof(string))]
+  [XmlAnyElement]
+  public object[] Items { get; set; }
+
+  [XmlIgnore]// [XmlElement("ptype")]
+  public string Type => Items.OfType<XmlElement>().SingleOrDefault(e => e.Name == "ptype")?.InnerText;
+
+  [XmlIgnore]// [XmlElement("name")]
+  public string Name => Items.OfType<XmlElement>().SingleOrDefault(e => e.Name == "name")?.InnerText;
+
+  public string TranslatedType
+  {
+    get
+    {
+      var type = Type ?? "";
+      var full_text = FullText;
+      var index = full_text.LastIndexOf(' ');
+      if (index >= 0)
+      {
+        type = full_text.Substring(0, index);
+      }
+      return Program.TranslateC(type);
+    }
+  }
+
+  public string FullText => string.Join<string>(" ", Items.Select(x =>
+  {
+    if (x is XmlElement e)
+      return e.InnerText;
+    else
+      return x.ToString();
+  }));
+}
+
+public class Feature
+{
+  [XmlAttribute("name")]
+  public string Name { get; set; }
+
+  [XmlAttribute("api")]
+  public string API { get; set; }
+
+  [XmlAttribute("number")]
+  public string Number { get; set; }
+
+  [XmlAttribute("supported")]
+  public string Supported { get; set; }
+
+  [XmlElement("require")]
+  public FeatureSetList[] Requires { get; set; }
+
+  [XmlElement("remove")]
+  public FeatureSetList[] Removes { get; set; }
+}
+
+public class FeatureSetList
+{
+  [XmlAttribute("comment")]
+  public string Comment { get; set; }
+
+  [XmlAttribute("profile")]
+  public string Profile { get; set; }
+
+  [XmlElement("enum", typeof(EnumFeature))]
+  [XmlElement("type", typeof(TypeFeature))]
+  [XmlElement("command", typeof(CommandFeature))]
+  public FeatureComponent[] Items { get; set; }
+}
+
+public abstract class FeatureComponent
+{
+  [XmlAttribute("name")]
+  public string Name { get; set; }
+
+  public override int GetHashCode() => Name.GetHashCode();
+}
+
+public sealed class EnumFeature : FeatureComponent
+{
+  public override int GetHashCode() => Name.GetHashCode();
+  public override bool Equals(object obj)
+  {
+    if (obj is EnumFeature other)
+      return other.Name == this.Name;
+    else
+      return false;
+  }
+}
+
+public sealed class TypeFeature : FeatureComponent
+{
+  public override int GetHashCode() => Name.GetHashCode();
+  public override bool Equals(object obj)
+  {
+    if (obj is TypeFeature other)
+      return other.Name == this.Name;
+    else
+      return false;
+  }
+}
+
+public sealed class CommandFeature : FeatureComponent
+{
+  public override int GetHashCode() => Name.GetHashCode();
+
+  public override bool Equals(object obj)
+  {
+    if (obj is CommandFeature other)
+      return other.Name == this.Name;
+    else
+      return false;
+  }
+}
