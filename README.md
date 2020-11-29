@@ -39,4 +39,5 @@ pub fn initAndDraw(window: Platform.Window) !void
 This library uses a small C# script that generates the Zig bindings.
 
 ## What is missing right now?
-- No option to create 
+- No option to create or add extensions
+- Functions do not use the group tags. This would enable `gl.frontFace(.CW);`
