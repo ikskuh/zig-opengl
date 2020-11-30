@@ -12,6 +12,10 @@ pub fn load(load_ctx: anytype, get_proc_address: fn(@TypeOf(load_ctx), [:0]const
 ```
 This function will load all OpenGL entry points with the help of `get_proc_address`. It receives the `load_ctx` as well as the function name.
 
+## Pregenerated Loaders
+
+This repository contains pre-generated bindings for all extension-free OpenGL versions.
+
 ## Example
 
 This example uses [ZWL](https://github.com/Aransentin/ZWL/) by @Aransentin.
