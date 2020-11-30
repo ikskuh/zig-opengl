@@ -1,4 +1,5 @@
-REGISTRY=OpenGL-Registry/xml/gl.xml
+REGISTRY?=OpenGL-Registry/xml/gl.xml
+EXTENSIONS?=
 
 all: \
 		 exports/gl_1v1.zig \
@@ -20,8 +21,9 @@ all: \
 		 exports/gl_4v6.zig
 
 exports/gl_%.zig: generator.exe $(REGISTRY)
-	mono generator.exe $(REGISTRY) $@ GL_VERSION_$(subst exports/gl_,,$(subst v,_,${@:.zig=})) 
+	mono generator.exe $(REGISTRY) $@ GL_VERSION_$(subst exports/gl_,,$(subst v,_,${@:.zig=})) $(EXTENSIONS)
 	zig fmt $@
+	zig test $@
 
 generator.exe: src/main.cs
 	csc /debug:full "/out:$@" /r:System.Xml.Serialization.dll $^

@@ -24,7 +24,6 @@ class Program
       registry = (Registry)serializer.Deserialize(sr);
     }
 
-
     var target_feature = registry.Features.First(f => f.Name == api_version);
 
     var required_features = registry.Features
@@ -33,8 +32,27 @@ class Program
       .OrderBy(f => f.Number)
       .ToArray();
 
-    var final_feature_set = new HashSet<FeatureComponent>();
+    var wanted_extensions = registry.Extensions
+      .Where(e => extensions.Contains(e.Name))
+      .ToArray();
 
+
+    foreach (var ext in wanted_extensions)
+    {
+      if (!ext.IsCompatibleTo(target_feature))
+      {
+        Console.Error.WriteLine("{0} is not compatible to {1}", ext.Name, api_version);
+        return 1;
+      }
+      if (ext.Removes != null)
+      {
+        Console.Error.WriteLine("{0} would remove features. This is not supported yet.", ext.Name);
+        return 1;
+      }
+
+    }
+
+    var final_feature_set = new HashSet<FeatureComponent>();
 
     foreach (var feat in required_features)
     {
@@ -57,32 +75,24 @@ class Program
       }
     }
 
-    var commands = new List<Command>();
-    var enums = new List<Enum>();
-    var types = new List<GLType>();
-    foreach (var feature in final_feature_set)
-    {
+    var gl_set = ExtractedFeatureSet.Create(registry, final_feature_set);
 
-      if (feature is CommandFeature cmd)
-      {
-        commands.Add(registry.Commands.SelectMany(c => c.Items).Single(c => c.Prototype.Name == cmd.Name));
-      }
-      else if (feature is EnumFeature en)
-      {
-        var empty = new Enum[0];
-        enums.Add(registry.Enums.SelectMany(e => e.Items ?? empty).Single(e => e.Name == en.Name));
-      }
-      else if (feature is TypeFeature type)
-      {
-        types.Add(registry.Types.Single(t => t.Name == type.Name));
-      }
+    var gl_extensions = new List<Tuple<string, ExtractedFeatureSet>>();
+    foreach (var ext in wanted_extensions)
+    {
+      var empty = new FeatureComponent[0];
+      gl_extensions.Add(Tuple.Create(
+          ext.Name,
+          ExtractedFeatureSet.Create(registry, ext.Requires.SelectMany(f => f.Items ?? empty))
+      ));
     }
 
-    Console.WriteLine("Final API has {0} commands, {1} enums and {2} types.",
-      commands.Count,
-      enums.Count,
-      types.Count
-      );
+    Console.WriteLine("Final API has {0} commands and {1} enums types.",
+      gl_set.commands.Count,
+      gl_set.enums.Count
+    );
+
+    var all_commands = gl_set.commands.Concat(gl_extensions.SelectMany(c => c.Item2.commands));
 
     using (var stream = new StreamWriter(result_file, false, Encoding.UTF8))
     {
@@ -91,57 +101,33 @@ class Program
       stream.WriteLine();
       stream.WriteLine(preamble);
       stream.WriteLine();
-      foreach (var item in enums)
-      {
-        stream.WriteLine("pub const {0} = {1};", MakeZigIdent(RemovePrefix(item.Name)), item.Value);
-      }
+      WriteConstants(stream, gl_set.enums);
       stream.WriteLine();
-      foreach (var cmd in commands)
+      WriteCommands(stream, gl_set.commands);
+
+      stream.WriteLine("// Extensions:");
+      stream.WriteLine();
+      foreach (var ext in gl_extensions)
       {
+        stream.WriteLine("pub const {0} = struct {{", ext.Item1);
+
+        WriteConstants(stream, ext.Item2.enums);
         stream.WriteLine();
-        stream.Write("pub ");
-        stream.Write(cmd.GetSignature(true));
-        stream.WriteLine(" {");
+        WriteCommands(stream, ext.Item2.commands);
+        stream.WriteLine();
+        WriteLoader(stream, ext.Item2.commands);
 
-        stream.Write("    return (function_pointers.{0} orelse @panic(\"{0} was not bound.\"))(", cmd.Prototype.Name);
-        if (cmd.Parameters != null)
-        {
-          int i = 0;
-          foreach (var param in cmd.Parameters)
-          {
-            if (i > 0)
-              stream.Write(", ");
-            stream.Write(param.Name);
-            i += 1;
-          }
-        }
-        stream.WriteLine(");");
-
-        stream.WriteLine("}");
+        stream.WriteLine("};");
+        stream.WriteLine();
       }
 
-
-      stream.WriteLine();
       stream.WriteLine("// Loader API:");
-      stream.WriteLine("pub fn load(load_ctx: anytype, get_proc_address: fn(@TypeOf(load_ctx), [:0]const u8) ?*c_void) !void {");
-      stream.WriteLine("    var success = true;");
-      foreach (var cmd in commands)
-      {
-        stream.WriteLine("    if(get_proc_address(load_ctx, \"{0}\")) |proc| {{", cmd.Prototype.Name);
-        stream.WriteLine("        function_pointers.{0} = @ptrCast(?function_signatures.{0},  proc);", cmd.Prototype.Name);
-        stream.WriteLine("    } else {");
-        stream.WriteLine("        log.emerg(\"entry point {0} not found!\", .{{}});", cmd.Prototype.Name);
-        stream.WriteLine("        success = false;");
-        stream.WriteLine("    }");
-      }
-      stream.WriteLine("    if(!success)");
-      stream.WriteLine("        return error.EntryPointNotFound;");
-      stream.WriteLine("}");
+      WriteLoader(stream, gl_set.commands);
 
       stream.WriteLine();
 
       stream.WriteLine("const function_signatures = struct {");
-      foreach (var cmd in commands)
+      foreach (var cmd in all_commands)
       {
         stream.WriteLine("    const {0} = {1};", cmd.Prototype.Name, cmd.GetSignature(false));
       }
@@ -150,7 +136,7 @@ class Program
       stream.WriteLine();
 
       stream.WriteLine("const function_pointers = struct {");
-      foreach (var cmd in commands)
+      foreach (var cmd in all_commands)
       {
         stream.WriteLine("    var {0}: ?function_signatures.{0} = null;", cmd.Prototype.Name);
       }
@@ -164,6 +150,83 @@ class Program
     }
 
     return 0;
+  }
+
+  class ExtractedFeatureSet
+  {
+    public List<Command> commands = new List<Command>();
+    public List<Enum> enums = new List<Enum>();
+
+    public static ExtractedFeatureSet Create(Registry registry, IEnumerable<FeatureComponent> src_set)
+    {
+      var set = new ExtractedFeatureSet();
+      foreach (var feature in src_set)
+      {
+        if (feature is CommandFeature cmd)
+        {
+          set.commands.Add(registry.Commands.SelectMany(c => c.Items).Single(c => c.Prototype.Name == cmd.Name));
+        }
+        else if (feature is EnumFeature en)
+        {
+          var empty = new Enum[0];
+          set.enums.Add(registry.Enums.SelectMany(e => e.Items ?? empty).Single(e => e.Name == en.Name));
+        }
+      }
+      return set;
+    }
+  }
+
+  public static void WriteConstants(TextWriter stream, IEnumerable<Enum> enums)
+  {
+    foreach (var item in enums)
+    {
+      stream.WriteLine("pub const {0} = {1};", MakeZigIdent(RemovePrefix(item.Name)), item.Value);
+    }
+  }
+
+  public static void WriteCommands(TextWriter stream, IEnumerable<Command> commands)
+  {
+    foreach (var cmd in commands)
+    {
+      stream.WriteLine();
+      stream.Write("pub ");
+      stream.Write(cmd.GetSignature(true));
+      stream.WriteLine(" {");
+
+      stream.Write("    return (function_pointers.{0} orelse @panic(\"{0} was not bound.\"))(", cmd.Prototype.Name);
+      if (cmd.Parameters != null)
+      {
+        int i = 0;
+        foreach (var param in cmd.Parameters)
+        {
+          if (i > 0)
+            stream.Write(", ");
+          stream.Write(param.Name);
+          i += 1;
+        }
+      }
+      stream.WriteLine(");");
+
+      stream.WriteLine("}");
+    }
+  }
+
+  public static void WriteLoader(TextWriter stream, IEnumerable<Command> commands)
+  {
+    stream.WriteLine("pub fn load(load_ctx: anytype, get_proc_address: fn(@TypeOf(load_ctx), [:0]const u8) ?*c_void) !void {");
+    stream.WriteLine("    var success = true;");
+    foreach (var cmd in commands)
+    {
+      stream.WriteLine("    if(get_proc_address(load_ctx, \"{0}\")) |proc| {{", cmd.Prototype.Name);
+      stream.WriteLine("        function_pointers.{0} = @ptrCast(?function_signatures.{0},  proc);", cmd.Prototype.Name);
+      stream.WriteLine("    } else {");
+      stream.WriteLine("        log.emerg(\"entry point {0} not found!\", .{{}});", cmd.Prototype.Name);
+      stream.WriteLine("        success = false;");
+      stream.WriteLine("    }");
+    }
+    stream.WriteLine("    if(!success)");
+    stream.WriteLine("        return error.EntryPointNotFound;");
+    stream.WriteLine("}");
   }
 
   public static string MakeZigIdent(string text)
@@ -492,6 +555,11 @@ public class Feature
 
   [XmlElement("remove")]
   public FeatureSetList[] Removes { get; set; }
+
+  public bool IsCompatibleTo(Feature other)
+  {
+    return (Supported ?? "").Split('|').Contains(other.API);
+  }
 }
 
 public class FeatureSetList

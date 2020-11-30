@@ -21,8 +21,7 @@ const zwl = @import("zwl");
 
 const Platform = zwl.Platform(…);
 
-pub fn initAndDraw(window: Platform.Window) !void 
-{
+pub fn initAndDraw(window: Platform.Window) !void {
   try gl.load(window.platform, Platform.getOpenGlProcAddress);
 
   while(true) {
