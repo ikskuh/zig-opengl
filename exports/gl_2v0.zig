@@ -3079,6 +3079,7 @@ pub fn vertexAttrib4usv(index: GLuint, v: [*c]const GLushort) void {
 pub fn vertexAttribPointer(index: GLuint, size: GLint, type: GLenum, normalized: GLboolean, stride: GLsizei, pointer: *const c_void) void {
     return (function_pointers.glVertexAttribPointer orelse @panic("glVertexAttribPointer was not bound."))(index, size, type, normalized, stride, pointer);
 }
+// Extensions:
 
 // Loader API:
 pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]const u8) ?*c_void) !void {

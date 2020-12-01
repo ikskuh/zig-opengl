@@ -1979,6 +1979,7 @@ pub fn texSubImage3D(target: GLenum, level: GLint, xoffset: GLint, yoffset: GLin
 pub fn copyTexSubImage3D(target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) void {
     return (function_pointers.glCopyTexSubImage3D orelse @panic("glCopyTexSubImage3D was not bound."))(target, level, xoffset, yoffset, zoffset, x, y, width, height);
 }
+// Extensions:
 
 // Loader API:
 pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]const u8) ?*c_void) !void {

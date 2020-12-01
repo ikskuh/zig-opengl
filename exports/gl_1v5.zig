@@ -2623,6 +2623,7 @@ pub fn getBufferParameteriv(target: GLenum, pname: GLenum, params: [*c]GLint) vo
 pub fn getBufferPointerv(target: GLenum, pname: GLenum, params: **c_void) void {
     return (function_pointers.glGetBufferPointerv orelse @panic("glGetBufferPointerv was not bound."))(target, pname, params);
 }
+// Extensions:
 
 // Loader API:
 pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]const u8) ?*c_void) !void {

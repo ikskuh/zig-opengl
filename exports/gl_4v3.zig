@@ -62,7 +62,7 @@ pub const LINE_STRIP = 0x0003;
 pub const TRIANGLES = 0x0004;
 pub const TRIANGLE_STRIP = 0x0005;
 pub const TRIANGLE_FAN = 0x0006;
-pub const IMAGE_BINDING_FORMAT = 0x906E;
+pub const COMPRESSED_SRGB8_ETC2 = 0x9275;
 pub const NEVER = 0x0200;
 pub const LESS = 0x0201;
 pub const EQUAL = 0x0202;
@@ -171,8 +171,6 @@ pub const UNSIGNED_SHORT = 0x1403;
 pub const INT = 0x1404;
 pub const UNSIGNED_INT = 0x1405;
 pub const FLOAT = 0x1406;
-pub const UNSIGNED_INT_IMAGE_BUFFER = 0x9067;
-pub const UNSIGNED_INT_IMAGE_CUBE = 0x9066;
 pub const CLEAR = 0x1500;
 pub const AND = 0x1501;
 pub const AND_REVERSE = 0x1502;
@@ -223,6 +221,28 @@ pub const TEXTURE_MIN_FILTER = 0x2801;
 pub const TEXTURE_WRAP_S = 0x2802;
 pub const TEXTURE_WRAP_T = 0x2803;
 pub const REPEAT = 0x2901;
+pub const MAX_COMPUTE_WORK_GROUP_COUNT = 0x91BE;
+pub const MAX_COMPUTE_WORK_GROUP_INVOCATIONS = 0x90EB;
+pub const MAX_COMBINED_COMPUTE_UNIFORM_COMPONENTS = 0x8266;
+pub const MAX_COMPUTE_ATOMIC_COUNTERS = 0x8265;
+pub const MAX_COMPUTE_ATOMIC_COUNTER_BUFFERS = 0x8264;
+pub const MAX_COMPUTE_UNIFORM_COMPONENTS = 0x8263;
+pub const MAX_COMPUTE_SHARED_MEMORY_SIZE = 0x8262;
+pub const MAX_COMPUTE_IMAGE_UNIFORMS = 0x91BD;
+pub const MAX_COMPUTE_TEXTURE_IMAGE_UNITS = 0x91BC;
+pub const MAX_COMPUTE_UNIFORM_BLOCKS = 0x91BB;
+pub const COMPUTE_SHADER = 0x91B9;
+pub const MAX_ELEMENT_INDEX = 0x8D6B;
+pub const ANY_SAMPLES_PASSED_CONSERVATIVE = 0x8D6A;
+pub const PRIMITIVE_RESTART_FIXED_INDEX = 0x8D69;
+pub const COMPRESSED_SIGNED_RG11_EAC = 0x9273;
+pub const COMPRESSED_RG11_EAC = 0x9272;
+pub const COMPRESSED_SIGNED_R11_EAC = 0x9271;
+pub const COMPRESSED_R11_EAC = 0x9270;
+pub const COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2 = 0x9276;
+pub const COMPRESSED_RGB8_ETC2 = 0x9274;
+pub const VERTEX_ATTRIB_ARRAY_LONG = 0x874E;
+pub const NUM_SHADING_LANGUAGE_VERSIONS = 0x82E9;
 pub const TEXTURE_IMMUTABLE_FORMAT = 0x912F;
 pub const COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT = 0x8E8F;
 pub const COMPRESSED_RGB_BPTC_SIGNED_FLOAT = 0x8E8E;
@@ -233,23 +253,21 @@ pub const MAX_FRAGMENT_IMAGE_UNIFORMS = 0x90CE;
 pub const MAX_GEOMETRY_IMAGE_UNIFORMS = 0x90CD;
 pub const MAX_TESS_EVALUATION_IMAGE_UNIFORMS = 0x90CC;
 pub const MAX_TESS_CONTROL_IMAGE_UNIFORMS = 0x90CB;
+pub const MAX_VERTEX_IMAGE_UNIFORMS = 0x90CA;
+pub const IMAGE_FORMAT_COMPATIBILITY_BY_CLASS = 0x90C9;
+pub const IMAGE_FORMAT_COMPATIBILITY_BY_SIZE = 0x90C8;
 pub const IMAGE_FORMAT_COMPATIBILITY_TYPE = 0x90C7;
+pub const IMAGE_BINDING_FORMAT = 0x906E;
 pub const MAX_IMAGE_SAMPLES = 0x906D;
 pub const UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY = 0x906C;
 pub const UNSIGNED_INT_IMAGE_2D_MULTISAMPLE = 0x906B;
 pub const UNSIGNED_INT_IMAGE_CUBE_MAP_ARRAY = 0x906A;
 pub const UNSIGNED_INT_IMAGE_2D_ARRAY = 0x9069;
 pub const UNSIGNED_INT_IMAGE_1D_ARRAY = 0x9068;
+pub const UNSIGNED_INT_IMAGE_BUFFER = 0x9067;
+pub const UNSIGNED_INT_IMAGE_CUBE = 0x9066;
 pub const UNSIGNED_INT_IMAGE_2D_RECT = 0x9065;
 pub const UNSIGNED_INT_IMAGE_3D = 0x9064;
-pub const UNSIGNED_INT_IMAGE_2D = 0x9063;
-pub const UNSIGNED_INT_IMAGE_1D = 0x9062;
-pub const INT_IMAGE_2D_MULTISAMPLE_ARRAY = 0x9061;
-pub const INT_IMAGE_2D_MULTISAMPLE = 0x9060;
-pub const INT_IMAGE_CUBE_MAP_ARRAY = 0x905F;
-pub const INT_IMAGE_2D_ARRAY = 0x905E;
-pub const INT_IMAGE_1D_ARRAY = 0x905D;
-pub const INT_IMAGE_BUFFER = 0x905C;
 pub const INT_IMAGE_CUBE = 0x905B;
 pub const INT_IMAGE_2D_RECT = 0x905A;
 pub const INT_IMAGE_3D = 0x9059;
@@ -272,6 +290,14 @@ pub const IMAGE_BINDING_LAYERED = 0x8F3C;
 pub const IMAGE_BINDING_LEVEL = 0x8F3B;
 pub const IMAGE_BINDING_NAME = 0x8F3A;
 pub const MAX_COMBINED_IMAGE_UNITS_AND_FRAGMENT_OUTPUTS = 0x8F39;
+pub const MAX_IMAGE_UNITS = 0x8F38;
+pub const ALL_BARRIER_BITS = 0xFFFFFFFF;
+pub const ATOMIC_COUNTER_BARRIER_BIT = 0x00001000;
+pub const TRANSFORM_FEEDBACK_BARRIER_BIT = 0x00000800;
+pub const FRAMEBUFFER_BARRIER_BIT = 0x00000400;
+pub const BUFFER_UPDATE_BARRIER_BIT = 0x00000200;
+pub const TEXTURE_UPDATE_BARRIER_BIT = 0x00000100;
+pub const PIXEL_BUFFER_BARRIER_BIT = 0x00000080;
 pub const COMMAND_BARRIER_BIT = 0x00000040;
 pub const SHADER_IMAGE_ACCESS_BARRIER_BIT = 0x00000020;
 pub const TEXTURE_FETCH_BARRIER_BIT = 0x00000008;
@@ -287,11 +313,9 @@ pub const MAX_COMBINED_ATOMIC_COUNTERS = 0x92D7;
 pub const MAX_FRAGMENT_ATOMIC_COUNTERS = 0x92D6;
 pub const MAX_GEOMETRY_ATOMIC_COUNTERS = 0x92D5;
 pub const MAX_TESS_EVALUATION_ATOMIC_COUNTERS = 0x92D4;
-pub const MAX_TESS_CONTROL_ATOMIC_COUNTERS = 0x92D3;
 pub const MAX_VERTEX_ATOMIC_COUNTERS = 0x92D2;
 pub const MAX_COMBINED_ATOMIC_COUNTER_BUFFERS = 0x92D1;
 pub const MAX_FRAGMENT_ATOMIC_COUNTER_BUFFERS = 0x92D0;
-pub const MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS = 0x92CF;
 pub const MAX_TESS_EVALUATION_ATOMIC_COUNTER_BUFFERS = 0x92CE;
 pub const MAX_TESS_CONTROL_ATOMIC_COUNTER_BUFFERS = 0x92CD;
 pub const MAX_VERTEX_ATOMIC_COUNTER_BUFFERS = 0x92CC;
@@ -317,11 +341,37 @@ pub const UNPACK_COMPRESSED_BLOCK_SIZE = 0x912A;
 pub const UNPACK_COMPRESSED_BLOCK_DEPTH = 0x9129;
 pub const UNPACK_COMPRESSED_BLOCK_HEIGHT = 0x9128;
 pub const UNPACK_COMPRESSED_BLOCK_WIDTH = 0x9127;
+pub const TRANSFORM_FEEDBACK_PAUSED = 0x8E23;
 pub const TRANSFORM_FEEDBACK_ACTIVE = 0x8E24;
 pub const COPY_WRITE_BUFFER_BINDING = 0x8F37;
 pub const COPY_READ_BUFFER_BINDING = 0x8F36;
+pub const UNDEFINED_VERTEX = 0x8260;
+pub const VIEWPORT_INDEX_PROVOKING_VERTEX = 0x825F;
+pub const LAYER_PROVOKING_VERTEX = 0x825E;
+pub const VIEWPORT_BOUNDS_RANGE = 0x825D;
+pub const VIEWPORT_SUBPIXEL_BITS = 0x825C;
+pub const MAX_VIEWPORTS = 0x825B;
+pub const PROGRAM_PIPELINE_BINDING = 0x825A;
+pub const ACTIVE_PROGRAM = 0x8259;
+pub const PROGRAM_SEPARABLE = 0x8258;
+pub const ALL_SHADER_BITS = 0xFFFFFFFF;
+pub const TESS_EVALUATION_SHADER_BIT = 0x00000010;
+pub const TESS_CONTROL_SHADER_BIT = 0x00000008;
+pub const GEOMETRY_SHADER_BIT = 0x00000004;
+pub const FRAGMENT_SHADER_BIT = 0x00000002;
+pub const VERTEX_SHADER_BIT = 0x00000001;
+pub const PROGRAM_BINARY_FORMATS = 0x87FF;
+pub const NUM_PROGRAM_BINARY_FORMATS = 0x87FE;
+pub const PROGRAM_BINARY_LENGTH = 0x8741;
+pub const PROGRAM_BINARY_RETRIEVABLE_HINT = 0x8257;
+pub const RGB565 = 0x8D62;
+pub const MAX_FRAGMENT_UNIFORM_VECTORS = 0x8DFD;
 pub const MAX_VARYING_VECTORS = 0x8DFC;
 pub const MAX_VERTEX_UNIFORM_VECTORS = 0x8DFB;
+pub const NUM_SHADER_BINARY_FORMATS = 0x8DF9;
+pub const SHADER_BINARY_FORMATS = 0x8DF8;
+pub const SHADER_COMPILER = 0x8DFA;
+pub const HIGH_INT = 0x8DF5;
 pub const MEDIUM_INT = 0x8DF4;
 pub const LOW_INT = 0x8DF3;
 pub const HIGH_FLOAT = 0x8DF2;
@@ -331,30 +381,21 @@ pub const IMPLEMENTATION_COLOR_READ_FORMAT = 0x8B9B;
 pub const IMPLEMENTATION_COLOR_READ_TYPE = 0x8B9A;
 pub const FIXED = 0x140C;
 pub const MAX_TRANSFORM_FEEDBACK_BUFFERS = 0x8E70;
-pub const TRANSFORM_FEEDBACK_BINDING = 0x8E25;
-pub const TRANSFORM_FEEDBACK_BUFFER_ACTIVE = 0x8E24;
-pub const TRANSFORM_FEEDBACK_BUFFER_PAUSED = 0x8E23;
-pub const TRANSFORM_FEEDBACK = 0x8E22;
-pub const TESS_CONTROL_SHADER = 0x8E88;
-pub const TESS_EVALUATION_SHADER = 0x8E87;
-pub const UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER = 0x84F1;
-pub const UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER = 0x84F0;
-pub const MAX_COMBINED_TESS_EVALUATION_UNIFORM_COMPONENTS = 0x8E1F;
-pub const MAX_COMBINED_TESS_CONTROL_UNIFORM_COMPONENTS = 0x8E1E;
-pub const MAX_TESS_EVALUATION_INPUT_COMPONENTS = 0x886D;
-pub const MAX_TESS_CONTROL_INPUT_COMPONENTS = 0x886C;
-pub const MAX_TESS_EVALUATION_UNIFORM_BLOCKS = 0x8E8A;
-pub const MAX_TESS_CONTROL_UNIFORM_BLOCKS = 0x8E89;
-pub const MAX_TESS_EVALUATION_OUTPUT_COMPONENTS = 0x8E86;
-pub const MAX_TESS_CONTROL_TOTAL_OUTPUT_COMPONENTS = 0x8E85;
-pub const MAX_TESS_PATCH_COMPONENTS = 0x8E84;
-pub const MAX_TESS_CONTROL_OUTPUT_COMPONENTS = 0x8E83;
-pub const MAX_TESS_EVALUATION_TEXTURE_IMAGE_UNITS = 0x8E82;
-pub const MAX_TESS_CONTROL_TEXTURE_IMAGE_UNITS = 0x8E81;
-pub const MAX_TESS_EVALUATION_UNIFORM_COMPONENTS = 0x8E80;
-pub const MAX_TESS_CONTROL_UNIFORM_COMPONENTS = 0x8E7F;
-pub const MAX_TESS_GEN_LEVEL = 0x8E7E;
-pub const MAX_PATCH_VERTICES = 0x8E7D;
+pub const ISOLINES = 0x8E7A;
+pub const TESS_GEN_POINT_MODE = 0x8E79;
+pub const TESS_GEN_VERTEX_ORDER = 0x8E78;
+pub const TESS_GEN_SPACING = 0x8E77;
+pub const TESS_GEN_MODE = 0x8E76;
+pub const TESS_CONTROL_OUTPUT_VERTICES = 0x8E75;
+pub const PATCH_DEFAULT_OUTER_LEVEL = 0x8E74;
+pub const PATCH_DEFAULT_INNER_LEVEL = 0x8E73;
+pub const PATCH_VERTICES = 0x8E72;
+pub const PATCHES = 0x000E;
+pub const VERTEX_BINDING_BUFFER = 0x8F4F;
+pub const MAX_VERTEX_ATTRIB_BINDINGS = 0x82DA;
+pub const MAX_VERTEX_ATTRIB_RELATIVE_OFFSET = 0x82D9;
+pub const VERTEX_BINDING_STRIDE = 0x82D8;
+pub const VERTEX_BINDING_OFFSET = 0x82D7;
 pub const VERTEX_BINDING_DIVISOR = 0x82D6;
 pub const VERTEX_ATTRIB_RELATIVE_OFFSET = 0x82D5;
 pub const VERTEX_ATTRIB_BINDING = 0x82D4;
@@ -583,32 +624,6 @@ pub const ATOMIC_COUNTER_BUFFER_REFERENCED_BY_COMPUTE_SHADER = 0x90ED;
 pub const UNIFORM_BLOCK_REFERENCED_BY_COMPUTE_SHADER = 0x90EC;
 pub const COMPUTE_WORK_GROUP_SIZE = 0x8267;
 pub const MAX_COMPUTE_WORK_GROUP_SIZE = 0x91BF;
-pub const MAX_COMPUTE_WORK_GROUP_COUNT = 0x91BE;
-pub const MAX_COMPUTE_WORK_GROUP_INVOCATIONS = 0x90EB;
-pub const MAX_COMBINED_COMPUTE_UNIFORM_COMPONENTS = 0x8266;
-pub const MAX_COMPUTE_ATOMIC_COUNTERS = 0x8265;
-pub const MAX_COMPUTE_ATOMIC_COUNTER_BUFFERS = 0x8264;
-pub const MAX_COMPUTE_UNIFORM_COMPONENTS = 0x8263;
-pub const MAX_COMPUTE_SHARED_MEMORY_SIZE = 0x8262;
-pub const MAX_COMPUTE_IMAGE_UNIFORMS = 0x91BD;
-pub const MAX_COMPUTE_TEXTURE_IMAGE_UNITS = 0x91BC;
-pub const MAX_COMPUTE_UNIFORM_BLOCKS = 0x91BB;
-pub const COMPUTE_SHADER = 0x91B9;
-pub const MAX_ELEMENT_INDEX = 0x8D6B;
-pub const ANY_SAMPLES_PASSED_CONSERVATIVE = 0x8D6A;
-pub const PRIMITIVE_RESTART_FIXED_INDEX = 0x8D69;
-pub const COMPRESSED_SIGNED_RG11_EAC = 0x9273;
-pub const COMPRESSED_RG11_EAC = 0x9272;
-pub const COMPRESSED_SIGNED_R11_EAC = 0x9271;
-pub const COMPRESSED_R11_EAC = 0x9270;
-pub const COMPRESSED_SRGB8_ALPHA8_ETC2_EAC = 0x9279;
-pub const COMPRESSED_RGBA8_ETC2_EAC = 0x9278;
-pub const COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2 = 0x9277;
-pub const COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2 = 0x9276;
-pub const COMPRESSED_SRGB8_ETC2 = 0x9275;
-pub const COMPRESSED_RGB8_ETC2 = 0x9274;
-pub const VERTEX_ATTRIB_ARRAY_LONG = 0x874E;
-pub const NUM_SHADING_LANGUAGE_VERSIONS = 0x82E9;
 pub const COLOR_LOGIC_OP = 0x0BF2;
 pub const POLYGON_OFFSET_UNITS = 0x2A00;
 pub const POLYGON_OFFSET_POINT = 0x2A01;
@@ -639,81 +654,55 @@ pub const RGBA8 = 0x8058;
 pub const RGB10_A2 = 0x8059;
 pub const RGBA12 = 0x805A;
 pub const RGBA16 = 0x805B;
-pub const MAX_VERTEX_IMAGE_UNIFORMS = 0x90CA;
-pub const IMAGE_FORMAT_COMPATIBILITY_BY_CLASS = 0x90C9;
-pub const IMAGE_FORMAT_COMPATIBILITY_BY_SIZE = 0x90C8;
-pub const MAX_IMAGE_UNITS = 0x8F38;
-pub const ALL_BARRIER_BITS = 0xFFFFFFFF;
-pub const ATOMIC_COUNTER_BARRIER_BIT = 0x00001000;
-pub const TRANSFORM_FEEDBACK_BARRIER_BIT = 0x00000800;
-pub const FRAMEBUFFER_BARRIER_BIT = 0x00000400;
-pub const BUFFER_UPDATE_BARRIER_BIT = 0x00000200;
-pub const TEXTURE_UPDATE_BARRIER_BIT = 0x00000100;
-pub const PIXEL_BUFFER_BARRIER_BIT = 0x00000080;
-pub const TRANSFORM_FEEDBACK_PAUSED = 0x8E23;
-pub const UNDEFINED_VERTEX = 0x8260;
-pub const VIEWPORT_INDEX_PROVOKING_VERTEX = 0x825F;
-pub const LAYER_PROVOKING_VERTEX = 0x825E;
-pub const VIEWPORT_BOUNDS_RANGE = 0x825D;
-pub const VIEWPORT_SUBPIXEL_BITS = 0x825C;
-pub const MAX_VIEWPORTS = 0x825B;
-pub const PROGRAM_PIPELINE_BINDING = 0x825A;
-pub const ACTIVE_PROGRAM = 0x8259;
-pub const PROGRAM_SEPARABLE = 0x8258;
-pub const ALL_SHADER_BITS = 0xFFFFFFFF;
-pub const TESS_EVALUATION_SHADER_BIT = 0x00000010;
-pub const TESS_CONTROL_SHADER_BIT = 0x00000008;
-pub const GEOMETRY_SHADER_BIT = 0x00000004;
-pub const FRAGMENT_SHADER_BIT = 0x00000002;
-pub const VERTEX_SHADER_BIT = 0x00000001;
-pub const PROGRAM_BINARY_FORMATS = 0x87FF;
-pub const NUM_PROGRAM_BINARY_FORMATS = 0x87FE;
-pub const PROGRAM_BINARY_LENGTH = 0x8741;
-pub const PROGRAM_BINARY_RETRIEVABLE_HINT = 0x8257;
-pub const RGB565 = 0x8D62;
-pub const MAX_FRAGMENT_UNIFORM_VECTORS = 0x8DFD;
-pub const NUM_SHADER_BINARY_FORMATS = 0x8DF9;
-pub const SHADER_BINARY_FORMATS = 0x8DF8;
-pub const SHADER_COMPILER = 0x8DFA;
-pub const HIGH_INT = 0x8DF5;
+pub const COMPRESSED_SRGB8_ALPHA8_ETC2_EAC = 0x9279;
+pub const COMPRESSED_RGBA8_ETC2_EAC = 0x9278;
+pub const COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2 = 0x9277;
+pub const UNSIGNED_INT_IMAGE_2D = 0x9063;
+pub const UNSIGNED_INT_IMAGE_1D = 0x9062;
+pub const INT_IMAGE_2D_MULTISAMPLE_ARRAY = 0x9061;
+pub const INT_IMAGE_2D_MULTISAMPLE = 0x9060;
+pub const INT_IMAGE_CUBE_MAP_ARRAY = 0x905F;
+pub const INT_IMAGE_2D_ARRAY = 0x905E;
+pub const INT_IMAGE_1D_ARRAY = 0x905D;
+pub const INT_IMAGE_BUFFER = 0x905C;
+pub const MAX_TESS_CONTROL_ATOMIC_COUNTERS = 0x92D3;
+pub const MAX_GEOMETRY_ATOMIC_COUNTER_BUFFERS = 0x92CF;
+pub const TRANSFORM_FEEDBACK_BINDING = 0x8E25;
+pub const TRANSFORM_FEEDBACK_BUFFER_ACTIVE = 0x8E24;
+pub const TRANSFORM_FEEDBACK_BUFFER_PAUSED = 0x8E23;
+pub const TRANSFORM_FEEDBACK = 0x8E22;
+pub const TESS_CONTROL_SHADER = 0x8E88;
+pub const TESS_EVALUATION_SHADER = 0x8E87;
+pub const UNIFORM_BLOCK_REFERENCED_BY_TESS_EVALUATION_SHADER = 0x84F1;
+pub const UNIFORM_BLOCK_REFERENCED_BY_TESS_CONTROL_SHADER = 0x84F0;
+pub const MAX_COMBINED_TESS_EVALUATION_UNIFORM_COMPONENTS = 0x8E1F;
+pub const MAX_COMBINED_TESS_CONTROL_UNIFORM_COMPONENTS = 0x8E1E;
+pub const MAX_TESS_EVALUATION_INPUT_COMPONENTS = 0x886D;
+pub const MAX_TESS_CONTROL_INPUT_COMPONENTS = 0x886C;
+pub const MAX_TESS_EVALUATION_UNIFORM_BLOCKS = 0x8E8A;
+pub const MAX_TESS_CONTROL_UNIFORM_BLOCKS = 0x8E89;
+pub const MAX_TESS_EVALUATION_OUTPUT_COMPONENTS = 0x8E86;
+pub const MAX_TESS_CONTROL_TOTAL_OUTPUT_COMPONENTS = 0x8E85;
+pub const MAX_TESS_PATCH_COMPONENTS = 0x8E84;
+pub const MAX_TESS_CONTROL_OUTPUT_COMPONENTS = 0x8E83;
+pub const MAX_TESS_EVALUATION_TEXTURE_IMAGE_UNITS = 0x8E82;
+pub const MAX_TESS_CONTROL_TEXTURE_IMAGE_UNITS = 0x8E81;
+pub const MAX_TESS_EVALUATION_UNIFORM_COMPONENTS = 0x8E80;
+pub const MAX_TESS_CONTROL_UNIFORM_COMPONENTS = 0x8E7F;
+pub const MAX_TESS_GEN_LEVEL = 0x8E7E;
+pub const MAX_PATCH_VERTICES = 0x8E7D;
 pub const FRACTIONAL_EVEN = 0x8E7C;
 pub const FRACTIONAL_ODD = 0x8E7B;
 pub const QUADS = 0x0007;
-pub const ISOLINES = 0x8E7A;
-pub const TESS_GEN_POINT_MODE = 0x8E79;
-pub const TESS_GEN_VERTEX_ORDER = 0x8E78;
-pub const TESS_GEN_SPACING = 0x8E77;
-pub const TESS_GEN_MODE = 0x8E76;
-pub const TESS_CONTROL_OUTPUT_VERTICES = 0x8E75;
-pub const PATCH_DEFAULT_OUTER_LEVEL = 0x8E74;
-pub const PATCH_DEFAULT_INNER_LEVEL = 0x8E73;
-pub const PATCH_VERTICES = 0x8E72;
-pub const PATCHES = 0x000E;
+pub const MAX_SUBROUTINE_UNIFORM_LOCATIONS = 0x8DE8;
 pub const COMPATIBLE_SUBROUTINES = 0x8E4B;
 pub const NUM_COMPATIBLE_SUBROUTINES = 0x8E4A;
-pub const MAX_SUBROUTINE_UNIFORM_LOCATIONS = 0x8DE8;
 pub const MAX_SUBROUTINES = 0x8DE7;
 pub const ACTIVE_SUBROUTINE_UNIFORM_MAX_LENGTH = 0x8E49;
 pub const ACTIVE_SUBROUTINE_MAX_LENGTH = 0x8E48;
 pub const ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS = 0x8E47;
 pub const ACTIVE_SUBROUTINE_UNIFORMS = 0x8DE6;
 pub const ACTIVE_SUBROUTINES = 0x8DE5;
-pub const DOUBLE_MAT2x3 = 0x8F49;
-pub const DOUBLE_MAT4x3 = 0x8F4E;
-pub const DOUBLE_MAT4x2 = 0x8F4D;
-pub const DOUBLE_MAT3x4 = 0x8F4C;
-pub const DOUBLE_MAT3x2 = 0x8F4B;
-pub const DOUBLE_MAT2x4 = 0x8F4A;
-pub const DOUBLE_MAT4 = 0x8F48;
-pub const DOUBLE_MAT3 = 0x8F47;
-pub const DOUBLE_MAT2 = 0x8F46;
-pub const DOUBLE_VEC4 = 0x8FFE;
-pub const DOUBLE_VEC3 = 0x8FFD;
-pub const DOUBLE_VEC2 = 0x8FFC;
-pub const MAX_VERTEX_STREAMS = 0x8E71;
-pub const FRAGMENT_INTERPOLATION_OFFSET_BITS = 0x8E5D;
-pub const MAX_FRAGMENT_INTERPOLATION_OFFSET = 0x8E5C;
-pub const MIN_FRAGMENT_INTERPOLATION_OFFSET = 0x8E5B;
 pub const UNSIGNED_BYTE_3_3_2 = 0x8032;
 pub const UNSIGNED_SHORT_4_4_4_4 = 0x8033;
 pub const UNSIGNED_SHORT_5_5_5_1 = 0x8034;
@@ -750,9 +739,6 @@ pub const SMOOTH_POINT_SIZE_GRANULARITY = 0x0B13;
 pub const SMOOTH_LINE_WIDTH_RANGE = 0x0B22;
 pub const SMOOTH_LINE_WIDTH_GRANULARITY = 0x0B23;
 pub const ALIASED_LINE_WIDTH_RANGE = 0x846E;
-pub const MAX_GEOMETRY_SHADER_INVOCATIONS = 0x8E5A;
-pub const GEOMETRY_SHADER_INVOCATIONS = 0x887F;
-pub const DRAW_INDIRECT_BUFFER_BINDING = 0x8F43;
 pub const TEXTURE0 = 0x84C0;
 pub const TEXTURE1 = 0x84C1;
 pub const TEXTURE2 = 0x84C2;
@@ -812,6 +798,25 @@ pub const TEXTURE_COMPRESSED = 0x86A1;
 pub const NUM_COMPRESSED_TEXTURE_FORMATS = 0x86A2;
 pub const COMPRESSED_TEXTURE_FORMATS = 0x86A3;
 pub const CLAMP_TO_BORDER = 0x812D;
+pub const DOUBLE_MAT4x3 = 0x8F4E;
+pub const DOUBLE_MAT4x2 = 0x8F4D;
+pub const DOUBLE_MAT3x4 = 0x8F4C;
+pub const DOUBLE_MAT3x2 = 0x8F4B;
+pub const DOUBLE_MAT2x4 = 0x8F4A;
+pub const DOUBLE_MAT2x3 = 0x8F49;
+pub const DOUBLE_MAT4 = 0x8F48;
+pub const DOUBLE_MAT3 = 0x8F47;
+pub const DOUBLE_MAT2 = 0x8F46;
+pub const DOUBLE_VEC4 = 0x8FFE;
+pub const DOUBLE_VEC3 = 0x8FFD;
+pub const DOUBLE_VEC2 = 0x8FFC;
+pub const MAX_VERTEX_STREAMS = 0x8E71;
+pub const FRAGMENT_INTERPOLATION_OFFSET_BITS = 0x8E5D;
+pub const MAX_FRAGMENT_INTERPOLATION_OFFSET = 0x8E5C;
+pub const MIN_FRAGMENT_INTERPOLATION_OFFSET = 0x8E5B;
+pub const MAX_GEOMETRY_SHADER_INVOCATIONS = 0x8E5A;
+pub const GEOMETRY_SHADER_INVOCATIONS = 0x887F;
+pub const DRAW_INDIRECT_BUFFER_BINDING = 0x8F43;
 pub const DRAW_INDIRECT_BUFFER = 0x8F3F;
 pub const UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY = 0x900F;
 pub const INT_SAMPLER_CUBE_MAP_ARRAY = 0x900E;
@@ -1347,17 +1352,27 @@ pub const UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER = 0x8A44;
 pub const UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER = 0x8A45;
 pub const UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER = 0x8A46;
 pub const INVALID_INDEX = 0xFFFFFFFF;
-pub const VERTEX_BINDING_OFFSET = 0x82D7;
-pub const VERTEX_BINDING_STRIDE = 0x82D8;
-pub const MAX_VERTEX_ATTRIB_RELATIVE_OFFSET = 0x82D9;
-pub const MAX_VERTEX_ATTRIB_BINDINGS = 0x82DA;
-pub const VERTEX_BINDING_BUFFER = 0x8F4F;
-pub const DISPLAY_LIST = 0x82E7;
 pub const STACK_UNDERFLOW = 0x0504;
 pub const STACK_OVERFLOW = 0x0503;
 
+pub fn texStorage2D(target: GLenum, levels: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei) void {
+    return (function_pointers.glTexStorage2D orelse @panic("glTexStorage2D was not bound."))(target, levels, internalformat, width, height);
+}
+
 pub fn texStorage1D(target: GLenum, levels: GLsizei, internalformat: GLenum, width: GLsizei) void {
     return (function_pointers.glTexStorage1D orelse @panic("glTexStorage1D was not bound."))(target, levels, internalformat, width);
+}
+
+pub fn drawTransformFeedbackStreamInstanced(mode: GLenum, id: GLuint, stream: GLuint, instancecount: GLsizei) void {
+    return (function_pointers.glDrawTransformFeedbackStreamInstanced orelse @panic("glDrawTransformFeedbackStreamInstanced was not bound."))(mode, id, stream, instancecount);
+}
+
+pub fn drawTransformFeedbackInstanced(mode: GLenum, id: GLuint, instancecount: GLsizei) void {
+    return (function_pointers.glDrawTransformFeedbackInstanced orelse @panic("glDrawTransformFeedbackInstanced was not bound."))(mode, id, instancecount);
+}
+
+pub fn texStorage3D(target: GLenum, levels: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei, depth: GLsizei) void {
+    return (function_pointers.glTexStorage3D orelse @panic("glTexStorage3D was not bound."))(target, levels, internalformat, width, height, depth);
 }
 
 pub fn memoryBarrier(barriers: GLbitfield) void {
@@ -1386,6 +1401,10 @@ pub fn drawElementsInstancedBaseInstance(mode: GLenum, count: GLsizei, type: GLe
 
 pub fn drawArraysInstancedBaseInstance(mode: GLenum, first: GLint, count: GLsizei, instancecount: GLsizei, baseinstance: GLuint) void {
     return (function_pointers.glDrawArraysInstancedBaseInstance orelse @panic("glDrawArraysInstancedBaseInstance was not bound."))(mode, first, count, instancecount, baseinstance);
+}
+
+pub fn getDoublei_v(target: GLenum, index: GLuint, data: [*c]GLdouble) void {
+    return (function_pointers.glGetDoublei_v orelse @panic("glGetDoublei_v was not bound."))(target, index, data);
 }
 
 pub fn getFloati_v(target: GLenum, index: GLuint, data: [*c]GLfloat) void {
@@ -1462,10 +1481,6 @@ pub fn vertexAttribL2d(index: GLuint, x: GLdouble, y: GLdouble) void {
 
 pub fn vertexAttribL1d(index: GLuint, x: GLdouble) void {
     return (function_pointers.glVertexAttribL1d orelse @panic("glVertexAttribL1d was not bound."))(index, x);
-}
-
-pub fn getProgramPipelineInfoLog(pipeline: GLuint, bufSize: GLsizei, length: [*c]GLsizei, infoLog: [*c]GLchar) void {
-    return (function_pointers.glGetProgramPipelineInfoLog orelse @panic("glGetProgramPipelineInfoLog was not bound."))(pipeline, bufSize, length, infoLog);
 }
 
 pub fn validateProgramPipeline(pipeline: GLuint) void {
@@ -1584,6 +1599,10 @@ pub fn programUniform3ui(program: GLuint, location: GLint, v0: GLuint, v1: GLuin
     return (function_pointers.glProgramUniform3ui orelse @panic("glProgramUniform3ui was not bound."))(program, location, v0, v1, v2);
 }
 
+pub fn programUniform3dv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLdouble) void {
+    return (function_pointers.glProgramUniform3dv orelse @panic("glProgramUniform3dv was not bound."))(program, location, count, value);
+}
+
 pub fn programUniform3d(program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble, v2: GLdouble) void {
     return (function_pointers.glProgramUniform3d orelse @panic("glProgramUniform3d was not bound."))(program, location, v0, v1, v2);
 }
@@ -1604,98 +1623,6 @@ pub fn programUniform3i(program: GLuint, location: GLint, v0: GLint, v1: GLint, 
     return (function_pointers.glProgramUniform3i orelse @panic("glProgramUniform3i was not bound."))(program, location, v0, v1, v2);
 }
 
-pub fn programUniform2uiv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLuint) void {
-    return (function_pointers.glProgramUniform2uiv orelse @panic("glProgramUniform2uiv was not bound."))(program, location, count, value);
-}
-
-pub fn programUniform2ui(program: GLuint, location: GLint, v0: GLuint, v1: GLuint) void {
-    return (function_pointers.glProgramUniform2ui orelse @panic("glProgramUniform2ui was not bound."))(program, location, v0, v1);
-}
-
-pub fn programUniform2dv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLdouble) void {
-    return (function_pointers.glProgramUniform2dv orelse @panic("glProgramUniform2dv was not bound."))(program, location, count, value);
-}
-
-pub fn programUniform2d(program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble) void {
-    return (function_pointers.glProgramUniform2d orelse @panic("glProgramUniform2d was not bound."))(program, location, v0, v1);
-}
-
-pub fn programUniform2fv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLfloat) void {
-    return (function_pointers.glProgramUniform2fv orelse @panic("glProgramUniform2fv was not bound."))(program, location, count, value);
-}
-
-pub fn programUniform2f(program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat) void {
-    return (function_pointers.glProgramUniform2f orelse @panic("glProgramUniform2f was not bound."))(program, location, v0, v1);
-}
-
-pub fn programUniform2iv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLint) void {
-    return (function_pointers.glProgramUniform2iv orelse @panic("glProgramUniform2iv was not bound."))(program, location, count, value);
-}
-
-pub fn programUniform2i(program: GLuint, location: GLint, v0: GLint, v1: GLint) void {
-    return (function_pointers.glProgramUniform2i orelse @panic("glProgramUniform2i was not bound."))(program, location, v0, v1);
-}
-
-pub fn programUniform1uiv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLuint) void {
-    return (function_pointers.glProgramUniform1uiv orelse @panic("glProgramUniform1uiv was not bound."))(program, location, count, value);
-}
-
-pub fn programUniform1ui(program: GLuint, location: GLint, v0: GLuint) void {
-    return (function_pointers.glProgramUniform1ui orelse @panic("glProgramUniform1ui was not bound."))(program, location, v0);
-}
-
-pub fn programUniform1dv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLdouble) void {
-    return (function_pointers.glProgramUniform1dv orelse @panic("glProgramUniform1dv was not bound."))(program, location, count, value);
-}
-
-pub fn programUniform1d(program: GLuint, location: GLint, v0: GLdouble) void {
-    return (function_pointers.glProgramUniform1d orelse @panic("glProgramUniform1d was not bound."))(program, location, v0);
-}
-
-pub fn programUniform1fv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLfloat) void {
-    return (function_pointers.glProgramUniform1fv orelse @panic("glProgramUniform1fv was not bound."))(program, location, count, value);
-}
-
-pub fn programUniform1f(program: GLuint, location: GLint, v0: GLfloat) void {
-    return (function_pointers.glProgramUniform1f orelse @panic("glProgramUniform1f was not bound."))(program, location, v0);
-}
-
-pub fn programUniform1iv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLint) void {
-    return (function_pointers.glProgramUniform1iv orelse @panic("glProgramUniform1iv was not bound."))(program, location, count, value);
-}
-
-pub fn programUniform1i(program: GLuint, location: GLint, v0: GLint) void {
-    return (function_pointers.glProgramUniform1i orelse @panic("glProgramUniform1i was not bound."))(program, location, v0);
-}
-
-pub fn getProgramPipelineiv(pipeline: GLuint, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetProgramPipelineiv orelse @panic("glGetProgramPipelineiv was not bound."))(pipeline, pname, params);
-}
-
-pub fn isProgramPipeline(pipeline: GLuint) GLboolean {
-    return (function_pointers.glIsProgramPipeline orelse @panic("glIsProgramPipeline was not bound."))(pipeline);
-}
-
-pub fn genProgramPipelines(n: GLsizei, pipelines: [*c]GLuint) void {
-    return (function_pointers.glGenProgramPipelines orelse @panic("glGenProgramPipelines was not bound."))(n, pipelines);
-}
-
-pub fn deleteProgramPipelines(n: GLsizei, pipelines: [*c]const GLuint) void {
-    return (function_pointers.glDeleteProgramPipelines orelse @panic("glDeleteProgramPipelines was not bound."))(n, pipelines);
-}
-
-pub fn bindProgramPipeline(pipeline: GLuint) void {
-    return (function_pointers.glBindProgramPipeline orelse @panic("glBindProgramPipeline was not bound."))(pipeline);
-}
-
-pub fn createShaderProgramv(type: GLenum, count: GLsizei, strings: [*c]const [*c]const GLchar) GLuint {
-    return (function_pointers.glCreateShaderProgramv orelse @panic("glCreateShaderProgramv was not bound."))(type, count, strings);
-}
-
-pub fn activeShaderProgram(pipeline: GLuint, program: GLuint) void {
-    return (function_pointers.glActiveShaderProgram orelse @panic("glActiveShaderProgram was not bound."))(pipeline, program);
-}
-
 pub fn useProgramStages(pipeline: GLuint, stages: GLbitfield, program: GLuint) void {
     return (function_pointers.glUseProgramStages orelse @panic("glUseProgramStages was not bound."))(pipeline, stages, program);
 }
@@ -1704,24 +1631,16 @@ pub fn programParameteri(program: GLuint, pname: GLenum, value: GLint) void {
     return (function_pointers.glProgramParameteri orelse @panic("glProgramParameteri was not bound."))(program, pname, value);
 }
 
-pub fn programBinary(program: GLuint, binaryFormat: GLenum, binary: *const c_void, length: GLsizei) void {
-    return (function_pointers.glProgramBinary orelse @panic("glProgramBinary was not bound."))(program, binaryFormat, binary, length);
-}
-
-pub fn getProgramBinary(program: GLuint, bufSize: GLsizei, length: [*c]GLsizei, binaryFormat: [*c]GLenum, binary: *c_void) void {
-    return (function_pointers.glGetProgramBinary orelse @panic("glGetProgramBinary was not bound."))(program, bufSize, length, binaryFormat, binary);
-}
-
-pub fn clearDepthf(d: GLfloat) void {
-    return (function_pointers.glClearDepthf orelse @panic("glClearDepthf was not bound."))(d);
-}
-
-pub fn depthRangef(n: GLfloat, f: GLfloat) void {
-    return (function_pointers.glDepthRangef orelse @panic("glDepthRangef was not bound."))(n, f);
-}
-
 pub fn getShaderPrecisionFormat(shadertype: GLenum, precisiontype: GLenum, range: [*c]GLint, precision: [*c]GLint) void {
     return (function_pointers.glGetShaderPrecisionFormat orelse @panic("glGetShaderPrecisionFormat was not bound."))(shadertype, precisiontype, range, precision);
+}
+
+pub fn shaderBinary(count: GLsizei, shaders: [*c]const GLuint, binaryFormat: GLenum, binary: *const c_void, length: GLsizei) void {
+    return (function_pointers.glShaderBinary orelse @panic("glShaderBinary was not bound."))(count, shaders, binaryFormat, binary, length);
+}
+
+pub fn releaseShaderCompiler() void {
+    return (function_pointers.glReleaseShaderCompiler orelse @panic("glReleaseShaderCompiler was not bound."))();
 }
 
 pub fn getQueryIndexediv(target: GLenum, index: GLuint, pname: GLenum, params: [*c]GLint) void {
@@ -1752,84 +1671,20 @@ pub fn pauseTransformFeedback() void {
     return (function_pointers.glPauseTransformFeedback orelse @panic("glPauseTransformFeedback was not bound."))();
 }
 
-pub fn isTransformFeedback(id: GLuint) GLboolean {
-    return (function_pointers.glIsTransformFeedback orelse @panic("glIsTransformFeedback was not bound."))(id);
+pub fn getProgramStageiv(program: GLuint, shadertype: GLenum, pname: GLenum, values: [*c]GLint) void {
+    return (function_pointers.glGetProgramStageiv orelse @panic("glGetProgramStageiv was not bound."))(program, shadertype, pname, values);
 }
 
-pub fn genTransformFeedbacks(n: GLsizei, ids: [*c]GLuint) void {
-    return (function_pointers.glGenTransformFeedbacks orelse @panic("glGenTransformFeedbacks was not bound."))(n, ids);
+pub fn getUniformSubroutineuiv(shadertype: GLenum, location: GLint, params: [*c]GLuint) void {
+    return (function_pointers.glGetUniformSubroutineuiv orelse @panic("glGetUniformSubroutineuiv was not bound."))(shadertype, location, params);
 }
 
-pub fn deleteTransformFeedbacks(n: GLsizei, ids: [*c]const GLuint) void {
-    return (function_pointers.glDeleteTransformFeedbacks orelse @panic("glDeleteTransformFeedbacks was not bound."))(n, ids);
+pub fn uniformSubroutinesuiv(shadertype: GLenum, count: GLsizei, indices: [*c]const GLuint) void {
+    return (function_pointers.glUniformSubroutinesuiv orelse @panic("glUniformSubroutinesuiv was not bound."))(shadertype, count, indices);
 }
 
-pub fn bindTransformFeedback(target: GLenum, id: GLuint) void {
-    return (function_pointers.glBindTransformFeedback orelse @panic("glBindTransformFeedback was not bound."))(target, id);
-}
-
-pub fn patchParameterfv(pname: GLenum, values: [*c]const GLfloat) void {
-    return (function_pointers.glPatchParameterfv orelse @panic("glPatchParameterfv was not bound."))(pname, values);
-}
-
-pub fn patchParameteri(pname: GLenum, value: GLint) void {
-    return (function_pointers.glPatchParameteri orelse @panic("glPatchParameteri was not bound."))(pname, value);
-}
-
-pub fn uniformMatrix3x4dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
-    return (function_pointers.glUniformMatrix3x4dv orelse @panic("glUniformMatrix3x4dv was not bound."))(location, count, transpose, value);
-}
-
-pub fn uniformMatrix3x2dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
-    return (function_pointers.glUniformMatrix3x2dv orelse @panic("glUniformMatrix3x2dv was not bound."))(location, count, transpose, value);
-}
-
-pub fn uniformMatrix2x4dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
-    return (function_pointers.glUniformMatrix2x4dv orelse @panic("glUniformMatrix2x4dv was not bound."))(location, count, transpose, value);
-}
-
-pub fn uniformMatrix2x3dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
-    return (function_pointers.glUniformMatrix2x3dv orelse @panic("glUniformMatrix2x3dv was not bound."))(location, count, transpose, value);
-}
-
-pub fn uniformMatrix4dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
-    return (function_pointers.glUniformMatrix4dv orelse @panic("glUniformMatrix4dv was not bound."))(location, count, transpose, value);
-}
-
-pub fn uniformMatrix3dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
-    return (function_pointers.glUniformMatrix3dv orelse @panic("glUniformMatrix3dv was not bound."))(location, count, transpose, value);
-}
-
-pub fn uniformMatrix2dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
-    return (function_pointers.glUniformMatrix2dv orelse @panic("glUniformMatrix2dv was not bound."))(location, count, transpose, value);
-}
-
-pub fn uniform4dv(location: GLint, count: GLsizei, value: [*c]const GLdouble) void {
-    return (function_pointers.glUniform4dv orelse @panic("glUniform4dv was not bound."))(location, count, value);
-}
-
-pub fn uniform3dv(location: GLint, count: GLsizei, value: [*c]const GLdouble) void {
-    return (function_pointers.glUniform3dv orelse @panic("glUniform3dv was not bound."))(location, count, value);
-}
-
-pub fn uniform2dv(location: GLint, count: GLsizei, value: [*c]const GLdouble) void {
-    return (function_pointers.glUniform2dv orelse @panic("glUniform2dv was not bound."))(location, count, value);
-}
-
-pub fn uniform1dv(location: GLint, count: GLsizei, value: [*c]const GLdouble) void {
-    return (function_pointers.glUniform1dv orelse @panic("glUniform1dv was not bound."))(location, count, value);
-}
-
-pub fn uniform4d(location: GLint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble) void {
-    return (function_pointers.glUniform4d orelse @panic("glUniform4d was not bound."))(location, x, y, z, w);
-}
-
-pub fn uniform3d(location: GLint, x: GLdouble, y: GLdouble, z: GLdouble) void {
-    return (function_pointers.glUniform3d orelse @panic("glUniform3d was not bound."))(location, x, y, z);
-}
-
-pub fn uniform2d(location: GLint, x: GLdouble, y: GLdouble) void {
-    return (function_pointers.glUniform2d orelse @panic("glUniform2d was not bound."))(location, x, y);
+pub fn getActiveSubroutineName(program: GLuint, shadertype: GLenum, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, name: [*c]GLchar) void {
+    return (function_pointers.glGetActiveSubroutineName orelse @panic("glGetActiveSubroutineName was not bound."))(program, shadertype, index, bufSize, length, name);
 }
 
 pub fn cullFace(mode: GLenum) void {
@@ -2024,80 +1879,240 @@ pub fn viewport(x: GLint, y: GLint, width: GLsizei, height: GLsizei) void {
     return (function_pointers.glViewport orelse @panic("glViewport was not bound."))(x, y, width, height);
 }
 
-pub fn drawTransformFeedbackStreamInstanced(mode: GLenum, id: GLuint, stream: GLuint, instancecount: GLsizei) void {
-    return (function_pointers.glDrawTransformFeedbackStreamInstanced orelse @panic("glDrawTransformFeedbackStreamInstanced was not bound."))(mode, id, stream, instancecount);
+pub fn texStorage2DMultisample(target: GLenum, samples: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei, fixedsamplelocations: GLboolean) void {
+    return (function_pointers.glTexStorage2DMultisample orelse @panic("glTexStorage2DMultisample was not bound."))(target, samples, internalformat, width, height, fixedsamplelocations);
 }
 
-pub fn drawTransformFeedbackInstanced(mode: GLenum, id: GLuint, instancecount: GLsizei) void {
-    return (function_pointers.glDrawTransformFeedbackInstanced orelse @panic("glDrawTransformFeedbackInstanced was not bound."))(mode, id, instancecount);
+pub fn texBufferRange(target: GLenum, internalformat: GLenum, buffer: GLuint, offset: GLintptr, size: GLsizeiptr) void {
+    return (function_pointers.glTexBufferRange orelse @panic("glTexBufferRange was not bound."))(target, internalformat, buffer, offset, size);
 }
 
-pub fn texStorage3D(target: GLenum, levels: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei, depth: GLsizei) void {
-    return (function_pointers.glTexStorage3D orelse @panic("glTexStorage3D was not bound."))(target, levels, internalformat, width, height, depth);
+pub fn shaderStorageBlockBinding(program: GLuint, storageBlockIndex: GLuint, storageBlockBinding: GLuint) void {
+    return (function_pointers.glShaderStorageBlockBinding orelse @panic("glShaderStorageBlockBinding was not bound."))(program, storageBlockIndex, storageBlockBinding);
 }
 
-pub fn texStorage2D(target: GLenum, levels: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei) void {
-    return (function_pointers.glTexStorage2D orelse @panic("glTexStorage2D was not bound."))(target, levels, internalformat, width, height);
+pub fn getProgramResourceLocationIndex(program: GLuint, programInterface: GLenum, name: [*c]const GLchar) GLint {
+    return (function_pointers.glGetProgramResourceLocationIndex orelse @panic("glGetProgramResourceLocationIndex was not bound."))(program, programInterface, name);
 }
 
-pub fn getDoublei_v(target: GLenum, index: GLuint, data: [*c]GLdouble) void {
-    return (function_pointers.glGetDoublei_v orelse @panic("glGetDoublei_v was not bound."))(target, index, data);
+pub fn getProgramResourceLocation(program: GLuint, programInterface: GLenum, name: [*c]const GLchar) GLint {
+    return (function_pointers.glGetProgramResourceLocation orelse @panic("glGetProgramResourceLocation was not bound."))(program, programInterface, name);
 }
 
-pub fn programUniform3dv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLdouble) void {
-    return (function_pointers.glProgramUniform3dv orelse @panic("glProgramUniform3dv was not bound."))(program, location, count, value);
+pub fn getProgramResourceiv(program: GLuint, programInterface: GLenum, index: GLuint, propCount: GLsizei, props: [*c]const GLenum, count: GLsizei, length: [*c]GLsizei, params: [*c]GLint) void {
+    return (function_pointers.glGetProgramResourceiv orelse @panic("glGetProgramResourceiv was not bound."))(program, programInterface, index, propCount, props, count, length, params);
 }
 
-pub fn shaderBinary(count: GLsizei, shaders: [*c]const GLuint, binaryFormat: GLenum, binary: *const c_void, length: GLsizei) void {
-    return (function_pointers.glShaderBinary orelse @panic("glShaderBinary was not bound."))(count, shaders, binaryFormat, binary, length);
+pub fn getProgramResourceName(program: GLuint, programInterface: GLenum, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, name: [*c]GLchar) void {
+    return (function_pointers.glGetProgramResourceName orelse @panic("glGetProgramResourceName was not bound."))(program, programInterface, index, bufSize, length, name);
 }
 
-pub fn releaseShaderCompiler() void {
-    return (function_pointers.glReleaseShaderCompiler orelse @panic("glReleaseShaderCompiler was not bound."))();
+pub fn getProgramResourceIndex(program: GLuint, programInterface: GLenum, name: [*c]const GLchar) GLuint {
+    return (function_pointers.glGetProgramResourceIndex orelse @panic("glGetProgramResourceIndex was not bound."))(program, programInterface, name);
 }
 
-pub fn getProgramStageiv(program: GLuint, shadertype: GLenum, pname: GLenum, values: [*c]GLint) void {
-    return (function_pointers.glGetProgramStageiv orelse @panic("glGetProgramStageiv was not bound."))(program, shadertype, pname, values);
+pub fn getProgramInterfaceiv(program: GLuint, programInterface: GLenum, pname: GLenum, params: [*c]GLint) void {
+    return (function_pointers.glGetProgramInterfaceiv orelse @panic("glGetProgramInterfaceiv was not bound."))(program, programInterface, pname, params);
 }
 
-pub fn getUniformSubroutineuiv(shadertype: GLenum, location: GLint, params: [*c]GLuint) void {
-    return (function_pointers.glGetUniformSubroutineuiv orelse @panic("glGetUniformSubroutineuiv was not bound."))(shadertype, location, params);
+pub fn multiDrawElementsIndirect(mode: GLenum, type: GLenum, indirect: *const c_void, drawcount: GLsizei, stride: GLsizei) void {
+    return (function_pointers.glMultiDrawElementsIndirect orelse @panic("glMultiDrawElementsIndirect was not bound."))(mode, type, indirect, drawcount, stride);
 }
 
-pub fn uniformSubroutinesuiv(shadertype: GLenum, count: GLsizei, indices: [*c]const GLuint) void {
-    return (function_pointers.glUniformSubroutinesuiv orelse @panic("glUniformSubroutinesuiv was not bound."))(shadertype, count, indices);
+pub fn multiDrawArraysIndirect(mode: GLenum, indirect: *const c_void, drawcount: GLsizei, stride: GLsizei) void {
+    return (function_pointers.glMultiDrawArraysIndirect orelse @panic("glMultiDrawArraysIndirect was not bound."))(mode, indirect, drawcount, stride);
 }
 
-pub fn getActiveSubroutineName(program: GLuint, shadertype: GLenum, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, name: [*c]GLchar) void {
-    return (function_pointers.glGetActiveSubroutineName orelse @panic("glGetActiveSubroutineName was not bound."))(program, shadertype, index, bufSize, length, name);
+pub fn invalidateSubFramebuffer(target: GLenum, numAttachments: GLsizei, attachments: [*c]const GLenum, x: GLint, y: GLint, width: GLsizei, height: GLsizei) void {
+    return (function_pointers.glInvalidateSubFramebuffer orelse @panic("glInvalidateSubFramebuffer was not bound."))(target, numAttachments, attachments, x, y, width, height);
 }
 
-pub fn getActiveSubroutineUniformName(program: GLuint, shadertype: GLenum, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, name: [*c]GLchar) void {
-    return (function_pointers.glGetActiveSubroutineUniformName orelse @panic("glGetActiveSubroutineUniformName was not bound."))(program, shadertype, index, bufSize, length, name);
+pub fn invalidateFramebuffer(target: GLenum, numAttachments: GLsizei, attachments: [*c]const GLenum) void {
+    return (function_pointers.glInvalidateFramebuffer orelse @panic("glInvalidateFramebuffer was not bound."))(target, numAttachments, attachments);
 }
 
-pub fn getActiveSubroutineUniformiv(program: GLuint, shadertype: GLenum, index: GLuint, pname: GLenum, values: [*c]GLint) void {
-    return (function_pointers.glGetActiveSubroutineUniformiv orelse @panic("glGetActiveSubroutineUniformiv was not bound."))(program, shadertype, index, pname, values);
+pub fn invalidateBufferData(buffer: GLuint) void {
+    return (function_pointers.glInvalidateBufferData orelse @panic("glInvalidateBufferData was not bound."))(buffer);
 }
 
-pub fn getSubroutineIndex(program: GLuint, shadertype: GLenum, name: [*c]const GLchar) GLuint {
-    return (function_pointers.glGetSubroutineIndex orelse @panic("glGetSubroutineIndex was not bound."))(program, shadertype, name);
+pub fn invalidateBufferSubData(buffer: GLuint, offset: GLintptr, length: GLsizeiptr) void {
+    return (function_pointers.glInvalidateBufferSubData orelse @panic("glInvalidateBufferSubData was not bound."))(buffer, offset, length);
 }
 
-pub fn getSubroutineUniformLocation(program: GLuint, shadertype: GLenum, name: [*c]const GLchar) GLint {
-    return (function_pointers.glGetSubroutineUniformLocation orelse @panic("glGetSubroutineUniformLocation was not bound."))(program, shadertype, name);
+pub fn invalidateTexImage(texture: GLuint, level: GLint) void {
+    return (function_pointers.glInvalidateTexImage orelse @panic("glInvalidateTexImage was not bound."))(texture, level);
 }
 
-pub fn getUniformdv(program: GLuint, location: GLint, params: [*c]GLdouble) void {
-    return (function_pointers.glGetUniformdv orelse @panic("glGetUniformdv was not bound."))(program, location, params);
+pub fn invalidateTexSubImage(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei) void {
+    return (function_pointers.glInvalidateTexSubImage orelse @panic("glInvalidateTexSubImage was not bound."))(texture, level, xoffset, yoffset, zoffset, width, height, depth);
 }
 
-pub fn uniformMatrix4x3dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
-    return (function_pointers.glUniformMatrix4x3dv orelse @panic("glUniformMatrix4x3dv was not bound."))(location, count, transpose, value);
+pub fn getInternalformati64v(target: GLenum, internalformat: GLenum, pname: GLenum, count: GLsizei, params: [*c]GLint64) void {
+    return (function_pointers.glGetInternalformati64v orelse @panic("glGetInternalformati64v was not bound."))(target, internalformat, pname, count, params);
 }
 
-pub fn uniformMatrix4x2dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
-    return (function_pointers.glUniformMatrix4x2dv orelse @panic("glUniformMatrix4x2dv was not bound."))(location, count, transpose, value);
+pub fn getFramebufferParameteriv(target: GLenum, pname: GLenum, params: [*c]GLint) void {
+    return (function_pointers.glGetFramebufferParameteriv orelse @panic("glGetFramebufferParameteriv was not bound."))(target, pname, params);
+}
+
+pub fn framebufferParameteri(target: GLenum, pname: GLenum, param: GLint) void {
+    return (function_pointers.glFramebufferParameteri orelse @panic("glFramebufferParameteri was not bound."))(target, pname, param);
+}
+
+pub fn copyImageSubData(srcName: GLuint, srcTarget: GLenum, srcLevel: GLint, srcX: GLint, srcY: GLint, srcZ: GLint, dstName: GLuint, dstTarget: GLenum, dstLevel: GLint, dstX: GLint, dstY: GLint, dstZ: GLint, srcWidth: GLsizei, srcHeight: GLsizei, srcDepth: GLsizei) void {
+    return (function_pointers.glCopyImageSubData orelse @panic("glCopyImageSubData was not bound."))(srcName, srcTarget, srcLevel, srcX, srcY, srcZ, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, srcWidth, srcHeight, srcDepth);
+}
+
+pub fn dispatchComputeIndirect(indirect: GLintptr) void {
+    return (function_pointers.glDispatchComputeIndirect orelse @panic("glDispatchComputeIndirect was not bound."))(indirect);
+}
+
+pub fn dispatchCompute(num_groups_x: GLuint, num_groups_y: GLuint, num_groups_z: GLuint) void {
+    return (function_pointers.glDispatchCompute orelse @panic("glDispatchCompute was not bound."))(num_groups_x, num_groups_y, num_groups_z);
+}
+
+pub fn clearBufferSubData(target: GLenum, internalformat: GLenum, offset: GLintptr, size: GLsizeiptr, format: GLenum, type: GLenum, data: *const c_void) void {
+    return (function_pointers.glClearBufferSubData orelse @panic("glClearBufferSubData was not bound."))(target, internalformat, offset, size, format, type, data);
+}
+
+pub fn clearBufferData(target: GLenum, internalformat: GLenum, format: GLenum, type: GLenum, data: *const c_void) void {
+    return (function_pointers.glClearBufferData orelse @panic("glClearBufferData was not bound."))(target, internalformat, format, type, data);
+}
+
+pub fn getProgramPipelineInfoLog(pipeline: GLuint, bufSize: GLsizei, length: [*c]GLsizei, infoLog: [*c]GLchar) void {
+    return (function_pointers.glGetProgramPipelineInfoLog orelse @panic("glGetProgramPipelineInfoLog was not bound."))(pipeline, bufSize, length, infoLog);
+}
+
+pub fn programUniform2uiv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLuint) void {
+    return (function_pointers.glProgramUniform2uiv orelse @panic("glProgramUniform2uiv was not bound."))(program, location, count, value);
+}
+
+pub fn programUniform2ui(program: GLuint, location: GLint, v0: GLuint, v1: GLuint) void {
+    return (function_pointers.glProgramUniform2ui orelse @panic("glProgramUniform2ui was not bound."))(program, location, v0, v1);
+}
+
+pub fn programUniform2dv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLdouble) void {
+    return (function_pointers.glProgramUniform2dv orelse @panic("glProgramUniform2dv was not bound."))(program, location, count, value);
+}
+
+pub fn programUniform2d(program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble) void {
+    return (function_pointers.glProgramUniform2d orelse @panic("glProgramUniform2d was not bound."))(program, location, v0, v1);
+}
+
+pub fn programUniform2fv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLfloat) void {
+    return (function_pointers.glProgramUniform2fv orelse @panic("glProgramUniform2fv was not bound."))(program, location, count, value);
+}
+
+pub fn programUniform2f(program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat) void {
+    return (function_pointers.glProgramUniform2f orelse @panic("glProgramUniform2f was not bound."))(program, location, v0, v1);
+}
+
+pub fn programUniform2iv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLint) void {
+    return (function_pointers.glProgramUniform2iv orelse @panic("glProgramUniform2iv was not bound."))(program, location, count, value);
+}
+
+pub fn programUniform2i(program: GLuint, location: GLint, v0: GLint, v1: GLint) void {
+    return (function_pointers.glProgramUniform2i orelse @panic("glProgramUniform2i was not bound."))(program, location, v0, v1);
+}
+
+pub fn programUniform1uiv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLuint) void {
+    return (function_pointers.glProgramUniform1uiv orelse @panic("glProgramUniform1uiv was not bound."))(program, location, count, value);
+}
+
+pub fn programUniform1ui(program: GLuint, location: GLint, v0: GLuint) void {
+    return (function_pointers.glProgramUniform1ui orelse @panic("glProgramUniform1ui was not bound."))(program, location, v0);
+}
+
+pub fn programUniform1dv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLdouble) void {
+    return (function_pointers.glProgramUniform1dv orelse @panic("glProgramUniform1dv was not bound."))(program, location, count, value);
+}
+
+pub fn programUniform1d(program: GLuint, location: GLint, v0: GLdouble) void {
+    return (function_pointers.glProgramUniform1d orelse @panic("glProgramUniform1d was not bound."))(program, location, v0);
+}
+
+pub fn programUniform1fv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLfloat) void {
+    return (function_pointers.glProgramUniform1fv orelse @panic("glProgramUniform1fv was not bound."))(program, location, count, value);
+}
+
+pub fn programUniform1f(program: GLuint, location: GLint, v0: GLfloat) void {
+    return (function_pointers.glProgramUniform1f orelse @panic("glProgramUniform1f was not bound."))(program, location, v0);
+}
+
+pub fn programUniform1iv(program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLint) void {
+    return (function_pointers.glProgramUniform1iv orelse @panic("glProgramUniform1iv was not bound."))(program, location, count, value);
+}
+
+pub fn programUniform1i(program: GLuint, location: GLint, v0: GLint) void {
+    return (function_pointers.glProgramUniform1i orelse @panic("glProgramUniform1i was not bound."))(program, location, v0);
+}
+
+pub fn getProgramPipelineiv(pipeline: GLuint, pname: GLenum, params: [*c]GLint) void {
+    return (function_pointers.glGetProgramPipelineiv orelse @panic("glGetProgramPipelineiv was not bound."))(pipeline, pname, params);
+}
+
+pub fn isProgramPipeline(pipeline: GLuint) GLboolean {
+    return (function_pointers.glIsProgramPipeline orelse @panic("glIsProgramPipeline was not bound."))(pipeline);
+}
+
+pub fn genProgramPipelines(n: GLsizei, pipelines: [*c]GLuint) void {
+    return (function_pointers.glGenProgramPipelines orelse @panic("glGenProgramPipelines was not bound."))(n, pipelines);
+}
+
+pub fn deleteProgramPipelines(n: GLsizei, pipelines: [*c]const GLuint) void {
+    return (function_pointers.glDeleteProgramPipelines orelse @panic("glDeleteProgramPipelines was not bound."))(n, pipelines);
+}
+
+pub fn bindProgramPipeline(pipeline: GLuint) void {
+    return (function_pointers.glBindProgramPipeline orelse @panic("glBindProgramPipeline was not bound."))(pipeline);
+}
+
+pub fn createShaderProgramv(type: GLenum, count: GLsizei, strings: [*c]const [*c]const GLchar) GLuint {
+    return (function_pointers.glCreateShaderProgramv orelse @panic("glCreateShaderProgramv was not bound."))(type, count, strings);
+}
+
+pub fn activeShaderProgram(pipeline: GLuint, program: GLuint) void {
+    return (function_pointers.glActiveShaderProgram orelse @panic("glActiveShaderProgram was not bound."))(pipeline, program);
+}
+
+pub fn programBinary(program: GLuint, binaryFormat: GLenum, binary: *const c_void, length: GLsizei) void {
+    return (function_pointers.glProgramBinary orelse @panic("glProgramBinary was not bound."))(program, binaryFormat, binary, length);
+}
+
+pub fn getProgramBinary(program: GLuint, bufSize: GLsizei, length: [*c]GLsizei, binaryFormat: [*c]GLenum, binary: *c_void) void {
+    return (function_pointers.glGetProgramBinary orelse @panic("glGetProgramBinary was not bound."))(program, bufSize, length, binaryFormat, binary);
+}
+
+pub fn clearDepthf(d: GLfloat) void {
+    return (function_pointers.glClearDepthf orelse @panic("glClearDepthf was not bound."))(d);
+}
+
+pub fn depthRangef(n: GLfloat, f: GLfloat) void {
+    return (function_pointers.glDepthRangef orelse @panic("glDepthRangef was not bound."))(n, f);
+}
+
+pub fn isTransformFeedback(id: GLuint) GLboolean {
+    return (function_pointers.glIsTransformFeedback orelse @panic("glIsTransformFeedback was not bound."))(id);
+}
+
+pub fn genTransformFeedbacks(n: GLsizei, ids: [*c]GLuint) void {
+    return (function_pointers.glGenTransformFeedbacks orelse @panic("glGenTransformFeedbacks was not bound."))(n, ids);
+}
+
+pub fn deleteTransformFeedbacks(n: GLsizei, ids: [*c]const GLuint) void {
+    return (function_pointers.glDeleteTransformFeedbacks orelse @panic("glDeleteTransformFeedbacks was not bound."))(n, ids);
+}
+
+pub fn bindTransformFeedback(target: GLenum, id: GLuint) void {
+    return (function_pointers.glBindTransformFeedback orelse @panic("glBindTransformFeedback was not bound."))(target, id);
+}
+
+pub fn patchParameterfv(pname: GLenum, values: [*c]const GLfloat) void {
+    return (function_pointers.glPatchParameterfv orelse @panic("glPatchParameterfv was not bound."))(pname, values);
+}
+
+pub fn patchParameteri(pname: GLenum, value: GLint) void {
+    return (function_pointers.glPatchParameteri orelse @panic("glPatchParameteri was not bound."))(pname, value);
 }
 
 pub fn drawArrays(mode: GLenum, first: GLint, count: GLsizei) void {
@@ -2152,16 +2167,56 @@ pub fn isTexture(texture: GLuint) GLboolean {
     return (function_pointers.glIsTexture orelse @panic("glIsTexture was not bound."))(texture);
 }
 
-pub fn uniform1d(location: GLint, x: GLdouble) void {
-    return (function_pointers.glUniform1d orelse @panic("glUniform1d was not bound."))(location, x);
+pub fn getActiveSubroutineUniformName(program: GLuint, shadertype: GLenum, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, name: [*c]GLchar) void {
+    return (function_pointers.glGetActiveSubroutineUniformName orelse @panic("glGetActiveSubroutineUniformName was not bound."))(program, shadertype, index, bufSize, length, name);
 }
 
-pub fn drawElementsIndirect(mode: GLenum, type: GLenum, indirect: *const c_void) void {
-    return (function_pointers.glDrawElementsIndirect orelse @panic("glDrawElementsIndirect was not bound."))(mode, type, indirect);
+pub fn getActiveSubroutineUniformiv(program: GLuint, shadertype: GLenum, index: GLuint, pname: GLenum, values: [*c]GLint) void {
+    return (function_pointers.glGetActiveSubroutineUniformiv orelse @panic("glGetActiveSubroutineUniformiv was not bound."))(program, shadertype, index, pname, values);
 }
 
-pub fn drawArraysIndirect(mode: GLenum, indirect: *const c_void) void {
-    return (function_pointers.glDrawArraysIndirect orelse @panic("glDrawArraysIndirect was not bound."))(mode, indirect);
+pub fn getSubroutineIndex(program: GLuint, shadertype: GLenum, name: [*c]const GLchar) GLuint {
+    return (function_pointers.glGetSubroutineIndex orelse @panic("glGetSubroutineIndex was not bound."))(program, shadertype, name);
+}
+
+pub fn getSubroutineUniformLocation(program: GLuint, shadertype: GLenum, name: [*c]const GLchar) GLint {
+    return (function_pointers.glGetSubroutineUniformLocation orelse @panic("glGetSubroutineUniformLocation was not bound."))(program, shadertype, name);
+}
+
+pub fn getUniformdv(program: GLuint, location: GLint, params: [*c]GLdouble) void {
+    return (function_pointers.glGetUniformdv orelse @panic("glGetUniformdv was not bound."))(program, location, params);
+}
+
+pub fn uniformMatrix4x3dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
+    return (function_pointers.glUniformMatrix4x3dv orelse @panic("glUniformMatrix4x3dv was not bound."))(location, count, transpose, value);
+}
+
+pub fn uniformMatrix4x2dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
+    return (function_pointers.glUniformMatrix4x2dv orelse @panic("glUniformMatrix4x2dv was not bound."))(location, count, transpose, value);
+}
+
+pub fn uniformMatrix3x4dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
+    return (function_pointers.glUniformMatrix3x4dv orelse @panic("glUniformMatrix3x4dv was not bound."))(location, count, transpose, value);
+}
+
+pub fn uniformMatrix3x2dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
+    return (function_pointers.glUniformMatrix3x2dv orelse @panic("glUniformMatrix3x2dv was not bound."))(location, count, transpose, value);
+}
+
+pub fn uniformMatrix2x4dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
+    return (function_pointers.glUniformMatrix2x4dv orelse @panic("glUniformMatrix2x4dv was not bound."))(location, count, transpose, value);
+}
+
+pub fn uniformMatrix2x3dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
+    return (function_pointers.glUniformMatrix2x3dv orelse @panic("glUniformMatrix2x3dv was not bound."))(location, count, transpose, value);
+}
+
+pub fn uniformMatrix4dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
+    return (function_pointers.glUniformMatrix4dv orelse @panic("glUniformMatrix4dv was not bound."))(location, count, transpose, value);
+}
+
+pub fn uniformMatrix3dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
+    return (function_pointers.glUniformMatrix3dv orelse @panic("glUniformMatrix3dv was not bound."))(location, count, transpose, value);
 }
 
 pub fn drawRangeElements(mode: GLenum, start: GLuint, end: GLuint, count: GLsizei, type: GLenum, indices: *const c_void) void {
@@ -2178,6 +2233,50 @@ pub fn texSubImage3D(target: GLenum, level: GLint, xoffset: GLint, yoffset: GLin
 
 pub fn copyTexSubImage3D(target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) void {
     return (function_pointers.glCopyTexSubImage3D orelse @panic("glCopyTexSubImage3D was not bound."))(target, level, xoffset, yoffset, zoffset, x, y, width, height);
+}
+
+pub fn uniformMatrix2dv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void {
+    return (function_pointers.glUniformMatrix2dv orelse @panic("glUniformMatrix2dv was not bound."))(location, count, transpose, value);
+}
+
+pub fn uniform4dv(location: GLint, count: GLsizei, value: [*c]const GLdouble) void {
+    return (function_pointers.glUniform4dv orelse @panic("glUniform4dv was not bound."))(location, count, value);
+}
+
+pub fn uniform3dv(location: GLint, count: GLsizei, value: [*c]const GLdouble) void {
+    return (function_pointers.glUniform3dv orelse @panic("glUniform3dv was not bound."))(location, count, value);
+}
+
+pub fn uniform2dv(location: GLint, count: GLsizei, value: [*c]const GLdouble) void {
+    return (function_pointers.glUniform2dv orelse @panic("glUniform2dv was not bound."))(location, count, value);
+}
+
+pub fn uniform1dv(location: GLint, count: GLsizei, value: [*c]const GLdouble) void {
+    return (function_pointers.glUniform1dv orelse @panic("glUniform1dv was not bound."))(location, count, value);
+}
+
+pub fn uniform4d(location: GLint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble) void {
+    return (function_pointers.glUniform4d orelse @panic("glUniform4d was not bound."))(location, x, y, z, w);
+}
+
+pub fn uniform3d(location: GLint, x: GLdouble, y: GLdouble, z: GLdouble) void {
+    return (function_pointers.glUniform3d orelse @panic("glUniform3d was not bound."))(location, x, y, z);
+}
+
+pub fn uniform2d(location: GLint, x: GLdouble, y: GLdouble) void {
+    return (function_pointers.glUniform2d orelse @panic("glUniform2d was not bound."))(location, x, y);
+}
+
+pub fn uniform1d(location: GLint, x: GLdouble) void {
+    return (function_pointers.glUniform1d orelse @panic("glUniform1d was not bound."))(location, x);
+}
+
+pub fn drawElementsIndirect(mode: GLenum, type: GLenum, indirect: *const c_void) void {
+    return (function_pointers.glDrawElementsIndirect orelse @panic("glDrawElementsIndirect was not bound."))(mode, type, indirect);
+}
+
+pub fn drawArraysIndirect(mode: GLenum, indirect: *const c_void) void {
+    return (function_pointers.glDrawArraysIndirect orelse @panic("glDrawArraysIndirect was not bound."))(mode, indirect);
 }
 
 pub fn blendFuncSeparatei(buf: GLuint, srcRGB: GLenum, dstRGB: GLenum, srcAlpha: GLenum, dstAlpha: GLenum) void {
@@ -2198,86 +2297,6 @@ pub fn blendEquationi(buf: GLuint, mode: GLenum) void {
 
 pub fn minSampleShading(value: GLfloat) void {
     return (function_pointers.glMinSampleShading orelse @panic("glMinSampleShading was not bound."))(value);
-}
-
-pub fn secondaryColorP3uiv(type: GLenum, color: [*c]const GLuint) void {
-    return (function_pointers.glSecondaryColorP3uiv orelse @panic("glSecondaryColorP3uiv was not bound."))(type, color);
-}
-
-pub fn secondaryColorP3ui(type: GLenum, color: GLuint) void {
-    return (function_pointers.glSecondaryColorP3ui orelse @panic("glSecondaryColorP3ui was not bound."))(type, color);
-}
-
-pub fn colorP4uiv(type: GLenum, color: [*c]const GLuint) void {
-    return (function_pointers.glColorP4uiv orelse @panic("glColorP4uiv was not bound."))(type, color);
-}
-
-pub fn colorP4ui(type: GLenum, color: GLuint) void {
-    return (function_pointers.glColorP4ui orelse @panic("glColorP4ui was not bound."))(type, color);
-}
-
-pub fn colorP3uiv(type: GLenum, color: [*c]const GLuint) void {
-    return (function_pointers.glColorP3uiv orelse @panic("glColorP3uiv was not bound."))(type, color);
-}
-
-pub fn colorP3ui(type: GLenum, color: GLuint) void {
-    return (function_pointers.glColorP3ui orelse @panic("glColorP3ui was not bound."))(type, color);
-}
-
-pub fn normalP3uiv(type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glNormalP3uiv orelse @panic("glNormalP3uiv was not bound."))(type, coords);
-}
-
-pub fn normalP3ui(type: GLenum, coords: GLuint) void {
-    return (function_pointers.glNormalP3ui orelse @panic("glNormalP3ui was not bound."))(type, coords);
-}
-
-pub fn multiTexCoordP4uiv(texture: GLenum, type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glMultiTexCoordP4uiv orelse @panic("glMultiTexCoordP4uiv was not bound."))(texture, type, coords);
-}
-
-pub fn multiTexCoordP4ui(texture: GLenum, type: GLenum, coords: GLuint) void {
-    return (function_pointers.glMultiTexCoordP4ui orelse @panic("glMultiTexCoordP4ui was not bound."))(texture, type, coords);
-}
-
-pub fn multiTexCoordP3uiv(texture: GLenum, type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glMultiTexCoordP3uiv orelse @panic("glMultiTexCoordP3uiv was not bound."))(texture, type, coords);
-}
-
-pub fn multiTexCoordP3ui(texture: GLenum, type: GLenum, coords: GLuint) void {
-    return (function_pointers.glMultiTexCoordP3ui orelse @panic("glMultiTexCoordP3ui was not bound."))(texture, type, coords);
-}
-
-pub fn multiTexCoordP2uiv(texture: GLenum, type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glMultiTexCoordP2uiv orelse @panic("glMultiTexCoordP2uiv was not bound."))(texture, type, coords);
-}
-
-pub fn multiTexCoordP2ui(texture: GLenum, type: GLenum, coords: GLuint) void {
-    return (function_pointers.glMultiTexCoordP2ui orelse @panic("glMultiTexCoordP2ui was not bound."))(texture, type, coords);
-}
-
-pub fn multiTexCoordP1uiv(texture: GLenum, type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glMultiTexCoordP1uiv orelse @panic("glMultiTexCoordP1uiv was not bound."))(texture, type, coords);
-}
-
-pub fn multiTexCoordP1ui(texture: GLenum, type: GLenum, coords: GLuint) void {
-    return (function_pointers.glMultiTexCoordP1ui orelse @panic("glMultiTexCoordP1ui was not bound."))(texture, type, coords);
-}
-
-pub fn texCoordP4uiv(type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glTexCoordP4uiv orelse @panic("glTexCoordP4uiv was not bound."))(type, coords);
-}
-
-pub fn texCoordP4ui(type: GLenum, coords: GLuint) void {
-    return (function_pointers.glTexCoordP4ui orelse @panic("glTexCoordP4ui was not bound."))(type, coords);
-}
-
-pub fn texCoordP3uiv(type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glTexCoordP3uiv orelse @panic("glTexCoordP3uiv was not bound."))(type, coords);
-}
-
-pub fn texCoordP3ui(type: GLenum, coords: GLuint) void {
-    return (function_pointers.glTexCoordP3ui orelse @panic("glTexCoordP3ui was not bound."))(type, coords);
 }
 
 pub fn activeTexture(texture: GLenum) void {
@@ -2314,46 +2333,6 @@ pub fn compressedTexSubImage1D(target: GLenum, level: GLint, xoffset: GLint, wid
 
 pub fn getCompressedTexImage(target: GLenum, level: GLint, img: *c_void) void {
     return (function_pointers.glGetCompressedTexImage orelse @panic("glGetCompressedTexImage was not bound."))(target, level, img);
-}
-
-pub fn texCoordP2uiv(type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glTexCoordP2uiv orelse @panic("glTexCoordP2uiv was not bound."))(type, coords);
-}
-
-pub fn texCoordP2ui(type: GLenum, coords: GLuint) void {
-    return (function_pointers.glTexCoordP2ui orelse @panic("glTexCoordP2ui was not bound."))(type, coords);
-}
-
-pub fn texCoordP1uiv(type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glTexCoordP1uiv orelse @panic("glTexCoordP1uiv was not bound."))(type, coords);
-}
-
-pub fn texCoordP1ui(type: GLenum, coords: GLuint) void {
-    return (function_pointers.glTexCoordP1ui orelse @panic("glTexCoordP1ui was not bound."))(type, coords);
-}
-
-pub fn vertexP4uiv(type: GLenum, value: [*c]const GLuint) void {
-    return (function_pointers.glVertexP4uiv orelse @panic("glVertexP4uiv was not bound."))(type, value);
-}
-
-pub fn vertexP4ui(type: GLenum, value: GLuint) void {
-    return (function_pointers.glVertexP4ui orelse @panic("glVertexP4ui was not bound."))(type, value);
-}
-
-pub fn vertexP3uiv(type: GLenum, value: [*c]const GLuint) void {
-    return (function_pointers.glVertexP3uiv orelse @panic("glVertexP3uiv was not bound."))(type, value);
-}
-
-pub fn vertexP3ui(type: GLenum, value: GLuint) void {
-    return (function_pointers.glVertexP3ui orelse @panic("glVertexP3ui was not bound."))(type, value);
-}
-
-pub fn vertexP2uiv(type: GLenum, value: [*c]const GLuint) void {
-    return (function_pointers.glVertexP2uiv orelse @panic("glVertexP2uiv was not bound."))(type, value);
-}
-
-pub fn vertexP2ui(type: GLenum, value: GLuint) void {
-    return (function_pointers.glVertexP2ui orelse @panic("glVertexP2ui was not bound."))(type, value);
 }
 
 pub fn vertexAttribP4uiv(index: GLuint, type: GLenum, normalized: GLboolean, value: [*c]const GLuint) void {
@@ -3436,106 +3415,6 @@ pub fn uniformBlockBinding(program: GLuint, uniformBlockIndex: GLuint, uniformBl
     return (function_pointers.glUniformBlockBinding orelse @panic("glUniformBlockBinding was not bound."))(program, uniformBlockIndex, uniformBlockBinding);
 }
 
-pub fn clearBufferData(target: GLenum, internalformat: GLenum, format: GLenum, type: GLenum, data: *const c_void) void {
-    return (function_pointers.glClearBufferData orelse @panic("glClearBufferData was not bound."))(target, internalformat, format, type, data);
-}
-
-pub fn clearBufferSubData(target: GLenum, internalformat: GLenum, offset: GLintptr, size: GLsizeiptr, format: GLenum, type: GLenum, data: *const c_void) void {
-    return (function_pointers.glClearBufferSubData orelse @panic("glClearBufferSubData was not bound."))(target, internalformat, offset, size, format, type, data);
-}
-
-pub fn dispatchCompute(num_groups_x: GLuint, num_groups_y: GLuint, num_groups_z: GLuint) void {
-    return (function_pointers.glDispatchCompute orelse @panic("glDispatchCompute was not bound."))(num_groups_x, num_groups_y, num_groups_z);
-}
-
-pub fn dispatchComputeIndirect(indirect: GLintptr) void {
-    return (function_pointers.glDispatchComputeIndirect orelse @panic("glDispatchComputeIndirect was not bound."))(indirect);
-}
-
-pub fn copyImageSubData(srcName: GLuint, srcTarget: GLenum, srcLevel: GLint, srcX: GLint, srcY: GLint, srcZ: GLint, dstName: GLuint, dstTarget: GLenum, dstLevel: GLint, dstX: GLint, dstY: GLint, dstZ: GLint, srcWidth: GLsizei, srcHeight: GLsizei, srcDepth: GLsizei) void {
-    return (function_pointers.glCopyImageSubData orelse @panic("glCopyImageSubData was not bound."))(srcName, srcTarget, srcLevel, srcX, srcY, srcZ, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, srcWidth, srcHeight, srcDepth);
-}
-
-pub fn framebufferParameteri(target: GLenum, pname: GLenum, param: GLint) void {
-    return (function_pointers.glFramebufferParameteri orelse @panic("glFramebufferParameteri was not bound."))(target, pname, param);
-}
-
-pub fn getFramebufferParameteriv(target: GLenum, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetFramebufferParameteriv orelse @panic("glGetFramebufferParameteriv was not bound."))(target, pname, params);
-}
-
-pub fn getInternalformati64v(target: GLenum, internalformat: GLenum, pname: GLenum, count: GLsizei, params: [*c]GLint64) void {
-    return (function_pointers.glGetInternalformati64v orelse @panic("glGetInternalformati64v was not bound."))(target, internalformat, pname, count, params);
-}
-
-pub fn invalidateTexSubImage(texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei) void {
-    return (function_pointers.glInvalidateTexSubImage orelse @panic("glInvalidateTexSubImage was not bound."))(texture, level, xoffset, yoffset, zoffset, width, height, depth);
-}
-
-pub fn invalidateTexImage(texture: GLuint, level: GLint) void {
-    return (function_pointers.glInvalidateTexImage orelse @panic("glInvalidateTexImage was not bound."))(texture, level);
-}
-
-pub fn invalidateBufferSubData(buffer: GLuint, offset: GLintptr, length: GLsizeiptr) void {
-    return (function_pointers.glInvalidateBufferSubData orelse @panic("glInvalidateBufferSubData was not bound."))(buffer, offset, length);
-}
-
-pub fn invalidateBufferData(buffer: GLuint) void {
-    return (function_pointers.glInvalidateBufferData orelse @panic("glInvalidateBufferData was not bound."))(buffer);
-}
-
-pub fn invalidateFramebuffer(target: GLenum, numAttachments: GLsizei, attachments: [*c]const GLenum) void {
-    return (function_pointers.glInvalidateFramebuffer orelse @panic("glInvalidateFramebuffer was not bound."))(target, numAttachments, attachments);
-}
-
-pub fn invalidateSubFramebuffer(target: GLenum, numAttachments: GLsizei, attachments: [*c]const GLenum, x: GLint, y: GLint, width: GLsizei, height: GLsizei) void {
-    return (function_pointers.glInvalidateSubFramebuffer orelse @panic("glInvalidateSubFramebuffer was not bound."))(target, numAttachments, attachments, x, y, width, height);
-}
-
-pub fn multiDrawArraysIndirect(mode: GLenum, indirect: *const c_void, drawcount: GLsizei, stride: GLsizei) void {
-    return (function_pointers.glMultiDrawArraysIndirect orelse @panic("glMultiDrawArraysIndirect was not bound."))(mode, indirect, drawcount, stride);
-}
-
-pub fn multiDrawElementsIndirect(mode: GLenum, type: GLenum, indirect: *const c_void, drawcount: GLsizei, stride: GLsizei) void {
-    return (function_pointers.glMultiDrawElementsIndirect orelse @panic("glMultiDrawElementsIndirect was not bound."))(mode, type, indirect, drawcount, stride);
-}
-
-pub fn getProgramInterfaceiv(program: GLuint, programInterface: GLenum, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetProgramInterfaceiv orelse @panic("glGetProgramInterfaceiv was not bound."))(program, programInterface, pname, params);
-}
-
-pub fn getProgramResourceIndex(program: GLuint, programInterface: GLenum, name: [*c]const GLchar) GLuint {
-    return (function_pointers.glGetProgramResourceIndex orelse @panic("glGetProgramResourceIndex was not bound."))(program, programInterface, name);
-}
-
-pub fn getProgramResourceName(program: GLuint, programInterface: GLenum, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, name: [*c]GLchar) void {
-    return (function_pointers.glGetProgramResourceName orelse @panic("glGetProgramResourceName was not bound."))(program, programInterface, index, bufSize, length, name);
-}
-
-pub fn getProgramResourceiv(program: GLuint, programInterface: GLenum, index: GLuint, propCount: GLsizei, props: [*c]const GLenum, count: GLsizei, length: [*c]GLsizei, params: [*c]GLint) void {
-    return (function_pointers.glGetProgramResourceiv orelse @panic("glGetProgramResourceiv was not bound."))(program, programInterface, index, propCount, props, count, length, params);
-}
-
-pub fn getProgramResourceLocation(program: GLuint, programInterface: GLenum, name: [*c]const GLchar) GLint {
-    return (function_pointers.glGetProgramResourceLocation orelse @panic("glGetProgramResourceLocation was not bound."))(program, programInterface, name);
-}
-
-pub fn getProgramResourceLocationIndex(program: GLuint, programInterface: GLenum, name: [*c]const GLchar) GLint {
-    return (function_pointers.glGetProgramResourceLocationIndex orelse @panic("glGetProgramResourceLocationIndex was not bound."))(program, programInterface, name);
-}
-
-pub fn shaderStorageBlockBinding(program: GLuint, storageBlockIndex: GLuint, storageBlockBinding: GLuint) void {
-    return (function_pointers.glShaderStorageBlockBinding orelse @panic("glShaderStorageBlockBinding was not bound."))(program, storageBlockIndex, storageBlockBinding);
-}
-
-pub fn texBufferRange(target: GLenum, internalformat: GLenum, buffer: GLuint, offset: GLintptr, size: GLsizeiptr) void {
-    return (function_pointers.glTexBufferRange orelse @panic("glTexBufferRange was not bound."))(target, internalformat, buffer, offset, size);
-}
-
-pub fn texStorage2DMultisample(target: GLenum, samples: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei, fixedsamplelocations: GLboolean) void {
-    return (function_pointers.glTexStorage2DMultisample orelse @panic("glTexStorage2DMultisample was not bound."))(target, samples, internalformat, width, height, fixedsamplelocations);
-}
-
 pub fn texStorage3DMultisample(target: GLenum, samples: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: GLboolean) void {
     return (function_pointers.glTexStorage3DMultisample orelse @panic("glTexStorage3DMultisample was not bound."))(target, samples, internalformat, width, height, depth, fixedsamplelocations);
 }
@@ -3611,14 +3490,39 @@ pub fn getObjectPtrLabel(ptr: *const c_void, bufSize: GLsizei, length: [*c]GLsiz
 pub fn getPointerv(pname: GLenum, params: **c_void) void {
     return (function_pointers.glGetPointerv orelse @panic("glGetPointerv was not bound."))(pname, params);
 }
+// Extensions:
 
 // Loader API:
 pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]const u8) ?*c_void) !void {
     var success = true;
+    if (get_proc_address(load_ctx, "glTexStorage2D")) |proc| {
+        function_pointers.glTexStorage2D = @ptrCast(?function_signatures.glTexStorage2D, proc);
+    } else {
+        log.emerg("entry point glTexStorage2D not found!", .{});
+        success = false;
+    }
     if (get_proc_address(load_ctx, "glTexStorage1D")) |proc| {
         function_pointers.glTexStorage1D = @ptrCast(?function_signatures.glTexStorage1D, proc);
     } else {
         log.emerg("entry point glTexStorage1D not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glDrawTransformFeedbackStreamInstanced")) |proc| {
+        function_pointers.glDrawTransformFeedbackStreamInstanced = @ptrCast(?function_signatures.glDrawTransformFeedbackStreamInstanced, proc);
+    } else {
+        log.emerg("entry point glDrawTransformFeedbackStreamInstanced not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glDrawTransformFeedbackInstanced")) |proc| {
+        function_pointers.glDrawTransformFeedbackInstanced = @ptrCast(?function_signatures.glDrawTransformFeedbackInstanced, proc);
+    } else {
+        log.emerg("entry point glDrawTransformFeedbackInstanced not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glTexStorage3D")) |proc| {
+        function_pointers.glTexStorage3D = @ptrCast(?function_signatures.glTexStorage3D, proc);
+    } else {
+        log.emerg("entry point glTexStorage3D not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glMemoryBarrier")) |proc| {
@@ -3661,6 +3565,12 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
         function_pointers.glDrawArraysInstancedBaseInstance = @ptrCast(?function_signatures.glDrawArraysInstancedBaseInstance, proc);
     } else {
         log.emerg("entry point glDrawArraysInstancedBaseInstance not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glGetDoublei_v")) |proc| {
+        function_pointers.glGetDoublei_v = @ptrCast(?function_signatures.glGetDoublei_v, proc);
+    } else {
+        log.emerg("entry point glGetDoublei_v not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetFloati_v")) |proc| {
@@ -3775,12 +3685,6 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
         function_pointers.glVertexAttribL1d = @ptrCast(?function_signatures.glVertexAttribL1d, proc);
     } else {
         log.emerg("entry point glVertexAttribL1d not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glGetProgramPipelineInfoLog")) |proc| {
-        function_pointers.glGetProgramPipelineInfoLog = @ptrCast(?function_signatures.glGetProgramPipelineInfoLog, proc);
-    } else {
-        log.emerg("entry point glGetProgramPipelineInfoLog not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glValidateProgramPipeline")) |proc| {
@@ -3957,6 +3861,12 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
         log.emerg("entry point glProgramUniform3ui not found!", .{});
         success = false;
     }
+    if (get_proc_address(load_ctx, "glProgramUniform3dv")) |proc| {
+        function_pointers.glProgramUniform3dv = @ptrCast(?function_signatures.glProgramUniform3dv, proc);
+    } else {
+        log.emerg("entry point glProgramUniform3dv not found!", .{});
+        success = false;
+    }
     if (get_proc_address(load_ctx, "glProgramUniform3d")) |proc| {
         function_pointers.glProgramUniform3d = @ptrCast(?function_signatures.glProgramUniform3d, proc);
     } else {
@@ -3987,144 +3897,6 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
         log.emerg("entry point glProgramUniform3i not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glProgramUniform2uiv")) |proc| {
-        function_pointers.glProgramUniform2uiv = @ptrCast(?function_signatures.glProgramUniform2uiv, proc);
-    } else {
-        log.emerg("entry point glProgramUniform2uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glProgramUniform2ui")) |proc| {
-        function_pointers.glProgramUniform2ui = @ptrCast(?function_signatures.glProgramUniform2ui, proc);
-    } else {
-        log.emerg("entry point glProgramUniform2ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glProgramUniform2dv")) |proc| {
-        function_pointers.glProgramUniform2dv = @ptrCast(?function_signatures.glProgramUniform2dv, proc);
-    } else {
-        log.emerg("entry point glProgramUniform2dv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glProgramUniform2d")) |proc| {
-        function_pointers.glProgramUniform2d = @ptrCast(?function_signatures.glProgramUniform2d, proc);
-    } else {
-        log.emerg("entry point glProgramUniform2d not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glProgramUniform2fv")) |proc| {
-        function_pointers.glProgramUniform2fv = @ptrCast(?function_signatures.glProgramUniform2fv, proc);
-    } else {
-        log.emerg("entry point glProgramUniform2fv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glProgramUniform2f")) |proc| {
-        function_pointers.glProgramUniform2f = @ptrCast(?function_signatures.glProgramUniform2f, proc);
-    } else {
-        log.emerg("entry point glProgramUniform2f not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glProgramUniform2iv")) |proc| {
-        function_pointers.glProgramUniform2iv = @ptrCast(?function_signatures.glProgramUniform2iv, proc);
-    } else {
-        log.emerg("entry point glProgramUniform2iv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glProgramUniform2i")) |proc| {
-        function_pointers.glProgramUniform2i = @ptrCast(?function_signatures.glProgramUniform2i, proc);
-    } else {
-        log.emerg("entry point glProgramUniform2i not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glProgramUniform1uiv")) |proc| {
-        function_pointers.glProgramUniform1uiv = @ptrCast(?function_signatures.glProgramUniform1uiv, proc);
-    } else {
-        log.emerg("entry point glProgramUniform1uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glProgramUniform1ui")) |proc| {
-        function_pointers.glProgramUniform1ui = @ptrCast(?function_signatures.glProgramUniform1ui, proc);
-    } else {
-        log.emerg("entry point glProgramUniform1ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glProgramUniform1dv")) |proc| {
-        function_pointers.glProgramUniform1dv = @ptrCast(?function_signatures.glProgramUniform1dv, proc);
-    } else {
-        log.emerg("entry point glProgramUniform1dv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glProgramUniform1d")) |proc| {
-        function_pointers.glProgramUniform1d = @ptrCast(?function_signatures.glProgramUniform1d, proc);
-    } else {
-        log.emerg("entry point glProgramUniform1d not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glProgramUniform1fv")) |proc| {
-        function_pointers.glProgramUniform1fv = @ptrCast(?function_signatures.glProgramUniform1fv, proc);
-    } else {
-        log.emerg("entry point glProgramUniform1fv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glProgramUniform1f")) |proc| {
-        function_pointers.glProgramUniform1f = @ptrCast(?function_signatures.glProgramUniform1f, proc);
-    } else {
-        log.emerg("entry point glProgramUniform1f not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glProgramUniform1iv")) |proc| {
-        function_pointers.glProgramUniform1iv = @ptrCast(?function_signatures.glProgramUniform1iv, proc);
-    } else {
-        log.emerg("entry point glProgramUniform1iv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glProgramUniform1i")) |proc| {
-        function_pointers.glProgramUniform1i = @ptrCast(?function_signatures.glProgramUniform1i, proc);
-    } else {
-        log.emerg("entry point glProgramUniform1i not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glGetProgramPipelineiv")) |proc| {
-        function_pointers.glGetProgramPipelineiv = @ptrCast(?function_signatures.glGetProgramPipelineiv, proc);
-    } else {
-        log.emerg("entry point glGetProgramPipelineiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glIsProgramPipeline")) |proc| {
-        function_pointers.glIsProgramPipeline = @ptrCast(?function_signatures.glIsProgramPipeline, proc);
-    } else {
-        log.emerg("entry point glIsProgramPipeline not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glGenProgramPipelines")) |proc| {
-        function_pointers.glGenProgramPipelines = @ptrCast(?function_signatures.glGenProgramPipelines, proc);
-    } else {
-        log.emerg("entry point glGenProgramPipelines not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glDeleteProgramPipelines")) |proc| {
-        function_pointers.glDeleteProgramPipelines = @ptrCast(?function_signatures.glDeleteProgramPipelines, proc);
-    } else {
-        log.emerg("entry point glDeleteProgramPipelines not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glBindProgramPipeline")) |proc| {
-        function_pointers.glBindProgramPipeline = @ptrCast(?function_signatures.glBindProgramPipeline, proc);
-    } else {
-        log.emerg("entry point glBindProgramPipeline not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glCreateShaderProgramv")) |proc| {
-        function_pointers.glCreateShaderProgramv = @ptrCast(?function_signatures.glCreateShaderProgramv, proc);
-    } else {
-        log.emerg("entry point glCreateShaderProgramv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glActiveShaderProgram")) |proc| {
-        function_pointers.glActiveShaderProgram = @ptrCast(?function_signatures.glActiveShaderProgram, proc);
-    } else {
-        log.emerg("entry point glActiveShaderProgram not found!", .{});
-        success = false;
-    }
     if (get_proc_address(load_ctx, "glUseProgramStages")) |proc| {
         function_pointers.glUseProgramStages = @ptrCast(?function_signatures.glUseProgramStages, proc);
     } else {
@@ -4137,34 +3909,22 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
         log.emerg("entry point glProgramParameteri not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glProgramBinary")) |proc| {
-        function_pointers.glProgramBinary = @ptrCast(?function_signatures.glProgramBinary, proc);
-    } else {
-        log.emerg("entry point glProgramBinary not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glGetProgramBinary")) |proc| {
-        function_pointers.glGetProgramBinary = @ptrCast(?function_signatures.glGetProgramBinary, proc);
-    } else {
-        log.emerg("entry point glGetProgramBinary not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glClearDepthf")) |proc| {
-        function_pointers.glClearDepthf = @ptrCast(?function_signatures.glClearDepthf, proc);
-    } else {
-        log.emerg("entry point glClearDepthf not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glDepthRangef")) |proc| {
-        function_pointers.glDepthRangef = @ptrCast(?function_signatures.glDepthRangef, proc);
-    } else {
-        log.emerg("entry point glDepthRangef not found!", .{});
-        success = false;
-    }
     if (get_proc_address(load_ctx, "glGetShaderPrecisionFormat")) |proc| {
         function_pointers.glGetShaderPrecisionFormat = @ptrCast(?function_signatures.glGetShaderPrecisionFormat, proc);
     } else {
         log.emerg("entry point glGetShaderPrecisionFormat not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glShaderBinary")) |proc| {
+        function_pointers.glShaderBinary = @ptrCast(?function_signatures.glShaderBinary, proc);
+    } else {
+        log.emerg("entry point glShaderBinary not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glReleaseShaderCompiler")) |proc| {
+        function_pointers.glReleaseShaderCompiler = @ptrCast(?function_signatures.glReleaseShaderCompiler, proc);
+    } else {
+        log.emerg("entry point glReleaseShaderCompiler not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetQueryIndexediv")) |proc| {
@@ -4209,124 +3969,28 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
         log.emerg("entry point glPauseTransformFeedback not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glIsTransformFeedback")) |proc| {
-        function_pointers.glIsTransformFeedback = @ptrCast(?function_signatures.glIsTransformFeedback, proc);
+    if (get_proc_address(load_ctx, "glGetProgramStageiv")) |proc| {
+        function_pointers.glGetProgramStageiv = @ptrCast(?function_signatures.glGetProgramStageiv, proc);
     } else {
-        log.emerg("entry point glIsTransformFeedback not found!", .{});
+        log.emerg("entry point glGetProgramStageiv not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glGenTransformFeedbacks")) |proc| {
-        function_pointers.glGenTransformFeedbacks = @ptrCast(?function_signatures.glGenTransformFeedbacks, proc);
+    if (get_proc_address(load_ctx, "glGetUniformSubroutineuiv")) |proc| {
+        function_pointers.glGetUniformSubroutineuiv = @ptrCast(?function_signatures.glGetUniformSubroutineuiv, proc);
     } else {
-        log.emerg("entry point glGenTransformFeedbacks not found!", .{});
+        log.emerg("entry point glGetUniformSubroutineuiv not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glDeleteTransformFeedbacks")) |proc| {
-        function_pointers.glDeleteTransformFeedbacks = @ptrCast(?function_signatures.glDeleteTransformFeedbacks, proc);
+    if (get_proc_address(load_ctx, "glUniformSubroutinesuiv")) |proc| {
+        function_pointers.glUniformSubroutinesuiv = @ptrCast(?function_signatures.glUniformSubroutinesuiv, proc);
     } else {
-        log.emerg("entry point glDeleteTransformFeedbacks not found!", .{});
+        log.emerg("entry point glUniformSubroutinesuiv not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glBindTransformFeedback")) |proc| {
-        function_pointers.glBindTransformFeedback = @ptrCast(?function_signatures.glBindTransformFeedback, proc);
+    if (get_proc_address(load_ctx, "glGetActiveSubroutineName")) |proc| {
+        function_pointers.glGetActiveSubroutineName = @ptrCast(?function_signatures.glGetActiveSubroutineName, proc);
     } else {
-        log.emerg("entry point glBindTransformFeedback not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glPatchParameterfv")) |proc| {
-        function_pointers.glPatchParameterfv = @ptrCast(?function_signatures.glPatchParameterfv, proc);
-    } else {
-        log.emerg("entry point glPatchParameterfv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glPatchParameteri")) |proc| {
-        function_pointers.glPatchParameteri = @ptrCast(?function_signatures.glPatchParameteri, proc);
-    } else {
-        log.emerg("entry point glPatchParameteri not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glUniformMatrix3x4dv")) |proc| {
-        function_pointers.glUniformMatrix3x4dv = @ptrCast(?function_signatures.glUniformMatrix3x4dv, proc);
-    } else {
-        log.emerg("entry point glUniformMatrix3x4dv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glUniformMatrix3x2dv")) |proc| {
-        function_pointers.glUniformMatrix3x2dv = @ptrCast(?function_signatures.glUniformMatrix3x2dv, proc);
-    } else {
-        log.emerg("entry point glUniformMatrix3x2dv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glUniformMatrix2x4dv")) |proc| {
-        function_pointers.glUniformMatrix2x4dv = @ptrCast(?function_signatures.glUniformMatrix2x4dv, proc);
-    } else {
-        log.emerg("entry point glUniformMatrix2x4dv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glUniformMatrix2x3dv")) |proc| {
-        function_pointers.glUniformMatrix2x3dv = @ptrCast(?function_signatures.glUniformMatrix2x3dv, proc);
-    } else {
-        log.emerg("entry point glUniformMatrix2x3dv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glUniformMatrix4dv")) |proc| {
-        function_pointers.glUniformMatrix4dv = @ptrCast(?function_signatures.glUniformMatrix4dv, proc);
-    } else {
-        log.emerg("entry point glUniformMatrix4dv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glUniformMatrix3dv")) |proc| {
-        function_pointers.glUniformMatrix3dv = @ptrCast(?function_signatures.glUniformMatrix3dv, proc);
-    } else {
-        log.emerg("entry point glUniformMatrix3dv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glUniformMatrix2dv")) |proc| {
-        function_pointers.glUniformMatrix2dv = @ptrCast(?function_signatures.glUniformMatrix2dv, proc);
-    } else {
-        log.emerg("entry point glUniformMatrix2dv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glUniform4dv")) |proc| {
-        function_pointers.glUniform4dv = @ptrCast(?function_signatures.glUniform4dv, proc);
-    } else {
-        log.emerg("entry point glUniform4dv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glUniform3dv")) |proc| {
-        function_pointers.glUniform3dv = @ptrCast(?function_signatures.glUniform3dv, proc);
-    } else {
-        log.emerg("entry point glUniform3dv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glUniform2dv")) |proc| {
-        function_pointers.glUniform2dv = @ptrCast(?function_signatures.glUniform2dv, proc);
-    } else {
-        log.emerg("entry point glUniform2dv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glUniform1dv")) |proc| {
-        function_pointers.glUniform1dv = @ptrCast(?function_signatures.glUniform1dv, proc);
-    } else {
-        log.emerg("entry point glUniform1dv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glUniform4d")) |proc| {
-        function_pointers.glUniform4d = @ptrCast(?function_signatures.glUniform4d, proc);
-    } else {
-        log.emerg("entry point glUniform4d not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glUniform3d")) |proc| {
-        function_pointers.glUniform3d = @ptrCast(?function_signatures.glUniform3d, proc);
-    } else {
-        log.emerg("entry point glUniform3d not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glUniform2d")) |proc| {
-        function_pointers.glUniform2d = @ptrCast(?function_signatures.glUniform2d, proc);
-    } else {
-        log.emerg("entry point glUniform2d not found!", .{});
+        log.emerg("entry point glGetActiveSubroutineName not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glCullFace")) |proc| {
@@ -4617,118 +4281,358 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
         log.emerg("entry point glViewport not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glDrawTransformFeedbackStreamInstanced")) |proc| {
-        function_pointers.glDrawTransformFeedbackStreamInstanced = @ptrCast(?function_signatures.glDrawTransformFeedbackStreamInstanced, proc);
+    if (get_proc_address(load_ctx, "glTexStorage2DMultisample")) |proc| {
+        function_pointers.glTexStorage2DMultisample = @ptrCast(?function_signatures.glTexStorage2DMultisample, proc);
     } else {
-        log.emerg("entry point glDrawTransformFeedbackStreamInstanced not found!", .{});
+        log.emerg("entry point glTexStorage2DMultisample not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glDrawTransformFeedbackInstanced")) |proc| {
-        function_pointers.glDrawTransformFeedbackInstanced = @ptrCast(?function_signatures.glDrawTransformFeedbackInstanced, proc);
+    if (get_proc_address(load_ctx, "glTexBufferRange")) |proc| {
+        function_pointers.glTexBufferRange = @ptrCast(?function_signatures.glTexBufferRange, proc);
     } else {
-        log.emerg("entry point glDrawTransformFeedbackInstanced not found!", .{});
+        log.emerg("entry point glTexBufferRange not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glTexStorage3D")) |proc| {
-        function_pointers.glTexStorage3D = @ptrCast(?function_signatures.glTexStorage3D, proc);
+    if (get_proc_address(load_ctx, "glShaderStorageBlockBinding")) |proc| {
+        function_pointers.glShaderStorageBlockBinding = @ptrCast(?function_signatures.glShaderStorageBlockBinding, proc);
     } else {
-        log.emerg("entry point glTexStorage3D not found!", .{});
+        log.emerg("entry point glShaderStorageBlockBinding not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glTexStorage2D")) |proc| {
-        function_pointers.glTexStorage2D = @ptrCast(?function_signatures.glTexStorage2D, proc);
+    if (get_proc_address(load_ctx, "glGetProgramResourceLocationIndex")) |proc| {
+        function_pointers.glGetProgramResourceLocationIndex = @ptrCast(?function_signatures.glGetProgramResourceLocationIndex, proc);
     } else {
-        log.emerg("entry point glTexStorage2D not found!", .{});
+        log.emerg("entry point glGetProgramResourceLocationIndex not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glGetDoublei_v")) |proc| {
-        function_pointers.glGetDoublei_v = @ptrCast(?function_signatures.glGetDoublei_v, proc);
+    if (get_proc_address(load_ctx, "glGetProgramResourceLocation")) |proc| {
+        function_pointers.glGetProgramResourceLocation = @ptrCast(?function_signatures.glGetProgramResourceLocation, proc);
     } else {
-        log.emerg("entry point glGetDoublei_v not found!", .{});
+        log.emerg("entry point glGetProgramResourceLocation not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glProgramUniform3dv")) |proc| {
-        function_pointers.glProgramUniform3dv = @ptrCast(?function_signatures.glProgramUniform3dv, proc);
+    if (get_proc_address(load_ctx, "glGetProgramResourceiv")) |proc| {
+        function_pointers.glGetProgramResourceiv = @ptrCast(?function_signatures.glGetProgramResourceiv, proc);
     } else {
-        log.emerg("entry point glProgramUniform3dv not found!", .{});
+        log.emerg("entry point glGetProgramResourceiv not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glShaderBinary")) |proc| {
-        function_pointers.glShaderBinary = @ptrCast(?function_signatures.glShaderBinary, proc);
+    if (get_proc_address(load_ctx, "glGetProgramResourceName")) |proc| {
+        function_pointers.glGetProgramResourceName = @ptrCast(?function_signatures.glGetProgramResourceName, proc);
     } else {
-        log.emerg("entry point glShaderBinary not found!", .{});
+        log.emerg("entry point glGetProgramResourceName not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glReleaseShaderCompiler")) |proc| {
-        function_pointers.glReleaseShaderCompiler = @ptrCast(?function_signatures.glReleaseShaderCompiler, proc);
+    if (get_proc_address(load_ctx, "glGetProgramResourceIndex")) |proc| {
+        function_pointers.glGetProgramResourceIndex = @ptrCast(?function_signatures.glGetProgramResourceIndex, proc);
     } else {
-        log.emerg("entry point glReleaseShaderCompiler not found!", .{});
+        log.emerg("entry point glGetProgramResourceIndex not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glGetProgramStageiv")) |proc| {
-        function_pointers.glGetProgramStageiv = @ptrCast(?function_signatures.glGetProgramStageiv, proc);
+    if (get_proc_address(load_ctx, "glGetProgramInterfaceiv")) |proc| {
+        function_pointers.glGetProgramInterfaceiv = @ptrCast(?function_signatures.glGetProgramInterfaceiv, proc);
     } else {
-        log.emerg("entry point glGetProgramStageiv not found!", .{});
+        log.emerg("entry point glGetProgramInterfaceiv not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glGetUniformSubroutineuiv")) |proc| {
-        function_pointers.glGetUniformSubroutineuiv = @ptrCast(?function_signatures.glGetUniformSubroutineuiv, proc);
+    if (get_proc_address(load_ctx, "glMultiDrawElementsIndirect")) |proc| {
+        function_pointers.glMultiDrawElementsIndirect = @ptrCast(?function_signatures.glMultiDrawElementsIndirect, proc);
     } else {
-        log.emerg("entry point glGetUniformSubroutineuiv not found!", .{});
+        log.emerg("entry point glMultiDrawElementsIndirect not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glUniformSubroutinesuiv")) |proc| {
-        function_pointers.glUniformSubroutinesuiv = @ptrCast(?function_signatures.glUniformSubroutinesuiv, proc);
+    if (get_proc_address(load_ctx, "glMultiDrawArraysIndirect")) |proc| {
+        function_pointers.glMultiDrawArraysIndirect = @ptrCast(?function_signatures.glMultiDrawArraysIndirect, proc);
     } else {
-        log.emerg("entry point glUniformSubroutinesuiv not found!", .{});
+        log.emerg("entry point glMultiDrawArraysIndirect not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glGetActiveSubroutineName")) |proc| {
-        function_pointers.glGetActiveSubroutineName = @ptrCast(?function_signatures.glGetActiveSubroutineName, proc);
+    if (get_proc_address(load_ctx, "glInvalidateSubFramebuffer")) |proc| {
+        function_pointers.glInvalidateSubFramebuffer = @ptrCast(?function_signatures.glInvalidateSubFramebuffer, proc);
     } else {
-        log.emerg("entry point glGetActiveSubroutineName not found!", .{});
+        log.emerg("entry point glInvalidateSubFramebuffer not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glGetActiveSubroutineUniformName")) |proc| {
-        function_pointers.glGetActiveSubroutineUniformName = @ptrCast(?function_signatures.glGetActiveSubroutineUniformName, proc);
+    if (get_proc_address(load_ctx, "glInvalidateFramebuffer")) |proc| {
+        function_pointers.glInvalidateFramebuffer = @ptrCast(?function_signatures.glInvalidateFramebuffer, proc);
     } else {
-        log.emerg("entry point glGetActiveSubroutineUniformName not found!", .{});
+        log.emerg("entry point glInvalidateFramebuffer not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glGetActiveSubroutineUniformiv")) |proc| {
-        function_pointers.glGetActiveSubroutineUniformiv = @ptrCast(?function_signatures.glGetActiveSubroutineUniformiv, proc);
+    if (get_proc_address(load_ctx, "glInvalidateBufferData")) |proc| {
+        function_pointers.glInvalidateBufferData = @ptrCast(?function_signatures.glInvalidateBufferData, proc);
     } else {
-        log.emerg("entry point glGetActiveSubroutineUniformiv not found!", .{});
+        log.emerg("entry point glInvalidateBufferData not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glGetSubroutineIndex")) |proc| {
-        function_pointers.glGetSubroutineIndex = @ptrCast(?function_signatures.glGetSubroutineIndex, proc);
+    if (get_proc_address(load_ctx, "glInvalidateBufferSubData")) |proc| {
+        function_pointers.glInvalidateBufferSubData = @ptrCast(?function_signatures.glInvalidateBufferSubData, proc);
     } else {
-        log.emerg("entry point glGetSubroutineIndex not found!", .{});
+        log.emerg("entry point glInvalidateBufferSubData not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glGetSubroutineUniformLocation")) |proc| {
-        function_pointers.glGetSubroutineUniformLocation = @ptrCast(?function_signatures.glGetSubroutineUniformLocation, proc);
+    if (get_proc_address(load_ctx, "glInvalidateTexImage")) |proc| {
+        function_pointers.glInvalidateTexImage = @ptrCast(?function_signatures.glInvalidateTexImage, proc);
     } else {
-        log.emerg("entry point glGetSubroutineUniformLocation not found!", .{});
+        log.emerg("entry point glInvalidateTexImage not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glGetUniformdv")) |proc| {
-        function_pointers.glGetUniformdv = @ptrCast(?function_signatures.glGetUniformdv, proc);
+    if (get_proc_address(load_ctx, "glInvalidateTexSubImage")) |proc| {
+        function_pointers.glInvalidateTexSubImage = @ptrCast(?function_signatures.glInvalidateTexSubImage, proc);
     } else {
-        log.emerg("entry point glGetUniformdv not found!", .{});
+        log.emerg("entry point glInvalidateTexSubImage not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glUniformMatrix4x3dv")) |proc| {
-        function_pointers.glUniformMatrix4x3dv = @ptrCast(?function_signatures.glUniformMatrix4x3dv, proc);
+    if (get_proc_address(load_ctx, "glGetInternalformati64v")) |proc| {
+        function_pointers.glGetInternalformati64v = @ptrCast(?function_signatures.glGetInternalformati64v, proc);
     } else {
-        log.emerg("entry point glUniformMatrix4x3dv not found!", .{});
+        log.emerg("entry point glGetInternalformati64v not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glUniformMatrix4x2dv")) |proc| {
-        function_pointers.glUniformMatrix4x2dv = @ptrCast(?function_signatures.glUniformMatrix4x2dv, proc);
+    if (get_proc_address(load_ctx, "glGetFramebufferParameteriv")) |proc| {
+        function_pointers.glGetFramebufferParameteriv = @ptrCast(?function_signatures.glGetFramebufferParameteriv, proc);
     } else {
-        log.emerg("entry point glUniformMatrix4x2dv not found!", .{});
+        log.emerg("entry point glGetFramebufferParameteriv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glFramebufferParameteri")) |proc| {
+        function_pointers.glFramebufferParameteri = @ptrCast(?function_signatures.glFramebufferParameteri, proc);
+    } else {
+        log.emerg("entry point glFramebufferParameteri not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glCopyImageSubData")) |proc| {
+        function_pointers.glCopyImageSubData = @ptrCast(?function_signatures.glCopyImageSubData, proc);
+    } else {
+        log.emerg("entry point glCopyImageSubData not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glDispatchComputeIndirect")) |proc| {
+        function_pointers.glDispatchComputeIndirect = @ptrCast(?function_signatures.glDispatchComputeIndirect, proc);
+    } else {
+        log.emerg("entry point glDispatchComputeIndirect not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glDispatchCompute")) |proc| {
+        function_pointers.glDispatchCompute = @ptrCast(?function_signatures.glDispatchCompute, proc);
+    } else {
+        log.emerg("entry point glDispatchCompute not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glClearBufferSubData")) |proc| {
+        function_pointers.glClearBufferSubData = @ptrCast(?function_signatures.glClearBufferSubData, proc);
+    } else {
+        log.emerg("entry point glClearBufferSubData not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glClearBufferData")) |proc| {
+        function_pointers.glClearBufferData = @ptrCast(?function_signatures.glClearBufferData, proc);
+    } else {
+        log.emerg("entry point glClearBufferData not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glGetProgramPipelineInfoLog")) |proc| {
+        function_pointers.glGetProgramPipelineInfoLog = @ptrCast(?function_signatures.glGetProgramPipelineInfoLog, proc);
+    } else {
+        log.emerg("entry point glGetProgramPipelineInfoLog not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform2uiv")) |proc| {
+        function_pointers.glProgramUniform2uiv = @ptrCast(?function_signatures.glProgramUniform2uiv, proc);
+    } else {
+        log.emerg("entry point glProgramUniform2uiv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform2ui")) |proc| {
+        function_pointers.glProgramUniform2ui = @ptrCast(?function_signatures.glProgramUniform2ui, proc);
+    } else {
+        log.emerg("entry point glProgramUniform2ui not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform2dv")) |proc| {
+        function_pointers.glProgramUniform2dv = @ptrCast(?function_signatures.glProgramUniform2dv, proc);
+    } else {
+        log.emerg("entry point glProgramUniform2dv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform2d")) |proc| {
+        function_pointers.glProgramUniform2d = @ptrCast(?function_signatures.glProgramUniform2d, proc);
+    } else {
+        log.emerg("entry point glProgramUniform2d not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform2fv")) |proc| {
+        function_pointers.glProgramUniform2fv = @ptrCast(?function_signatures.glProgramUniform2fv, proc);
+    } else {
+        log.emerg("entry point glProgramUniform2fv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform2f")) |proc| {
+        function_pointers.glProgramUniform2f = @ptrCast(?function_signatures.glProgramUniform2f, proc);
+    } else {
+        log.emerg("entry point glProgramUniform2f not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform2iv")) |proc| {
+        function_pointers.glProgramUniform2iv = @ptrCast(?function_signatures.glProgramUniform2iv, proc);
+    } else {
+        log.emerg("entry point glProgramUniform2iv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform2i")) |proc| {
+        function_pointers.glProgramUniform2i = @ptrCast(?function_signatures.glProgramUniform2i, proc);
+    } else {
+        log.emerg("entry point glProgramUniform2i not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform1uiv")) |proc| {
+        function_pointers.glProgramUniform1uiv = @ptrCast(?function_signatures.glProgramUniform1uiv, proc);
+    } else {
+        log.emerg("entry point glProgramUniform1uiv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform1ui")) |proc| {
+        function_pointers.glProgramUniform1ui = @ptrCast(?function_signatures.glProgramUniform1ui, proc);
+    } else {
+        log.emerg("entry point glProgramUniform1ui not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform1dv")) |proc| {
+        function_pointers.glProgramUniform1dv = @ptrCast(?function_signatures.glProgramUniform1dv, proc);
+    } else {
+        log.emerg("entry point glProgramUniform1dv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform1d")) |proc| {
+        function_pointers.glProgramUniform1d = @ptrCast(?function_signatures.glProgramUniform1d, proc);
+    } else {
+        log.emerg("entry point glProgramUniform1d not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform1fv")) |proc| {
+        function_pointers.glProgramUniform1fv = @ptrCast(?function_signatures.glProgramUniform1fv, proc);
+    } else {
+        log.emerg("entry point glProgramUniform1fv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform1f")) |proc| {
+        function_pointers.glProgramUniform1f = @ptrCast(?function_signatures.glProgramUniform1f, proc);
+    } else {
+        log.emerg("entry point glProgramUniform1f not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform1iv")) |proc| {
+        function_pointers.glProgramUniform1iv = @ptrCast(?function_signatures.glProgramUniform1iv, proc);
+    } else {
+        log.emerg("entry point glProgramUniform1iv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramUniform1i")) |proc| {
+        function_pointers.glProgramUniform1i = @ptrCast(?function_signatures.glProgramUniform1i, proc);
+    } else {
+        log.emerg("entry point glProgramUniform1i not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glGetProgramPipelineiv")) |proc| {
+        function_pointers.glGetProgramPipelineiv = @ptrCast(?function_signatures.glGetProgramPipelineiv, proc);
+    } else {
+        log.emerg("entry point glGetProgramPipelineiv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glIsProgramPipeline")) |proc| {
+        function_pointers.glIsProgramPipeline = @ptrCast(?function_signatures.glIsProgramPipeline, proc);
+    } else {
+        log.emerg("entry point glIsProgramPipeline not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glGenProgramPipelines")) |proc| {
+        function_pointers.glGenProgramPipelines = @ptrCast(?function_signatures.glGenProgramPipelines, proc);
+    } else {
+        log.emerg("entry point glGenProgramPipelines not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glDeleteProgramPipelines")) |proc| {
+        function_pointers.glDeleteProgramPipelines = @ptrCast(?function_signatures.glDeleteProgramPipelines, proc);
+    } else {
+        log.emerg("entry point glDeleteProgramPipelines not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glBindProgramPipeline")) |proc| {
+        function_pointers.glBindProgramPipeline = @ptrCast(?function_signatures.glBindProgramPipeline, proc);
+    } else {
+        log.emerg("entry point glBindProgramPipeline not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glCreateShaderProgramv")) |proc| {
+        function_pointers.glCreateShaderProgramv = @ptrCast(?function_signatures.glCreateShaderProgramv, proc);
+    } else {
+        log.emerg("entry point glCreateShaderProgramv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glActiveShaderProgram")) |proc| {
+        function_pointers.glActiveShaderProgram = @ptrCast(?function_signatures.glActiveShaderProgram, proc);
+    } else {
+        log.emerg("entry point glActiveShaderProgram not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glProgramBinary")) |proc| {
+        function_pointers.glProgramBinary = @ptrCast(?function_signatures.glProgramBinary, proc);
+    } else {
+        log.emerg("entry point glProgramBinary not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glGetProgramBinary")) |proc| {
+        function_pointers.glGetProgramBinary = @ptrCast(?function_signatures.glGetProgramBinary, proc);
+    } else {
+        log.emerg("entry point glGetProgramBinary not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glClearDepthf")) |proc| {
+        function_pointers.glClearDepthf = @ptrCast(?function_signatures.glClearDepthf, proc);
+    } else {
+        log.emerg("entry point glClearDepthf not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glDepthRangef")) |proc| {
+        function_pointers.glDepthRangef = @ptrCast(?function_signatures.glDepthRangef, proc);
+    } else {
+        log.emerg("entry point glDepthRangef not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glIsTransformFeedback")) |proc| {
+        function_pointers.glIsTransformFeedback = @ptrCast(?function_signatures.glIsTransformFeedback, proc);
+    } else {
+        log.emerg("entry point glIsTransformFeedback not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glGenTransformFeedbacks")) |proc| {
+        function_pointers.glGenTransformFeedbacks = @ptrCast(?function_signatures.glGenTransformFeedbacks, proc);
+    } else {
+        log.emerg("entry point glGenTransformFeedbacks not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glDeleteTransformFeedbacks")) |proc| {
+        function_pointers.glDeleteTransformFeedbacks = @ptrCast(?function_signatures.glDeleteTransformFeedbacks, proc);
+    } else {
+        log.emerg("entry point glDeleteTransformFeedbacks not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glBindTransformFeedback")) |proc| {
+        function_pointers.glBindTransformFeedback = @ptrCast(?function_signatures.glBindTransformFeedback, proc);
+    } else {
+        log.emerg("entry point glBindTransformFeedback not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glPatchParameterfv")) |proc| {
+        function_pointers.glPatchParameterfv = @ptrCast(?function_signatures.glPatchParameterfv, proc);
+    } else {
+        log.emerg("entry point glPatchParameterfv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glPatchParameteri")) |proc| {
+        function_pointers.glPatchParameteri = @ptrCast(?function_signatures.glPatchParameteri, proc);
+    } else {
+        log.emerg("entry point glPatchParameteri not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glDrawArrays")) |proc| {
@@ -4809,22 +4713,82 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
         log.emerg("entry point glIsTexture not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glUniform1d")) |proc| {
-        function_pointers.glUniform1d = @ptrCast(?function_signatures.glUniform1d, proc);
+    if (get_proc_address(load_ctx, "glGetActiveSubroutineUniformName")) |proc| {
+        function_pointers.glGetActiveSubroutineUniformName = @ptrCast(?function_signatures.glGetActiveSubroutineUniformName, proc);
     } else {
-        log.emerg("entry point glUniform1d not found!", .{});
+        log.emerg("entry point glGetActiveSubroutineUniformName not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glDrawElementsIndirect")) |proc| {
-        function_pointers.glDrawElementsIndirect = @ptrCast(?function_signatures.glDrawElementsIndirect, proc);
+    if (get_proc_address(load_ctx, "glGetActiveSubroutineUniformiv")) |proc| {
+        function_pointers.glGetActiveSubroutineUniformiv = @ptrCast(?function_signatures.glGetActiveSubroutineUniformiv, proc);
     } else {
-        log.emerg("entry point glDrawElementsIndirect not found!", .{});
+        log.emerg("entry point glGetActiveSubroutineUniformiv not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glDrawArraysIndirect")) |proc| {
-        function_pointers.glDrawArraysIndirect = @ptrCast(?function_signatures.glDrawArraysIndirect, proc);
+    if (get_proc_address(load_ctx, "glGetSubroutineIndex")) |proc| {
+        function_pointers.glGetSubroutineIndex = @ptrCast(?function_signatures.glGetSubroutineIndex, proc);
     } else {
-        log.emerg("entry point glDrawArraysIndirect not found!", .{});
+        log.emerg("entry point glGetSubroutineIndex not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glGetSubroutineUniformLocation")) |proc| {
+        function_pointers.glGetSubroutineUniformLocation = @ptrCast(?function_signatures.glGetSubroutineUniformLocation, proc);
+    } else {
+        log.emerg("entry point glGetSubroutineUniformLocation not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glGetUniformdv")) |proc| {
+        function_pointers.glGetUniformdv = @ptrCast(?function_signatures.glGetUniformdv, proc);
+    } else {
+        log.emerg("entry point glGetUniformdv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniformMatrix4x3dv")) |proc| {
+        function_pointers.glUniformMatrix4x3dv = @ptrCast(?function_signatures.glUniformMatrix4x3dv, proc);
+    } else {
+        log.emerg("entry point glUniformMatrix4x3dv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniformMatrix4x2dv")) |proc| {
+        function_pointers.glUniformMatrix4x2dv = @ptrCast(?function_signatures.glUniformMatrix4x2dv, proc);
+    } else {
+        log.emerg("entry point glUniformMatrix4x2dv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniformMatrix3x4dv")) |proc| {
+        function_pointers.glUniformMatrix3x4dv = @ptrCast(?function_signatures.glUniformMatrix3x4dv, proc);
+    } else {
+        log.emerg("entry point glUniformMatrix3x4dv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniformMatrix3x2dv")) |proc| {
+        function_pointers.glUniformMatrix3x2dv = @ptrCast(?function_signatures.glUniformMatrix3x2dv, proc);
+    } else {
+        log.emerg("entry point glUniformMatrix3x2dv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniformMatrix2x4dv")) |proc| {
+        function_pointers.glUniformMatrix2x4dv = @ptrCast(?function_signatures.glUniformMatrix2x4dv, proc);
+    } else {
+        log.emerg("entry point glUniformMatrix2x4dv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniformMatrix2x3dv")) |proc| {
+        function_pointers.glUniformMatrix2x3dv = @ptrCast(?function_signatures.glUniformMatrix2x3dv, proc);
+    } else {
+        log.emerg("entry point glUniformMatrix2x3dv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniformMatrix4dv")) |proc| {
+        function_pointers.glUniformMatrix4dv = @ptrCast(?function_signatures.glUniformMatrix4dv, proc);
+    } else {
+        log.emerg("entry point glUniformMatrix4dv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniformMatrix3dv")) |proc| {
+        function_pointers.glUniformMatrix3dv = @ptrCast(?function_signatures.glUniformMatrix3dv, proc);
+    } else {
+        log.emerg("entry point glUniformMatrix3dv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glDrawRangeElements")) |proc| {
@@ -4849,6 +4813,72 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
         function_pointers.glCopyTexSubImage3D = @ptrCast(?function_signatures.glCopyTexSubImage3D, proc);
     } else {
         log.emerg("entry point glCopyTexSubImage3D not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniformMatrix2dv")) |proc| {
+        function_pointers.glUniformMatrix2dv = @ptrCast(?function_signatures.glUniformMatrix2dv, proc);
+    } else {
+        log.emerg("entry point glUniformMatrix2dv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniform4dv")) |proc| {
+        function_pointers.glUniform4dv = @ptrCast(?function_signatures.glUniform4dv, proc);
+    } else {
+        log.emerg("entry point glUniform4dv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniform3dv")) |proc| {
+        function_pointers.glUniform3dv = @ptrCast(?function_signatures.glUniform3dv, proc);
+    } else {
+        log.emerg("entry point glUniform3dv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniform2dv")) |proc| {
+        function_pointers.glUniform2dv = @ptrCast(?function_signatures.glUniform2dv, proc);
+    } else {
+        log.emerg("entry point glUniform2dv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniform1dv")) |proc| {
+        function_pointers.glUniform1dv = @ptrCast(?function_signatures.glUniform1dv, proc);
+    } else {
+        log.emerg("entry point glUniform1dv not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniform4d")) |proc| {
+        function_pointers.glUniform4d = @ptrCast(?function_signatures.glUniform4d, proc);
+    } else {
+        log.emerg("entry point glUniform4d not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniform3d")) |proc| {
+        function_pointers.glUniform3d = @ptrCast(?function_signatures.glUniform3d, proc);
+    } else {
+        log.emerg("entry point glUniform3d not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniform2d")) |proc| {
+        function_pointers.glUniform2d = @ptrCast(?function_signatures.glUniform2d, proc);
+    } else {
+        log.emerg("entry point glUniform2d not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glUniform1d")) |proc| {
+        function_pointers.glUniform1d = @ptrCast(?function_signatures.glUniform1d, proc);
+    } else {
+        log.emerg("entry point glUniform1d not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glDrawElementsIndirect")) |proc| {
+        function_pointers.glDrawElementsIndirect = @ptrCast(?function_signatures.glDrawElementsIndirect, proc);
+    } else {
+        log.emerg("entry point glDrawElementsIndirect not found!", .{});
+        success = false;
+    }
+    if (get_proc_address(load_ctx, "glDrawArraysIndirect")) |proc| {
+        function_pointers.glDrawArraysIndirect = @ptrCast(?function_signatures.glDrawArraysIndirect, proc);
+    } else {
+        log.emerg("entry point glDrawArraysIndirect not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glBlendFuncSeparatei")) |proc| {
@@ -4879,126 +4909,6 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
         function_pointers.glMinSampleShading = @ptrCast(?function_signatures.glMinSampleShading, proc);
     } else {
         log.emerg("entry point glMinSampleShading not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glSecondaryColorP3uiv")) |proc| {
-        function_pointers.glSecondaryColorP3uiv = @ptrCast(?function_signatures.glSecondaryColorP3uiv, proc);
-    } else {
-        log.emerg("entry point glSecondaryColorP3uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glSecondaryColorP3ui")) |proc| {
-        function_pointers.glSecondaryColorP3ui = @ptrCast(?function_signatures.glSecondaryColorP3ui, proc);
-    } else {
-        log.emerg("entry point glSecondaryColorP3ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glColorP4uiv")) |proc| {
-        function_pointers.glColorP4uiv = @ptrCast(?function_signatures.glColorP4uiv, proc);
-    } else {
-        log.emerg("entry point glColorP4uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glColorP4ui")) |proc| {
-        function_pointers.glColorP4ui = @ptrCast(?function_signatures.glColorP4ui, proc);
-    } else {
-        log.emerg("entry point glColorP4ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glColorP3uiv")) |proc| {
-        function_pointers.glColorP3uiv = @ptrCast(?function_signatures.glColorP3uiv, proc);
-    } else {
-        log.emerg("entry point glColorP3uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glColorP3ui")) |proc| {
-        function_pointers.glColorP3ui = @ptrCast(?function_signatures.glColorP3ui, proc);
-    } else {
-        log.emerg("entry point glColorP3ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glNormalP3uiv")) |proc| {
-        function_pointers.glNormalP3uiv = @ptrCast(?function_signatures.glNormalP3uiv, proc);
-    } else {
-        log.emerg("entry point glNormalP3uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glNormalP3ui")) |proc| {
-        function_pointers.glNormalP3ui = @ptrCast(?function_signatures.glNormalP3ui, proc);
-    } else {
-        log.emerg("entry point glNormalP3ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP4uiv")) |proc| {
-        function_pointers.glMultiTexCoordP4uiv = @ptrCast(?function_signatures.glMultiTexCoordP4uiv, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP4uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP4ui")) |proc| {
-        function_pointers.glMultiTexCoordP4ui = @ptrCast(?function_signatures.glMultiTexCoordP4ui, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP4ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP3uiv")) |proc| {
-        function_pointers.glMultiTexCoordP3uiv = @ptrCast(?function_signatures.glMultiTexCoordP3uiv, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP3uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP3ui")) |proc| {
-        function_pointers.glMultiTexCoordP3ui = @ptrCast(?function_signatures.glMultiTexCoordP3ui, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP3ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP2uiv")) |proc| {
-        function_pointers.glMultiTexCoordP2uiv = @ptrCast(?function_signatures.glMultiTexCoordP2uiv, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP2uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP2ui")) |proc| {
-        function_pointers.glMultiTexCoordP2ui = @ptrCast(?function_signatures.glMultiTexCoordP2ui, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP2ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP1uiv")) |proc| {
-        function_pointers.glMultiTexCoordP1uiv = @ptrCast(?function_signatures.glMultiTexCoordP1uiv, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP1uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP1ui")) |proc| {
-        function_pointers.glMultiTexCoordP1ui = @ptrCast(?function_signatures.glMultiTexCoordP1ui, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP1ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP4uiv")) |proc| {
-        function_pointers.glTexCoordP4uiv = @ptrCast(?function_signatures.glTexCoordP4uiv, proc);
-    } else {
-        log.emerg("entry point glTexCoordP4uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP4ui")) |proc| {
-        function_pointers.glTexCoordP4ui = @ptrCast(?function_signatures.glTexCoordP4ui, proc);
-    } else {
-        log.emerg("entry point glTexCoordP4ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP3uiv")) |proc| {
-        function_pointers.glTexCoordP3uiv = @ptrCast(?function_signatures.glTexCoordP3uiv, proc);
-    } else {
-        log.emerg("entry point glTexCoordP3uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP3ui")) |proc| {
-        function_pointers.glTexCoordP3ui = @ptrCast(?function_signatures.glTexCoordP3ui, proc);
-    } else {
-        log.emerg("entry point glTexCoordP3ui not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glActiveTexture")) |proc| {
@@ -5053,66 +4963,6 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
         function_pointers.glGetCompressedTexImage = @ptrCast(?function_signatures.glGetCompressedTexImage, proc);
     } else {
         log.emerg("entry point glGetCompressedTexImage not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP2uiv")) |proc| {
-        function_pointers.glTexCoordP2uiv = @ptrCast(?function_signatures.glTexCoordP2uiv, proc);
-    } else {
-        log.emerg("entry point glTexCoordP2uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP2ui")) |proc| {
-        function_pointers.glTexCoordP2ui = @ptrCast(?function_signatures.glTexCoordP2ui, proc);
-    } else {
-        log.emerg("entry point glTexCoordP2ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP1uiv")) |proc| {
-        function_pointers.glTexCoordP1uiv = @ptrCast(?function_signatures.glTexCoordP1uiv, proc);
-    } else {
-        log.emerg("entry point glTexCoordP1uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP1ui")) |proc| {
-        function_pointers.glTexCoordP1ui = @ptrCast(?function_signatures.glTexCoordP1ui, proc);
-    } else {
-        log.emerg("entry point glTexCoordP1ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glVertexP4uiv")) |proc| {
-        function_pointers.glVertexP4uiv = @ptrCast(?function_signatures.glVertexP4uiv, proc);
-    } else {
-        log.emerg("entry point glVertexP4uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glVertexP4ui")) |proc| {
-        function_pointers.glVertexP4ui = @ptrCast(?function_signatures.glVertexP4ui, proc);
-    } else {
-        log.emerg("entry point glVertexP4ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glVertexP3uiv")) |proc| {
-        function_pointers.glVertexP3uiv = @ptrCast(?function_signatures.glVertexP3uiv, proc);
-    } else {
-        log.emerg("entry point glVertexP3uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glVertexP3ui")) |proc| {
-        function_pointers.glVertexP3ui = @ptrCast(?function_signatures.glVertexP3ui, proc);
-    } else {
-        log.emerg("entry point glVertexP3ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glVertexP2uiv")) |proc| {
-        function_pointers.glVertexP2uiv = @ptrCast(?function_signatures.glVertexP2uiv, proc);
-    } else {
-        log.emerg("entry point glVertexP2uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glVertexP2ui")) |proc| {
-        function_pointers.glVertexP2ui = @ptrCast(?function_signatures.glVertexP2ui, proc);
-    } else {
-        log.emerg("entry point glVertexP2ui not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glVertexAttribP4uiv")) |proc| {
@@ -6735,156 +6585,6 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
         log.emerg("entry point glUniformBlockBinding not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glClearBufferData")) |proc| {
-        function_pointers.glClearBufferData = @ptrCast(?function_signatures.glClearBufferData, proc);
-    } else {
-        log.emerg("entry point glClearBufferData not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glClearBufferSubData")) |proc| {
-        function_pointers.glClearBufferSubData = @ptrCast(?function_signatures.glClearBufferSubData, proc);
-    } else {
-        log.emerg("entry point glClearBufferSubData not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glDispatchCompute")) |proc| {
-        function_pointers.glDispatchCompute = @ptrCast(?function_signatures.glDispatchCompute, proc);
-    } else {
-        log.emerg("entry point glDispatchCompute not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glDispatchComputeIndirect")) |proc| {
-        function_pointers.glDispatchComputeIndirect = @ptrCast(?function_signatures.glDispatchComputeIndirect, proc);
-    } else {
-        log.emerg("entry point glDispatchComputeIndirect not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glCopyImageSubData")) |proc| {
-        function_pointers.glCopyImageSubData = @ptrCast(?function_signatures.glCopyImageSubData, proc);
-    } else {
-        log.emerg("entry point glCopyImageSubData not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glFramebufferParameteri")) |proc| {
-        function_pointers.glFramebufferParameteri = @ptrCast(?function_signatures.glFramebufferParameteri, proc);
-    } else {
-        log.emerg("entry point glFramebufferParameteri not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glGetFramebufferParameteriv")) |proc| {
-        function_pointers.glGetFramebufferParameteriv = @ptrCast(?function_signatures.glGetFramebufferParameteriv, proc);
-    } else {
-        log.emerg("entry point glGetFramebufferParameteriv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glGetInternalformati64v")) |proc| {
-        function_pointers.glGetInternalformati64v = @ptrCast(?function_signatures.glGetInternalformati64v, proc);
-    } else {
-        log.emerg("entry point glGetInternalformati64v not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glInvalidateTexSubImage")) |proc| {
-        function_pointers.glInvalidateTexSubImage = @ptrCast(?function_signatures.glInvalidateTexSubImage, proc);
-    } else {
-        log.emerg("entry point glInvalidateTexSubImage not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glInvalidateTexImage")) |proc| {
-        function_pointers.glInvalidateTexImage = @ptrCast(?function_signatures.glInvalidateTexImage, proc);
-    } else {
-        log.emerg("entry point glInvalidateTexImage not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glInvalidateBufferSubData")) |proc| {
-        function_pointers.glInvalidateBufferSubData = @ptrCast(?function_signatures.glInvalidateBufferSubData, proc);
-    } else {
-        log.emerg("entry point glInvalidateBufferSubData not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glInvalidateBufferData")) |proc| {
-        function_pointers.glInvalidateBufferData = @ptrCast(?function_signatures.glInvalidateBufferData, proc);
-    } else {
-        log.emerg("entry point glInvalidateBufferData not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glInvalidateFramebuffer")) |proc| {
-        function_pointers.glInvalidateFramebuffer = @ptrCast(?function_signatures.glInvalidateFramebuffer, proc);
-    } else {
-        log.emerg("entry point glInvalidateFramebuffer not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glInvalidateSubFramebuffer")) |proc| {
-        function_pointers.glInvalidateSubFramebuffer = @ptrCast(?function_signatures.glInvalidateSubFramebuffer, proc);
-    } else {
-        log.emerg("entry point glInvalidateSubFramebuffer not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiDrawArraysIndirect")) |proc| {
-        function_pointers.glMultiDrawArraysIndirect = @ptrCast(?function_signatures.glMultiDrawArraysIndirect, proc);
-    } else {
-        log.emerg("entry point glMultiDrawArraysIndirect not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiDrawElementsIndirect")) |proc| {
-        function_pointers.glMultiDrawElementsIndirect = @ptrCast(?function_signatures.glMultiDrawElementsIndirect, proc);
-    } else {
-        log.emerg("entry point glMultiDrawElementsIndirect not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glGetProgramInterfaceiv")) |proc| {
-        function_pointers.glGetProgramInterfaceiv = @ptrCast(?function_signatures.glGetProgramInterfaceiv, proc);
-    } else {
-        log.emerg("entry point glGetProgramInterfaceiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glGetProgramResourceIndex")) |proc| {
-        function_pointers.glGetProgramResourceIndex = @ptrCast(?function_signatures.glGetProgramResourceIndex, proc);
-    } else {
-        log.emerg("entry point glGetProgramResourceIndex not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glGetProgramResourceName")) |proc| {
-        function_pointers.glGetProgramResourceName = @ptrCast(?function_signatures.glGetProgramResourceName, proc);
-    } else {
-        log.emerg("entry point glGetProgramResourceName not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glGetProgramResourceiv")) |proc| {
-        function_pointers.glGetProgramResourceiv = @ptrCast(?function_signatures.glGetProgramResourceiv, proc);
-    } else {
-        log.emerg("entry point glGetProgramResourceiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glGetProgramResourceLocation")) |proc| {
-        function_pointers.glGetProgramResourceLocation = @ptrCast(?function_signatures.glGetProgramResourceLocation, proc);
-    } else {
-        log.emerg("entry point glGetProgramResourceLocation not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glGetProgramResourceLocationIndex")) |proc| {
-        function_pointers.glGetProgramResourceLocationIndex = @ptrCast(?function_signatures.glGetProgramResourceLocationIndex, proc);
-    } else {
-        log.emerg("entry point glGetProgramResourceLocationIndex not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glShaderStorageBlockBinding")) |proc| {
-        function_pointers.glShaderStorageBlockBinding = @ptrCast(?function_signatures.glShaderStorageBlockBinding, proc);
-    } else {
-        log.emerg("entry point glShaderStorageBlockBinding not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexBufferRange")) |proc| {
-        function_pointers.glTexBufferRange = @ptrCast(?function_signatures.glTexBufferRange, proc);
-    } else {
-        log.emerg("entry point glTexBufferRange not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexStorage2DMultisample")) |proc| {
-        function_pointers.glTexStorage2DMultisample = @ptrCast(?function_signatures.glTexStorage2DMultisample, proc);
-    } else {
-        log.emerg("entry point glTexStorage2DMultisample not found!", .{});
-        success = false;
-    }
     if (get_proc_address(load_ctx, "glTexStorage3DMultisample")) |proc| {
         function_pointers.glTexStorage3DMultisample = @ptrCast(?function_signatures.glTexStorage3DMultisample, proc);
     } else {
@@ -7004,7 +6704,11 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
 }
 
 const function_signatures = struct {
+    const glTexStorage2D = fn (target: GLenum, levels: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei) void;
     const glTexStorage1D = fn (target: GLenum, levels: GLsizei, internalformat: GLenum, width: GLsizei) void;
+    const glDrawTransformFeedbackStreamInstanced = fn (mode: GLenum, id: GLuint, stream: GLuint, instancecount: GLsizei) void;
+    const glDrawTransformFeedbackInstanced = fn (mode: GLenum, id: GLuint, instancecount: GLsizei) void;
+    const glTexStorage3D = fn (target: GLenum, levels: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei, depth: GLsizei) void;
     const glMemoryBarrier = fn (barriers: GLbitfield) void;
     const glBindImageTexture = fn (unit: GLuint, texture: GLuint, level: GLint, layered: GLboolean, layer: GLint, access: GLenum, format: GLenum) void;
     const glGetActiveAtomicCounterBufferiv = fn (program: GLuint, bufferIndex: GLuint, pname: GLenum, params: [*c]GLint) void;
@@ -7012,6 +6716,7 @@ const function_signatures = struct {
     const glDrawElementsInstancedBaseVertexBaseInstance = fn (mode: GLenum, count: GLsizei, type: GLenum, indices: *const c_void, instancecount: GLsizei, basevertex: GLint, baseinstance: GLuint) void;
     const glDrawElementsInstancedBaseInstance = fn (mode: GLenum, count: GLsizei, type: GLenum, indices: *const c_void, instancecount: GLsizei, baseinstance: GLuint) void;
     const glDrawArraysInstancedBaseInstance = fn (mode: GLenum, first: GLint, count: GLsizei, instancecount: GLsizei, baseinstance: GLuint) void;
+    const glGetDoublei_v = fn (target: GLenum, index: GLuint, data: [*c]GLdouble) void;
     const glGetFloati_v = fn (target: GLenum, index: GLuint, data: [*c]GLfloat) void;
     const glDepthRangeIndexed = fn (index: GLuint, n: GLdouble, f: GLdouble) void;
     const glDepthRangeArrayv = fn (first: GLuint, count: GLsizei, v: [*c]const GLdouble) void;
@@ -7031,7 +6736,6 @@ const function_signatures = struct {
     const glVertexAttribL3d = fn (index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble) void;
     const glVertexAttribL2d = fn (index: GLuint, x: GLdouble, y: GLdouble) void;
     const glVertexAttribL1d = fn (index: GLuint, x: GLdouble) void;
-    const glGetProgramPipelineInfoLog = fn (pipeline: GLuint, bufSize: GLsizei, length: [*c]GLsizei, infoLog: [*c]GLchar) void;
     const glValidateProgramPipeline = fn (pipeline: GLuint) void;
     const glProgramUniformMatrix4x3dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
     const glProgramUniformMatrix3x4dv = fn (program: GLuint, location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
@@ -7061,41 +6765,17 @@ const function_signatures = struct {
     const glProgramUniform4i = fn (program: GLuint, location: GLint, v0: GLint, v1: GLint, v2: GLint, v3: GLint) void;
     const glProgramUniform3uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLuint) void;
     const glProgramUniform3ui = fn (program: GLuint, location: GLint, v0: GLuint, v1: GLuint, v2: GLuint) void;
+    const glProgramUniform3dv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLdouble) void;
     const glProgramUniform3d = fn (program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble, v2: GLdouble) void;
     const glProgramUniform3fv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLfloat) void;
     const glProgramUniform3f = fn (program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat) void;
     const glProgramUniform3iv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLint) void;
     const glProgramUniform3i = fn (program: GLuint, location: GLint, v0: GLint, v1: GLint, v2: GLint) void;
-    const glProgramUniform2uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLuint) void;
-    const glProgramUniform2ui = fn (program: GLuint, location: GLint, v0: GLuint, v1: GLuint) void;
-    const glProgramUniform2dv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLdouble) void;
-    const glProgramUniform2d = fn (program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble) void;
-    const glProgramUniform2fv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLfloat) void;
-    const glProgramUniform2f = fn (program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat) void;
-    const glProgramUniform2iv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLint) void;
-    const glProgramUniform2i = fn (program: GLuint, location: GLint, v0: GLint, v1: GLint) void;
-    const glProgramUniform1uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLuint) void;
-    const glProgramUniform1ui = fn (program: GLuint, location: GLint, v0: GLuint) void;
-    const glProgramUniform1dv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLdouble) void;
-    const glProgramUniform1d = fn (program: GLuint, location: GLint, v0: GLdouble) void;
-    const glProgramUniform1fv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLfloat) void;
-    const glProgramUniform1f = fn (program: GLuint, location: GLint, v0: GLfloat) void;
-    const glProgramUniform1iv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLint) void;
-    const glProgramUniform1i = fn (program: GLuint, location: GLint, v0: GLint) void;
-    const glGetProgramPipelineiv = fn (pipeline: GLuint, pname: GLenum, params: [*c]GLint) void;
-    const glIsProgramPipeline = fn (pipeline: GLuint) GLboolean;
-    const glGenProgramPipelines = fn (n: GLsizei, pipelines: [*c]GLuint) void;
-    const glDeleteProgramPipelines = fn (n: GLsizei, pipelines: [*c]const GLuint) void;
-    const glBindProgramPipeline = fn (pipeline: GLuint) void;
-    const glCreateShaderProgramv = fn (type: GLenum, count: GLsizei, strings: [*c]const [*c]const GLchar) GLuint;
-    const glActiveShaderProgram = fn (pipeline: GLuint, program: GLuint) void;
     const glUseProgramStages = fn (pipeline: GLuint, stages: GLbitfield, program: GLuint) void;
     const glProgramParameteri = fn (program: GLuint, pname: GLenum, value: GLint) void;
-    const glProgramBinary = fn (program: GLuint, binaryFormat: GLenum, binary: *const c_void, length: GLsizei) void;
-    const glGetProgramBinary = fn (program: GLuint, bufSize: GLsizei, length: [*c]GLsizei, binaryFormat: [*c]GLenum, binary: *c_void) void;
-    const glClearDepthf = fn (d: GLfloat) void;
-    const glDepthRangef = fn (n: GLfloat, f: GLfloat) void;
     const glGetShaderPrecisionFormat = fn (shadertype: GLenum, precisiontype: GLenum, range: [*c]GLint, precision: [*c]GLint) void;
+    const glShaderBinary = fn (count: GLsizei, shaders: [*c]const GLuint, binaryFormat: GLenum, binary: *const c_void, length: GLsizei) void;
+    const glReleaseShaderCompiler = fn () void;
     const glGetQueryIndexediv = fn (target: GLenum, index: GLuint, pname: GLenum, params: [*c]GLint) void;
     const glEndQueryIndexed = fn (target: GLenum, index: GLuint) void;
     const glBeginQueryIndexed = fn (target: GLenum, index: GLuint, id: GLuint) void;
@@ -7103,26 +6783,10 @@ const function_signatures = struct {
     const glDrawTransformFeedback = fn (mode: GLenum, id: GLuint) void;
     const glResumeTransformFeedback = fn () void;
     const glPauseTransformFeedback = fn () void;
-    const glIsTransformFeedback = fn (id: GLuint) GLboolean;
-    const glGenTransformFeedbacks = fn (n: GLsizei, ids: [*c]GLuint) void;
-    const glDeleteTransformFeedbacks = fn (n: GLsizei, ids: [*c]const GLuint) void;
-    const glBindTransformFeedback = fn (target: GLenum, id: GLuint) void;
-    const glPatchParameterfv = fn (pname: GLenum, values: [*c]const GLfloat) void;
-    const glPatchParameteri = fn (pname: GLenum, value: GLint) void;
-    const glUniformMatrix3x4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
-    const glUniformMatrix3x2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
-    const glUniformMatrix2x4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
-    const glUniformMatrix2x3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
-    const glUniformMatrix4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
-    const glUniformMatrix3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
-    const glUniformMatrix2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
-    const glUniform4dv = fn (location: GLint, count: GLsizei, value: [*c]const GLdouble) void;
-    const glUniform3dv = fn (location: GLint, count: GLsizei, value: [*c]const GLdouble) void;
-    const glUniform2dv = fn (location: GLint, count: GLsizei, value: [*c]const GLdouble) void;
-    const glUniform1dv = fn (location: GLint, count: GLsizei, value: [*c]const GLdouble) void;
-    const glUniform4d = fn (location: GLint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble) void;
-    const glUniform3d = fn (location: GLint, x: GLdouble, y: GLdouble, z: GLdouble) void;
-    const glUniform2d = fn (location: GLint, x: GLdouble, y: GLdouble) void;
+    const glGetProgramStageiv = fn (program: GLuint, shadertype: GLenum, pname: GLenum, values: [*c]GLint) void;
+    const glGetUniformSubroutineuiv = fn (shadertype: GLenum, location: GLint, params: [*c]GLuint) void;
+    const glUniformSubroutinesuiv = fn (shadertype: GLenum, count: GLsizei, indices: [*c]const GLuint) void;
+    const glGetActiveSubroutineName = fn (program: GLuint, shadertype: GLenum, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, name: [*c]GLchar) void;
     const glCullFace = fn (mode: GLenum) void;
     const glFrontFace = fn (mode: GLenum) void;
     const glHint = fn (target: GLenum, mode: GLenum) void;
@@ -7171,25 +6835,65 @@ const function_signatures = struct {
     const glIsEnabled = fn (cap: GLenum) GLboolean;
     const glDepthRange = fn (n: GLdouble, f: GLdouble) void;
     const glViewport = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei) void;
-    const glDrawTransformFeedbackStreamInstanced = fn (mode: GLenum, id: GLuint, stream: GLuint, instancecount: GLsizei) void;
-    const glDrawTransformFeedbackInstanced = fn (mode: GLenum, id: GLuint, instancecount: GLsizei) void;
-    const glTexStorage3D = fn (target: GLenum, levels: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei, depth: GLsizei) void;
-    const glTexStorage2D = fn (target: GLenum, levels: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei) void;
-    const glGetDoublei_v = fn (target: GLenum, index: GLuint, data: [*c]GLdouble) void;
-    const glProgramUniform3dv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLdouble) void;
-    const glShaderBinary = fn (count: GLsizei, shaders: [*c]const GLuint, binaryFormat: GLenum, binary: *const c_void, length: GLsizei) void;
-    const glReleaseShaderCompiler = fn () void;
-    const glGetProgramStageiv = fn (program: GLuint, shadertype: GLenum, pname: GLenum, values: [*c]GLint) void;
-    const glGetUniformSubroutineuiv = fn (shadertype: GLenum, location: GLint, params: [*c]GLuint) void;
-    const glUniformSubroutinesuiv = fn (shadertype: GLenum, count: GLsizei, indices: [*c]const GLuint) void;
-    const glGetActiveSubroutineName = fn (program: GLuint, shadertype: GLenum, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, name: [*c]GLchar) void;
-    const glGetActiveSubroutineUniformName = fn (program: GLuint, shadertype: GLenum, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, name: [*c]GLchar) void;
-    const glGetActiveSubroutineUniformiv = fn (program: GLuint, shadertype: GLenum, index: GLuint, pname: GLenum, values: [*c]GLint) void;
-    const glGetSubroutineIndex = fn (program: GLuint, shadertype: GLenum, name: [*c]const GLchar) GLuint;
-    const glGetSubroutineUniformLocation = fn (program: GLuint, shadertype: GLenum, name: [*c]const GLchar) GLint;
-    const glGetUniformdv = fn (program: GLuint, location: GLint, params: [*c]GLdouble) void;
-    const glUniformMatrix4x3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
-    const glUniformMatrix4x2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
+    const glTexStorage2DMultisample = fn (target: GLenum, samples: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei, fixedsamplelocations: GLboolean) void;
+    const glTexBufferRange = fn (target: GLenum, internalformat: GLenum, buffer: GLuint, offset: GLintptr, size: GLsizeiptr) void;
+    const glShaderStorageBlockBinding = fn (program: GLuint, storageBlockIndex: GLuint, storageBlockBinding: GLuint) void;
+    const glGetProgramResourceLocationIndex = fn (program: GLuint, programInterface: GLenum, name: [*c]const GLchar) GLint;
+    const glGetProgramResourceLocation = fn (program: GLuint, programInterface: GLenum, name: [*c]const GLchar) GLint;
+    const glGetProgramResourceiv = fn (program: GLuint, programInterface: GLenum, index: GLuint, propCount: GLsizei, props: [*c]const GLenum, count: GLsizei, length: [*c]GLsizei, params: [*c]GLint) void;
+    const glGetProgramResourceName = fn (program: GLuint, programInterface: GLenum, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, name: [*c]GLchar) void;
+    const glGetProgramResourceIndex = fn (program: GLuint, programInterface: GLenum, name: [*c]const GLchar) GLuint;
+    const glGetProgramInterfaceiv = fn (program: GLuint, programInterface: GLenum, pname: GLenum, params: [*c]GLint) void;
+    const glMultiDrawElementsIndirect = fn (mode: GLenum, type: GLenum, indirect: *const c_void, drawcount: GLsizei, stride: GLsizei) void;
+    const glMultiDrawArraysIndirect = fn (mode: GLenum, indirect: *const c_void, drawcount: GLsizei, stride: GLsizei) void;
+    const glInvalidateSubFramebuffer = fn (target: GLenum, numAttachments: GLsizei, attachments: [*c]const GLenum, x: GLint, y: GLint, width: GLsizei, height: GLsizei) void;
+    const glInvalidateFramebuffer = fn (target: GLenum, numAttachments: GLsizei, attachments: [*c]const GLenum) void;
+    const glInvalidateBufferData = fn (buffer: GLuint) void;
+    const glInvalidateBufferSubData = fn (buffer: GLuint, offset: GLintptr, length: GLsizeiptr) void;
+    const glInvalidateTexImage = fn (texture: GLuint, level: GLint) void;
+    const glInvalidateTexSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei) void;
+    const glGetInternalformati64v = fn (target: GLenum, internalformat: GLenum, pname: GLenum, count: GLsizei, params: [*c]GLint64) void;
+    const glGetFramebufferParameteriv = fn (target: GLenum, pname: GLenum, params: [*c]GLint) void;
+    const glFramebufferParameteri = fn (target: GLenum, pname: GLenum, param: GLint) void;
+    const glCopyImageSubData = fn (srcName: GLuint, srcTarget: GLenum, srcLevel: GLint, srcX: GLint, srcY: GLint, srcZ: GLint, dstName: GLuint, dstTarget: GLenum, dstLevel: GLint, dstX: GLint, dstY: GLint, dstZ: GLint, srcWidth: GLsizei, srcHeight: GLsizei, srcDepth: GLsizei) void;
+    const glDispatchComputeIndirect = fn (indirect: GLintptr) void;
+    const glDispatchCompute = fn (num_groups_x: GLuint, num_groups_y: GLuint, num_groups_z: GLuint) void;
+    const glClearBufferSubData = fn (target: GLenum, internalformat: GLenum, offset: GLintptr, size: GLsizeiptr, format: GLenum, type: GLenum, data: *const c_void) void;
+    const glClearBufferData = fn (target: GLenum, internalformat: GLenum, format: GLenum, type: GLenum, data: *const c_void) void;
+    const glGetProgramPipelineInfoLog = fn (pipeline: GLuint, bufSize: GLsizei, length: [*c]GLsizei, infoLog: [*c]GLchar) void;
+    const glProgramUniform2uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLuint) void;
+    const glProgramUniform2ui = fn (program: GLuint, location: GLint, v0: GLuint, v1: GLuint) void;
+    const glProgramUniform2dv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLdouble) void;
+    const glProgramUniform2d = fn (program: GLuint, location: GLint, v0: GLdouble, v1: GLdouble) void;
+    const glProgramUniform2fv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLfloat) void;
+    const glProgramUniform2f = fn (program: GLuint, location: GLint, v0: GLfloat, v1: GLfloat) void;
+    const glProgramUniform2iv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLint) void;
+    const glProgramUniform2i = fn (program: GLuint, location: GLint, v0: GLint, v1: GLint) void;
+    const glProgramUniform1uiv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLuint) void;
+    const glProgramUniform1ui = fn (program: GLuint, location: GLint, v0: GLuint) void;
+    const glProgramUniform1dv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLdouble) void;
+    const glProgramUniform1d = fn (program: GLuint, location: GLint, v0: GLdouble) void;
+    const glProgramUniform1fv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLfloat) void;
+    const glProgramUniform1f = fn (program: GLuint, location: GLint, v0: GLfloat) void;
+    const glProgramUniform1iv = fn (program: GLuint, location: GLint, count: GLsizei, value: [*c]const GLint) void;
+    const glProgramUniform1i = fn (program: GLuint, location: GLint, v0: GLint) void;
+    const glGetProgramPipelineiv = fn (pipeline: GLuint, pname: GLenum, params: [*c]GLint) void;
+    const glIsProgramPipeline = fn (pipeline: GLuint) GLboolean;
+    const glGenProgramPipelines = fn (n: GLsizei, pipelines: [*c]GLuint) void;
+    const glDeleteProgramPipelines = fn (n: GLsizei, pipelines: [*c]const GLuint) void;
+    const glBindProgramPipeline = fn (pipeline: GLuint) void;
+    const glCreateShaderProgramv = fn (type: GLenum, count: GLsizei, strings: [*c]const [*c]const GLchar) GLuint;
+    const glActiveShaderProgram = fn (pipeline: GLuint, program: GLuint) void;
+    const glProgramBinary = fn (program: GLuint, binaryFormat: GLenum, binary: *const c_void, length: GLsizei) void;
+    const glGetProgramBinary = fn (program: GLuint, bufSize: GLsizei, length: [*c]GLsizei, binaryFormat: [*c]GLenum, binary: *c_void) void;
+    const glClearDepthf = fn (d: GLfloat) void;
+    const glDepthRangef = fn (n: GLfloat, f: GLfloat) void;
+    const glIsTransformFeedback = fn (id: GLuint) GLboolean;
+    const glGenTransformFeedbacks = fn (n: GLsizei, ids: [*c]GLuint) void;
+    const glDeleteTransformFeedbacks = fn (n: GLsizei, ids: [*c]const GLuint) void;
+    const glBindTransformFeedback = fn (target: GLenum, id: GLuint) void;
+    const glPatchParameterfv = fn (pname: GLenum, values: [*c]const GLfloat) void;
+    const glPatchParameteri = fn (pname: GLenum, value: GLint) void;
     const glDrawArrays = fn (mode: GLenum, first: GLint, count: GLsizei) void;
     const glDrawElements = fn (mode: GLenum, count: GLsizei, type: GLenum, indices: *const c_void) void;
     const glPolygonOffset = fn (factor: GLfloat, units: GLfloat) void;
@@ -7203,38 +6907,39 @@ const function_signatures = struct {
     const glDeleteTextures = fn (n: GLsizei, textures: [*c]const GLuint) void;
     const glGenTextures = fn (n: GLsizei, textures: [*c]GLuint) void;
     const glIsTexture = fn (texture: GLuint) GLboolean;
-    const glUniform1d = fn (location: GLint, x: GLdouble) void;
-    const glDrawElementsIndirect = fn (mode: GLenum, type: GLenum, indirect: *const c_void) void;
-    const glDrawArraysIndirect = fn (mode: GLenum, indirect: *const c_void) void;
+    const glGetActiveSubroutineUniformName = fn (program: GLuint, shadertype: GLenum, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, name: [*c]GLchar) void;
+    const glGetActiveSubroutineUniformiv = fn (program: GLuint, shadertype: GLenum, index: GLuint, pname: GLenum, values: [*c]GLint) void;
+    const glGetSubroutineIndex = fn (program: GLuint, shadertype: GLenum, name: [*c]const GLchar) GLuint;
+    const glGetSubroutineUniformLocation = fn (program: GLuint, shadertype: GLenum, name: [*c]const GLchar) GLint;
+    const glGetUniformdv = fn (program: GLuint, location: GLint, params: [*c]GLdouble) void;
+    const glUniformMatrix4x3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
+    const glUniformMatrix4x2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
+    const glUniformMatrix3x4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
+    const glUniformMatrix3x2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
+    const glUniformMatrix2x4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
+    const glUniformMatrix2x3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
+    const glUniformMatrix4dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
+    const glUniformMatrix3dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
     const glDrawRangeElements = fn (mode: GLenum, start: GLuint, end: GLuint, count: GLsizei, type: GLenum, indices: *const c_void) void;
     const glTexImage3D = fn (target: GLenum, level: GLint, internalformat: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, format: GLenum, type: GLenum, pixels: *const c_void) void;
     const glTexSubImage3D = fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: GLenum, type: GLenum, pixels: *const c_void) void;
     const glCopyTexSubImage3D = fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) void;
+    const glUniformMatrix2dv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLdouble) void;
+    const glUniform4dv = fn (location: GLint, count: GLsizei, value: [*c]const GLdouble) void;
+    const glUniform3dv = fn (location: GLint, count: GLsizei, value: [*c]const GLdouble) void;
+    const glUniform2dv = fn (location: GLint, count: GLsizei, value: [*c]const GLdouble) void;
+    const glUniform1dv = fn (location: GLint, count: GLsizei, value: [*c]const GLdouble) void;
+    const glUniform4d = fn (location: GLint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble) void;
+    const glUniform3d = fn (location: GLint, x: GLdouble, y: GLdouble, z: GLdouble) void;
+    const glUniform2d = fn (location: GLint, x: GLdouble, y: GLdouble) void;
+    const glUniform1d = fn (location: GLint, x: GLdouble) void;
+    const glDrawElementsIndirect = fn (mode: GLenum, type: GLenum, indirect: *const c_void) void;
+    const glDrawArraysIndirect = fn (mode: GLenum, indirect: *const c_void) void;
     const glBlendFuncSeparatei = fn (buf: GLuint, srcRGB: GLenum, dstRGB: GLenum, srcAlpha: GLenum, dstAlpha: GLenum) void;
     const glBlendFunci = fn (buf: GLuint, src: GLenum, dst: GLenum) void;
     const glBlendEquationSeparatei = fn (buf: GLuint, modeRGB: GLenum, modeAlpha: GLenum) void;
     const glBlendEquationi = fn (buf: GLuint, mode: GLenum) void;
     const glMinSampleShading = fn (value: GLfloat) void;
-    const glSecondaryColorP3uiv = fn (type: GLenum, color: [*c]const GLuint) void;
-    const glSecondaryColorP3ui = fn (type: GLenum, color: GLuint) void;
-    const glColorP4uiv = fn (type: GLenum, color: [*c]const GLuint) void;
-    const glColorP4ui = fn (type: GLenum, color: GLuint) void;
-    const glColorP3uiv = fn (type: GLenum, color: [*c]const GLuint) void;
-    const glColorP3ui = fn (type: GLenum, color: GLuint) void;
-    const glNormalP3uiv = fn (type: GLenum, coords: [*c]const GLuint) void;
-    const glNormalP3ui = fn (type: GLenum, coords: GLuint) void;
-    const glMultiTexCoordP4uiv = fn (texture: GLenum, type: GLenum, coords: [*c]const GLuint) void;
-    const glMultiTexCoordP4ui = fn (texture: GLenum, type: GLenum, coords: GLuint) void;
-    const glMultiTexCoordP3uiv = fn (texture: GLenum, type: GLenum, coords: [*c]const GLuint) void;
-    const glMultiTexCoordP3ui = fn (texture: GLenum, type: GLenum, coords: GLuint) void;
-    const glMultiTexCoordP2uiv = fn (texture: GLenum, type: GLenum, coords: [*c]const GLuint) void;
-    const glMultiTexCoordP2ui = fn (texture: GLenum, type: GLenum, coords: GLuint) void;
-    const glMultiTexCoordP1uiv = fn (texture: GLenum, type: GLenum, coords: [*c]const GLuint) void;
-    const glMultiTexCoordP1ui = fn (texture: GLenum, type: GLenum, coords: GLuint) void;
-    const glTexCoordP4uiv = fn (type: GLenum, coords: [*c]const GLuint) void;
-    const glTexCoordP4ui = fn (type: GLenum, coords: GLuint) void;
-    const glTexCoordP3uiv = fn (type: GLenum, coords: [*c]const GLuint) void;
-    const glTexCoordP3ui = fn (type: GLenum, coords: GLuint) void;
     const glActiveTexture = fn (texture: GLenum) void;
     const glSampleCoverage = fn (value: GLfloat, invert: GLboolean) void;
     const glCompressedTexImage3D = fn (target: GLenum, level: GLint, internalformat: GLenum, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, imageSize: GLsizei, data: *const c_void) void;
@@ -7244,16 +6949,6 @@ const function_signatures = struct {
     const glCompressedTexSubImage2D = fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: GLenum, imageSize: GLsizei, data: *const c_void) void;
     const glCompressedTexSubImage1D = fn (target: GLenum, level: GLint, xoffset: GLint, width: GLsizei, format: GLenum, imageSize: GLsizei, data: *const c_void) void;
     const glGetCompressedTexImage = fn (target: GLenum, level: GLint, img: *c_void) void;
-    const glTexCoordP2uiv = fn (type: GLenum, coords: [*c]const GLuint) void;
-    const glTexCoordP2ui = fn (type: GLenum, coords: GLuint) void;
-    const glTexCoordP1uiv = fn (type: GLenum, coords: [*c]const GLuint) void;
-    const glTexCoordP1ui = fn (type: GLenum, coords: GLuint) void;
-    const glVertexP4uiv = fn (type: GLenum, value: [*c]const GLuint) void;
-    const glVertexP4ui = fn (type: GLenum, value: GLuint) void;
-    const glVertexP3uiv = fn (type: GLenum, value: [*c]const GLuint) void;
-    const glVertexP3ui = fn (type: GLenum, value: GLuint) void;
-    const glVertexP2uiv = fn (type: GLenum, value: [*c]const GLuint) void;
-    const glVertexP2ui = fn (type: GLenum, value: GLuint) void;
     const glVertexAttribP4uiv = fn (index: GLuint, type: GLenum, normalized: GLboolean, value: [*c]const GLuint) void;
     const glVertexAttribP4ui = fn (index: GLuint, type: GLenum, normalized: GLboolean, value: GLuint) void;
     const glVertexAttribP3uiv = fn (index: GLuint, type: GLenum, normalized: GLboolean, value: [*c]const GLuint) void;
@@ -7524,31 +7219,6 @@ const function_signatures = struct {
     const glGetActiveUniformBlockiv = fn (program: GLuint, uniformBlockIndex: GLuint, pname: GLenum, params: [*c]GLint) void;
     const glGetActiveUniformBlockName = fn (program: GLuint, uniformBlockIndex: GLuint, bufSize: GLsizei, length: [*c]GLsizei, uniformBlockName: [*c]GLchar) void;
     const glUniformBlockBinding = fn (program: GLuint, uniformBlockIndex: GLuint, uniformBlockBinding: GLuint) void;
-    const glClearBufferData = fn (target: GLenum, internalformat: GLenum, format: GLenum, type: GLenum, data: *const c_void) void;
-    const glClearBufferSubData = fn (target: GLenum, internalformat: GLenum, offset: GLintptr, size: GLsizeiptr, format: GLenum, type: GLenum, data: *const c_void) void;
-    const glDispatchCompute = fn (num_groups_x: GLuint, num_groups_y: GLuint, num_groups_z: GLuint) void;
-    const glDispatchComputeIndirect = fn (indirect: GLintptr) void;
-    const glCopyImageSubData = fn (srcName: GLuint, srcTarget: GLenum, srcLevel: GLint, srcX: GLint, srcY: GLint, srcZ: GLint, dstName: GLuint, dstTarget: GLenum, dstLevel: GLint, dstX: GLint, dstY: GLint, dstZ: GLint, srcWidth: GLsizei, srcHeight: GLsizei, srcDepth: GLsizei) void;
-    const glFramebufferParameteri = fn (target: GLenum, pname: GLenum, param: GLint) void;
-    const glGetFramebufferParameteriv = fn (target: GLenum, pname: GLenum, params: [*c]GLint) void;
-    const glGetInternalformati64v = fn (target: GLenum, internalformat: GLenum, pname: GLenum, count: GLsizei, params: [*c]GLint64) void;
-    const glInvalidateTexSubImage = fn (texture: GLuint, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei) void;
-    const glInvalidateTexImage = fn (texture: GLuint, level: GLint) void;
-    const glInvalidateBufferSubData = fn (buffer: GLuint, offset: GLintptr, length: GLsizeiptr) void;
-    const glInvalidateBufferData = fn (buffer: GLuint) void;
-    const glInvalidateFramebuffer = fn (target: GLenum, numAttachments: GLsizei, attachments: [*c]const GLenum) void;
-    const glInvalidateSubFramebuffer = fn (target: GLenum, numAttachments: GLsizei, attachments: [*c]const GLenum, x: GLint, y: GLint, width: GLsizei, height: GLsizei) void;
-    const glMultiDrawArraysIndirect = fn (mode: GLenum, indirect: *const c_void, drawcount: GLsizei, stride: GLsizei) void;
-    const glMultiDrawElementsIndirect = fn (mode: GLenum, type: GLenum, indirect: *const c_void, drawcount: GLsizei, stride: GLsizei) void;
-    const glGetProgramInterfaceiv = fn (program: GLuint, programInterface: GLenum, pname: GLenum, params: [*c]GLint) void;
-    const glGetProgramResourceIndex = fn (program: GLuint, programInterface: GLenum, name: [*c]const GLchar) GLuint;
-    const glGetProgramResourceName = fn (program: GLuint, programInterface: GLenum, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, name: [*c]GLchar) void;
-    const glGetProgramResourceiv = fn (program: GLuint, programInterface: GLenum, index: GLuint, propCount: GLsizei, props: [*c]const GLenum, count: GLsizei, length: [*c]GLsizei, params: [*c]GLint) void;
-    const glGetProgramResourceLocation = fn (program: GLuint, programInterface: GLenum, name: [*c]const GLchar) GLint;
-    const glGetProgramResourceLocationIndex = fn (program: GLuint, programInterface: GLenum, name: [*c]const GLchar) GLint;
-    const glShaderStorageBlockBinding = fn (program: GLuint, storageBlockIndex: GLuint, storageBlockBinding: GLuint) void;
-    const glTexBufferRange = fn (target: GLenum, internalformat: GLenum, buffer: GLuint, offset: GLintptr, size: GLsizeiptr) void;
-    const glTexStorage2DMultisample = fn (target: GLenum, samples: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei, fixedsamplelocations: GLboolean) void;
     const glTexStorage3DMultisample = fn (target: GLenum, samples: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: GLboolean) void;
     const glTextureView = fn (texture: GLuint, target: GLenum, origtexture: GLuint, internalformat: GLenum, minlevel: GLuint, numlevels: GLuint, minlayer: GLuint, numlayers: GLuint) void;
     const glBindVertexBuffer = fn (bindingindex: GLuint, buffer: GLuint, offset: GLintptr, stride: GLsizei) void;
@@ -7571,7 +7241,11 @@ const function_signatures = struct {
 };
 
 const function_pointers = struct {
+    var glTexStorage2D: ?function_signatures.glTexStorage2D = null;
     var glTexStorage1D: ?function_signatures.glTexStorage1D = null;
+    var glDrawTransformFeedbackStreamInstanced: ?function_signatures.glDrawTransformFeedbackStreamInstanced = null;
+    var glDrawTransformFeedbackInstanced: ?function_signatures.glDrawTransformFeedbackInstanced = null;
+    var glTexStorage3D: ?function_signatures.glTexStorage3D = null;
     var glMemoryBarrier: ?function_signatures.glMemoryBarrier = null;
     var glBindImageTexture: ?function_signatures.glBindImageTexture = null;
     var glGetActiveAtomicCounterBufferiv: ?function_signatures.glGetActiveAtomicCounterBufferiv = null;
@@ -7579,6 +7253,7 @@ const function_pointers = struct {
     var glDrawElementsInstancedBaseVertexBaseInstance: ?function_signatures.glDrawElementsInstancedBaseVertexBaseInstance = null;
     var glDrawElementsInstancedBaseInstance: ?function_signatures.glDrawElementsInstancedBaseInstance = null;
     var glDrawArraysInstancedBaseInstance: ?function_signatures.glDrawArraysInstancedBaseInstance = null;
+    var glGetDoublei_v: ?function_signatures.glGetDoublei_v = null;
     var glGetFloati_v: ?function_signatures.glGetFloati_v = null;
     var glDepthRangeIndexed: ?function_signatures.glDepthRangeIndexed = null;
     var glDepthRangeArrayv: ?function_signatures.glDepthRangeArrayv = null;
@@ -7598,7 +7273,6 @@ const function_pointers = struct {
     var glVertexAttribL3d: ?function_signatures.glVertexAttribL3d = null;
     var glVertexAttribL2d: ?function_signatures.glVertexAttribL2d = null;
     var glVertexAttribL1d: ?function_signatures.glVertexAttribL1d = null;
-    var glGetProgramPipelineInfoLog: ?function_signatures.glGetProgramPipelineInfoLog = null;
     var glValidateProgramPipeline: ?function_signatures.glValidateProgramPipeline = null;
     var glProgramUniformMatrix4x3dv: ?function_signatures.glProgramUniformMatrix4x3dv = null;
     var glProgramUniformMatrix3x4dv: ?function_signatures.glProgramUniformMatrix3x4dv = null;
@@ -7628,41 +7302,17 @@ const function_pointers = struct {
     var glProgramUniform4i: ?function_signatures.glProgramUniform4i = null;
     var glProgramUniform3uiv: ?function_signatures.glProgramUniform3uiv = null;
     var glProgramUniform3ui: ?function_signatures.glProgramUniform3ui = null;
+    var glProgramUniform3dv: ?function_signatures.glProgramUniform3dv = null;
     var glProgramUniform3d: ?function_signatures.glProgramUniform3d = null;
     var glProgramUniform3fv: ?function_signatures.glProgramUniform3fv = null;
     var glProgramUniform3f: ?function_signatures.glProgramUniform3f = null;
     var glProgramUniform3iv: ?function_signatures.glProgramUniform3iv = null;
     var glProgramUniform3i: ?function_signatures.glProgramUniform3i = null;
-    var glProgramUniform2uiv: ?function_signatures.glProgramUniform2uiv = null;
-    var glProgramUniform2ui: ?function_signatures.glProgramUniform2ui = null;
-    var glProgramUniform2dv: ?function_signatures.glProgramUniform2dv = null;
-    var glProgramUniform2d: ?function_signatures.glProgramUniform2d = null;
-    var glProgramUniform2fv: ?function_signatures.glProgramUniform2fv = null;
-    var glProgramUniform2f: ?function_signatures.glProgramUniform2f = null;
-    var glProgramUniform2iv: ?function_signatures.glProgramUniform2iv = null;
-    var glProgramUniform2i: ?function_signatures.glProgramUniform2i = null;
-    var glProgramUniform1uiv: ?function_signatures.glProgramUniform1uiv = null;
-    var glProgramUniform1ui: ?function_signatures.glProgramUniform1ui = null;
-    var glProgramUniform1dv: ?function_signatures.glProgramUniform1dv = null;
-    var glProgramUniform1d: ?function_signatures.glProgramUniform1d = null;
-    var glProgramUniform1fv: ?function_signatures.glProgramUniform1fv = null;
-    var glProgramUniform1f: ?function_signatures.glProgramUniform1f = null;
-    var glProgramUniform1iv: ?function_signatures.glProgramUniform1iv = null;
-    var glProgramUniform1i: ?function_signatures.glProgramUniform1i = null;
-    var glGetProgramPipelineiv: ?function_signatures.glGetProgramPipelineiv = null;
-    var glIsProgramPipeline: ?function_signatures.glIsProgramPipeline = null;
-    var glGenProgramPipelines: ?function_signatures.glGenProgramPipelines = null;
-    var glDeleteProgramPipelines: ?function_signatures.glDeleteProgramPipelines = null;
-    var glBindProgramPipeline: ?function_signatures.glBindProgramPipeline = null;
-    var glCreateShaderProgramv: ?function_signatures.glCreateShaderProgramv = null;
-    var glActiveShaderProgram: ?function_signatures.glActiveShaderProgram = null;
     var glUseProgramStages: ?function_signatures.glUseProgramStages = null;
     var glProgramParameteri: ?function_signatures.glProgramParameteri = null;
-    var glProgramBinary: ?function_signatures.glProgramBinary = null;
-    var glGetProgramBinary: ?function_signatures.glGetProgramBinary = null;
-    var glClearDepthf: ?function_signatures.glClearDepthf = null;
-    var glDepthRangef: ?function_signatures.glDepthRangef = null;
     var glGetShaderPrecisionFormat: ?function_signatures.glGetShaderPrecisionFormat = null;
+    var glShaderBinary: ?function_signatures.glShaderBinary = null;
+    var glReleaseShaderCompiler: ?function_signatures.glReleaseShaderCompiler = null;
     var glGetQueryIndexediv: ?function_signatures.glGetQueryIndexediv = null;
     var glEndQueryIndexed: ?function_signatures.glEndQueryIndexed = null;
     var glBeginQueryIndexed: ?function_signatures.glBeginQueryIndexed = null;
@@ -7670,26 +7320,10 @@ const function_pointers = struct {
     var glDrawTransformFeedback: ?function_signatures.glDrawTransformFeedback = null;
     var glResumeTransformFeedback: ?function_signatures.glResumeTransformFeedback = null;
     var glPauseTransformFeedback: ?function_signatures.glPauseTransformFeedback = null;
-    var glIsTransformFeedback: ?function_signatures.glIsTransformFeedback = null;
-    var glGenTransformFeedbacks: ?function_signatures.glGenTransformFeedbacks = null;
-    var glDeleteTransformFeedbacks: ?function_signatures.glDeleteTransformFeedbacks = null;
-    var glBindTransformFeedback: ?function_signatures.glBindTransformFeedback = null;
-    var glPatchParameterfv: ?function_signatures.glPatchParameterfv = null;
-    var glPatchParameteri: ?function_signatures.glPatchParameteri = null;
-    var glUniformMatrix3x4dv: ?function_signatures.glUniformMatrix3x4dv = null;
-    var glUniformMatrix3x2dv: ?function_signatures.glUniformMatrix3x2dv = null;
-    var glUniformMatrix2x4dv: ?function_signatures.glUniformMatrix2x4dv = null;
-    var glUniformMatrix2x3dv: ?function_signatures.glUniformMatrix2x3dv = null;
-    var glUniformMatrix4dv: ?function_signatures.glUniformMatrix4dv = null;
-    var glUniformMatrix3dv: ?function_signatures.glUniformMatrix3dv = null;
-    var glUniformMatrix2dv: ?function_signatures.glUniformMatrix2dv = null;
-    var glUniform4dv: ?function_signatures.glUniform4dv = null;
-    var glUniform3dv: ?function_signatures.glUniform3dv = null;
-    var glUniform2dv: ?function_signatures.glUniform2dv = null;
-    var glUniform1dv: ?function_signatures.glUniform1dv = null;
-    var glUniform4d: ?function_signatures.glUniform4d = null;
-    var glUniform3d: ?function_signatures.glUniform3d = null;
-    var glUniform2d: ?function_signatures.glUniform2d = null;
+    var glGetProgramStageiv: ?function_signatures.glGetProgramStageiv = null;
+    var glGetUniformSubroutineuiv: ?function_signatures.glGetUniformSubroutineuiv = null;
+    var glUniformSubroutinesuiv: ?function_signatures.glUniformSubroutinesuiv = null;
+    var glGetActiveSubroutineName: ?function_signatures.glGetActiveSubroutineName = null;
     var glCullFace: ?function_signatures.glCullFace = null;
     var glFrontFace: ?function_signatures.glFrontFace = null;
     var glHint: ?function_signatures.glHint = null;
@@ -7738,25 +7372,65 @@ const function_pointers = struct {
     var glIsEnabled: ?function_signatures.glIsEnabled = null;
     var glDepthRange: ?function_signatures.glDepthRange = null;
     var glViewport: ?function_signatures.glViewport = null;
-    var glDrawTransformFeedbackStreamInstanced: ?function_signatures.glDrawTransformFeedbackStreamInstanced = null;
-    var glDrawTransformFeedbackInstanced: ?function_signatures.glDrawTransformFeedbackInstanced = null;
-    var glTexStorage3D: ?function_signatures.glTexStorage3D = null;
-    var glTexStorage2D: ?function_signatures.glTexStorage2D = null;
-    var glGetDoublei_v: ?function_signatures.glGetDoublei_v = null;
-    var glProgramUniform3dv: ?function_signatures.glProgramUniform3dv = null;
-    var glShaderBinary: ?function_signatures.glShaderBinary = null;
-    var glReleaseShaderCompiler: ?function_signatures.glReleaseShaderCompiler = null;
-    var glGetProgramStageiv: ?function_signatures.glGetProgramStageiv = null;
-    var glGetUniformSubroutineuiv: ?function_signatures.glGetUniformSubroutineuiv = null;
-    var glUniformSubroutinesuiv: ?function_signatures.glUniformSubroutinesuiv = null;
-    var glGetActiveSubroutineName: ?function_signatures.glGetActiveSubroutineName = null;
-    var glGetActiveSubroutineUniformName: ?function_signatures.glGetActiveSubroutineUniformName = null;
-    var glGetActiveSubroutineUniformiv: ?function_signatures.glGetActiveSubroutineUniformiv = null;
-    var glGetSubroutineIndex: ?function_signatures.glGetSubroutineIndex = null;
-    var glGetSubroutineUniformLocation: ?function_signatures.glGetSubroutineUniformLocation = null;
-    var glGetUniformdv: ?function_signatures.glGetUniformdv = null;
-    var glUniformMatrix4x3dv: ?function_signatures.glUniformMatrix4x3dv = null;
-    var glUniformMatrix4x2dv: ?function_signatures.glUniformMatrix4x2dv = null;
+    var glTexStorage2DMultisample: ?function_signatures.glTexStorage2DMultisample = null;
+    var glTexBufferRange: ?function_signatures.glTexBufferRange = null;
+    var glShaderStorageBlockBinding: ?function_signatures.glShaderStorageBlockBinding = null;
+    var glGetProgramResourceLocationIndex: ?function_signatures.glGetProgramResourceLocationIndex = null;
+    var glGetProgramResourceLocation: ?function_signatures.glGetProgramResourceLocation = null;
+    var glGetProgramResourceiv: ?function_signatures.glGetProgramResourceiv = null;
+    var glGetProgramResourceName: ?function_signatures.glGetProgramResourceName = null;
+    var glGetProgramResourceIndex: ?function_signatures.glGetProgramResourceIndex = null;
+    var glGetProgramInterfaceiv: ?function_signatures.glGetProgramInterfaceiv = null;
+    var glMultiDrawElementsIndirect: ?function_signatures.glMultiDrawElementsIndirect = null;
+    var glMultiDrawArraysIndirect: ?function_signatures.glMultiDrawArraysIndirect = null;
+    var glInvalidateSubFramebuffer: ?function_signatures.glInvalidateSubFramebuffer = null;
+    var glInvalidateFramebuffer: ?function_signatures.glInvalidateFramebuffer = null;
+    var glInvalidateBufferData: ?function_signatures.glInvalidateBufferData = null;
+    var glInvalidateBufferSubData: ?function_signatures.glInvalidateBufferSubData = null;
+    var glInvalidateTexImage: ?function_signatures.glInvalidateTexImage = null;
+    var glInvalidateTexSubImage: ?function_signatures.glInvalidateTexSubImage = null;
+    var glGetInternalformati64v: ?function_signatures.glGetInternalformati64v = null;
+    var glGetFramebufferParameteriv: ?function_signatures.glGetFramebufferParameteriv = null;
+    var glFramebufferParameteri: ?function_signatures.glFramebufferParameteri = null;
+    var glCopyImageSubData: ?function_signatures.glCopyImageSubData = null;
+    var glDispatchComputeIndirect: ?function_signatures.glDispatchComputeIndirect = null;
+    var glDispatchCompute: ?function_signatures.glDispatchCompute = null;
+    var glClearBufferSubData: ?function_signatures.glClearBufferSubData = null;
+    var glClearBufferData: ?function_signatures.glClearBufferData = null;
+    var glGetProgramPipelineInfoLog: ?function_signatures.glGetProgramPipelineInfoLog = null;
+    var glProgramUniform2uiv: ?function_signatures.glProgramUniform2uiv = null;
+    var glProgramUniform2ui: ?function_signatures.glProgramUniform2ui = null;
+    var glProgramUniform2dv: ?function_signatures.glProgramUniform2dv = null;
+    var glProgramUniform2d: ?function_signatures.glProgramUniform2d = null;
+    var glProgramUniform2fv: ?function_signatures.glProgramUniform2fv = null;
+    var glProgramUniform2f: ?function_signatures.glProgramUniform2f = null;
+    var glProgramUniform2iv: ?function_signatures.glProgramUniform2iv = null;
+    var glProgramUniform2i: ?function_signatures.glProgramUniform2i = null;
+    var glProgramUniform1uiv: ?function_signatures.glProgramUniform1uiv = null;
+    var glProgramUniform1ui: ?function_signatures.glProgramUniform1ui = null;
+    var glProgramUniform1dv: ?function_signatures.glProgramUniform1dv = null;
+    var glProgramUniform1d: ?function_signatures.glProgramUniform1d = null;
+    var glProgramUniform1fv: ?function_signatures.glProgramUniform1fv = null;
+    var glProgramUniform1f: ?function_signatures.glProgramUniform1f = null;
+    var glProgramUniform1iv: ?function_signatures.glProgramUniform1iv = null;
+    var glProgramUniform1i: ?function_signatures.glProgramUniform1i = null;
+    var glGetProgramPipelineiv: ?function_signatures.glGetProgramPipelineiv = null;
+    var glIsProgramPipeline: ?function_signatures.glIsProgramPipeline = null;
+    var glGenProgramPipelines: ?function_signatures.glGenProgramPipelines = null;
+    var glDeleteProgramPipelines: ?function_signatures.glDeleteProgramPipelines = null;
+    var glBindProgramPipeline: ?function_signatures.glBindProgramPipeline = null;
+    var glCreateShaderProgramv: ?function_signatures.glCreateShaderProgramv = null;
+    var glActiveShaderProgram: ?function_signatures.glActiveShaderProgram = null;
+    var glProgramBinary: ?function_signatures.glProgramBinary = null;
+    var glGetProgramBinary: ?function_signatures.glGetProgramBinary = null;
+    var glClearDepthf: ?function_signatures.glClearDepthf = null;
+    var glDepthRangef: ?function_signatures.glDepthRangef = null;
+    var glIsTransformFeedback: ?function_signatures.glIsTransformFeedback = null;
+    var glGenTransformFeedbacks: ?function_signatures.glGenTransformFeedbacks = null;
+    var glDeleteTransformFeedbacks: ?function_signatures.glDeleteTransformFeedbacks = null;
+    var glBindTransformFeedback: ?function_signatures.glBindTransformFeedback = null;
+    var glPatchParameterfv: ?function_signatures.glPatchParameterfv = null;
+    var glPatchParameteri: ?function_signatures.glPatchParameteri = null;
     var glDrawArrays: ?function_signatures.glDrawArrays = null;
     var glDrawElements: ?function_signatures.glDrawElements = null;
     var glPolygonOffset: ?function_signatures.glPolygonOffset = null;
@@ -7770,38 +7444,39 @@ const function_pointers = struct {
     var glDeleteTextures: ?function_signatures.glDeleteTextures = null;
     var glGenTextures: ?function_signatures.glGenTextures = null;
     var glIsTexture: ?function_signatures.glIsTexture = null;
-    var glUniform1d: ?function_signatures.glUniform1d = null;
-    var glDrawElementsIndirect: ?function_signatures.glDrawElementsIndirect = null;
-    var glDrawArraysIndirect: ?function_signatures.glDrawArraysIndirect = null;
+    var glGetActiveSubroutineUniformName: ?function_signatures.glGetActiveSubroutineUniformName = null;
+    var glGetActiveSubroutineUniformiv: ?function_signatures.glGetActiveSubroutineUniformiv = null;
+    var glGetSubroutineIndex: ?function_signatures.glGetSubroutineIndex = null;
+    var glGetSubroutineUniformLocation: ?function_signatures.glGetSubroutineUniformLocation = null;
+    var glGetUniformdv: ?function_signatures.glGetUniformdv = null;
+    var glUniformMatrix4x3dv: ?function_signatures.glUniformMatrix4x3dv = null;
+    var glUniformMatrix4x2dv: ?function_signatures.glUniformMatrix4x2dv = null;
+    var glUniformMatrix3x4dv: ?function_signatures.glUniformMatrix3x4dv = null;
+    var glUniformMatrix3x2dv: ?function_signatures.glUniformMatrix3x2dv = null;
+    var glUniformMatrix2x4dv: ?function_signatures.glUniformMatrix2x4dv = null;
+    var glUniformMatrix2x3dv: ?function_signatures.glUniformMatrix2x3dv = null;
+    var glUniformMatrix4dv: ?function_signatures.glUniformMatrix4dv = null;
+    var glUniformMatrix3dv: ?function_signatures.glUniformMatrix3dv = null;
     var glDrawRangeElements: ?function_signatures.glDrawRangeElements = null;
     var glTexImage3D: ?function_signatures.glTexImage3D = null;
     var glTexSubImage3D: ?function_signatures.glTexSubImage3D = null;
     var glCopyTexSubImage3D: ?function_signatures.glCopyTexSubImage3D = null;
+    var glUniformMatrix2dv: ?function_signatures.glUniformMatrix2dv = null;
+    var glUniform4dv: ?function_signatures.glUniform4dv = null;
+    var glUniform3dv: ?function_signatures.glUniform3dv = null;
+    var glUniform2dv: ?function_signatures.glUniform2dv = null;
+    var glUniform1dv: ?function_signatures.glUniform1dv = null;
+    var glUniform4d: ?function_signatures.glUniform4d = null;
+    var glUniform3d: ?function_signatures.glUniform3d = null;
+    var glUniform2d: ?function_signatures.glUniform2d = null;
+    var glUniform1d: ?function_signatures.glUniform1d = null;
+    var glDrawElementsIndirect: ?function_signatures.glDrawElementsIndirect = null;
+    var glDrawArraysIndirect: ?function_signatures.glDrawArraysIndirect = null;
     var glBlendFuncSeparatei: ?function_signatures.glBlendFuncSeparatei = null;
     var glBlendFunci: ?function_signatures.glBlendFunci = null;
     var glBlendEquationSeparatei: ?function_signatures.glBlendEquationSeparatei = null;
     var glBlendEquationi: ?function_signatures.glBlendEquationi = null;
     var glMinSampleShading: ?function_signatures.glMinSampleShading = null;
-    var glSecondaryColorP3uiv: ?function_signatures.glSecondaryColorP3uiv = null;
-    var glSecondaryColorP3ui: ?function_signatures.glSecondaryColorP3ui = null;
-    var glColorP4uiv: ?function_signatures.glColorP4uiv = null;
-    var glColorP4ui: ?function_signatures.glColorP4ui = null;
-    var glColorP3uiv: ?function_signatures.glColorP3uiv = null;
-    var glColorP3ui: ?function_signatures.glColorP3ui = null;
-    var glNormalP3uiv: ?function_signatures.glNormalP3uiv = null;
-    var glNormalP3ui: ?function_signatures.glNormalP3ui = null;
-    var glMultiTexCoordP4uiv: ?function_signatures.glMultiTexCoordP4uiv = null;
-    var glMultiTexCoordP4ui: ?function_signatures.glMultiTexCoordP4ui = null;
-    var glMultiTexCoordP3uiv: ?function_signatures.glMultiTexCoordP3uiv = null;
-    var glMultiTexCoordP3ui: ?function_signatures.glMultiTexCoordP3ui = null;
-    var glMultiTexCoordP2uiv: ?function_signatures.glMultiTexCoordP2uiv = null;
-    var glMultiTexCoordP2ui: ?function_signatures.glMultiTexCoordP2ui = null;
-    var glMultiTexCoordP1uiv: ?function_signatures.glMultiTexCoordP1uiv = null;
-    var glMultiTexCoordP1ui: ?function_signatures.glMultiTexCoordP1ui = null;
-    var glTexCoordP4uiv: ?function_signatures.glTexCoordP4uiv = null;
-    var glTexCoordP4ui: ?function_signatures.glTexCoordP4ui = null;
-    var glTexCoordP3uiv: ?function_signatures.glTexCoordP3uiv = null;
-    var glTexCoordP3ui: ?function_signatures.glTexCoordP3ui = null;
     var glActiveTexture: ?function_signatures.glActiveTexture = null;
     var glSampleCoverage: ?function_signatures.glSampleCoverage = null;
     var glCompressedTexImage3D: ?function_signatures.glCompressedTexImage3D = null;
@@ -7811,16 +7486,6 @@ const function_pointers = struct {
     var glCompressedTexSubImage2D: ?function_signatures.glCompressedTexSubImage2D = null;
     var glCompressedTexSubImage1D: ?function_signatures.glCompressedTexSubImage1D = null;
     var glGetCompressedTexImage: ?function_signatures.glGetCompressedTexImage = null;
-    var glTexCoordP2uiv: ?function_signatures.glTexCoordP2uiv = null;
-    var glTexCoordP2ui: ?function_signatures.glTexCoordP2ui = null;
-    var glTexCoordP1uiv: ?function_signatures.glTexCoordP1uiv = null;
-    var glTexCoordP1ui: ?function_signatures.glTexCoordP1ui = null;
-    var glVertexP4uiv: ?function_signatures.glVertexP4uiv = null;
-    var glVertexP4ui: ?function_signatures.glVertexP4ui = null;
-    var glVertexP3uiv: ?function_signatures.glVertexP3uiv = null;
-    var glVertexP3ui: ?function_signatures.glVertexP3ui = null;
-    var glVertexP2uiv: ?function_signatures.glVertexP2uiv = null;
-    var glVertexP2ui: ?function_signatures.glVertexP2ui = null;
     var glVertexAttribP4uiv: ?function_signatures.glVertexAttribP4uiv = null;
     var glVertexAttribP4ui: ?function_signatures.glVertexAttribP4ui = null;
     var glVertexAttribP3uiv: ?function_signatures.glVertexAttribP3uiv = null;
@@ -8091,31 +7756,6 @@ const function_pointers = struct {
     var glGetActiveUniformBlockiv: ?function_signatures.glGetActiveUniformBlockiv = null;
     var glGetActiveUniformBlockName: ?function_signatures.glGetActiveUniformBlockName = null;
     var glUniformBlockBinding: ?function_signatures.glUniformBlockBinding = null;
-    var glClearBufferData: ?function_signatures.glClearBufferData = null;
-    var glClearBufferSubData: ?function_signatures.glClearBufferSubData = null;
-    var glDispatchCompute: ?function_signatures.glDispatchCompute = null;
-    var glDispatchComputeIndirect: ?function_signatures.glDispatchComputeIndirect = null;
-    var glCopyImageSubData: ?function_signatures.glCopyImageSubData = null;
-    var glFramebufferParameteri: ?function_signatures.glFramebufferParameteri = null;
-    var glGetFramebufferParameteriv: ?function_signatures.glGetFramebufferParameteriv = null;
-    var glGetInternalformati64v: ?function_signatures.glGetInternalformati64v = null;
-    var glInvalidateTexSubImage: ?function_signatures.glInvalidateTexSubImage = null;
-    var glInvalidateTexImage: ?function_signatures.glInvalidateTexImage = null;
-    var glInvalidateBufferSubData: ?function_signatures.glInvalidateBufferSubData = null;
-    var glInvalidateBufferData: ?function_signatures.glInvalidateBufferData = null;
-    var glInvalidateFramebuffer: ?function_signatures.glInvalidateFramebuffer = null;
-    var glInvalidateSubFramebuffer: ?function_signatures.glInvalidateSubFramebuffer = null;
-    var glMultiDrawArraysIndirect: ?function_signatures.glMultiDrawArraysIndirect = null;
-    var glMultiDrawElementsIndirect: ?function_signatures.glMultiDrawElementsIndirect = null;
-    var glGetProgramInterfaceiv: ?function_signatures.glGetProgramInterfaceiv = null;
-    var glGetProgramResourceIndex: ?function_signatures.glGetProgramResourceIndex = null;
-    var glGetProgramResourceName: ?function_signatures.glGetProgramResourceName = null;
-    var glGetProgramResourceiv: ?function_signatures.glGetProgramResourceiv = null;
-    var glGetProgramResourceLocation: ?function_signatures.glGetProgramResourceLocation = null;
-    var glGetProgramResourceLocationIndex: ?function_signatures.glGetProgramResourceLocationIndex = null;
-    var glShaderStorageBlockBinding: ?function_signatures.glShaderStorageBlockBinding = null;
-    var glTexBufferRange: ?function_signatures.glTexBufferRange = null;
-    var glTexStorage2DMultisample: ?function_signatures.glTexStorage2DMultisample = null;
     var glTexStorage3DMultisample: ?function_signatures.glTexStorage3DMultisample = null;
     var glTextureView: ?function_signatures.glTextureView = null;
     var glBindVertexBuffer: ?function_signatures.glBindVertexBuffer = null;

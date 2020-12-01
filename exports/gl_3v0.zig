@@ -3699,6 +3699,7 @@ pub fn genVertexArrays(n: GLsizei, arrays: [*c]GLuint) void {
 pub fn isVertexArray(array: GLuint) GLboolean {
     return (function_pointers.glIsVertexArray orelse @panic("glIsVertexArray was not bound."))(array);
 }
+// Extensions:
 
 // Loader API:
 pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]const u8) ?*c_void) !void {

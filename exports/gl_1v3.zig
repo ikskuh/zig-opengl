@@ -2259,6 +2259,7 @@ pub fn multTransposeMatrixf(m: [*c]const GLfloat) void {
 pub fn multTransposeMatrixd(m: [*c]const GLdouble) void {
     return (function_pointers.glMultTransposeMatrixd orelse @panic("glMultTransposeMatrixd was not bound."))(m);
 }
+// Extensions:
 
 // Loader API:
 pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]const u8) ?*c_void) !void {

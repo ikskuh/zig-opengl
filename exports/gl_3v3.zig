@@ -1129,86 +1129,6 @@ pub fn copyTexSubImage3D(target: GLenum, level: GLint, xoffset: GLint, yoffset: 
     return (function_pointers.glCopyTexSubImage3D orelse @panic("glCopyTexSubImage3D was not bound."))(target, level, xoffset, yoffset, zoffset, x, y, width, height);
 }
 
-pub fn secondaryColorP3uiv(type: GLenum, color: [*c]const GLuint) void {
-    return (function_pointers.glSecondaryColorP3uiv orelse @panic("glSecondaryColorP3uiv was not bound."))(type, color);
-}
-
-pub fn secondaryColorP3ui(type: GLenum, color: GLuint) void {
-    return (function_pointers.glSecondaryColorP3ui orelse @panic("glSecondaryColorP3ui was not bound."))(type, color);
-}
-
-pub fn colorP4uiv(type: GLenum, color: [*c]const GLuint) void {
-    return (function_pointers.glColorP4uiv orelse @panic("glColorP4uiv was not bound."))(type, color);
-}
-
-pub fn colorP4ui(type: GLenum, color: GLuint) void {
-    return (function_pointers.glColorP4ui orelse @panic("glColorP4ui was not bound."))(type, color);
-}
-
-pub fn colorP3uiv(type: GLenum, color: [*c]const GLuint) void {
-    return (function_pointers.glColorP3uiv orelse @panic("glColorP3uiv was not bound."))(type, color);
-}
-
-pub fn colorP3ui(type: GLenum, color: GLuint) void {
-    return (function_pointers.glColorP3ui orelse @panic("glColorP3ui was not bound."))(type, color);
-}
-
-pub fn normalP3uiv(type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glNormalP3uiv orelse @panic("glNormalP3uiv was not bound."))(type, coords);
-}
-
-pub fn normalP3ui(type: GLenum, coords: GLuint) void {
-    return (function_pointers.glNormalP3ui orelse @panic("glNormalP3ui was not bound."))(type, coords);
-}
-
-pub fn multiTexCoordP4uiv(texture: GLenum, type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glMultiTexCoordP4uiv orelse @panic("glMultiTexCoordP4uiv was not bound."))(texture, type, coords);
-}
-
-pub fn multiTexCoordP4ui(texture: GLenum, type: GLenum, coords: GLuint) void {
-    return (function_pointers.glMultiTexCoordP4ui orelse @panic("glMultiTexCoordP4ui was not bound."))(texture, type, coords);
-}
-
-pub fn multiTexCoordP3uiv(texture: GLenum, type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glMultiTexCoordP3uiv orelse @panic("glMultiTexCoordP3uiv was not bound."))(texture, type, coords);
-}
-
-pub fn multiTexCoordP3ui(texture: GLenum, type: GLenum, coords: GLuint) void {
-    return (function_pointers.glMultiTexCoordP3ui orelse @panic("glMultiTexCoordP3ui was not bound."))(texture, type, coords);
-}
-
-pub fn multiTexCoordP2uiv(texture: GLenum, type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glMultiTexCoordP2uiv orelse @panic("glMultiTexCoordP2uiv was not bound."))(texture, type, coords);
-}
-
-pub fn multiTexCoordP2ui(texture: GLenum, type: GLenum, coords: GLuint) void {
-    return (function_pointers.glMultiTexCoordP2ui orelse @panic("glMultiTexCoordP2ui was not bound."))(texture, type, coords);
-}
-
-pub fn multiTexCoordP1uiv(texture: GLenum, type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glMultiTexCoordP1uiv orelse @panic("glMultiTexCoordP1uiv was not bound."))(texture, type, coords);
-}
-
-pub fn multiTexCoordP1ui(texture: GLenum, type: GLenum, coords: GLuint) void {
-    return (function_pointers.glMultiTexCoordP1ui orelse @panic("glMultiTexCoordP1ui was not bound."))(texture, type, coords);
-}
-
-pub fn texCoordP4uiv(type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glTexCoordP4uiv orelse @panic("glTexCoordP4uiv was not bound."))(type, coords);
-}
-
-pub fn texCoordP4ui(type: GLenum, coords: GLuint) void {
-    return (function_pointers.glTexCoordP4ui orelse @panic("glTexCoordP4ui was not bound."))(type, coords);
-}
-
-pub fn texCoordP3uiv(type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glTexCoordP3uiv orelse @panic("glTexCoordP3uiv was not bound."))(type, coords);
-}
-
-pub fn texCoordP3ui(type: GLenum, coords: GLuint) void {
-    return (function_pointers.glTexCoordP3ui orelse @panic("glTexCoordP3ui was not bound."))(type, coords);
-}
-
 pub fn activeTexture(texture: GLenum) void {
     return (function_pointers.glActiveTexture orelse @panic("glActiveTexture was not bound."))(texture);
 }
@@ -1243,46 +1163,6 @@ pub fn compressedTexSubImage1D(target: GLenum, level: GLint, xoffset: GLint, wid
 
 pub fn getCompressedTexImage(target: GLenum, level: GLint, img: *c_void) void {
     return (function_pointers.glGetCompressedTexImage orelse @panic("glGetCompressedTexImage was not bound."))(target, level, img);
-}
-
-pub fn texCoordP2uiv(type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glTexCoordP2uiv orelse @panic("glTexCoordP2uiv was not bound."))(type, coords);
-}
-
-pub fn texCoordP2ui(type: GLenum, coords: GLuint) void {
-    return (function_pointers.glTexCoordP2ui orelse @panic("glTexCoordP2ui was not bound."))(type, coords);
-}
-
-pub fn texCoordP1uiv(type: GLenum, coords: [*c]const GLuint) void {
-    return (function_pointers.glTexCoordP1uiv orelse @panic("glTexCoordP1uiv was not bound."))(type, coords);
-}
-
-pub fn texCoordP1ui(type: GLenum, coords: GLuint) void {
-    return (function_pointers.glTexCoordP1ui orelse @panic("glTexCoordP1ui was not bound."))(type, coords);
-}
-
-pub fn vertexP4uiv(type: GLenum, value: [*c]const GLuint) void {
-    return (function_pointers.glVertexP4uiv orelse @panic("glVertexP4uiv was not bound."))(type, value);
-}
-
-pub fn vertexP4ui(type: GLenum, value: GLuint) void {
-    return (function_pointers.glVertexP4ui orelse @panic("glVertexP4ui was not bound."))(type, value);
-}
-
-pub fn vertexP3uiv(type: GLenum, value: [*c]const GLuint) void {
-    return (function_pointers.glVertexP3uiv orelse @panic("glVertexP3uiv was not bound."))(type, value);
-}
-
-pub fn vertexP3ui(type: GLenum, value: GLuint) void {
-    return (function_pointers.glVertexP3ui orelse @panic("glVertexP3ui was not bound."))(type, value);
-}
-
-pub fn vertexP2uiv(type: GLenum, value: [*c]const GLuint) void {
-    return (function_pointers.glVertexP2uiv orelse @panic("glVertexP2uiv was not bound."))(type, value);
-}
-
-pub fn vertexP2ui(type: GLenum, value: GLuint) void {
-    return (function_pointers.glVertexP2ui orelse @panic("glVertexP2ui was not bound."))(type, value);
 }
 
 pub fn vertexAttribP4uiv(index: GLuint, type: GLenum, normalized: GLboolean, value: [*c]const GLuint) void {
@@ -2364,6 +2244,7 @@ pub fn getActiveUniformBlockName(program: GLuint, uniformBlockIndex: GLuint, buf
 pub fn uniformBlockBinding(program: GLuint, uniformBlockIndex: GLuint, uniformBlockBinding: GLuint) void {
     return (function_pointers.glUniformBlockBinding orelse @panic("glUniformBlockBinding was not bound."))(program, uniformBlockIndex, uniformBlockBinding);
 }
+// Extensions:
 
 // Loader API:
 pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]const u8) ?*c_void) !void {
@@ -2758,126 +2639,6 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
         log.emerg("entry point glCopyTexSubImage3D not found!", .{});
         success = false;
     }
-    if (get_proc_address(load_ctx, "glSecondaryColorP3uiv")) |proc| {
-        function_pointers.glSecondaryColorP3uiv = @ptrCast(?function_signatures.glSecondaryColorP3uiv, proc);
-    } else {
-        log.emerg("entry point glSecondaryColorP3uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glSecondaryColorP3ui")) |proc| {
-        function_pointers.glSecondaryColorP3ui = @ptrCast(?function_signatures.glSecondaryColorP3ui, proc);
-    } else {
-        log.emerg("entry point glSecondaryColorP3ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glColorP4uiv")) |proc| {
-        function_pointers.glColorP4uiv = @ptrCast(?function_signatures.glColorP4uiv, proc);
-    } else {
-        log.emerg("entry point glColorP4uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glColorP4ui")) |proc| {
-        function_pointers.glColorP4ui = @ptrCast(?function_signatures.glColorP4ui, proc);
-    } else {
-        log.emerg("entry point glColorP4ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glColorP3uiv")) |proc| {
-        function_pointers.glColorP3uiv = @ptrCast(?function_signatures.glColorP3uiv, proc);
-    } else {
-        log.emerg("entry point glColorP3uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glColorP3ui")) |proc| {
-        function_pointers.glColorP3ui = @ptrCast(?function_signatures.glColorP3ui, proc);
-    } else {
-        log.emerg("entry point glColorP3ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glNormalP3uiv")) |proc| {
-        function_pointers.glNormalP3uiv = @ptrCast(?function_signatures.glNormalP3uiv, proc);
-    } else {
-        log.emerg("entry point glNormalP3uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glNormalP3ui")) |proc| {
-        function_pointers.glNormalP3ui = @ptrCast(?function_signatures.glNormalP3ui, proc);
-    } else {
-        log.emerg("entry point glNormalP3ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP4uiv")) |proc| {
-        function_pointers.glMultiTexCoordP4uiv = @ptrCast(?function_signatures.glMultiTexCoordP4uiv, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP4uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP4ui")) |proc| {
-        function_pointers.glMultiTexCoordP4ui = @ptrCast(?function_signatures.glMultiTexCoordP4ui, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP4ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP3uiv")) |proc| {
-        function_pointers.glMultiTexCoordP3uiv = @ptrCast(?function_signatures.glMultiTexCoordP3uiv, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP3uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP3ui")) |proc| {
-        function_pointers.glMultiTexCoordP3ui = @ptrCast(?function_signatures.glMultiTexCoordP3ui, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP3ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP2uiv")) |proc| {
-        function_pointers.glMultiTexCoordP2uiv = @ptrCast(?function_signatures.glMultiTexCoordP2uiv, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP2uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP2ui")) |proc| {
-        function_pointers.glMultiTexCoordP2ui = @ptrCast(?function_signatures.glMultiTexCoordP2ui, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP2ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP1uiv")) |proc| {
-        function_pointers.glMultiTexCoordP1uiv = @ptrCast(?function_signatures.glMultiTexCoordP1uiv, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP1uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glMultiTexCoordP1ui")) |proc| {
-        function_pointers.glMultiTexCoordP1ui = @ptrCast(?function_signatures.glMultiTexCoordP1ui, proc);
-    } else {
-        log.emerg("entry point glMultiTexCoordP1ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP4uiv")) |proc| {
-        function_pointers.glTexCoordP4uiv = @ptrCast(?function_signatures.glTexCoordP4uiv, proc);
-    } else {
-        log.emerg("entry point glTexCoordP4uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP4ui")) |proc| {
-        function_pointers.glTexCoordP4ui = @ptrCast(?function_signatures.glTexCoordP4ui, proc);
-    } else {
-        log.emerg("entry point glTexCoordP4ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP3uiv")) |proc| {
-        function_pointers.glTexCoordP3uiv = @ptrCast(?function_signatures.glTexCoordP3uiv, proc);
-    } else {
-        log.emerg("entry point glTexCoordP3uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP3ui")) |proc| {
-        function_pointers.glTexCoordP3ui = @ptrCast(?function_signatures.glTexCoordP3ui, proc);
-    } else {
-        log.emerg("entry point glTexCoordP3ui not found!", .{});
-        success = false;
-    }
     if (get_proc_address(load_ctx, "glActiveTexture")) |proc| {
         function_pointers.glActiveTexture = @ptrCast(?function_signatures.glActiveTexture, proc);
     } else {
@@ -2930,66 +2691,6 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
         function_pointers.glGetCompressedTexImage = @ptrCast(?function_signatures.glGetCompressedTexImage, proc);
     } else {
         log.emerg("entry point glGetCompressedTexImage not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP2uiv")) |proc| {
-        function_pointers.glTexCoordP2uiv = @ptrCast(?function_signatures.glTexCoordP2uiv, proc);
-    } else {
-        log.emerg("entry point glTexCoordP2uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP2ui")) |proc| {
-        function_pointers.glTexCoordP2ui = @ptrCast(?function_signatures.glTexCoordP2ui, proc);
-    } else {
-        log.emerg("entry point glTexCoordP2ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP1uiv")) |proc| {
-        function_pointers.glTexCoordP1uiv = @ptrCast(?function_signatures.glTexCoordP1uiv, proc);
-    } else {
-        log.emerg("entry point glTexCoordP1uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glTexCoordP1ui")) |proc| {
-        function_pointers.glTexCoordP1ui = @ptrCast(?function_signatures.glTexCoordP1ui, proc);
-    } else {
-        log.emerg("entry point glTexCoordP1ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glVertexP4uiv")) |proc| {
-        function_pointers.glVertexP4uiv = @ptrCast(?function_signatures.glVertexP4uiv, proc);
-    } else {
-        log.emerg("entry point glVertexP4uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glVertexP4ui")) |proc| {
-        function_pointers.glVertexP4ui = @ptrCast(?function_signatures.glVertexP4ui, proc);
-    } else {
-        log.emerg("entry point glVertexP4ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glVertexP3uiv")) |proc| {
-        function_pointers.glVertexP3uiv = @ptrCast(?function_signatures.glVertexP3uiv, proc);
-    } else {
-        log.emerg("entry point glVertexP3uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glVertexP3ui")) |proc| {
-        function_pointers.glVertexP3ui = @ptrCast(?function_signatures.glVertexP3ui, proc);
-    } else {
-        log.emerg("entry point glVertexP3ui not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glVertexP2uiv")) |proc| {
-        function_pointers.glVertexP2uiv = @ptrCast(?function_signatures.glVertexP2uiv, proc);
-    } else {
-        log.emerg("entry point glVertexP2uiv not found!", .{});
-        success = false;
-    }
-    if (get_proc_address(load_ctx, "glVertexP2ui")) |proc| {
-        function_pointers.glVertexP2ui = @ptrCast(?function_signatures.glVertexP2ui, proc);
-    } else {
-        log.emerg("entry point glVertexP2ui not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glVertexAttribP4uiv")) |proc| {
@@ -4682,26 +4383,6 @@ const function_signatures = struct {
     const glTexImage3D = fn (target: GLenum, level: GLint, internalformat: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, format: GLenum, type: GLenum, pixels: *const c_void) void;
     const glTexSubImage3D = fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: GLenum, type: GLenum, pixels: *const c_void) void;
     const glCopyTexSubImage3D = fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) void;
-    const glSecondaryColorP3uiv = fn (type: GLenum, color: [*c]const GLuint) void;
-    const glSecondaryColorP3ui = fn (type: GLenum, color: GLuint) void;
-    const glColorP4uiv = fn (type: GLenum, color: [*c]const GLuint) void;
-    const glColorP4ui = fn (type: GLenum, color: GLuint) void;
-    const glColorP3uiv = fn (type: GLenum, color: [*c]const GLuint) void;
-    const glColorP3ui = fn (type: GLenum, color: GLuint) void;
-    const glNormalP3uiv = fn (type: GLenum, coords: [*c]const GLuint) void;
-    const glNormalP3ui = fn (type: GLenum, coords: GLuint) void;
-    const glMultiTexCoordP4uiv = fn (texture: GLenum, type: GLenum, coords: [*c]const GLuint) void;
-    const glMultiTexCoordP4ui = fn (texture: GLenum, type: GLenum, coords: GLuint) void;
-    const glMultiTexCoordP3uiv = fn (texture: GLenum, type: GLenum, coords: [*c]const GLuint) void;
-    const glMultiTexCoordP3ui = fn (texture: GLenum, type: GLenum, coords: GLuint) void;
-    const glMultiTexCoordP2uiv = fn (texture: GLenum, type: GLenum, coords: [*c]const GLuint) void;
-    const glMultiTexCoordP2ui = fn (texture: GLenum, type: GLenum, coords: GLuint) void;
-    const glMultiTexCoordP1uiv = fn (texture: GLenum, type: GLenum, coords: [*c]const GLuint) void;
-    const glMultiTexCoordP1ui = fn (texture: GLenum, type: GLenum, coords: GLuint) void;
-    const glTexCoordP4uiv = fn (type: GLenum, coords: [*c]const GLuint) void;
-    const glTexCoordP4ui = fn (type: GLenum, coords: GLuint) void;
-    const glTexCoordP3uiv = fn (type: GLenum, coords: [*c]const GLuint) void;
-    const glTexCoordP3ui = fn (type: GLenum, coords: GLuint) void;
     const glActiveTexture = fn (texture: GLenum) void;
     const glSampleCoverage = fn (value: GLfloat, invert: GLboolean) void;
     const glCompressedTexImage3D = fn (target: GLenum, level: GLint, internalformat: GLenum, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, imageSize: GLsizei, data: *const c_void) void;
@@ -4711,16 +4392,6 @@ const function_signatures = struct {
     const glCompressedTexSubImage2D = fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: GLenum, imageSize: GLsizei, data: *const c_void) void;
     const glCompressedTexSubImage1D = fn (target: GLenum, level: GLint, xoffset: GLint, width: GLsizei, format: GLenum, imageSize: GLsizei, data: *const c_void) void;
     const glGetCompressedTexImage = fn (target: GLenum, level: GLint, img: *c_void) void;
-    const glTexCoordP2uiv = fn (type: GLenum, coords: [*c]const GLuint) void;
-    const glTexCoordP2ui = fn (type: GLenum, coords: GLuint) void;
-    const glTexCoordP1uiv = fn (type: GLenum, coords: [*c]const GLuint) void;
-    const glTexCoordP1ui = fn (type: GLenum, coords: GLuint) void;
-    const glVertexP4uiv = fn (type: GLenum, value: [*c]const GLuint) void;
-    const glVertexP4ui = fn (type: GLenum, value: GLuint) void;
-    const glVertexP3uiv = fn (type: GLenum, value: [*c]const GLuint) void;
-    const glVertexP3ui = fn (type: GLenum, value: GLuint) void;
-    const glVertexP2uiv = fn (type: GLenum, value: [*c]const GLuint) void;
-    const glVertexP2ui = fn (type: GLenum, value: GLuint) void;
     const glVertexAttribP4uiv = fn (index: GLuint, type: GLenum, normalized: GLboolean, value: [*c]const GLuint) void;
     const glVertexAttribP4ui = fn (index: GLuint, type: GLenum, normalized: GLboolean, value: GLuint) void;
     const glVertexAttribP3uiv = fn (index: GLuint, type: GLenum, normalized: GLboolean, value: [*c]const GLuint) void;
@@ -5059,26 +4730,6 @@ const function_pointers = struct {
     var glTexImage3D: ?function_signatures.glTexImage3D = null;
     var glTexSubImage3D: ?function_signatures.glTexSubImage3D = null;
     var glCopyTexSubImage3D: ?function_signatures.glCopyTexSubImage3D = null;
-    var glSecondaryColorP3uiv: ?function_signatures.glSecondaryColorP3uiv = null;
-    var glSecondaryColorP3ui: ?function_signatures.glSecondaryColorP3ui = null;
-    var glColorP4uiv: ?function_signatures.glColorP4uiv = null;
-    var glColorP4ui: ?function_signatures.glColorP4ui = null;
-    var glColorP3uiv: ?function_signatures.glColorP3uiv = null;
-    var glColorP3ui: ?function_signatures.glColorP3ui = null;
-    var glNormalP3uiv: ?function_signatures.glNormalP3uiv = null;
-    var glNormalP3ui: ?function_signatures.glNormalP3ui = null;
-    var glMultiTexCoordP4uiv: ?function_signatures.glMultiTexCoordP4uiv = null;
-    var glMultiTexCoordP4ui: ?function_signatures.glMultiTexCoordP4ui = null;
-    var glMultiTexCoordP3uiv: ?function_signatures.glMultiTexCoordP3uiv = null;
-    var glMultiTexCoordP3ui: ?function_signatures.glMultiTexCoordP3ui = null;
-    var glMultiTexCoordP2uiv: ?function_signatures.glMultiTexCoordP2uiv = null;
-    var glMultiTexCoordP2ui: ?function_signatures.glMultiTexCoordP2ui = null;
-    var glMultiTexCoordP1uiv: ?function_signatures.glMultiTexCoordP1uiv = null;
-    var glMultiTexCoordP1ui: ?function_signatures.glMultiTexCoordP1ui = null;
-    var glTexCoordP4uiv: ?function_signatures.glTexCoordP4uiv = null;
-    var glTexCoordP4ui: ?function_signatures.glTexCoordP4ui = null;
-    var glTexCoordP3uiv: ?function_signatures.glTexCoordP3uiv = null;
-    var glTexCoordP3ui: ?function_signatures.glTexCoordP3ui = null;
     var glActiveTexture: ?function_signatures.glActiveTexture = null;
     var glSampleCoverage: ?function_signatures.glSampleCoverage = null;
     var glCompressedTexImage3D: ?function_signatures.glCompressedTexImage3D = null;
@@ -5088,16 +4739,6 @@ const function_pointers = struct {
     var glCompressedTexSubImage2D: ?function_signatures.glCompressedTexSubImage2D = null;
     var glCompressedTexSubImage1D: ?function_signatures.glCompressedTexSubImage1D = null;
     var glGetCompressedTexImage: ?function_signatures.glGetCompressedTexImage = null;
-    var glTexCoordP2uiv: ?function_signatures.glTexCoordP2uiv = null;
-    var glTexCoordP2ui: ?function_signatures.glTexCoordP2ui = null;
-    var glTexCoordP1uiv: ?function_signatures.glTexCoordP1uiv = null;
-    var glTexCoordP1ui: ?function_signatures.glTexCoordP1ui = null;
-    var glVertexP4uiv: ?function_signatures.glVertexP4uiv = null;
-    var glVertexP4ui: ?function_signatures.glVertexP4ui = null;
-    var glVertexP3uiv: ?function_signatures.glVertexP3uiv = null;
-    var glVertexP3ui: ?function_signatures.glVertexP3ui = null;
-    var glVertexP2uiv: ?function_signatures.glVertexP2uiv = null;
-    var glVertexP2ui: ?function_signatures.glVertexP2ui = null;
     var glVertexAttribP4uiv: ?function_signatures.glVertexAttribP4uiv = null;
     var glVertexAttribP4ui: ?function_signatures.glVertexAttribP4ui = null;
     var glVertexAttribP3uiv: ?function_signatures.glVertexAttribP3uiv = null;

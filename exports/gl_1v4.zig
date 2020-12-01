@@ -2497,6 +2497,7 @@ pub fn blendColor(red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat) v
 pub fn blendEquation(mode: GLenum) void {
     return (function_pointers.glBlendEquation orelse @panic("glBlendEquation was not bound."))(mode);
 }
+// Extensions:
 
 // Loader API:
 pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]const u8) ?*c_void) !void {

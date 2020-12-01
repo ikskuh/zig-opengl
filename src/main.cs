@@ -15,6 +15,7 @@ class Program
     string result_file = args[1];
     string api_version = args[2];
     string[] extensions = args.Skip(3).ToArray();
+    string profile = "core"; // 
 
     var serializer = new XmlSerializer(typeof(Registry));
 
@@ -35,6 +36,16 @@ class Program
     var wanted_extensions = registry.Extensions
       .Where(e => extensions.Contains(e.Name))
       .ToArray();
+
+    if (wanted_extensions.Length != extensions.Length)
+    {
+      Console.Error.WriteLine("The following extensions could not be found:");
+      foreach (var ext in extensions.Where(e => !wanted_extensions.Any(e2 => e2.Name == e)))
+      {
+        Console.Error.WriteLine("  {0}", ext);
+      }
+      return 1;
+    }
 
 
     foreach (var ext in wanted_extensions)
@@ -58,20 +69,14 @@ class Program
     {
       var empty = new FeatureComponent[0];
 
-      if (feat.Removes != null)
+      foreach (var item in feat.GetRemovedComponents(profile))
       {
-        foreach (var item in feat.Removes.SelectMany(f => f.Items ?? empty))
-        {
-          final_feature_set.Remove(item);
-        }
+        final_feature_set.Remove(item);
       }
 
-      if (feat.Requires != null)
+      foreach (var item in feat.GetRequiredComponents(profile))
       {
-        foreach (var item in feat.Requires.SelectMany(f => f.Items ?? empty))
-        {
-          final_feature_set.Add(item);
-        }
+        final_feature_set.Add(item);
       }
     }
 
@@ -83,7 +88,7 @@ class Program
       var empty = new FeatureComponent[0];
       gl_extensions.Add(Tuple.Create(
           ext.Name,
-          ExtractedFeatureSet.Create(registry, ext.Requires.SelectMany(f => f.Items ?? empty))
+          ExtractedFeatureSet.Create(registry, ext.GetRequiredComponents(profile))
       ));
     }
 
@@ -91,6 +96,10 @@ class Program
       gl_set.commands.Count,
       gl_set.enums.Count
     );
+    foreach (var ext in wanted_extensions)
+    {
+      Console.WriteLine("  {0}", ext.Name);
+    }
 
     var all_commands = gl_set.commands.Concat(gl_extensions.SelectMany(c => c.Item2.commands));
 
@@ -556,6 +565,20 @@ public class Feature
   [XmlElement("remove")]
   public FeatureSetList[] Removes { get; set; }
 
+  public IEnumerable<FeatureComponent> GetRequiredComponents(string profile)
+  {
+    if (Requires == null)
+      return new FeatureComponent[0];
+    return Requires.Where(f => f.Items != null).Where(f => f.HasProfile(profile)).SelectMany(f => f.Items);
+  }
+
+  public IEnumerable<FeatureComponent> GetRemovedComponents(string profile)
+  {
+    if (Removes == null)
+      return new FeatureComponent[0];
+    return Removes.Where(f => f.Items != null).Where(f => f.HasProfile(profile)).SelectMany(f => f.Items);
+  }
+
   public bool IsCompatibleTo(Feature other)
   {
     return (Supported ?? "").Split('|').Contains(other.API);
@@ -574,6 +597,17 @@ public class FeatureSetList
   [XmlElement("type", typeof(TypeFeature))]
   [XmlElement("command", typeof(CommandFeature))]
   public FeatureComponent[] Items { get; set; }
+
+  public bool HasProfile(string wanted_profile)
+  {
+    if (wanted_profile == null)
+      return true;
+    var this_profile = Profile?.ToLower() ?? "common";
+    if (this_profile == "common")
+      return true;
+    else
+      return this_profile == wanted_profile;
+  }
 }
 
 public abstract class FeatureComponent

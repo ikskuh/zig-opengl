@@ -16,6 +16,45 @@ This function will load all OpenGL entry points with the help of `get_proc_addre
 
 This repository contains pre-generated bindings for all extension-free OpenGL versions.
 
+## Generating your own loader
+
+Use the `Makefile` to compile the `generator.exe` (`make generator.exe`), then call the generator:
+
+```sh
+generator.exe \
+  OpenGL-Registry/xml/gl.xml \ # path to the opengl registry
+  my_binding.zig             \ # path to the generated file
+  GL_VERSION_3_3             \ # feature level, options listed below
+  …                            # Add your extensions here, each as a single arg. Or let them out, you don't need extensions
+```
+
+Possible feature levels (at the time of writing) are:
+- `GL_VERSION_1_0`
+- `GL_VERSION_1_1`
+- `GL_VERSION_1_2`
+- `GL_VERSION_1_3`
+- `GL_VERSION_1_4`
+- `GL_VERSION_1_5`
+- `GL_VERSION_2_0`
+- `GL_VERSION_2_1`
+- `GL_VERSION_3_0`
+- `GL_VERSION_3_1`
+- `GL_VERSION_3_2`
+- `GL_VERSION_3_3`
+- `GL_VERSION_4_0`
+- `GL_VERSION_4_1`
+- `GL_VERSION_4_2`
+- `GL_VERSION_4_3`
+- `GL_VERSION_4_4`
+- `GL_VERSION_4_5`
+- `GL_VERSION_4_6`
+- `GL_VERSION_ES_CM_1_0`
+- `GL_ES_VERSION_2_0`
+- `GL_ES_VERSION_3_0`
+- `GL_ES_VERSION_3_1`
+- `GL_ES_VERSION_3_2`
+- `GL_SC_VERSION_2_0`
+
 ## Example
 
 This example uses [ZWL](https://github.com/Aransentin/ZWL/) by @Aransentin.
@@ -42,5 +81,4 @@ pub fn initAndDraw(window: Platform.Window) !void {
 This library uses a small C# script that generates the Zig bindings.
 
 ## What is missing right now?
-- No option to create or add extensions
-- Functions do not use the group tags. This would enable `gl.frontFace(.CW);`
+- Option to specify `core` or `compatibility` profile.

@@ -1922,6 +1922,7 @@ pub fn popClientAttrib() void {
 pub fn pushClientAttrib(mask: GLbitfield) void {
     return (function_pointers.glPushClientAttrib orelse @panic("glPushClientAttrib was not bound."))(mask);
 }
+// Extensions:
 
 // Loader API:
 pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]const u8) ?*c_void) !void {
