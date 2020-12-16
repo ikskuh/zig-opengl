@@ -40,15 +40,15 @@ pub const GLsync = *opaque {};
 pub const _cl_context = opaque {};
 pub const _cl_event = opaque {};
 
-pub const GLDEBUGPROC = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: *c_void) callconv(.C) void;
-pub const GLDEBUGPROCARB = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: *c_void) callconv(.C) void;
-pub const GLDEBUGPROCKHR = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: *c_void) callconv(.C) void;
+pub const GLDEBUGPROC = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*c_void) callconv(.C) void;
+pub const GLDEBUGPROCARB = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*c_void) callconv(.C) void;
+pub const GLDEBUGPROCKHR = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*c_void) callconv(.C) void;
 
-pub const GLDEBUGPROCAMD = fn (id: GLuint, category: GLenum, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: *c_void) callconv(.C) void;
+pub const GLDEBUGPROCAMD = fn (id: GLuint, category: GLenum, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*c_void) callconv(.C) void;
 
 pub const GLhalfNV = u16;
 pub const GLvdpauSurfaceNV = GLintptr;
-pub const GLVULKANPROCNV = fn (void) callconv(.C) void;
+pub const GLVULKANPROCNV = fn () callconv(.C) void;
 
 pub const DEPTH_BUFFER_BIT = 0x00000100;
 pub const STENCIL_BUFFER_BIT = 0x00000400;
@@ -869,96 +869,96 @@ pub const UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER = 0x8A45;
 pub const UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER = 0x8A46;
 pub const INVALID_INDEX = 0xFFFFFFFF;
 
-pub fn cullFace(mode: GLenum) void {
-    return (function_pointers.glCullFace orelse @panic("glCullFace was not bound."))(mode);
+pub fn cullFace(_mode: GLenum) void {
+    return (function_pointers.glCullFace orelse @panic("glCullFace was not bound."))(_mode);
 }
 
-pub fn frontFace(mode: GLenum) void {
-    return (function_pointers.glFrontFace orelse @panic("glFrontFace was not bound."))(mode);
+pub fn frontFace(_mode: GLenum) void {
+    return (function_pointers.glFrontFace orelse @panic("glFrontFace was not bound."))(_mode);
 }
 
-pub fn hint(target: GLenum, mode: GLenum) void {
-    return (function_pointers.glHint orelse @panic("glHint was not bound."))(target, mode);
+pub fn hint(_target: GLenum, _mode: GLenum) void {
+    return (function_pointers.glHint orelse @panic("glHint was not bound."))(_target, _mode);
 }
 
-pub fn lineWidth(width: GLfloat) void {
-    return (function_pointers.glLineWidth orelse @panic("glLineWidth was not bound."))(width);
+pub fn lineWidth(_width: GLfloat) void {
+    return (function_pointers.glLineWidth orelse @panic("glLineWidth was not bound."))(_width);
 }
 
-pub fn pointSize(size: GLfloat) void {
-    return (function_pointers.glPointSize orelse @panic("glPointSize was not bound."))(size);
+pub fn pointSize(_size: GLfloat) void {
+    return (function_pointers.glPointSize orelse @panic("glPointSize was not bound."))(_size);
 }
 
-pub fn polygonMode(face: GLenum, mode: GLenum) void {
-    return (function_pointers.glPolygonMode orelse @panic("glPolygonMode was not bound."))(face, mode);
+pub fn polygonMode(_face: GLenum, _mode: GLenum) void {
+    return (function_pointers.glPolygonMode orelse @panic("glPolygonMode was not bound."))(_face, _mode);
 }
 
-pub fn scissor(x: GLint, y: GLint, width: GLsizei, height: GLsizei) void {
-    return (function_pointers.glScissor orelse @panic("glScissor was not bound."))(x, y, width, height);
+pub fn scissor(_x: GLint, _y: GLint, _width: GLsizei, _height: GLsizei) void {
+    return (function_pointers.glScissor orelse @panic("glScissor was not bound."))(_x, _y, _width, _height);
 }
 
-pub fn texParameterf(target: GLenum, pname: GLenum, param: GLfloat) void {
-    return (function_pointers.glTexParameterf orelse @panic("glTexParameterf was not bound."))(target, pname, param);
+pub fn texParameterf(_target: GLenum, _pname: GLenum, _param: GLfloat) void {
+    return (function_pointers.glTexParameterf orelse @panic("glTexParameterf was not bound."))(_target, _pname, _param);
 }
 
-pub fn texParameterfv(target: GLenum, pname: GLenum, params: [*c]const GLfloat) void {
-    return (function_pointers.glTexParameterfv orelse @panic("glTexParameterfv was not bound."))(target, pname, params);
+pub fn texParameterfv(_target: GLenum, _pname: GLenum, _params: [*c]const GLfloat) void {
+    return (function_pointers.glTexParameterfv orelse @panic("glTexParameterfv was not bound."))(_target, _pname, _params);
 }
 
-pub fn texParameteri(target: GLenum, pname: GLenum, param: GLint) void {
-    return (function_pointers.glTexParameteri orelse @panic("glTexParameteri was not bound."))(target, pname, param);
+pub fn texParameteri(_target: GLenum, _pname: GLenum, _param: GLint) void {
+    return (function_pointers.glTexParameteri orelse @panic("glTexParameteri was not bound."))(_target, _pname, _param);
 }
 
-pub fn texParameteriv(target: GLenum, pname: GLenum, params: [*c]const GLint) void {
-    return (function_pointers.glTexParameteriv orelse @panic("glTexParameteriv was not bound."))(target, pname, params);
+pub fn texParameteriv(_target: GLenum, _pname: GLenum, _params: [*c]const GLint) void {
+    return (function_pointers.glTexParameteriv orelse @panic("glTexParameteriv was not bound."))(_target, _pname, _params);
 }
 
-pub fn texImage1D(target: GLenum, level: GLint, internalformat: GLint, width: GLsizei, border: GLint, format: GLenum, type: GLenum, pixels: *const c_void) void {
-    return (function_pointers.glTexImage1D orelse @panic("glTexImage1D was not bound."))(target, level, internalformat, width, border, format, type, pixels);
+pub fn texImage1D(_target: GLenum, _level: GLint, _internalformat: GLint, _width: GLsizei, _border: GLint, _format: GLenum, _type: GLenum, _pixels: ?*const c_void) void {
+    return (function_pointers.glTexImage1D orelse @panic("glTexImage1D was not bound."))(_target, _level, _internalformat, _width, _border, _format, _type, _pixels);
 }
 
-pub fn texImage2D(target: GLenum, level: GLint, internalformat: GLint, width: GLsizei, height: GLsizei, border: GLint, format: GLenum, type: GLenum, pixels: *const c_void) void {
-    return (function_pointers.glTexImage2D orelse @panic("glTexImage2D was not bound."))(target, level, internalformat, width, height, border, format, type, pixels);
+pub fn texImage2D(_target: GLenum, _level: GLint, _internalformat: GLint, _width: GLsizei, _height: GLsizei, _border: GLint, _format: GLenum, _type: GLenum, _pixels: ?*const c_void) void {
+    return (function_pointers.glTexImage2D orelse @panic("glTexImage2D was not bound."))(_target, _level, _internalformat, _width, _height, _border, _format, _type, _pixels);
 }
 
-pub fn drawBuffer(buf: GLenum) void {
-    return (function_pointers.glDrawBuffer orelse @panic("glDrawBuffer was not bound."))(buf);
+pub fn drawBuffer(_buf: GLenum) void {
+    return (function_pointers.glDrawBuffer orelse @panic("glDrawBuffer was not bound."))(_buf);
 }
 
-pub fn clear(mask: GLbitfield) void {
-    return (function_pointers.glClear orelse @panic("glClear was not bound."))(mask);
+pub fn clear(_mask: GLbitfield) void {
+    return (function_pointers.glClear orelse @panic("glClear was not bound."))(_mask);
 }
 
-pub fn clearColor(red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat) void {
-    return (function_pointers.glClearColor orelse @panic("glClearColor was not bound."))(red, green, blue, alpha);
+pub fn clearColor(_red: GLfloat, _green: GLfloat, _blue: GLfloat, _alpha: GLfloat) void {
+    return (function_pointers.glClearColor orelse @panic("glClearColor was not bound."))(_red, _green, _blue, _alpha);
 }
 
-pub fn clearStencil(s: GLint) void {
-    return (function_pointers.glClearStencil orelse @panic("glClearStencil was not bound."))(s);
+pub fn clearStencil(_s: GLint) void {
+    return (function_pointers.glClearStencil orelse @panic("glClearStencil was not bound."))(_s);
 }
 
-pub fn clearDepth(depth: GLdouble) void {
-    return (function_pointers.glClearDepth orelse @panic("glClearDepth was not bound."))(depth);
+pub fn clearDepth(_depth: GLdouble) void {
+    return (function_pointers.glClearDepth orelse @panic("glClearDepth was not bound."))(_depth);
 }
 
-pub fn stencilMask(mask: GLuint) void {
-    return (function_pointers.glStencilMask orelse @panic("glStencilMask was not bound."))(mask);
+pub fn stencilMask(_mask: GLuint) void {
+    return (function_pointers.glStencilMask orelse @panic("glStencilMask was not bound."))(_mask);
 }
 
-pub fn colorMask(red: GLboolean, green: GLboolean, blue: GLboolean, alpha: GLboolean) void {
-    return (function_pointers.glColorMask orelse @panic("glColorMask was not bound."))(red, green, blue, alpha);
+pub fn colorMask(_red: GLboolean, _green: GLboolean, _blue: GLboolean, _alpha: GLboolean) void {
+    return (function_pointers.glColorMask orelse @panic("glColorMask was not bound."))(_red, _green, _blue, _alpha);
 }
 
-pub fn depthMask(flag: GLboolean) void {
-    return (function_pointers.glDepthMask orelse @panic("glDepthMask was not bound."))(flag);
+pub fn depthMask(_flag: GLboolean) void {
+    return (function_pointers.glDepthMask orelse @panic("glDepthMask was not bound."))(_flag);
 }
 
-pub fn disable(cap: GLenum) void {
-    return (function_pointers.glDisable orelse @panic("glDisable was not bound."))(cap);
+pub fn disable(_cap: GLenum) void {
+    return (function_pointers.glDisable orelse @panic("glDisable was not bound."))(_cap);
 }
 
-pub fn enable(cap: GLenum) void {
-    return (function_pointers.glEnable orelse @panic("glEnable was not bound."))(cap);
+pub fn enable(_cap: GLenum) void {
+    return (function_pointers.glEnable orelse @panic("glEnable was not bound."))(_cap);
 }
 
 pub fn finish() void {
@@ -969,1280 +969,1280 @@ pub fn flush() void {
     return (function_pointers.glFlush orelse @panic("glFlush was not bound."))();
 }
 
-pub fn blendFunc(sfactor: GLenum, dfactor: GLenum) void {
-    return (function_pointers.glBlendFunc orelse @panic("glBlendFunc was not bound."))(sfactor, dfactor);
+pub fn blendFunc(_sfactor: GLenum, _dfactor: GLenum) void {
+    return (function_pointers.glBlendFunc orelse @panic("glBlendFunc was not bound."))(_sfactor, _dfactor);
 }
 
-pub fn logicOp(opcode: GLenum) void {
-    return (function_pointers.glLogicOp orelse @panic("glLogicOp was not bound."))(opcode);
+pub fn logicOp(_opcode: GLenum) void {
+    return (function_pointers.glLogicOp orelse @panic("glLogicOp was not bound."))(_opcode);
 }
 
-pub fn stencilFunc(func: GLenum, ref: GLint, mask: GLuint) void {
-    return (function_pointers.glStencilFunc orelse @panic("glStencilFunc was not bound."))(func, ref, mask);
+pub fn stencilFunc(_func: GLenum, _ref: GLint, _mask: GLuint) void {
+    return (function_pointers.glStencilFunc orelse @panic("glStencilFunc was not bound."))(_func, _ref, _mask);
 }
 
-pub fn stencilOp(fail: GLenum, zfail: GLenum, zpass: GLenum) void {
-    return (function_pointers.glStencilOp orelse @panic("glStencilOp was not bound."))(fail, zfail, zpass);
+pub fn stencilOp(_fail: GLenum, _zfail: GLenum, _zpass: GLenum) void {
+    return (function_pointers.glStencilOp orelse @panic("glStencilOp was not bound."))(_fail, _zfail, _zpass);
 }
 
-pub fn depthFunc(func: GLenum) void {
-    return (function_pointers.glDepthFunc orelse @panic("glDepthFunc was not bound."))(func);
+pub fn depthFunc(_func: GLenum) void {
+    return (function_pointers.glDepthFunc orelse @panic("glDepthFunc was not bound."))(_func);
 }
 
-pub fn pixelStoref(pname: GLenum, param: GLfloat) void {
-    return (function_pointers.glPixelStoref orelse @panic("glPixelStoref was not bound."))(pname, param);
+pub fn pixelStoref(_pname: GLenum, _param: GLfloat) void {
+    return (function_pointers.glPixelStoref orelse @panic("glPixelStoref was not bound."))(_pname, _param);
 }
 
-pub fn pixelStorei(pname: GLenum, param: GLint) void {
-    return (function_pointers.glPixelStorei orelse @panic("glPixelStorei was not bound."))(pname, param);
+pub fn pixelStorei(_pname: GLenum, _param: GLint) void {
+    return (function_pointers.glPixelStorei orelse @panic("glPixelStorei was not bound."))(_pname, _param);
 }
 
-pub fn readBuffer(src: GLenum) void {
-    return (function_pointers.glReadBuffer orelse @panic("glReadBuffer was not bound."))(src);
+pub fn readBuffer(_src: GLenum) void {
+    return (function_pointers.glReadBuffer orelse @panic("glReadBuffer was not bound."))(_src);
 }
 
-pub fn readPixels(x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: GLenum, type: GLenum, pixels: *c_void) void {
-    return (function_pointers.glReadPixels orelse @panic("glReadPixels was not bound."))(x, y, width, height, format, type, pixels);
+pub fn readPixels(_x: GLint, _y: GLint, _width: GLsizei, _height: GLsizei, _format: GLenum, _type: GLenum, _pixels: ?*c_void) void {
+    return (function_pointers.glReadPixels orelse @panic("glReadPixels was not bound."))(_x, _y, _width, _height, _format, _type, _pixels);
 }
 
-pub fn getBooleanv(pname: GLenum, data: [*c]GLboolean) void {
-    return (function_pointers.glGetBooleanv orelse @panic("glGetBooleanv was not bound."))(pname, data);
+pub fn getBooleanv(_pname: GLenum, _data: [*c]GLboolean) void {
+    return (function_pointers.glGetBooleanv orelse @panic("glGetBooleanv was not bound."))(_pname, _data);
 }
 
-pub fn getDoublev(pname: GLenum, data: [*c]GLdouble) void {
-    return (function_pointers.glGetDoublev orelse @panic("glGetDoublev was not bound."))(pname, data);
+pub fn getDoublev(_pname: GLenum, _data: [*c]GLdouble) void {
+    return (function_pointers.glGetDoublev orelse @panic("glGetDoublev was not bound."))(_pname, _data);
 }
 
 pub fn getError() GLenum {
     return (function_pointers.glGetError orelse @panic("glGetError was not bound."))();
 }
 
-pub fn getFloatv(pname: GLenum, data: [*c]GLfloat) void {
-    return (function_pointers.glGetFloatv orelse @panic("glGetFloatv was not bound."))(pname, data);
+pub fn getFloatv(_pname: GLenum, _data: [*c]GLfloat) void {
+    return (function_pointers.glGetFloatv orelse @panic("glGetFloatv was not bound."))(_pname, _data);
 }
 
-pub fn getIntegerv(pname: GLenum, data: [*c]GLint) void {
-    return (function_pointers.glGetIntegerv orelse @panic("glGetIntegerv was not bound."))(pname, data);
+pub fn getIntegerv(_pname: GLenum, _data: [*c]GLint) void {
+    return (function_pointers.glGetIntegerv orelse @panic("glGetIntegerv was not bound."))(_pname, _data);
 }
 
-pub fn getString(name: GLenum) [*:0]const GLubyte {
-    return (function_pointers.glGetString orelse @panic("glGetString was not bound."))(name);
+pub fn getString(_name: GLenum) ?[*:0]const GLubyte {
+    return (function_pointers.glGetString orelse @panic("glGetString was not bound."))(_name);
 }
 
-pub fn getTexImage(target: GLenum, level: GLint, format: GLenum, type: GLenum, pixels: *c_void) void {
-    return (function_pointers.glGetTexImage orelse @panic("glGetTexImage was not bound."))(target, level, format, type, pixels);
+pub fn getTexImage(_target: GLenum, _level: GLint, _format: GLenum, _type: GLenum, _pixels: ?*c_void) void {
+    return (function_pointers.glGetTexImage orelse @panic("glGetTexImage was not bound."))(_target, _level, _format, _type, _pixels);
 }
 
-pub fn getTexParameterfv(target: GLenum, pname: GLenum, params: [*c]GLfloat) void {
-    return (function_pointers.glGetTexParameterfv orelse @panic("glGetTexParameterfv was not bound."))(target, pname, params);
+pub fn getTexParameterfv(_target: GLenum, _pname: GLenum, _params: [*c]GLfloat) void {
+    return (function_pointers.glGetTexParameterfv orelse @panic("glGetTexParameterfv was not bound."))(_target, _pname, _params);
 }
 
-pub fn getTexParameteriv(target: GLenum, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetTexParameteriv orelse @panic("glGetTexParameteriv was not bound."))(target, pname, params);
+pub fn getTexParameteriv(_target: GLenum, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetTexParameteriv orelse @panic("glGetTexParameteriv was not bound."))(_target, _pname, _params);
 }
 
-pub fn getTexLevelParameterfv(target: GLenum, level: GLint, pname: GLenum, params: [*c]GLfloat) void {
-    return (function_pointers.glGetTexLevelParameterfv orelse @panic("glGetTexLevelParameterfv was not bound."))(target, level, pname, params);
+pub fn getTexLevelParameterfv(_target: GLenum, _level: GLint, _pname: GLenum, _params: [*c]GLfloat) void {
+    return (function_pointers.glGetTexLevelParameterfv orelse @panic("glGetTexLevelParameterfv was not bound."))(_target, _level, _pname, _params);
 }
 
-pub fn getTexLevelParameteriv(target: GLenum, level: GLint, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetTexLevelParameteriv orelse @panic("glGetTexLevelParameteriv was not bound."))(target, level, pname, params);
+pub fn getTexLevelParameteriv(_target: GLenum, _level: GLint, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetTexLevelParameteriv orelse @panic("glGetTexLevelParameteriv was not bound."))(_target, _level, _pname, _params);
 }
 
-pub fn isEnabled(cap: GLenum) GLboolean {
-    return (function_pointers.glIsEnabled orelse @panic("glIsEnabled was not bound."))(cap);
+pub fn isEnabled(_cap: GLenum) GLboolean {
+    return (function_pointers.glIsEnabled orelse @panic("glIsEnabled was not bound."))(_cap);
 }
 
-pub fn depthRange(n: GLdouble, f: GLdouble) void {
-    return (function_pointers.glDepthRange orelse @panic("glDepthRange was not bound."))(n, f);
+pub fn depthRange(_n: GLdouble, _f: GLdouble) void {
+    return (function_pointers.glDepthRange orelse @panic("glDepthRange was not bound."))(_n, _f);
 }
 
-pub fn viewport(x: GLint, y: GLint, width: GLsizei, height: GLsizei) void {
-    return (function_pointers.glViewport orelse @panic("glViewport was not bound."))(x, y, width, height);
+pub fn viewport(_x: GLint, _y: GLint, _width: GLsizei, _height: GLsizei) void {
+    return (function_pointers.glViewport orelse @panic("glViewport was not bound."))(_x, _y, _width, _height);
 }
 
-pub fn drawArrays(mode: GLenum, first: GLint, count: GLsizei) void {
-    return (function_pointers.glDrawArrays orelse @panic("glDrawArrays was not bound."))(mode, first, count);
+pub fn drawArrays(_mode: GLenum, _first: GLint, _count: GLsizei) void {
+    return (function_pointers.glDrawArrays orelse @panic("glDrawArrays was not bound."))(_mode, _first, _count);
 }
 
-pub fn drawElements(mode: GLenum, count: GLsizei, type: GLenum, indices: *const c_void) void {
-    return (function_pointers.glDrawElements orelse @panic("glDrawElements was not bound."))(mode, count, type, indices);
+pub fn drawElements(_mode: GLenum, _count: GLsizei, _type: GLenum, _indices: ?*const c_void) void {
+    return (function_pointers.glDrawElements orelse @panic("glDrawElements was not bound."))(_mode, _count, _type, _indices);
 }
 
-pub fn polygonOffset(factor: GLfloat, units: GLfloat) void {
-    return (function_pointers.glPolygonOffset orelse @panic("glPolygonOffset was not bound."))(factor, units);
+pub fn polygonOffset(_factor: GLfloat, _units: GLfloat) void {
+    return (function_pointers.glPolygonOffset orelse @panic("glPolygonOffset was not bound."))(_factor, _units);
 }
 
-pub fn copyTexImage1D(target: GLenum, level: GLint, internalformat: GLenum, x: GLint, y: GLint, width: GLsizei, border: GLint) void {
-    return (function_pointers.glCopyTexImage1D orelse @panic("glCopyTexImage1D was not bound."))(target, level, internalformat, x, y, width, border);
+pub fn copyTexImage1D(_target: GLenum, _level: GLint, _internalformat: GLenum, _x: GLint, _y: GLint, _width: GLsizei, _border: GLint) void {
+    return (function_pointers.glCopyTexImage1D orelse @panic("glCopyTexImage1D was not bound."))(_target, _level, _internalformat, _x, _y, _width, _border);
 }
 
-pub fn copyTexImage2D(target: GLenum, level: GLint, internalformat: GLenum, x: GLint, y: GLint, width: GLsizei, height: GLsizei, border: GLint) void {
-    return (function_pointers.glCopyTexImage2D orelse @panic("glCopyTexImage2D was not bound."))(target, level, internalformat, x, y, width, height, border);
+pub fn copyTexImage2D(_target: GLenum, _level: GLint, _internalformat: GLenum, _x: GLint, _y: GLint, _width: GLsizei, _height: GLsizei, _border: GLint) void {
+    return (function_pointers.glCopyTexImage2D orelse @panic("glCopyTexImage2D was not bound."))(_target, _level, _internalformat, _x, _y, _width, _height, _border);
 }
 
-pub fn copyTexSubImage1D(target: GLenum, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei) void {
-    return (function_pointers.glCopyTexSubImage1D orelse @panic("glCopyTexSubImage1D was not bound."))(target, level, xoffset, x, y, width);
+pub fn copyTexSubImage1D(_target: GLenum, _level: GLint, _xoffset: GLint, _x: GLint, _y: GLint, _width: GLsizei) void {
+    return (function_pointers.glCopyTexSubImage1D orelse @panic("glCopyTexSubImage1D was not bound."))(_target, _level, _xoffset, _x, _y, _width);
 }
 
-pub fn copyTexSubImage2D(target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) void {
-    return (function_pointers.glCopyTexSubImage2D orelse @panic("glCopyTexSubImage2D was not bound."))(target, level, xoffset, yoffset, x, y, width, height);
+pub fn copyTexSubImage2D(_target: GLenum, _level: GLint, _xoffset: GLint, _yoffset: GLint, _x: GLint, _y: GLint, _width: GLsizei, _height: GLsizei) void {
+    return (function_pointers.glCopyTexSubImage2D orelse @panic("glCopyTexSubImage2D was not bound."))(_target, _level, _xoffset, _yoffset, _x, _y, _width, _height);
 }
 
-pub fn texSubImage1D(target: GLenum, level: GLint, xoffset: GLint, width: GLsizei, format: GLenum, type: GLenum, pixels: *const c_void) void {
-    return (function_pointers.glTexSubImage1D orelse @panic("glTexSubImage1D was not bound."))(target, level, xoffset, width, format, type, pixels);
+pub fn texSubImage1D(_target: GLenum, _level: GLint, _xoffset: GLint, _width: GLsizei, _format: GLenum, _type: GLenum, _pixels: ?*const c_void) void {
+    return (function_pointers.glTexSubImage1D orelse @panic("glTexSubImage1D was not bound."))(_target, _level, _xoffset, _width, _format, _type, _pixels);
 }
 
-pub fn texSubImage2D(target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: GLenum, type: GLenum, pixels: *const c_void) void {
-    return (function_pointers.glTexSubImage2D orelse @panic("glTexSubImage2D was not bound."))(target, level, xoffset, yoffset, width, height, format, type, pixels);
+pub fn texSubImage2D(_target: GLenum, _level: GLint, _xoffset: GLint, _yoffset: GLint, _width: GLsizei, _height: GLsizei, _format: GLenum, _type: GLenum, _pixels: ?*const c_void) void {
+    return (function_pointers.glTexSubImage2D orelse @panic("glTexSubImage2D was not bound."))(_target, _level, _xoffset, _yoffset, _width, _height, _format, _type, _pixels);
 }
 
-pub fn bindTexture(target: GLenum, texture: GLuint) void {
-    return (function_pointers.glBindTexture orelse @panic("glBindTexture was not bound."))(target, texture);
+pub fn bindTexture(_target: GLenum, _texture: GLuint) void {
+    return (function_pointers.glBindTexture orelse @panic("glBindTexture was not bound."))(_target, _texture);
 }
 
-pub fn deleteTextures(n: GLsizei, textures: [*c]const GLuint) void {
-    return (function_pointers.glDeleteTextures orelse @panic("glDeleteTextures was not bound."))(n, textures);
+pub fn deleteTextures(_n: GLsizei, _textures: [*c]const GLuint) void {
+    return (function_pointers.glDeleteTextures orelse @panic("glDeleteTextures was not bound."))(_n, _textures);
 }
 
-pub fn genTextures(n: GLsizei, textures: [*c]GLuint) void {
-    return (function_pointers.glGenTextures orelse @panic("glGenTextures was not bound."))(n, textures);
+pub fn genTextures(_n: GLsizei, _textures: [*c]GLuint) void {
+    return (function_pointers.glGenTextures orelse @panic("glGenTextures was not bound."))(_n, _textures);
 }
 
-pub fn isTexture(texture: GLuint) GLboolean {
-    return (function_pointers.glIsTexture orelse @panic("glIsTexture was not bound."))(texture);
+pub fn isTexture(_texture: GLuint) GLboolean {
+    return (function_pointers.glIsTexture orelse @panic("glIsTexture was not bound."))(_texture);
 }
 
-pub fn drawRangeElements(mode: GLenum, start: GLuint, end: GLuint, count: GLsizei, type: GLenum, indices: *const c_void) void {
-    return (function_pointers.glDrawRangeElements orelse @panic("glDrawRangeElements was not bound."))(mode, start, end, count, type, indices);
+pub fn drawRangeElements(_mode: GLenum, _start: GLuint, _end: GLuint, _count: GLsizei, _type: GLenum, _indices: ?*const c_void) void {
+    return (function_pointers.glDrawRangeElements orelse @panic("glDrawRangeElements was not bound."))(_mode, _start, _end, _count, _type, _indices);
 }
 
-pub fn texImage3D(target: GLenum, level: GLint, internalformat: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, format: GLenum, type: GLenum, pixels: *const c_void) void {
-    return (function_pointers.glTexImage3D orelse @panic("glTexImage3D was not bound."))(target, level, internalformat, width, height, depth, border, format, type, pixels);
+pub fn texImage3D(_target: GLenum, _level: GLint, _internalformat: GLint, _width: GLsizei, _height: GLsizei, _depth: GLsizei, _border: GLint, _format: GLenum, _type: GLenum, _pixels: ?*const c_void) void {
+    return (function_pointers.glTexImage3D orelse @panic("glTexImage3D was not bound."))(_target, _level, _internalformat, _width, _height, _depth, _border, _format, _type, _pixels);
 }
 
-pub fn texSubImage3D(target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: GLenum, type: GLenum, pixels: *const c_void) void {
-    return (function_pointers.glTexSubImage3D orelse @panic("glTexSubImage3D was not bound."))(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
+pub fn texSubImage3D(_target: GLenum, _level: GLint, _xoffset: GLint, _yoffset: GLint, _zoffset: GLint, _width: GLsizei, _height: GLsizei, _depth: GLsizei, _format: GLenum, _type: GLenum, _pixels: ?*const c_void) void {
+    return (function_pointers.glTexSubImage3D orelse @panic("glTexSubImage3D was not bound."))(_target, _level, _xoffset, _yoffset, _zoffset, _width, _height, _depth, _format, _type, _pixels);
 }
 
-pub fn copyTexSubImage3D(target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) void {
-    return (function_pointers.glCopyTexSubImage3D orelse @panic("glCopyTexSubImage3D was not bound."))(target, level, xoffset, yoffset, zoffset, x, y, width, height);
+pub fn copyTexSubImage3D(_target: GLenum, _level: GLint, _xoffset: GLint, _yoffset: GLint, _zoffset: GLint, _x: GLint, _y: GLint, _width: GLsizei, _height: GLsizei) void {
+    return (function_pointers.glCopyTexSubImage3D orelse @panic("glCopyTexSubImage3D was not bound."))(_target, _level, _xoffset, _yoffset, _zoffset, _x, _y, _width, _height);
 }
 
-pub fn activeTexture(texture: GLenum) void {
-    return (function_pointers.glActiveTexture orelse @panic("glActiveTexture was not bound."))(texture);
+pub fn activeTexture(_texture: GLenum) void {
+    return (function_pointers.glActiveTexture orelse @panic("glActiveTexture was not bound."))(_texture);
 }
 
-pub fn sampleCoverage(value: GLfloat, invert: GLboolean) void {
-    return (function_pointers.glSampleCoverage orelse @panic("glSampleCoverage was not bound."))(value, invert);
+pub fn sampleCoverage(_value: GLfloat, _invert: GLboolean) void {
+    return (function_pointers.glSampleCoverage orelse @panic("glSampleCoverage was not bound."))(_value, _invert);
 }
 
-pub fn compressedTexImage3D(target: GLenum, level: GLint, internalformat: GLenum, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, imageSize: GLsizei, data: *const c_void) void {
-    return (function_pointers.glCompressedTexImage3D orelse @panic("glCompressedTexImage3D was not bound."))(target, level, internalformat, width, height, depth, border, imageSize, data);
+pub fn compressedTexImage3D(_target: GLenum, _level: GLint, _internalformat: GLenum, _width: GLsizei, _height: GLsizei, _depth: GLsizei, _border: GLint, _imageSize: GLsizei, _data: ?*const c_void) void {
+    return (function_pointers.glCompressedTexImage3D orelse @panic("glCompressedTexImage3D was not bound."))(_target, _level, _internalformat, _width, _height, _depth, _border, _imageSize, _data);
 }
 
-pub fn compressedTexImage2D(target: GLenum, level: GLint, internalformat: GLenum, width: GLsizei, height: GLsizei, border: GLint, imageSize: GLsizei, data: *const c_void) void {
-    return (function_pointers.glCompressedTexImage2D orelse @panic("glCompressedTexImage2D was not bound."))(target, level, internalformat, width, height, border, imageSize, data);
+pub fn compressedTexImage2D(_target: GLenum, _level: GLint, _internalformat: GLenum, _width: GLsizei, _height: GLsizei, _border: GLint, _imageSize: GLsizei, _data: ?*const c_void) void {
+    return (function_pointers.glCompressedTexImage2D orelse @panic("glCompressedTexImage2D was not bound."))(_target, _level, _internalformat, _width, _height, _border, _imageSize, _data);
 }
 
-pub fn compressedTexImage1D(target: GLenum, level: GLint, internalformat: GLenum, width: GLsizei, border: GLint, imageSize: GLsizei, data: *const c_void) void {
-    return (function_pointers.glCompressedTexImage1D orelse @panic("glCompressedTexImage1D was not bound."))(target, level, internalformat, width, border, imageSize, data);
+pub fn compressedTexImage1D(_target: GLenum, _level: GLint, _internalformat: GLenum, _width: GLsizei, _border: GLint, _imageSize: GLsizei, _data: ?*const c_void) void {
+    return (function_pointers.glCompressedTexImage1D orelse @panic("glCompressedTexImage1D was not bound."))(_target, _level, _internalformat, _width, _border, _imageSize, _data);
 }
 
-pub fn compressedTexSubImage3D(target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: GLenum, imageSize: GLsizei, data: *const c_void) void {
-    return (function_pointers.glCompressedTexSubImage3D orelse @panic("glCompressedTexSubImage3D was not bound."))(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
+pub fn compressedTexSubImage3D(_target: GLenum, _level: GLint, _xoffset: GLint, _yoffset: GLint, _zoffset: GLint, _width: GLsizei, _height: GLsizei, _depth: GLsizei, _format: GLenum, _imageSize: GLsizei, _data: ?*const c_void) void {
+    return (function_pointers.glCompressedTexSubImage3D orelse @panic("glCompressedTexSubImage3D was not bound."))(_target, _level, _xoffset, _yoffset, _zoffset, _width, _height, _depth, _format, _imageSize, _data);
 }
 
-pub fn compressedTexSubImage2D(target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: GLenum, imageSize: GLsizei, data: *const c_void) void {
-    return (function_pointers.glCompressedTexSubImage2D orelse @panic("glCompressedTexSubImage2D was not bound."))(target, level, xoffset, yoffset, width, height, format, imageSize, data);
+pub fn compressedTexSubImage2D(_target: GLenum, _level: GLint, _xoffset: GLint, _yoffset: GLint, _width: GLsizei, _height: GLsizei, _format: GLenum, _imageSize: GLsizei, _data: ?*const c_void) void {
+    return (function_pointers.glCompressedTexSubImage2D orelse @panic("glCompressedTexSubImage2D was not bound."))(_target, _level, _xoffset, _yoffset, _width, _height, _format, _imageSize, _data);
 }
 
-pub fn compressedTexSubImage1D(target: GLenum, level: GLint, xoffset: GLint, width: GLsizei, format: GLenum, imageSize: GLsizei, data: *const c_void) void {
-    return (function_pointers.glCompressedTexSubImage1D orelse @panic("glCompressedTexSubImage1D was not bound."))(target, level, xoffset, width, format, imageSize, data);
+pub fn compressedTexSubImage1D(_target: GLenum, _level: GLint, _xoffset: GLint, _width: GLsizei, _format: GLenum, _imageSize: GLsizei, _data: ?*const c_void) void {
+    return (function_pointers.glCompressedTexSubImage1D orelse @panic("glCompressedTexSubImage1D was not bound."))(_target, _level, _xoffset, _width, _format, _imageSize, _data);
 }
 
-pub fn getCompressedTexImage(target: GLenum, level: GLint, img: *c_void) void {
-    return (function_pointers.glGetCompressedTexImage orelse @panic("glGetCompressedTexImage was not bound."))(target, level, img);
+pub fn getCompressedTexImage(_target: GLenum, _level: GLint, _img: ?*c_void) void {
+    return (function_pointers.glGetCompressedTexImage orelse @panic("glGetCompressedTexImage was not bound."))(_target, _level, _img);
 }
 
-pub fn vertexAttribP4uiv(index: GLuint, type: GLenum, normalized: GLboolean, value: [*c]const GLuint) void {
-    return (function_pointers.glVertexAttribP4uiv orelse @panic("glVertexAttribP4uiv was not bound."))(index, type, normalized, value);
+pub fn vertexAttribP4uiv(_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: [*c]const GLuint) void {
+    return (function_pointers.glVertexAttribP4uiv orelse @panic("glVertexAttribP4uiv was not bound."))(_index, _type, _normalized, _value);
 }
 
-pub fn vertexAttribP4ui(index: GLuint, type: GLenum, normalized: GLboolean, value: GLuint) void {
-    return (function_pointers.glVertexAttribP4ui orelse @panic("glVertexAttribP4ui was not bound."))(index, type, normalized, value);
+pub fn vertexAttribP4ui(_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: GLuint) void {
+    return (function_pointers.glVertexAttribP4ui orelse @panic("glVertexAttribP4ui was not bound."))(_index, _type, _normalized, _value);
 }
 
-pub fn vertexAttribP3uiv(index: GLuint, type: GLenum, normalized: GLboolean, value: [*c]const GLuint) void {
-    return (function_pointers.glVertexAttribP3uiv orelse @panic("glVertexAttribP3uiv was not bound."))(index, type, normalized, value);
+pub fn vertexAttribP3uiv(_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: [*c]const GLuint) void {
+    return (function_pointers.glVertexAttribP3uiv orelse @panic("glVertexAttribP3uiv was not bound."))(_index, _type, _normalized, _value);
 }
 
-pub fn vertexAttribP3ui(index: GLuint, type: GLenum, normalized: GLboolean, value: GLuint) void {
-    return (function_pointers.glVertexAttribP3ui orelse @panic("glVertexAttribP3ui was not bound."))(index, type, normalized, value);
+pub fn vertexAttribP3ui(_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: GLuint) void {
+    return (function_pointers.glVertexAttribP3ui orelse @panic("glVertexAttribP3ui was not bound."))(_index, _type, _normalized, _value);
 }
 
-pub fn vertexAttribP2uiv(index: GLuint, type: GLenum, normalized: GLboolean, value: [*c]const GLuint) void {
-    return (function_pointers.glVertexAttribP2uiv orelse @panic("glVertexAttribP2uiv was not bound."))(index, type, normalized, value);
+pub fn vertexAttribP2uiv(_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: [*c]const GLuint) void {
+    return (function_pointers.glVertexAttribP2uiv orelse @panic("glVertexAttribP2uiv was not bound."))(_index, _type, _normalized, _value);
 }
 
-pub fn vertexAttribP2ui(index: GLuint, type: GLenum, normalized: GLboolean, value: GLuint) void {
-    return (function_pointers.glVertexAttribP2ui orelse @panic("glVertexAttribP2ui was not bound."))(index, type, normalized, value);
+pub fn vertexAttribP2ui(_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: GLuint) void {
+    return (function_pointers.glVertexAttribP2ui orelse @panic("glVertexAttribP2ui was not bound."))(_index, _type, _normalized, _value);
 }
 
-pub fn vertexAttribP1uiv(index: GLuint, type: GLenum, normalized: GLboolean, value: [*c]const GLuint) void {
-    return (function_pointers.glVertexAttribP1uiv orelse @panic("glVertexAttribP1uiv was not bound."))(index, type, normalized, value);
+pub fn vertexAttribP1uiv(_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: [*c]const GLuint) void {
+    return (function_pointers.glVertexAttribP1uiv orelse @panic("glVertexAttribP1uiv was not bound."))(_index, _type, _normalized, _value);
 }
 
-pub fn vertexAttribP1ui(index: GLuint, type: GLenum, normalized: GLboolean, value: GLuint) void {
-    return (function_pointers.glVertexAttribP1ui orelse @panic("glVertexAttribP1ui was not bound."))(index, type, normalized, value);
+pub fn vertexAttribP1ui(_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: GLuint) void {
+    return (function_pointers.glVertexAttribP1ui orelse @panic("glVertexAttribP1ui was not bound."))(_index, _type, _normalized, _value);
 }
 
-pub fn vertexAttribDivisor(index: GLuint, divisor: GLuint) void {
-    return (function_pointers.glVertexAttribDivisor orelse @panic("glVertexAttribDivisor was not bound."))(index, divisor);
+pub fn vertexAttribDivisor(_index: GLuint, _divisor: GLuint) void {
+    return (function_pointers.glVertexAttribDivisor orelse @panic("glVertexAttribDivisor was not bound."))(_index, _divisor);
 }
 
-pub fn getQueryObjectui64v(id: GLuint, pname: GLenum, params: [*c]GLuint64) void {
-    return (function_pointers.glGetQueryObjectui64v orelse @panic("glGetQueryObjectui64v was not bound."))(id, pname, params);
+pub fn getQueryObjectui64v(_id: GLuint, _pname: GLenum, _params: [*c]GLuint64) void {
+    return (function_pointers.glGetQueryObjectui64v orelse @panic("glGetQueryObjectui64v was not bound."))(_id, _pname, _params);
 }
 
-pub fn getQueryObjecti64v(id: GLuint, pname: GLenum, params: [*c]GLint64) void {
-    return (function_pointers.glGetQueryObjecti64v orelse @panic("glGetQueryObjecti64v was not bound."))(id, pname, params);
+pub fn getQueryObjecti64v(_id: GLuint, _pname: GLenum, _params: [*c]GLint64) void {
+    return (function_pointers.glGetQueryObjecti64v orelse @panic("glGetQueryObjecti64v was not bound."))(_id, _pname, _params);
 }
 
-pub fn queryCounter(id: GLuint, target: GLenum) void {
-    return (function_pointers.glQueryCounter orelse @panic("glQueryCounter was not bound."))(id, target);
+pub fn queryCounter(_id: GLuint, _target: GLenum) void {
+    return (function_pointers.glQueryCounter orelse @panic("glQueryCounter was not bound."))(_id, _target);
 }
 
-pub fn getSamplerParameterIuiv(sampler: GLuint, pname: GLenum, params: [*c]GLuint) void {
-    return (function_pointers.glGetSamplerParameterIuiv orelse @panic("glGetSamplerParameterIuiv was not bound."))(sampler, pname, params);
+pub fn getSamplerParameterIuiv(_sampler: GLuint, _pname: GLenum, _params: [*c]GLuint) void {
+    return (function_pointers.glGetSamplerParameterIuiv orelse @panic("glGetSamplerParameterIuiv was not bound."))(_sampler, _pname, _params);
 }
 
-pub fn getSamplerParameterfv(sampler: GLuint, pname: GLenum, params: [*c]GLfloat) void {
-    return (function_pointers.glGetSamplerParameterfv orelse @panic("glGetSamplerParameterfv was not bound."))(sampler, pname, params);
+pub fn getSamplerParameterfv(_sampler: GLuint, _pname: GLenum, _params: [*c]GLfloat) void {
+    return (function_pointers.glGetSamplerParameterfv orelse @panic("glGetSamplerParameterfv was not bound."))(_sampler, _pname, _params);
 }
 
-pub fn getSamplerParameterIiv(sampler: GLuint, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetSamplerParameterIiv orelse @panic("glGetSamplerParameterIiv was not bound."))(sampler, pname, params);
+pub fn getSamplerParameterIiv(_sampler: GLuint, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetSamplerParameterIiv orelse @panic("glGetSamplerParameterIiv was not bound."))(_sampler, _pname, _params);
 }
 
-pub fn getSamplerParameteriv(sampler: GLuint, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetSamplerParameteriv orelse @panic("glGetSamplerParameteriv was not bound."))(sampler, pname, params);
+pub fn getSamplerParameteriv(_sampler: GLuint, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetSamplerParameteriv orelse @panic("glGetSamplerParameteriv was not bound."))(_sampler, _pname, _params);
 }
 
-pub fn samplerParameterIuiv(sampler: GLuint, pname: GLenum, param: [*c]const GLuint) void {
-    return (function_pointers.glSamplerParameterIuiv orelse @panic("glSamplerParameterIuiv was not bound."))(sampler, pname, param);
+pub fn samplerParameterIuiv(_sampler: GLuint, _pname: GLenum, _param: [*c]const GLuint) void {
+    return (function_pointers.glSamplerParameterIuiv orelse @panic("glSamplerParameterIuiv was not bound."))(_sampler, _pname, _param);
 }
 
-pub fn samplerParameterIiv(sampler: GLuint, pname: GLenum, param: [*c]const GLint) void {
-    return (function_pointers.glSamplerParameterIiv orelse @panic("glSamplerParameterIiv was not bound."))(sampler, pname, param);
+pub fn samplerParameterIiv(_sampler: GLuint, _pname: GLenum, _param: [*c]const GLint) void {
+    return (function_pointers.glSamplerParameterIiv orelse @panic("glSamplerParameterIiv was not bound."))(_sampler, _pname, _param);
 }
 
-pub fn samplerParameterfv(sampler: GLuint, pname: GLenum, param: [*c]const GLfloat) void {
-    return (function_pointers.glSamplerParameterfv orelse @panic("glSamplerParameterfv was not bound."))(sampler, pname, param);
+pub fn samplerParameterfv(_sampler: GLuint, _pname: GLenum, _param: [*c]const GLfloat) void {
+    return (function_pointers.glSamplerParameterfv orelse @panic("glSamplerParameterfv was not bound."))(_sampler, _pname, _param);
 }
 
-pub fn samplerParameterf(sampler: GLuint, pname: GLenum, param: GLfloat) void {
-    return (function_pointers.glSamplerParameterf orelse @panic("glSamplerParameterf was not bound."))(sampler, pname, param);
+pub fn samplerParameterf(_sampler: GLuint, _pname: GLenum, _param: GLfloat) void {
+    return (function_pointers.glSamplerParameterf orelse @panic("glSamplerParameterf was not bound."))(_sampler, _pname, _param);
 }
 
-pub fn samplerParameteriv(sampler: GLuint, pname: GLenum, param: [*c]const GLint) void {
-    return (function_pointers.glSamplerParameteriv orelse @panic("glSamplerParameteriv was not bound."))(sampler, pname, param);
+pub fn samplerParameteriv(_sampler: GLuint, _pname: GLenum, _param: [*c]const GLint) void {
+    return (function_pointers.glSamplerParameteriv orelse @panic("glSamplerParameteriv was not bound."))(_sampler, _pname, _param);
 }
 
-pub fn samplerParameteri(sampler: GLuint, pname: GLenum, param: GLint) void {
-    return (function_pointers.glSamplerParameteri orelse @panic("glSamplerParameteri was not bound."))(sampler, pname, param);
+pub fn samplerParameteri(_sampler: GLuint, _pname: GLenum, _param: GLint) void {
+    return (function_pointers.glSamplerParameteri orelse @panic("glSamplerParameteri was not bound."))(_sampler, _pname, _param);
 }
 
-pub fn bindSampler(unit: GLuint, sampler: GLuint) void {
-    return (function_pointers.glBindSampler orelse @panic("glBindSampler was not bound."))(unit, sampler);
+pub fn bindSampler(_unit: GLuint, _sampler: GLuint) void {
+    return (function_pointers.glBindSampler orelse @panic("glBindSampler was not bound."))(_unit, _sampler);
 }
 
-pub fn isSampler(sampler: GLuint) GLboolean {
-    return (function_pointers.glIsSampler orelse @panic("glIsSampler was not bound."))(sampler);
+pub fn isSampler(_sampler: GLuint) GLboolean {
+    return (function_pointers.glIsSampler orelse @panic("glIsSampler was not bound."))(_sampler);
 }
 
-pub fn deleteSamplers(count: GLsizei, samplers: [*c]const GLuint) void {
-    return (function_pointers.glDeleteSamplers orelse @panic("glDeleteSamplers was not bound."))(count, samplers);
+pub fn deleteSamplers(_count: GLsizei, _samplers: [*c]const GLuint) void {
+    return (function_pointers.glDeleteSamplers orelse @panic("glDeleteSamplers was not bound."))(_count, _samplers);
 }
 
-pub fn genSamplers(count: GLsizei, samplers: [*c]GLuint) void {
-    return (function_pointers.glGenSamplers orelse @panic("glGenSamplers was not bound."))(count, samplers);
+pub fn genSamplers(_count: GLsizei, _samplers: [*c]GLuint) void {
+    return (function_pointers.glGenSamplers orelse @panic("glGenSamplers was not bound."))(_count, _samplers);
 }
 
-pub fn getFragDataIndex(program: GLuint, name: [*c]const GLchar) GLint {
-    return (function_pointers.glGetFragDataIndex orelse @panic("glGetFragDataIndex was not bound."))(program, name);
+pub fn getFragDataIndex(_program: GLuint, _name: [*c]const GLchar) GLint {
+    return (function_pointers.glGetFragDataIndex orelse @panic("glGetFragDataIndex was not bound."))(_program, _name);
 }
 
-pub fn bindFragDataLocationIndexed(program: GLuint, colorNumber: GLuint, index: GLuint, name: [*c]const GLchar) void {
-    return (function_pointers.glBindFragDataLocationIndexed orelse @panic("glBindFragDataLocationIndexed was not bound."))(program, colorNumber, index, name);
+pub fn bindFragDataLocationIndexed(_program: GLuint, _colorNumber: GLuint, _index: GLuint, _name: [*c]const GLchar) void {
+    return (function_pointers.glBindFragDataLocationIndexed orelse @panic("glBindFragDataLocationIndexed was not bound."))(_program, _colorNumber, _index, _name);
 }
 
-pub fn sampleMaski(maskNumber: GLuint, mask: GLbitfield) void {
-    return (function_pointers.glSampleMaski orelse @panic("glSampleMaski was not bound."))(maskNumber, mask);
+pub fn sampleMaski(_maskNumber: GLuint, _mask: GLbitfield) void {
+    return (function_pointers.glSampleMaski orelse @panic("glSampleMaski was not bound."))(_maskNumber, _mask);
 }
 
-pub fn getMultisamplefv(pname: GLenum, index: GLuint, val: [*c]GLfloat) void {
-    return (function_pointers.glGetMultisamplefv orelse @panic("glGetMultisamplefv was not bound."))(pname, index, val);
+pub fn getMultisamplefv(_pname: GLenum, _index: GLuint, _val: [*c]GLfloat) void {
+    return (function_pointers.glGetMultisamplefv orelse @panic("glGetMultisamplefv was not bound."))(_pname, _index, _val);
 }
 
-pub fn texImage3DMultisample(target: GLenum, samples: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: GLboolean) void {
-    return (function_pointers.glTexImage3DMultisample orelse @panic("glTexImage3DMultisample was not bound."))(target, samples, internalformat, width, height, depth, fixedsamplelocations);
+pub fn texImage3DMultisample(_target: GLenum, _samples: GLsizei, _internalformat: GLenum, _width: GLsizei, _height: GLsizei, _depth: GLsizei, _fixedsamplelocations: GLboolean) void {
+    return (function_pointers.glTexImage3DMultisample orelse @panic("glTexImage3DMultisample was not bound."))(_target, _samples, _internalformat, _width, _height, _depth, _fixedsamplelocations);
 }
 
-pub fn texImage2DMultisample(target: GLenum, samples: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei, fixedsamplelocations: GLboolean) void {
-    return (function_pointers.glTexImage2DMultisample orelse @panic("glTexImage2DMultisample was not bound."))(target, samples, internalformat, width, height, fixedsamplelocations);
+pub fn texImage2DMultisample(_target: GLenum, _samples: GLsizei, _internalformat: GLenum, _width: GLsizei, _height: GLsizei, _fixedsamplelocations: GLboolean) void {
+    return (function_pointers.glTexImage2DMultisample orelse @panic("glTexImage2DMultisample was not bound."))(_target, _samples, _internalformat, _width, _height, _fixedsamplelocations);
 }
 
-pub fn framebufferTexture(target: GLenum, attachment: GLenum, texture: GLuint, level: GLint) void {
-    return (function_pointers.glFramebufferTexture orelse @panic("glFramebufferTexture was not bound."))(target, attachment, texture, level);
+pub fn framebufferTexture(_target: GLenum, _attachment: GLenum, _texture: GLuint, _level: GLint) void {
+    return (function_pointers.glFramebufferTexture orelse @panic("glFramebufferTexture was not bound."))(_target, _attachment, _texture, _level);
 }
 
-pub fn getBufferParameteri64v(target: GLenum, pname: GLenum, params: [*c]GLint64) void {
-    return (function_pointers.glGetBufferParameteri64v orelse @panic("glGetBufferParameteri64v was not bound."))(target, pname, params);
+pub fn getBufferParameteri64v(_target: GLenum, _pname: GLenum, _params: [*c]GLint64) void {
+    return (function_pointers.glGetBufferParameteri64v orelse @panic("glGetBufferParameteri64v was not bound."))(_target, _pname, _params);
 }
 
-pub fn blendFuncSeparate(sfactorRGB: GLenum, dfactorRGB: GLenum, sfactorAlpha: GLenum, dfactorAlpha: GLenum) void {
-    return (function_pointers.glBlendFuncSeparate orelse @panic("glBlendFuncSeparate was not bound."))(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha);
+pub fn blendFuncSeparate(_sfactorRGB: GLenum, _dfactorRGB: GLenum, _sfactorAlpha: GLenum, _dfactorAlpha: GLenum) void {
+    return (function_pointers.glBlendFuncSeparate orelse @panic("glBlendFuncSeparate was not bound."))(_sfactorRGB, _dfactorRGB, _sfactorAlpha, _dfactorAlpha);
 }
 
-pub fn multiDrawArrays(mode: GLenum, first: [*c]const GLint, count: [*c]const GLsizei, drawcount: GLsizei) void {
-    return (function_pointers.glMultiDrawArrays orelse @panic("glMultiDrawArrays was not bound."))(mode, first, count, drawcount);
+pub fn multiDrawArrays(_mode: GLenum, _first: [*c]const GLint, _count: [*c]const GLsizei, _drawcount: GLsizei) void {
+    return (function_pointers.glMultiDrawArrays orelse @panic("glMultiDrawArrays was not bound."))(_mode, _first, _count, _drawcount);
 }
 
-pub fn multiDrawElements(mode: GLenum, count: [*c]const GLsizei, type: GLenum, indices: [*c]const *const c_void, drawcount: GLsizei) void {
-    return (function_pointers.glMultiDrawElements orelse @panic("glMultiDrawElements was not bound."))(mode, count, type, indices, drawcount);
+pub fn multiDrawElements(_mode: GLenum, _count: [*c]const GLsizei, _type: GLenum, _indices: [*c]const ?*const c_void, _drawcount: GLsizei) void {
+    return (function_pointers.glMultiDrawElements orelse @panic("glMultiDrawElements was not bound."))(_mode, _count, _type, _indices, _drawcount);
 }
 
-pub fn pointParameterf(pname: GLenum, param: GLfloat) void {
-    return (function_pointers.glPointParameterf orelse @panic("glPointParameterf was not bound."))(pname, param);
+pub fn pointParameterf(_pname: GLenum, _param: GLfloat) void {
+    return (function_pointers.glPointParameterf orelse @panic("glPointParameterf was not bound."))(_pname, _param);
 }
 
-pub fn pointParameterfv(pname: GLenum, params: [*c]const GLfloat) void {
-    return (function_pointers.glPointParameterfv orelse @panic("glPointParameterfv was not bound."))(pname, params);
+pub fn pointParameterfv(_pname: GLenum, _params: [*c]const GLfloat) void {
+    return (function_pointers.glPointParameterfv orelse @panic("glPointParameterfv was not bound."))(_pname, _params);
 }
 
-pub fn pointParameteri(pname: GLenum, param: GLint) void {
-    return (function_pointers.glPointParameteri orelse @panic("glPointParameteri was not bound."))(pname, param);
+pub fn pointParameteri(_pname: GLenum, _param: GLint) void {
+    return (function_pointers.glPointParameteri orelse @panic("glPointParameteri was not bound."))(_pname, _param);
 }
 
-pub fn pointParameteriv(pname: GLenum, params: [*c]const GLint) void {
-    return (function_pointers.glPointParameteriv orelse @panic("glPointParameteriv was not bound."))(pname, params);
+pub fn pointParameteriv(_pname: GLenum, _params: [*c]const GLint) void {
+    return (function_pointers.glPointParameteriv orelse @panic("glPointParameteriv was not bound."))(_pname, _params);
 }
 
-pub fn getInteger64i_v(target: GLenum, index: GLuint, data: [*c]GLint64) void {
-    return (function_pointers.glGetInteger64i_v orelse @panic("glGetInteger64i_v was not bound."))(target, index, data);
+pub fn getInteger64i_v(_target: GLenum, _index: GLuint, _data: [*c]GLint64) void {
+    return (function_pointers.glGetInteger64i_v orelse @panic("glGetInteger64i_v was not bound."))(_target, _index, _data);
 }
 
-pub fn getSynciv(sync: GLsync, pname: GLenum, count: GLsizei, length: [*c]GLsizei, values: [*c]GLint) void {
-    return (function_pointers.glGetSynciv orelse @panic("glGetSynciv was not bound."))(sync, pname, count, length, values);
+pub fn getSynciv(_sync: GLsync, _pname: GLenum, _count: GLsizei, _length: [*c]GLsizei, _values: [*c]GLint) void {
+    return (function_pointers.glGetSynciv orelse @panic("glGetSynciv was not bound."))(_sync, _pname, _count, _length, _values);
 }
 
-pub fn getInteger64v(pname: GLenum, data: [*c]GLint64) void {
-    return (function_pointers.glGetInteger64v orelse @panic("glGetInteger64v was not bound."))(pname, data);
+pub fn getInteger64v(_pname: GLenum, _data: [*c]GLint64) void {
+    return (function_pointers.glGetInteger64v orelse @panic("glGetInteger64v was not bound."))(_pname, _data);
 }
 
-pub fn waitSync(sync: GLsync, flags: GLbitfield, timeout: GLuint64) void {
-    return (function_pointers.glWaitSync orelse @panic("glWaitSync was not bound."))(sync, flags, timeout);
+pub fn waitSync(_sync: GLsync, _flags: GLbitfield, _timeout: GLuint64) void {
+    return (function_pointers.glWaitSync orelse @panic("glWaitSync was not bound."))(_sync, _flags, _timeout);
 }
 
-pub fn clientWaitSync(sync: GLsync, flags: GLbitfield, timeout: GLuint64) GLenum {
-    return (function_pointers.glClientWaitSync orelse @panic("glClientWaitSync was not bound."))(sync, flags, timeout);
+pub fn clientWaitSync(_sync: GLsync, _flags: GLbitfield, _timeout: GLuint64) GLenum {
+    return (function_pointers.glClientWaitSync orelse @panic("glClientWaitSync was not bound."))(_sync, _flags, _timeout);
 }
 
-pub fn deleteSync(sync: GLsync) void {
-    return (function_pointers.glDeleteSync orelse @panic("glDeleteSync was not bound."))(sync);
+pub fn deleteSync(_sync: GLsync) void {
+    return (function_pointers.glDeleteSync orelse @panic("glDeleteSync was not bound."))(_sync);
 }
 
-pub fn isSync(sync: GLsync) GLboolean {
-    return (function_pointers.glIsSync orelse @panic("glIsSync was not bound."))(sync);
+pub fn isSync(_sync: GLsync) GLboolean {
+    return (function_pointers.glIsSync orelse @panic("glIsSync was not bound."))(_sync);
 }
 
-pub fn fenceSync(condition: GLenum, flags: GLbitfield) GLsync {
-    return (function_pointers.glFenceSync orelse @panic("glFenceSync was not bound."))(condition, flags);
+pub fn fenceSync(_condition: GLenum, _flags: GLbitfield) GLsync {
+    return (function_pointers.glFenceSync orelse @panic("glFenceSync was not bound."))(_condition, _flags);
 }
 
-pub fn blendColor(red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat) void {
-    return (function_pointers.glBlendColor orelse @panic("glBlendColor was not bound."))(red, green, blue, alpha);
+pub fn blendColor(_red: GLfloat, _green: GLfloat, _blue: GLfloat, _alpha: GLfloat) void {
+    return (function_pointers.glBlendColor orelse @panic("glBlendColor was not bound."))(_red, _green, _blue, _alpha);
 }
 
-pub fn blendEquation(mode: GLenum) void {
-    return (function_pointers.glBlendEquation orelse @panic("glBlendEquation was not bound."))(mode);
+pub fn blendEquation(_mode: GLenum) void {
+    return (function_pointers.glBlendEquation orelse @panic("glBlendEquation was not bound."))(_mode);
 }
 
-pub fn provokingVertex(mode: GLenum) void {
-    return (function_pointers.glProvokingVertex orelse @panic("glProvokingVertex was not bound."))(mode);
+pub fn provokingVertex(_mode: GLenum) void {
+    return (function_pointers.glProvokingVertex orelse @panic("glProvokingVertex was not bound."))(_mode);
 }
 
-pub fn multiDrawElementsBaseVertex(mode: GLenum, count: [*c]const GLsizei, type: GLenum, indices: [*c]const *const c_void, drawcount: GLsizei, basevertex: [*c]const GLint) void {
-    return (function_pointers.glMultiDrawElementsBaseVertex orelse @panic("glMultiDrawElementsBaseVertex was not bound."))(mode, count, type, indices, drawcount, basevertex);
+pub fn multiDrawElementsBaseVertex(_mode: GLenum, _count: [*c]const GLsizei, _type: GLenum, _indices: [*c]const ?*const c_void, _drawcount: GLsizei, _basevertex: [*c]const GLint) void {
+    return (function_pointers.glMultiDrawElementsBaseVertex orelse @panic("glMultiDrawElementsBaseVertex was not bound."))(_mode, _count, _type, _indices, _drawcount, _basevertex);
 }
 
-pub fn drawElementsInstancedBaseVertex(mode: GLenum, count: GLsizei, type: GLenum, indices: *const c_void, instancecount: GLsizei, basevertex: GLint) void {
-    return (function_pointers.glDrawElementsInstancedBaseVertex orelse @panic("glDrawElementsInstancedBaseVertex was not bound."))(mode, count, type, indices, instancecount, basevertex);
+pub fn drawElementsInstancedBaseVertex(_mode: GLenum, _count: GLsizei, _type: GLenum, _indices: ?*const c_void, _instancecount: GLsizei, _basevertex: GLint) void {
+    return (function_pointers.glDrawElementsInstancedBaseVertex orelse @panic("glDrawElementsInstancedBaseVertex was not bound."))(_mode, _count, _type, _indices, _instancecount, _basevertex);
 }
 
-pub fn drawRangeElementsBaseVertex(mode: GLenum, start: GLuint, end: GLuint, count: GLsizei, type: GLenum, indices: *const c_void, basevertex: GLint) void {
-    return (function_pointers.glDrawRangeElementsBaseVertex orelse @panic("glDrawRangeElementsBaseVertex was not bound."))(mode, start, end, count, type, indices, basevertex);
+pub fn drawRangeElementsBaseVertex(_mode: GLenum, _start: GLuint, _end: GLuint, _count: GLsizei, _type: GLenum, _indices: ?*const c_void, _basevertex: GLint) void {
+    return (function_pointers.glDrawRangeElementsBaseVertex orelse @panic("glDrawRangeElementsBaseVertex was not bound."))(_mode, _start, _end, _count, _type, _indices, _basevertex);
 }
 
-pub fn drawElementsBaseVertex(mode: GLenum, count: GLsizei, type: GLenum, indices: *const c_void, basevertex: GLint) void {
-    return (function_pointers.glDrawElementsBaseVertex orelse @panic("glDrawElementsBaseVertex was not bound."))(mode, count, type, indices, basevertex);
+pub fn drawElementsBaseVertex(_mode: GLenum, _count: GLsizei, _type: GLenum, _indices: ?*const c_void, _basevertex: GLint) void {
+    return (function_pointers.glDrawElementsBaseVertex orelse @panic("glDrawElementsBaseVertex was not bound."))(_mode, _count, _type, _indices, _basevertex);
 }
 
-pub fn genQueries(n: GLsizei, ids: [*c]GLuint) void {
-    return (function_pointers.glGenQueries orelse @panic("glGenQueries was not bound."))(n, ids);
+pub fn genQueries(_n: GLsizei, _ids: [*c]GLuint) void {
+    return (function_pointers.glGenQueries orelse @panic("glGenQueries was not bound."))(_n, _ids);
 }
 
-pub fn deleteQueries(n: GLsizei, ids: [*c]const GLuint) void {
-    return (function_pointers.glDeleteQueries orelse @panic("glDeleteQueries was not bound."))(n, ids);
+pub fn deleteQueries(_n: GLsizei, _ids: [*c]const GLuint) void {
+    return (function_pointers.glDeleteQueries orelse @panic("glDeleteQueries was not bound."))(_n, _ids);
 }
 
-pub fn isQuery(id: GLuint) GLboolean {
-    return (function_pointers.glIsQuery orelse @panic("glIsQuery was not bound."))(id);
+pub fn isQuery(_id: GLuint) GLboolean {
+    return (function_pointers.glIsQuery orelse @panic("glIsQuery was not bound."))(_id);
 }
 
-pub fn beginQuery(target: GLenum, id: GLuint) void {
-    return (function_pointers.glBeginQuery orelse @panic("glBeginQuery was not bound."))(target, id);
+pub fn beginQuery(_target: GLenum, _id: GLuint) void {
+    return (function_pointers.glBeginQuery orelse @panic("glBeginQuery was not bound."))(_target, _id);
 }
 
-pub fn endQuery(target: GLenum) void {
-    return (function_pointers.glEndQuery orelse @panic("glEndQuery was not bound."))(target);
+pub fn endQuery(_target: GLenum) void {
+    return (function_pointers.glEndQuery orelse @panic("glEndQuery was not bound."))(_target);
 }
 
-pub fn getQueryiv(target: GLenum, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetQueryiv orelse @panic("glGetQueryiv was not bound."))(target, pname, params);
+pub fn getQueryiv(_target: GLenum, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetQueryiv orelse @panic("glGetQueryiv was not bound."))(_target, _pname, _params);
 }
 
-pub fn getQueryObjectiv(id: GLuint, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetQueryObjectiv orelse @panic("glGetQueryObjectiv was not bound."))(id, pname, params);
+pub fn getQueryObjectiv(_id: GLuint, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetQueryObjectiv orelse @panic("glGetQueryObjectiv was not bound."))(_id, _pname, _params);
 }
 
-pub fn getQueryObjectuiv(id: GLuint, pname: GLenum, params: [*c]GLuint) void {
-    return (function_pointers.glGetQueryObjectuiv orelse @panic("glGetQueryObjectuiv was not bound."))(id, pname, params);
+pub fn getQueryObjectuiv(_id: GLuint, _pname: GLenum, _params: [*c]GLuint) void {
+    return (function_pointers.glGetQueryObjectuiv orelse @panic("glGetQueryObjectuiv was not bound."))(_id, _pname, _params);
 }
 
-pub fn bindBuffer(target: GLenum, buffer: GLuint) void {
-    return (function_pointers.glBindBuffer orelse @panic("glBindBuffer was not bound."))(target, buffer);
+pub fn bindBuffer(_target: GLenum, _buffer: GLuint) void {
+    return (function_pointers.glBindBuffer orelse @panic("glBindBuffer was not bound."))(_target, _buffer);
 }
 
-pub fn deleteBuffers(n: GLsizei, buffers: [*c]const GLuint) void {
-    return (function_pointers.glDeleteBuffers orelse @panic("glDeleteBuffers was not bound."))(n, buffers);
+pub fn deleteBuffers(_n: GLsizei, _buffers: [*c]const GLuint) void {
+    return (function_pointers.glDeleteBuffers orelse @panic("glDeleteBuffers was not bound."))(_n, _buffers);
 }
 
-pub fn genBuffers(n: GLsizei, buffers: [*c]GLuint) void {
-    return (function_pointers.glGenBuffers orelse @panic("glGenBuffers was not bound."))(n, buffers);
+pub fn genBuffers(_n: GLsizei, _buffers: [*c]GLuint) void {
+    return (function_pointers.glGenBuffers orelse @panic("glGenBuffers was not bound."))(_n, _buffers);
 }
 
-pub fn isBuffer(buffer: GLuint) GLboolean {
-    return (function_pointers.glIsBuffer orelse @panic("glIsBuffer was not bound."))(buffer);
+pub fn isBuffer(_buffer: GLuint) GLboolean {
+    return (function_pointers.glIsBuffer orelse @panic("glIsBuffer was not bound."))(_buffer);
 }
 
-pub fn bufferData(target: GLenum, size: GLsizeiptr, data: *const c_void, usage: GLenum) void {
-    return (function_pointers.glBufferData orelse @panic("glBufferData was not bound."))(target, size, data, usage);
+pub fn bufferData(_target: GLenum, _size: GLsizeiptr, _data: ?*const c_void, _usage: GLenum) void {
+    return (function_pointers.glBufferData orelse @panic("glBufferData was not bound."))(_target, _size, _data, _usage);
 }
 
-pub fn bufferSubData(target: GLenum, offset: GLintptr, size: GLsizeiptr, data: *const c_void) void {
-    return (function_pointers.glBufferSubData orelse @panic("glBufferSubData was not bound."))(target, offset, size, data);
+pub fn bufferSubData(_target: GLenum, _offset: GLintptr, _size: GLsizeiptr, _data: ?*const c_void) void {
+    return (function_pointers.glBufferSubData orelse @panic("glBufferSubData was not bound."))(_target, _offset, _size, _data);
 }
 
-pub fn getBufferSubData(target: GLenum, offset: GLintptr, size: GLsizeiptr, data: *c_void) void {
-    return (function_pointers.glGetBufferSubData orelse @panic("glGetBufferSubData was not bound."))(target, offset, size, data);
+pub fn getBufferSubData(_target: GLenum, _offset: GLintptr, _size: GLsizeiptr, _data: ?*c_void) void {
+    return (function_pointers.glGetBufferSubData orelse @panic("glGetBufferSubData was not bound."))(_target, _offset, _size, _data);
 }
 
-pub fn mapBuffer(target: GLenum, access: GLenum) *c_void {
-    return (function_pointers.glMapBuffer orelse @panic("glMapBuffer was not bound."))(target, access);
+pub fn mapBuffer(_target: GLenum, _access: GLenum) ?*c_void {
+    return (function_pointers.glMapBuffer orelse @panic("glMapBuffer was not bound."))(_target, _access);
 }
 
-pub fn unmapBuffer(target: GLenum) GLboolean {
-    return (function_pointers.glUnmapBuffer orelse @panic("glUnmapBuffer was not bound."))(target);
+pub fn unmapBuffer(_target: GLenum) GLboolean {
+    return (function_pointers.glUnmapBuffer orelse @panic("glUnmapBuffer was not bound."))(_target);
 }
 
-pub fn getBufferParameteriv(target: GLenum, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetBufferParameteriv orelse @panic("glGetBufferParameteriv was not bound."))(target, pname, params);
+pub fn getBufferParameteriv(_target: GLenum, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetBufferParameteriv orelse @panic("glGetBufferParameteriv was not bound."))(_target, _pname, _params);
 }
 
-pub fn getBufferPointerv(target: GLenum, pname: GLenum, params: **c_void) void {
-    return (function_pointers.glGetBufferPointerv orelse @panic("glGetBufferPointerv was not bound."))(target, pname, params);
+pub fn getBufferPointerv(_target: GLenum, _pname: GLenum, _params: ?*?*c_void) void {
+    return (function_pointers.glGetBufferPointerv orelse @panic("glGetBufferPointerv was not bound."))(_target, _pname, _params);
 }
 
-pub fn blendEquationSeparate(modeRGB: GLenum, modeAlpha: GLenum) void {
-    return (function_pointers.glBlendEquationSeparate orelse @panic("glBlendEquationSeparate was not bound."))(modeRGB, modeAlpha);
+pub fn blendEquationSeparate(_modeRGB: GLenum, _modeAlpha: GLenum) void {
+    return (function_pointers.glBlendEquationSeparate orelse @panic("glBlendEquationSeparate was not bound."))(_modeRGB, _modeAlpha);
 }
 
-pub fn drawBuffers(n: GLsizei, bufs: [*c]const GLenum) void {
-    return (function_pointers.glDrawBuffers orelse @panic("glDrawBuffers was not bound."))(n, bufs);
+pub fn drawBuffers(_n: GLsizei, _bufs: [*c]const GLenum) void {
+    return (function_pointers.glDrawBuffers orelse @panic("glDrawBuffers was not bound."))(_n, _bufs);
 }
 
-pub fn stencilOpSeparate(face: GLenum, sfail: GLenum, dpfail: GLenum, dppass: GLenum) void {
-    return (function_pointers.glStencilOpSeparate orelse @panic("glStencilOpSeparate was not bound."))(face, sfail, dpfail, dppass);
+pub fn stencilOpSeparate(_face: GLenum, _sfail: GLenum, _dpfail: GLenum, _dppass: GLenum) void {
+    return (function_pointers.glStencilOpSeparate orelse @panic("glStencilOpSeparate was not bound."))(_face, _sfail, _dpfail, _dppass);
 }
 
-pub fn stencilFuncSeparate(face: GLenum, func: GLenum, ref: GLint, mask: GLuint) void {
-    return (function_pointers.glStencilFuncSeparate orelse @panic("glStencilFuncSeparate was not bound."))(face, func, ref, mask);
+pub fn stencilFuncSeparate(_face: GLenum, _func: GLenum, _ref: GLint, _mask: GLuint) void {
+    return (function_pointers.glStencilFuncSeparate orelse @panic("glStencilFuncSeparate was not bound."))(_face, _func, _ref, _mask);
 }
 
-pub fn stencilMaskSeparate(face: GLenum, mask: GLuint) void {
-    return (function_pointers.glStencilMaskSeparate orelse @panic("glStencilMaskSeparate was not bound."))(face, mask);
+pub fn stencilMaskSeparate(_face: GLenum, _mask: GLuint) void {
+    return (function_pointers.glStencilMaskSeparate orelse @panic("glStencilMaskSeparate was not bound."))(_face, _mask);
 }
 
-pub fn attachShader(program: GLuint, shader: GLuint) void {
-    return (function_pointers.glAttachShader orelse @panic("glAttachShader was not bound."))(program, shader);
+pub fn attachShader(_program: GLuint, _shader: GLuint) void {
+    return (function_pointers.glAttachShader orelse @panic("glAttachShader was not bound."))(_program, _shader);
 }
 
-pub fn bindAttribLocation(program: GLuint, index: GLuint, name: [*c]const GLchar) void {
-    return (function_pointers.glBindAttribLocation orelse @panic("glBindAttribLocation was not bound."))(program, index, name);
+pub fn bindAttribLocation(_program: GLuint, _index: GLuint, _name: [*c]const GLchar) void {
+    return (function_pointers.glBindAttribLocation orelse @panic("glBindAttribLocation was not bound."))(_program, _index, _name);
 }
 
-pub fn compileShader(shader: GLuint) void {
-    return (function_pointers.glCompileShader orelse @panic("glCompileShader was not bound."))(shader);
+pub fn compileShader(_shader: GLuint) void {
+    return (function_pointers.glCompileShader orelse @panic("glCompileShader was not bound."))(_shader);
 }
 
 pub fn createProgram() GLuint {
     return (function_pointers.glCreateProgram orelse @panic("glCreateProgram was not bound."))();
 }
 
-pub fn createShader(type: GLenum) GLuint {
-    return (function_pointers.glCreateShader orelse @panic("glCreateShader was not bound."))(type);
+pub fn createShader(_type: GLenum) GLuint {
+    return (function_pointers.glCreateShader orelse @panic("glCreateShader was not bound."))(_type);
 }
 
-pub fn deleteProgram(program: GLuint) void {
-    return (function_pointers.glDeleteProgram orelse @panic("glDeleteProgram was not bound."))(program);
+pub fn deleteProgram(_program: GLuint) void {
+    return (function_pointers.glDeleteProgram orelse @panic("glDeleteProgram was not bound."))(_program);
 }
 
-pub fn deleteShader(shader: GLuint) void {
-    return (function_pointers.glDeleteShader orelse @panic("glDeleteShader was not bound."))(shader);
+pub fn deleteShader(_shader: GLuint) void {
+    return (function_pointers.glDeleteShader orelse @panic("glDeleteShader was not bound."))(_shader);
 }
 
-pub fn detachShader(program: GLuint, shader: GLuint) void {
-    return (function_pointers.glDetachShader orelse @panic("glDetachShader was not bound."))(program, shader);
+pub fn detachShader(_program: GLuint, _shader: GLuint) void {
+    return (function_pointers.glDetachShader orelse @panic("glDetachShader was not bound."))(_program, _shader);
 }
 
-pub fn disableVertexAttribArray(index: GLuint) void {
-    return (function_pointers.glDisableVertexAttribArray orelse @panic("glDisableVertexAttribArray was not bound."))(index);
+pub fn disableVertexAttribArray(_index: GLuint) void {
+    return (function_pointers.glDisableVertexAttribArray orelse @panic("glDisableVertexAttribArray was not bound."))(_index);
 }
 
-pub fn enableVertexAttribArray(index: GLuint) void {
-    return (function_pointers.glEnableVertexAttribArray orelse @panic("glEnableVertexAttribArray was not bound."))(index);
+pub fn enableVertexAttribArray(_index: GLuint) void {
+    return (function_pointers.glEnableVertexAttribArray orelse @panic("glEnableVertexAttribArray was not bound."))(_index);
 }
 
-pub fn getActiveAttrib(program: GLuint, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, size: [*c]GLint, type: [*c]GLenum, name: [*c]GLchar) void {
-    return (function_pointers.glGetActiveAttrib orelse @panic("glGetActiveAttrib was not bound."))(program, index, bufSize, length, size, type, name);
+pub fn getActiveAttrib(_program: GLuint, _index: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _size: [*c]GLint, _type: [*c]GLenum, _name: [*c]GLchar) void {
+    return (function_pointers.glGetActiveAttrib orelse @panic("glGetActiveAttrib was not bound."))(_program, _index, _bufSize, _length, _size, _type, _name);
 }
 
-pub fn getActiveUniform(program: GLuint, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, size: [*c]GLint, type: [*c]GLenum, name: [*c]GLchar) void {
-    return (function_pointers.glGetActiveUniform orelse @panic("glGetActiveUniform was not bound."))(program, index, bufSize, length, size, type, name);
+pub fn getActiveUniform(_program: GLuint, _index: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _size: [*c]GLint, _type: [*c]GLenum, _name: [*c]GLchar) void {
+    return (function_pointers.glGetActiveUniform orelse @panic("glGetActiveUniform was not bound."))(_program, _index, _bufSize, _length, _size, _type, _name);
 }
 
-pub fn getAttachedShaders(program: GLuint, maxCount: GLsizei, count: [*c]GLsizei, shaders: [*c]GLuint) void {
-    return (function_pointers.glGetAttachedShaders orelse @panic("glGetAttachedShaders was not bound."))(program, maxCount, count, shaders);
+pub fn getAttachedShaders(_program: GLuint, _maxCount: GLsizei, _count: [*c]GLsizei, _shaders: [*c]GLuint) void {
+    return (function_pointers.glGetAttachedShaders orelse @panic("glGetAttachedShaders was not bound."))(_program, _maxCount, _count, _shaders);
 }
 
-pub fn getAttribLocation(program: GLuint, name: [*c]const GLchar) GLint {
-    return (function_pointers.glGetAttribLocation orelse @panic("glGetAttribLocation was not bound."))(program, name);
+pub fn getAttribLocation(_program: GLuint, _name: [*c]const GLchar) GLint {
+    return (function_pointers.glGetAttribLocation orelse @panic("glGetAttribLocation was not bound."))(_program, _name);
 }
 
-pub fn getProgramiv(program: GLuint, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetProgramiv orelse @panic("glGetProgramiv was not bound."))(program, pname, params);
+pub fn getProgramiv(_program: GLuint, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetProgramiv orelse @panic("glGetProgramiv was not bound."))(_program, _pname, _params);
 }
 
-pub fn getProgramInfoLog(program: GLuint, bufSize: GLsizei, length: [*c]GLsizei, infoLog: [*c]GLchar) void {
-    return (function_pointers.glGetProgramInfoLog orelse @panic("glGetProgramInfoLog was not bound."))(program, bufSize, length, infoLog);
+pub fn getProgramInfoLog(_program: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _infoLog: [*c]GLchar) void {
+    return (function_pointers.glGetProgramInfoLog orelse @panic("glGetProgramInfoLog was not bound."))(_program, _bufSize, _length, _infoLog);
 }
 
-pub fn getShaderiv(shader: GLuint, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetShaderiv orelse @panic("glGetShaderiv was not bound."))(shader, pname, params);
+pub fn getShaderiv(_shader: GLuint, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetShaderiv orelse @panic("glGetShaderiv was not bound."))(_shader, _pname, _params);
 }
 
-pub fn getShaderInfoLog(shader: GLuint, bufSize: GLsizei, length: [*c]GLsizei, infoLog: [*c]GLchar) void {
-    return (function_pointers.glGetShaderInfoLog orelse @panic("glGetShaderInfoLog was not bound."))(shader, bufSize, length, infoLog);
+pub fn getShaderInfoLog(_shader: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _infoLog: [*c]GLchar) void {
+    return (function_pointers.glGetShaderInfoLog orelse @panic("glGetShaderInfoLog was not bound."))(_shader, _bufSize, _length, _infoLog);
 }
 
-pub fn getShaderSource(shader: GLuint, bufSize: GLsizei, length: [*c]GLsizei, source: [*c]GLchar) void {
-    return (function_pointers.glGetShaderSource orelse @panic("glGetShaderSource was not bound."))(shader, bufSize, length, source);
+pub fn getShaderSource(_shader: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _source: [*c]GLchar) void {
+    return (function_pointers.glGetShaderSource orelse @panic("glGetShaderSource was not bound."))(_shader, _bufSize, _length, _source);
 }
 
-pub fn getUniformLocation(program: GLuint, name: [*c]const GLchar) GLint {
-    return (function_pointers.glGetUniformLocation orelse @panic("glGetUniformLocation was not bound."))(program, name);
+pub fn getUniformLocation(_program: GLuint, _name: [*c]const GLchar) GLint {
+    return (function_pointers.glGetUniformLocation orelse @panic("glGetUniformLocation was not bound."))(_program, _name);
 }
 
-pub fn getUniformfv(program: GLuint, location: GLint, params: [*c]GLfloat) void {
-    return (function_pointers.glGetUniformfv orelse @panic("glGetUniformfv was not bound."))(program, location, params);
+pub fn getUniformfv(_program: GLuint, _location: GLint, _params: [*c]GLfloat) void {
+    return (function_pointers.glGetUniformfv orelse @panic("glGetUniformfv was not bound."))(_program, _location, _params);
 }
 
-pub fn getUniformiv(program: GLuint, location: GLint, params: [*c]GLint) void {
-    return (function_pointers.glGetUniformiv orelse @panic("glGetUniformiv was not bound."))(program, location, params);
+pub fn getUniformiv(_program: GLuint, _location: GLint, _params: [*c]GLint) void {
+    return (function_pointers.glGetUniformiv orelse @panic("glGetUniformiv was not bound."))(_program, _location, _params);
 }
 
-pub fn getVertexAttribdv(index: GLuint, pname: GLenum, params: [*c]GLdouble) void {
-    return (function_pointers.glGetVertexAttribdv orelse @panic("glGetVertexAttribdv was not bound."))(index, pname, params);
+pub fn getVertexAttribdv(_index: GLuint, _pname: GLenum, _params: [*c]GLdouble) void {
+    return (function_pointers.glGetVertexAttribdv orelse @panic("glGetVertexAttribdv was not bound."))(_index, _pname, _params);
 }
 
-pub fn getVertexAttribfv(index: GLuint, pname: GLenum, params: [*c]GLfloat) void {
-    return (function_pointers.glGetVertexAttribfv orelse @panic("glGetVertexAttribfv was not bound."))(index, pname, params);
+pub fn getVertexAttribfv(_index: GLuint, _pname: GLenum, _params: [*c]GLfloat) void {
+    return (function_pointers.glGetVertexAttribfv orelse @panic("glGetVertexAttribfv was not bound."))(_index, _pname, _params);
 }
 
-pub fn getVertexAttribiv(index: GLuint, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetVertexAttribiv orelse @panic("glGetVertexAttribiv was not bound."))(index, pname, params);
+pub fn getVertexAttribiv(_index: GLuint, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetVertexAttribiv orelse @panic("glGetVertexAttribiv was not bound."))(_index, _pname, _params);
 }
 
-pub fn getVertexAttribPointerv(index: GLuint, pname: GLenum, pointer: **c_void) void {
-    return (function_pointers.glGetVertexAttribPointerv orelse @panic("glGetVertexAttribPointerv was not bound."))(index, pname, pointer);
+pub fn getVertexAttribPointerv(_index: GLuint, _pname: GLenum, _pointer: ?*?*c_void) void {
+    return (function_pointers.glGetVertexAttribPointerv orelse @panic("glGetVertexAttribPointerv was not bound."))(_index, _pname, _pointer);
 }
 
-pub fn isProgram(program: GLuint) GLboolean {
-    return (function_pointers.glIsProgram orelse @panic("glIsProgram was not bound."))(program);
+pub fn isProgram(_program: GLuint) GLboolean {
+    return (function_pointers.glIsProgram orelse @panic("glIsProgram was not bound."))(_program);
 }
 
-pub fn isShader(shader: GLuint) GLboolean {
-    return (function_pointers.glIsShader orelse @panic("glIsShader was not bound."))(shader);
+pub fn isShader(_shader: GLuint) GLboolean {
+    return (function_pointers.glIsShader orelse @panic("glIsShader was not bound."))(_shader);
 }
 
-pub fn linkProgram(program: GLuint) void {
-    return (function_pointers.glLinkProgram orelse @panic("glLinkProgram was not bound."))(program);
+pub fn linkProgram(_program: GLuint) void {
+    return (function_pointers.glLinkProgram orelse @panic("glLinkProgram was not bound."))(_program);
 }
 
-pub fn shaderSource(shader: GLuint, count: GLsizei, string: [*c]const [*c]const GLchar, length: [*c]const GLint) void {
-    return (function_pointers.glShaderSource orelse @panic("glShaderSource was not bound."))(shader, count, string, length);
+pub fn shaderSource(_shader: GLuint, _count: GLsizei, _string: [*c]const [*c]const GLchar, _length: [*c]const GLint) void {
+    return (function_pointers.glShaderSource orelse @panic("glShaderSource was not bound."))(_shader, _count, _string, _length);
 }
 
-pub fn useProgram(program: GLuint) void {
-    return (function_pointers.glUseProgram orelse @panic("glUseProgram was not bound."))(program);
+pub fn useProgram(_program: GLuint) void {
+    return (function_pointers.glUseProgram orelse @panic("glUseProgram was not bound."))(_program);
 }
 
-pub fn uniform1f(location: GLint, v0: GLfloat) void {
-    return (function_pointers.glUniform1f orelse @panic("glUniform1f was not bound."))(location, v0);
+pub fn uniform1f(_location: GLint, _v0: GLfloat) void {
+    return (function_pointers.glUniform1f orelse @panic("glUniform1f was not bound."))(_location, _v0);
 }
 
-pub fn uniform2f(location: GLint, v0: GLfloat, v1: GLfloat) void {
-    return (function_pointers.glUniform2f orelse @panic("glUniform2f was not bound."))(location, v0, v1);
+pub fn uniform2f(_location: GLint, _v0: GLfloat, _v1: GLfloat) void {
+    return (function_pointers.glUniform2f orelse @panic("glUniform2f was not bound."))(_location, _v0, _v1);
 }
 
-pub fn uniform3f(location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat) void {
-    return (function_pointers.glUniform3f orelse @panic("glUniform3f was not bound."))(location, v0, v1, v2);
+pub fn uniform3f(_location: GLint, _v0: GLfloat, _v1: GLfloat, _v2: GLfloat) void {
+    return (function_pointers.glUniform3f orelse @panic("glUniform3f was not bound."))(_location, _v0, _v1, _v2);
 }
 
-pub fn uniform4f(location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat, v3: GLfloat) void {
-    return (function_pointers.glUniform4f orelse @panic("glUniform4f was not bound."))(location, v0, v1, v2, v3);
+pub fn uniform4f(_location: GLint, _v0: GLfloat, _v1: GLfloat, _v2: GLfloat, _v3: GLfloat) void {
+    return (function_pointers.glUniform4f orelse @panic("glUniform4f was not bound."))(_location, _v0, _v1, _v2, _v3);
 }
 
-pub fn uniform1i(location: GLint, v0: GLint) void {
-    return (function_pointers.glUniform1i orelse @panic("glUniform1i was not bound."))(location, v0);
+pub fn uniform1i(_location: GLint, _v0: GLint) void {
+    return (function_pointers.glUniform1i orelse @panic("glUniform1i was not bound."))(_location, _v0);
 }
 
-pub fn uniform2i(location: GLint, v0: GLint, v1: GLint) void {
-    return (function_pointers.glUniform2i orelse @panic("glUniform2i was not bound."))(location, v0, v1);
+pub fn uniform2i(_location: GLint, _v0: GLint, _v1: GLint) void {
+    return (function_pointers.glUniform2i orelse @panic("glUniform2i was not bound."))(_location, _v0, _v1);
 }
 
-pub fn uniform3i(location: GLint, v0: GLint, v1: GLint, v2: GLint) void {
-    return (function_pointers.glUniform3i orelse @panic("glUniform3i was not bound."))(location, v0, v1, v2);
+pub fn uniform3i(_location: GLint, _v0: GLint, _v1: GLint, _v2: GLint) void {
+    return (function_pointers.glUniform3i orelse @panic("glUniform3i was not bound."))(_location, _v0, _v1, _v2);
 }
 
-pub fn uniform4i(location: GLint, v0: GLint, v1: GLint, v2: GLint, v3: GLint) void {
-    return (function_pointers.glUniform4i orelse @panic("glUniform4i was not bound."))(location, v0, v1, v2, v3);
+pub fn uniform4i(_location: GLint, _v0: GLint, _v1: GLint, _v2: GLint, _v3: GLint) void {
+    return (function_pointers.glUniform4i orelse @panic("glUniform4i was not bound."))(_location, _v0, _v1, _v2, _v3);
 }
 
-pub fn uniform1fv(location: GLint, count: GLsizei, value: [*c]const GLfloat) void {
-    return (function_pointers.glUniform1fv orelse @panic("glUniform1fv was not bound."))(location, count, value);
+pub fn uniform1fv(_location: GLint, _count: GLsizei, _value: [*c]const GLfloat) void {
+    return (function_pointers.glUniform1fv orelse @panic("glUniform1fv was not bound."))(_location, _count, _value);
 }
 
-pub fn uniform2fv(location: GLint, count: GLsizei, value: [*c]const GLfloat) void {
-    return (function_pointers.glUniform2fv orelse @panic("glUniform2fv was not bound."))(location, count, value);
+pub fn uniform2fv(_location: GLint, _count: GLsizei, _value: [*c]const GLfloat) void {
+    return (function_pointers.glUniform2fv orelse @panic("glUniform2fv was not bound."))(_location, _count, _value);
 }
 
-pub fn uniform3fv(location: GLint, count: GLsizei, value: [*c]const GLfloat) void {
-    return (function_pointers.glUniform3fv orelse @panic("glUniform3fv was not bound."))(location, count, value);
+pub fn uniform3fv(_location: GLint, _count: GLsizei, _value: [*c]const GLfloat) void {
+    return (function_pointers.glUniform3fv orelse @panic("glUniform3fv was not bound."))(_location, _count, _value);
 }
 
-pub fn uniform4fv(location: GLint, count: GLsizei, value: [*c]const GLfloat) void {
-    return (function_pointers.glUniform4fv orelse @panic("glUniform4fv was not bound."))(location, count, value);
+pub fn uniform4fv(_location: GLint, _count: GLsizei, _value: [*c]const GLfloat) void {
+    return (function_pointers.glUniform4fv orelse @panic("glUniform4fv was not bound."))(_location, _count, _value);
 }
 
-pub fn uniform1iv(location: GLint, count: GLsizei, value: [*c]const GLint) void {
-    return (function_pointers.glUniform1iv orelse @panic("glUniform1iv was not bound."))(location, count, value);
+pub fn uniform1iv(_location: GLint, _count: GLsizei, _value: [*c]const GLint) void {
+    return (function_pointers.glUniform1iv orelse @panic("glUniform1iv was not bound."))(_location, _count, _value);
 }
 
-pub fn uniform2iv(location: GLint, count: GLsizei, value: [*c]const GLint) void {
-    return (function_pointers.glUniform2iv orelse @panic("glUniform2iv was not bound."))(location, count, value);
+pub fn uniform2iv(_location: GLint, _count: GLsizei, _value: [*c]const GLint) void {
+    return (function_pointers.glUniform2iv orelse @panic("glUniform2iv was not bound."))(_location, _count, _value);
 }
 
-pub fn uniform3iv(location: GLint, count: GLsizei, value: [*c]const GLint) void {
-    return (function_pointers.glUniform3iv orelse @panic("glUniform3iv was not bound."))(location, count, value);
+pub fn uniform3iv(_location: GLint, _count: GLsizei, _value: [*c]const GLint) void {
+    return (function_pointers.glUniform3iv orelse @panic("glUniform3iv was not bound."))(_location, _count, _value);
 }
 
-pub fn uniform4iv(location: GLint, count: GLsizei, value: [*c]const GLint) void {
-    return (function_pointers.glUniform4iv orelse @panic("glUniform4iv was not bound."))(location, count, value);
+pub fn uniform4iv(_location: GLint, _count: GLsizei, _value: [*c]const GLint) void {
+    return (function_pointers.glUniform4iv orelse @panic("glUniform4iv was not bound."))(_location, _count, _value);
 }
 
-pub fn uniformMatrix2fv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void {
-    return (function_pointers.glUniformMatrix2fv orelse @panic("glUniformMatrix2fv was not bound."))(location, count, transpose, value);
+pub fn uniformMatrix2fv(_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void {
+    return (function_pointers.glUniformMatrix2fv orelse @panic("glUniformMatrix2fv was not bound."))(_location, _count, _transpose, _value);
 }
 
-pub fn uniformMatrix3fv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void {
-    return (function_pointers.glUniformMatrix3fv orelse @panic("glUniformMatrix3fv was not bound."))(location, count, transpose, value);
+pub fn uniformMatrix3fv(_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void {
+    return (function_pointers.glUniformMatrix3fv orelse @panic("glUniformMatrix3fv was not bound."))(_location, _count, _transpose, _value);
 }
 
-pub fn uniformMatrix4fv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void {
-    return (function_pointers.glUniformMatrix4fv orelse @panic("glUniformMatrix4fv was not bound."))(location, count, transpose, value);
+pub fn uniformMatrix4fv(_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void {
+    return (function_pointers.glUniformMatrix4fv orelse @panic("glUniformMatrix4fv was not bound."))(_location, _count, _transpose, _value);
 }
 
-pub fn validateProgram(program: GLuint) void {
-    return (function_pointers.glValidateProgram orelse @panic("glValidateProgram was not bound."))(program);
+pub fn validateProgram(_program: GLuint) void {
+    return (function_pointers.glValidateProgram orelse @panic("glValidateProgram was not bound."))(_program);
 }
 
-pub fn vertexAttrib1d(index: GLuint, x: GLdouble) void {
-    return (function_pointers.glVertexAttrib1d orelse @panic("glVertexAttrib1d was not bound."))(index, x);
+pub fn vertexAttrib1d(_index: GLuint, _x: GLdouble) void {
+    return (function_pointers.glVertexAttrib1d orelse @panic("glVertexAttrib1d was not bound."))(_index, _x);
 }
 
-pub fn vertexAttrib1dv(index: GLuint, v: [*c]const GLdouble) void {
-    return (function_pointers.glVertexAttrib1dv orelse @panic("glVertexAttrib1dv was not bound."))(index, v);
+pub fn vertexAttrib1dv(_index: GLuint, _v: [*c]const GLdouble) void {
+    return (function_pointers.glVertexAttrib1dv orelse @panic("glVertexAttrib1dv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib1f(index: GLuint, x: GLfloat) void {
-    return (function_pointers.glVertexAttrib1f orelse @panic("glVertexAttrib1f was not bound."))(index, x);
+pub fn vertexAttrib1f(_index: GLuint, _x: GLfloat) void {
+    return (function_pointers.glVertexAttrib1f orelse @panic("glVertexAttrib1f was not bound."))(_index, _x);
 }
 
-pub fn vertexAttrib1fv(index: GLuint, v: [*c]const GLfloat) void {
-    return (function_pointers.glVertexAttrib1fv orelse @panic("glVertexAttrib1fv was not bound."))(index, v);
+pub fn vertexAttrib1fv(_index: GLuint, _v: [*c]const GLfloat) void {
+    return (function_pointers.glVertexAttrib1fv orelse @panic("glVertexAttrib1fv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib1s(index: GLuint, x: GLshort) void {
-    return (function_pointers.glVertexAttrib1s orelse @panic("glVertexAttrib1s was not bound."))(index, x);
+pub fn vertexAttrib1s(_index: GLuint, _x: GLshort) void {
+    return (function_pointers.glVertexAttrib1s orelse @panic("glVertexAttrib1s was not bound."))(_index, _x);
 }
 
-pub fn vertexAttrib1sv(index: GLuint, v: [*c]const GLshort) void {
-    return (function_pointers.glVertexAttrib1sv orelse @panic("glVertexAttrib1sv was not bound."))(index, v);
+pub fn vertexAttrib1sv(_index: GLuint, _v: [*c]const GLshort) void {
+    return (function_pointers.glVertexAttrib1sv orelse @panic("glVertexAttrib1sv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib2d(index: GLuint, x: GLdouble, y: GLdouble) void {
-    return (function_pointers.glVertexAttrib2d orelse @panic("glVertexAttrib2d was not bound."))(index, x, y);
+pub fn vertexAttrib2d(_index: GLuint, _x: GLdouble, _y: GLdouble) void {
+    return (function_pointers.glVertexAttrib2d orelse @panic("glVertexAttrib2d was not bound."))(_index, _x, _y);
 }
 
-pub fn vertexAttrib2dv(index: GLuint, v: [*c]const GLdouble) void {
-    return (function_pointers.glVertexAttrib2dv orelse @panic("glVertexAttrib2dv was not bound."))(index, v);
+pub fn vertexAttrib2dv(_index: GLuint, _v: [*c]const GLdouble) void {
+    return (function_pointers.glVertexAttrib2dv orelse @panic("glVertexAttrib2dv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib2f(index: GLuint, x: GLfloat, y: GLfloat) void {
-    return (function_pointers.glVertexAttrib2f orelse @panic("glVertexAttrib2f was not bound."))(index, x, y);
+pub fn vertexAttrib2f(_index: GLuint, _x: GLfloat, _y: GLfloat) void {
+    return (function_pointers.glVertexAttrib2f orelse @panic("glVertexAttrib2f was not bound."))(_index, _x, _y);
 }
 
-pub fn vertexAttrib2fv(index: GLuint, v: [*c]const GLfloat) void {
-    return (function_pointers.glVertexAttrib2fv orelse @panic("glVertexAttrib2fv was not bound."))(index, v);
+pub fn vertexAttrib2fv(_index: GLuint, _v: [*c]const GLfloat) void {
+    return (function_pointers.glVertexAttrib2fv orelse @panic("glVertexAttrib2fv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib2s(index: GLuint, x: GLshort, y: GLshort) void {
-    return (function_pointers.glVertexAttrib2s orelse @panic("glVertexAttrib2s was not bound."))(index, x, y);
+pub fn vertexAttrib2s(_index: GLuint, _x: GLshort, _y: GLshort) void {
+    return (function_pointers.glVertexAttrib2s orelse @panic("glVertexAttrib2s was not bound."))(_index, _x, _y);
 }
 
-pub fn vertexAttrib2sv(index: GLuint, v: [*c]const GLshort) void {
-    return (function_pointers.glVertexAttrib2sv orelse @panic("glVertexAttrib2sv was not bound."))(index, v);
+pub fn vertexAttrib2sv(_index: GLuint, _v: [*c]const GLshort) void {
+    return (function_pointers.glVertexAttrib2sv orelse @panic("glVertexAttrib2sv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib3d(index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble) void {
-    return (function_pointers.glVertexAttrib3d orelse @panic("glVertexAttrib3d was not bound."))(index, x, y, z);
+pub fn vertexAttrib3d(_index: GLuint, _x: GLdouble, _y: GLdouble, _z: GLdouble) void {
+    return (function_pointers.glVertexAttrib3d orelse @panic("glVertexAttrib3d was not bound."))(_index, _x, _y, _z);
 }
 
-pub fn vertexAttrib3dv(index: GLuint, v: [*c]const GLdouble) void {
-    return (function_pointers.glVertexAttrib3dv orelse @panic("glVertexAttrib3dv was not bound."))(index, v);
+pub fn vertexAttrib3dv(_index: GLuint, _v: [*c]const GLdouble) void {
+    return (function_pointers.glVertexAttrib3dv orelse @panic("glVertexAttrib3dv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib3f(index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat) void {
-    return (function_pointers.glVertexAttrib3f orelse @panic("glVertexAttrib3f was not bound."))(index, x, y, z);
+pub fn vertexAttrib3f(_index: GLuint, _x: GLfloat, _y: GLfloat, _z: GLfloat) void {
+    return (function_pointers.glVertexAttrib3f orelse @panic("glVertexAttrib3f was not bound."))(_index, _x, _y, _z);
 }
 
-pub fn vertexAttrib3fv(index: GLuint, v: [*c]const GLfloat) void {
-    return (function_pointers.glVertexAttrib3fv orelse @panic("glVertexAttrib3fv was not bound."))(index, v);
+pub fn vertexAttrib3fv(_index: GLuint, _v: [*c]const GLfloat) void {
+    return (function_pointers.glVertexAttrib3fv orelse @panic("glVertexAttrib3fv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib3s(index: GLuint, x: GLshort, y: GLshort, z: GLshort) void {
-    return (function_pointers.glVertexAttrib3s orelse @panic("glVertexAttrib3s was not bound."))(index, x, y, z);
+pub fn vertexAttrib3s(_index: GLuint, _x: GLshort, _y: GLshort, _z: GLshort) void {
+    return (function_pointers.glVertexAttrib3s orelse @panic("glVertexAttrib3s was not bound."))(_index, _x, _y, _z);
 }
 
-pub fn vertexAttrib3sv(index: GLuint, v: [*c]const GLshort) void {
-    return (function_pointers.glVertexAttrib3sv orelse @panic("glVertexAttrib3sv was not bound."))(index, v);
+pub fn vertexAttrib3sv(_index: GLuint, _v: [*c]const GLshort) void {
+    return (function_pointers.glVertexAttrib3sv orelse @panic("glVertexAttrib3sv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib4Nbv(index: GLuint, v: [*c]const GLbyte) void {
-    return (function_pointers.glVertexAttrib4Nbv orelse @panic("glVertexAttrib4Nbv was not bound."))(index, v);
+pub fn vertexAttrib4Nbv(_index: GLuint, _v: [*c]const GLbyte) void {
+    return (function_pointers.glVertexAttrib4Nbv orelse @panic("glVertexAttrib4Nbv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib4Niv(index: GLuint, v: [*c]const GLint) void {
-    return (function_pointers.glVertexAttrib4Niv orelse @panic("glVertexAttrib4Niv was not bound."))(index, v);
+pub fn vertexAttrib4Niv(_index: GLuint, _v: [*c]const GLint) void {
+    return (function_pointers.glVertexAttrib4Niv orelse @panic("glVertexAttrib4Niv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib4Nsv(index: GLuint, v: [*c]const GLshort) void {
-    return (function_pointers.glVertexAttrib4Nsv orelse @panic("glVertexAttrib4Nsv was not bound."))(index, v);
+pub fn vertexAttrib4Nsv(_index: GLuint, _v: [*c]const GLshort) void {
+    return (function_pointers.glVertexAttrib4Nsv orelse @panic("glVertexAttrib4Nsv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib4Nub(index: GLuint, x: GLubyte, y: GLubyte, z: GLubyte, w: GLubyte) void {
-    return (function_pointers.glVertexAttrib4Nub orelse @panic("glVertexAttrib4Nub was not bound."))(index, x, y, z, w);
+pub fn vertexAttrib4Nub(_index: GLuint, _x: GLubyte, _y: GLubyte, _z: GLubyte, _w: GLubyte) void {
+    return (function_pointers.glVertexAttrib4Nub orelse @panic("glVertexAttrib4Nub was not bound."))(_index, _x, _y, _z, _w);
 }
 
-pub fn vertexAttrib4Nubv(index: GLuint, v: [*:0]const GLubyte) void {
-    return (function_pointers.glVertexAttrib4Nubv orelse @panic("glVertexAttrib4Nubv was not bound."))(index, v);
+pub fn vertexAttrib4Nubv(_index: GLuint, _v: ?[*:0]const GLubyte) void {
+    return (function_pointers.glVertexAttrib4Nubv orelse @panic("glVertexAttrib4Nubv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib4Nuiv(index: GLuint, v: [*c]const GLuint) void {
-    return (function_pointers.glVertexAttrib4Nuiv orelse @panic("glVertexAttrib4Nuiv was not bound."))(index, v);
+pub fn vertexAttrib4Nuiv(_index: GLuint, _v: [*c]const GLuint) void {
+    return (function_pointers.glVertexAttrib4Nuiv orelse @panic("glVertexAttrib4Nuiv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib4Nusv(index: GLuint, v: [*c]const GLushort) void {
-    return (function_pointers.glVertexAttrib4Nusv orelse @panic("glVertexAttrib4Nusv was not bound."))(index, v);
+pub fn vertexAttrib4Nusv(_index: GLuint, _v: [*c]const GLushort) void {
+    return (function_pointers.glVertexAttrib4Nusv orelse @panic("glVertexAttrib4Nusv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib4bv(index: GLuint, v: [*c]const GLbyte) void {
-    return (function_pointers.glVertexAttrib4bv orelse @panic("glVertexAttrib4bv was not bound."))(index, v);
+pub fn vertexAttrib4bv(_index: GLuint, _v: [*c]const GLbyte) void {
+    return (function_pointers.glVertexAttrib4bv orelse @panic("glVertexAttrib4bv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib4d(index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble) void {
-    return (function_pointers.glVertexAttrib4d orelse @panic("glVertexAttrib4d was not bound."))(index, x, y, z, w);
+pub fn vertexAttrib4d(_index: GLuint, _x: GLdouble, _y: GLdouble, _z: GLdouble, _w: GLdouble) void {
+    return (function_pointers.glVertexAttrib4d orelse @panic("glVertexAttrib4d was not bound."))(_index, _x, _y, _z, _w);
 }
 
-pub fn vertexAttrib4dv(index: GLuint, v: [*c]const GLdouble) void {
-    return (function_pointers.glVertexAttrib4dv orelse @panic("glVertexAttrib4dv was not bound."))(index, v);
+pub fn vertexAttrib4dv(_index: GLuint, _v: [*c]const GLdouble) void {
+    return (function_pointers.glVertexAttrib4dv orelse @panic("glVertexAttrib4dv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib4f(index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat, w: GLfloat) void {
-    return (function_pointers.glVertexAttrib4f orelse @panic("glVertexAttrib4f was not bound."))(index, x, y, z, w);
+pub fn vertexAttrib4f(_index: GLuint, _x: GLfloat, _y: GLfloat, _z: GLfloat, _w: GLfloat) void {
+    return (function_pointers.glVertexAttrib4f orelse @panic("glVertexAttrib4f was not bound."))(_index, _x, _y, _z, _w);
 }
 
-pub fn vertexAttrib4fv(index: GLuint, v: [*c]const GLfloat) void {
-    return (function_pointers.glVertexAttrib4fv orelse @panic("glVertexAttrib4fv was not bound."))(index, v);
+pub fn vertexAttrib4fv(_index: GLuint, _v: [*c]const GLfloat) void {
+    return (function_pointers.glVertexAttrib4fv orelse @panic("glVertexAttrib4fv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib4iv(index: GLuint, v: [*c]const GLint) void {
-    return (function_pointers.glVertexAttrib4iv orelse @panic("glVertexAttrib4iv was not bound."))(index, v);
+pub fn vertexAttrib4iv(_index: GLuint, _v: [*c]const GLint) void {
+    return (function_pointers.glVertexAttrib4iv orelse @panic("glVertexAttrib4iv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib4s(index: GLuint, x: GLshort, y: GLshort, z: GLshort, w: GLshort) void {
-    return (function_pointers.glVertexAttrib4s orelse @panic("glVertexAttrib4s was not bound."))(index, x, y, z, w);
+pub fn vertexAttrib4s(_index: GLuint, _x: GLshort, _y: GLshort, _z: GLshort, _w: GLshort) void {
+    return (function_pointers.glVertexAttrib4s orelse @panic("glVertexAttrib4s was not bound."))(_index, _x, _y, _z, _w);
 }
 
-pub fn vertexAttrib4sv(index: GLuint, v: [*c]const GLshort) void {
-    return (function_pointers.glVertexAttrib4sv orelse @panic("glVertexAttrib4sv was not bound."))(index, v);
+pub fn vertexAttrib4sv(_index: GLuint, _v: [*c]const GLshort) void {
+    return (function_pointers.glVertexAttrib4sv orelse @panic("glVertexAttrib4sv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib4ubv(index: GLuint, v: [*:0]const GLubyte) void {
-    return (function_pointers.glVertexAttrib4ubv orelse @panic("glVertexAttrib4ubv was not bound."))(index, v);
+pub fn vertexAttrib4ubv(_index: GLuint, _v: ?[*:0]const GLubyte) void {
+    return (function_pointers.glVertexAttrib4ubv orelse @panic("glVertexAttrib4ubv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib4uiv(index: GLuint, v: [*c]const GLuint) void {
-    return (function_pointers.glVertexAttrib4uiv orelse @panic("glVertexAttrib4uiv was not bound."))(index, v);
+pub fn vertexAttrib4uiv(_index: GLuint, _v: [*c]const GLuint) void {
+    return (function_pointers.glVertexAttrib4uiv orelse @panic("glVertexAttrib4uiv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttrib4usv(index: GLuint, v: [*c]const GLushort) void {
-    return (function_pointers.glVertexAttrib4usv orelse @panic("glVertexAttrib4usv was not bound."))(index, v);
+pub fn vertexAttrib4usv(_index: GLuint, _v: [*c]const GLushort) void {
+    return (function_pointers.glVertexAttrib4usv orelse @panic("glVertexAttrib4usv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttribPointer(index: GLuint, size: GLint, type: GLenum, normalized: GLboolean, stride: GLsizei, pointer: *const c_void) void {
-    return (function_pointers.glVertexAttribPointer orelse @panic("glVertexAttribPointer was not bound."))(index, size, type, normalized, stride, pointer);
+pub fn vertexAttribPointer(_index: GLuint, _size: GLint, _type: GLenum, _normalized: GLboolean, _stride: GLsizei, _pointer: ?*const c_void) void {
+    return (function_pointers.glVertexAttribPointer orelse @panic("glVertexAttribPointer was not bound."))(_index, _size, _type, _normalized, _stride, _pointer);
 }
 
-pub fn uniformMatrix2x3fv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void {
-    return (function_pointers.glUniformMatrix2x3fv orelse @panic("glUniformMatrix2x3fv was not bound."))(location, count, transpose, value);
+pub fn uniformMatrix2x3fv(_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void {
+    return (function_pointers.glUniformMatrix2x3fv orelse @panic("glUniformMatrix2x3fv was not bound."))(_location, _count, _transpose, _value);
 }
 
-pub fn uniformMatrix3x2fv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void {
-    return (function_pointers.glUniformMatrix3x2fv orelse @panic("glUniformMatrix3x2fv was not bound."))(location, count, transpose, value);
+pub fn uniformMatrix3x2fv(_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void {
+    return (function_pointers.glUniformMatrix3x2fv orelse @panic("glUniformMatrix3x2fv was not bound."))(_location, _count, _transpose, _value);
 }
 
-pub fn uniformMatrix2x4fv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void {
-    return (function_pointers.glUniformMatrix2x4fv orelse @panic("glUniformMatrix2x4fv was not bound."))(location, count, transpose, value);
+pub fn uniformMatrix2x4fv(_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void {
+    return (function_pointers.glUniformMatrix2x4fv orelse @panic("glUniformMatrix2x4fv was not bound."))(_location, _count, _transpose, _value);
 }
 
-pub fn uniformMatrix4x2fv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void {
-    return (function_pointers.glUniformMatrix4x2fv orelse @panic("glUniformMatrix4x2fv was not bound."))(location, count, transpose, value);
+pub fn uniformMatrix4x2fv(_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void {
+    return (function_pointers.glUniformMatrix4x2fv orelse @panic("glUniformMatrix4x2fv was not bound."))(_location, _count, _transpose, _value);
 }
 
-pub fn uniformMatrix3x4fv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void {
-    return (function_pointers.glUniformMatrix3x4fv orelse @panic("glUniformMatrix3x4fv was not bound."))(location, count, transpose, value);
+pub fn uniformMatrix3x4fv(_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void {
+    return (function_pointers.glUniformMatrix3x4fv orelse @panic("glUniformMatrix3x4fv was not bound."))(_location, _count, _transpose, _value);
 }
 
-pub fn uniformMatrix4x3fv(location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void {
-    return (function_pointers.glUniformMatrix4x3fv orelse @panic("glUniformMatrix4x3fv was not bound."))(location, count, transpose, value);
+pub fn uniformMatrix4x3fv(_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void {
+    return (function_pointers.glUniformMatrix4x3fv orelse @panic("glUniformMatrix4x3fv was not bound."))(_location, _count, _transpose, _value);
 }
 
-pub fn colorMaski(index: GLuint, r: GLboolean, g: GLboolean, b: GLboolean, a: GLboolean) void {
-    return (function_pointers.glColorMaski orelse @panic("glColorMaski was not bound."))(index, r, g, b, a);
+pub fn colorMaski(_index: GLuint, _r: GLboolean, _g: GLboolean, _b: GLboolean, _a: GLboolean) void {
+    return (function_pointers.glColorMaski orelse @panic("glColorMaski was not bound."))(_index, _r, _g, _b, _a);
 }
 
-pub fn getBooleani_v(target: GLenum, index: GLuint, data: [*c]GLboolean) void {
-    return (function_pointers.glGetBooleani_v orelse @panic("glGetBooleani_v was not bound."))(target, index, data);
+pub fn getBooleani_v(_target: GLenum, _index: GLuint, _data: [*c]GLboolean) void {
+    return (function_pointers.glGetBooleani_v orelse @panic("glGetBooleani_v was not bound."))(_target, _index, _data);
 }
 
-pub fn getIntegeri_v(target: GLenum, index: GLuint, data: [*c]GLint) void {
-    return (function_pointers.glGetIntegeri_v orelse @panic("glGetIntegeri_v was not bound."))(target, index, data);
+pub fn getIntegeri_v(_target: GLenum, _index: GLuint, _data: [*c]GLint) void {
+    return (function_pointers.glGetIntegeri_v orelse @panic("glGetIntegeri_v was not bound."))(_target, _index, _data);
 }
 
-pub fn enablei(target: GLenum, index: GLuint) void {
-    return (function_pointers.glEnablei orelse @panic("glEnablei was not bound."))(target, index);
+pub fn enablei(_target: GLenum, _index: GLuint) void {
+    return (function_pointers.glEnablei orelse @panic("glEnablei was not bound."))(_target, _index);
 }
 
-pub fn disablei(target: GLenum, index: GLuint) void {
-    return (function_pointers.glDisablei orelse @panic("glDisablei was not bound."))(target, index);
+pub fn disablei(_target: GLenum, _index: GLuint) void {
+    return (function_pointers.glDisablei orelse @panic("glDisablei was not bound."))(_target, _index);
 }
 
-pub fn isEnabledi(target: GLenum, index: GLuint) GLboolean {
-    return (function_pointers.glIsEnabledi orelse @panic("glIsEnabledi was not bound."))(target, index);
+pub fn isEnabledi(_target: GLenum, _index: GLuint) GLboolean {
+    return (function_pointers.glIsEnabledi orelse @panic("glIsEnabledi was not bound."))(_target, _index);
 }
 
-pub fn beginTransformFeedback(primitiveMode: GLenum) void {
-    return (function_pointers.glBeginTransformFeedback orelse @panic("glBeginTransformFeedback was not bound."))(primitiveMode);
+pub fn beginTransformFeedback(_primitiveMode: GLenum) void {
+    return (function_pointers.glBeginTransformFeedback orelse @panic("glBeginTransformFeedback was not bound."))(_primitiveMode);
 }
 
 pub fn endTransformFeedback() void {
     return (function_pointers.glEndTransformFeedback orelse @panic("glEndTransformFeedback was not bound."))();
 }
 
-pub fn bindBufferRange(target: GLenum, index: GLuint, buffer: GLuint, offset: GLintptr, size: GLsizeiptr) void {
-    return (function_pointers.glBindBufferRange orelse @panic("glBindBufferRange was not bound."))(target, index, buffer, offset, size);
+pub fn bindBufferRange(_target: GLenum, _index: GLuint, _buffer: GLuint, _offset: GLintptr, _size: GLsizeiptr) void {
+    return (function_pointers.glBindBufferRange orelse @panic("glBindBufferRange was not bound."))(_target, _index, _buffer, _offset, _size);
 }
 
-pub fn bindBufferBase(target: GLenum, index: GLuint, buffer: GLuint) void {
-    return (function_pointers.glBindBufferBase orelse @panic("glBindBufferBase was not bound."))(target, index, buffer);
+pub fn bindBufferBase(_target: GLenum, _index: GLuint, _buffer: GLuint) void {
+    return (function_pointers.glBindBufferBase orelse @panic("glBindBufferBase was not bound."))(_target, _index, _buffer);
 }
 
-pub fn transformFeedbackVaryings(program: GLuint, count: GLsizei, varyings: [*c]const [*c]const GLchar, bufferMode: GLenum) void {
-    return (function_pointers.glTransformFeedbackVaryings orelse @panic("glTransformFeedbackVaryings was not bound."))(program, count, varyings, bufferMode);
+pub fn transformFeedbackVaryings(_program: GLuint, _count: GLsizei, _varyings: [*c]const [*c]const GLchar, _bufferMode: GLenum) void {
+    return (function_pointers.glTransformFeedbackVaryings orelse @panic("glTransformFeedbackVaryings was not bound."))(_program, _count, _varyings, _bufferMode);
 }
 
-pub fn getTransformFeedbackVarying(program: GLuint, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, size: [*c]GLsizei, type: [*c]GLenum, name: [*c]GLchar) void {
-    return (function_pointers.glGetTransformFeedbackVarying orelse @panic("glGetTransformFeedbackVarying was not bound."))(program, index, bufSize, length, size, type, name);
+pub fn getTransformFeedbackVarying(_program: GLuint, _index: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _size: [*c]GLsizei, _type: [*c]GLenum, _name: [*c]GLchar) void {
+    return (function_pointers.glGetTransformFeedbackVarying orelse @panic("glGetTransformFeedbackVarying was not bound."))(_program, _index, _bufSize, _length, _size, _type, _name);
 }
 
-pub fn clampColor(target: GLenum, clamp: GLenum) void {
-    return (function_pointers.glClampColor orelse @panic("glClampColor was not bound."))(target, clamp);
+pub fn clampColor(_target: GLenum, _clamp: GLenum) void {
+    return (function_pointers.glClampColor orelse @panic("glClampColor was not bound."))(_target, _clamp);
 }
 
-pub fn beginConditionalRender(id: GLuint, mode: GLenum) void {
-    return (function_pointers.glBeginConditionalRender orelse @panic("glBeginConditionalRender was not bound."))(id, mode);
+pub fn beginConditionalRender(_id: GLuint, _mode: GLenum) void {
+    return (function_pointers.glBeginConditionalRender orelse @panic("glBeginConditionalRender was not bound."))(_id, _mode);
 }
 
 pub fn endConditionalRender() void {
     return (function_pointers.glEndConditionalRender orelse @panic("glEndConditionalRender was not bound."))();
 }
 
-pub fn vertexAttribIPointer(index: GLuint, size: GLint, type: GLenum, stride: GLsizei, pointer: *const c_void) void {
-    return (function_pointers.glVertexAttribIPointer orelse @panic("glVertexAttribIPointer was not bound."))(index, size, type, stride, pointer);
+pub fn vertexAttribIPointer(_index: GLuint, _size: GLint, _type: GLenum, _stride: GLsizei, _pointer: ?*const c_void) void {
+    return (function_pointers.glVertexAttribIPointer orelse @panic("glVertexAttribIPointer was not bound."))(_index, _size, _type, _stride, _pointer);
 }
 
-pub fn getVertexAttribIiv(index: GLuint, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetVertexAttribIiv orelse @panic("glGetVertexAttribIiv was not bound."))(index, pname, params);
+pub fn getVertexAttribIiv(_index: GLuint, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetVertexAttribIiv orelse @panic("glGetVertexAttribIiv was not bound."))(_index, _pname, _params);
 }
 
-pub fn getVertexAttribIuiv(index: GLuint, pname: GLenum, params: [*c]GLuint) void {
-    return (function_pointers.glGetVertexAttribIuiv orelse @panic("glGetVertexAttribIuiv was not bound."))(index, pname, params);
+pub fn getVertexAttribIuiv(_index: GLuint, _pname: GLenum, _params: [*c]GLuint) void {
+    return (function_pointers.glGetVertexAttribIuiv orelse @panic("glGetVertexAttribIuiv was not bound."))(_index, _pname, _params);
 }
 
-pub fn vertexAttribI1i(index: GLuint, x: GLint) void {
-    return (function_pointers.glVertexAttribI1i orelse @panic("glVertexAttribI1i was not bound."))(index, x);
+pub fn vertexAttribI1i(_index: GLuint, _x: GLint) void {
+    return (function_pointers.glVertexAttribI1i orelse @panic("glVertexAttribI1i was not bound."))(_index, _x);
 }
 
-pub fn vertexAttribI2i(index: GLuint, x: GLint, y: GLint) void {
-    return (function_pointers.glVertexAttribI2i orelse @panic("glVertexAttribI2i was not bound."))(index, x, y);
+pub fn vertexAttribI2i(_index: GLuint, _x: GLint, _y: GLint) void {
+    return (function_pointers.glVertexAttribI2i orelse @panic("glVertexAttribI2i was not bound."))(_index, _x, _y);
 }
 
-pub fn vertexAttribI3i(index: GLuint, x: GLint, y: GLint, z: GLint) void {
-    return (function_pointers.glVertexAttribI3i orelse @panic("glVertexAttribI3i was not bound."))(index, x, y, z);
+pub fn vertexAttribI3i(_index: GLuint, _x: GLint, _y: GLint, _z: GLint) void {
+    return (function_pointers.glVertexAttribI3i orelse @panic("glVertexAttribI3i was not bound."))(_index, _x, _y, _z);
 }
 
-pub fn vertexAttribI4i(index: GLuint, x: GLint, y: GLint, z: GLint, w: GLint) void {
-    return (function_pointers.glVertexAttribI4i orelse @panic("glVertexAttribI4i was not bound."))(index, x, y, z, w);
+pub fn vertexAttribI4i(_index: GLuint, _x: GLint, _y: GLint, _z: GLint, _w: GLint) void {
+    return (function_pointers.glVertexAttribI4i orelse @panic("glVertexAttribI4i was not bound."))(_index, _x, _y, _z, _w);
 }
 
-pub fn vertexAttribI1ui(index: GLuint, x: GLuint) void {
-    return (function_pointers.glVertexAttribI1ui orelse @panic("glVertexAttribI1ui was not bound."))(index, x);
+pub fn vertexAttribI1ui(_index: GLuint, _x: GLuint) void {
+    return (function_pointers.glVertexAttribI1ui orelse @panic("glVertexAttribI1ui was not bound."))(_index, _x);
 }
 
-pub fn vertexAttribI2ui(index: GLuint, x: GLuint, y: GLuint) void {
-    return (function_pointers.glVertexAttribI2ui orelse @panic("glVertexAttribI2ui was not bound."))(index, x, y);
+pub fn vertexAttribI2ui(_index: GLuint, _x: GLuint, _y: GLuint) void {
+    return (function_pointers.glVertexAttribI2ui orelse @panic("glVertexAttribI2ui was not bound."))(_index, _x, _y);
 }
 
-pub fn vertexAttribI3ui(index: GLuint, x: GLuint, y: GLuint, z: GLuint) void {
-    return (function_pointers.glVertexAttribI3ui orelse @panic("glVertexAttribI3ui was not bound."))(index, x, y, z);
+pub fn vertexAttribI3ui(_index: GLuint, _x: GLuint, _y: GLuint, _z: GLuint) void {
+    return (function_pointers.glVertexAttribI3ui orelse @panic("glVertexAttribI3ui was not bound."))(_index, _x, _y, _z);
 }
 
-pub fn vertexAttribI4ui(index: GLuint, x: GLuint, y: GLuint, z: GLuint, w: GLuint) void {
-    return (function_pointers.glVertexAttribI4ui orelse @panic("glVertexAttribI4ui was not bound."))(index, x, y, z, w);
+pub fn vertexAttribI4ui(_index: GLuint, _x: GLuint, _y: GLuint, _z: GLuint, _w: GLuint) void {
+    return (function_pointers.glVertexAttribI4ui orelse @panic("glVertexAttribI4ui was not bound."))(_index, _x, _y, _z, _w);
 }
 
-pub fn vertexAttribI1iv(index: GLuint, v: [*c]const GLint) void {
-    return (function_pointers.glVertexAttribI1iv orelse @panic("glVertexAttribI1iv was not bound."))(index, v);
+pub fn vertexAttribI1iv(_index: GLuint, _v: [*c]const GLint) void {
+    return (function_pointers.glVertexAttribI1iv orelse @panic("glVertexAttribI1iv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttribI2iv(index: GLuint, v: [*c]const GLint) void {
-    return (function_pointers.glVertexAttribI2iv orelse @panic("glVertexAttribI2iv was not bound."))(index, v);
+pub fn vertexAttribI2iv(_index: GLuint, _v: [*c]const GLint) void {
+    return (function_pointers.glVertexAttribI2iv orelse @panic("glVertexAttribI2iv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttribI3iv(index: GLuint, v: [*c]const GLint) void {
-    return (function_pointers.glVertexAttribI3iv orelse @panic("glVertexAttribI3iv was not bound."))(index, v);
+pub fn vertexAttribI3iv(_index: GLuint, _v: [*c]const GLint) void {
+    return (function_pointers.glVertexAttribI3iv orelse @panic("glVertexAttribI3iv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttribI4iv(index: GLuint, v: [*c]const GLint) void {
-    return (function_pointers.glVertexAttribI4iv orelse @panic("glVertexAttribI4iv was not bound."))(index, v);
+pub fn vertexAttribI4iv(_index: GLuint, _v: [*c]const GLint) void {
+    return (function_pointers.glVertexAttribI4iv orelse @panic("glVertexAttribI4iv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttribI1uiv(index: GLuint, v: [*c]const GLuint) void {
-    return (function_pointers.glVertexAttribI1uiv orelse @panic("glVertexAttribI1uiv was not bound."))(index, v);
+pub fn vertexAttribI1uiv(_index: GLuint, _v: [*c]const GLuint) void {
+    return (function_pointers.glVertexAttribI1uiv orelse @panic("glVertexAttribI1uiv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttribI2uiv(index: GLuint, v: [*c]const GLuint) void {
-    return (function_pointers.glVertexAttribI2uiv orelse @panic("glVertexAttribI2uiv was not bound."))(index, v);
+pub fn vertexAttribI2uiv(_index: GLuint, _v: [*c]const GLuint) void {
+    return (function_pointers.glVertexAttribI2uiv orelse @panic("glVertexAttribI2uiv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttribI3uiv(index: GLuint, v: [*c]const GLuint) void {
-    return (function_pointers.glVertexAttribI3uiv orelse @panic("glVertexAttribI3uiv was not bound."))(index, v);
+pub fn vertexAttribI3uiv(_index: GLuint, _v: [*c]const GLuint) void {
+    return (function_pointers.glVertexAttribI3uiv orelse @panic("glVertexAttribI3uiv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttribI4uiv(index: GLuint, v: [*c]const GLuint) void {
-    return (function_pointers.glVertexAttribI4uiv orelse @panic("glVertexAttribI4uiv was not bound."))(index, v);
+pub fn vertexAttribI4uiv(_index: GLuint, _v: [*c]const GLuint) void {
+    return (function_pointers.glVertexAttribI4uiv orelse @panic("glVertexAttribI4uiv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttribI4bv(index: GLuint, v: [*c]const GLbyte) void {
-    return (function_pointers.glVertexAttribI4bv orelse @panic("glVertexAttribI4bv was not bound."))(index, v);
+pub fn vertexAttribI4bv(_index: GLuint, _v: [*c]const GLbyte) void {
+    return (function_pointers.glVertexAttribI4bv orelse @panic("glVertexAttribI4bv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttribI4sv(index: GLuint, v: [*c]const GLshort) void {
-    return (function_pointers.glVertexAttribI4sv orelse @panic("glVertexAttribI4sv was not bound."))(index, v);
+pub fn vertexAttribI4sv(_index: GLuint, _v: [*c]const GLshort) void {
+    return (function_pointers.glVertexAttribI4sv orelse @panic("glVertexAttribI4sv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttribI4ubv(index: GLuint, v: [*:0]const GLubyte) void {
-    return (function_pointers.glVertexAttribI4ubv orelse @panic("glVertexAttribI4ubv was not bound."))(index, v);
+pub fn vertexAttribI4ubv(_index: GLuint, _v: ?[*:0]const GLubyte) void {
+    return (function_pointers.glVertexAttribI4ubv orelse @panic("glVertexAttribI4ubv was not bound."))(_index, _v);
 }
 
-pub fn vertexAttribI4usv(index: GLuint, v: [*c]const GLushort) void {
-    return (function_pointers.glVertexAttribI4usv orelse @panic("glVertexAttribI4usv was not bound."))(index, v);
+pub fn vertexAttribI4usv(_index: GLuint, _v: [*c]const GLushort) void {
+    return (function_pointers.glVertexAttribI4usv orelse @panic("glVertexAttribI4usv was not bound."))(_index, _v);
 }
 
-pub fn getUniformuiv(program: GLuint, location: GLint, params: [*c]GLuint) void {
-    return (function_pointers.glGetUniformuiv orelse @panic("glGetUniformuiv was not bound."))(program, location, params);
+pub fn getUniformuiv(_program: GLuint, _location: GLint, _params: [*c]GLuint) void {
+    return (function_pointers.glGetUniformuiv orelse @panic("glGetUniformuiv was not bound."))(_program, _location, _params);
 }
 
-pub fn bindFragDataLocation(program: GLuint, color: GLuint, name: [*c]const GLchar) void {
-    return (function_pointers.glBindFragDataLocation orelse @panic("glBindFragDataLocation was not bound."))(program, color, name);
+pub fn bindFragDataLocation(_program: GLuint, _color: GLuint, _name: [*c]const GLchar) void {
+    return (function_pointers.glBindFragDataLocation orelse @panic("glBindFragDataLocation was not bound."))(_program, _color, _name);
 }
 
-pub fn getFragDataLocation(program: GLuint, name: [*c]const GLchar) GLint {
-    return (function_pointers.glGetFragDataLocation orelse @panic("glGetFragDataLocation was not bound."))(program, name);
+pub fn getFragDataLocation(_program: GLuint, _name: [*c]const GLchar) GLint {
+    return (function_pointers.glGetFragDataLocation orelse @panic("glGetFragDataLocation was not bound."))(_program, _name);
 }
 
-pub fn uniform1ui(location: GLint, v0: GLuint) void {
-    return (function_pointers.glUniform1ui orelse @panic("glUniform1ui was not bound."))(location, v0);
+pub fn uniform1ui(_location: GLint, _v0: GLuint) void {
+    return (function_pointers.glUniform1ui orelse @panic("glUniform1ui was not bound."))(_location, _v0);
 }
 
-pub fn uniform2ui(location: GLint, v0: GLuint, v1: GLuint) void {
-    return (function_pointers.glUniform2ui orelse @panic("glUniform2ui was not bound."))(location, v0, v1);
+pub fn uniform2ui(_location: GLint, _v0: GLuint, _v1: GLuint) void {
+    return (function_pointers.glUniform2ui orelse @panic("glUniform2ui was not bound."))(_location, _v0, _v1);
 }
 
-pub fn uniform3ui(location: GLint, v0: GLuint, v1: GLuint, v2: GLuint) void {
-    return (function_pointers.glUniform3ui orelse @panic("glUniform3ui was not bound."))(location, v0, v1, v2);
+pub fn uniform3ui(_location: GLint, _v0: GLuint, _v1: GLuint, _v2: GLuint) void {
+    return (function_pointers.glUniform3ui orelse @panic("glUniform3ui was not bound."))(_location, _v0, _v1, _v2);
 }
 
-pub fn uniform4ui(location: GLint, v0: GLuint, v1: GLuint, v2: GLuint, v3: GLuint) void {
-    return (function_pointers.glUniform4ui orelse @panic("glUniform4ui was not bound."))(location, v0, v1, v2, v3);
+pub fn uniform4ui(_location: GLint, _v0: GLuint, _v1: GLuint, _v2: GLuint, _v3: GLuint) void {
+    return (function_pointers.glUniform4ui orelse @panic("glUniform4ui was not bound."))(_location, _v0, _v1, _v2, _v3);
 }
 
-pub fn uniform1uiv(location: GLint, count: GLsizei, value: [*c]const GLuint) void {
-    return (function_pointers.glUniform1uiv orelse @panic("glUniform1uiv was not bound."))(location, count, value);
+pub fn uniform1uiv(_location: GLint, _count: GLsizei, _value: [*c]const GLuint) void {
+    return (function_pointers.glUniform1uiv orelse @panic("glUniform1uiv was not bound."))(_location, _count, _value);
 }
 
-pub fn uniform2uiv(location: GLint, count: GLsizei, value: [*c]const GLuint) void {
-    return (function_pointers.glUniform2uiv orelse @panic("glUniform2uiv was not bound."))(location, count, value);
+pub fn uniform2uiv(_location: GLint, _count: GLsizei, _value: [*c]const GLuint) void {
+    return (function_pointers.glUniform2uiv orelse @panic("glUniform2uiv was not bound."))(_location, _count, _value);
 }
 
-pub fn uniform3uiv(location: GLint, count: GLsizei, value: [*c]const GLuint) void {
-    return (function_pointers.glUniform3uiv orelse @panic("glUniform3uiv was not bound."))(location, count, value);
+pub fn uniform3uiv(_location: GLint, _count: GLsizei, _value: [*c]const GLuint) void {
+    return (function_pointers.glUniform3uiv orelse @panic("glUniform3uiv was not bound."))(_location, _count, _value);
 }
 
-pub fn uniform4uiv(location: GLint, count: GLsizei, value: [*c]const GLuint) void {
-    return (function_pointers.glUniform4uiv orelse @panic("glUniform4uiv was not bound."))(location, count, value);
+pub fn uniform4uiv(_location: GLint, _count: GLsizei, _value: [*c]const GLuint) void {
+    return (function_pointers.glUniform4uiv orelse @panic("glUniform4uiv was not bound."))(_location, _count, _value);
 }
 
-pub fn texParameterIiv(target: GLenum, pname: GLenum, params: [*c]const GLint) void {
-    return (function_pointers.glTexParameterIiv orelse @panic("glTexParameterIiv was not bound."))(target, pname, params);
+pub fn texParameterIiv(_target: GLenum, _pname: GLenum, _params: [*c]const GLint) void {
+    return (function_pointers.glTexParameterIiv orelse @panic("glTexParameterIiv was not bound."))(_target, _pname, _params);
 }
 
-pub fn texParameterIuiv(target: GLenum, pname: GLenum, params: [*c]const GLuint) void {
-    return (function_pointers.glTexParameterIuiv orelse @panic("glTexParameterIuiv was not bound."))(target, pname, params);
+pub fn texParameterIuiv(_target: GLenum, _pname: GLenum, _params: [*c]const GLuint) void {
+    return (function_pointers.glTexParameterIuiv orelse @panic("glTexParameterIuiv was not bound."))(_target, _pname, _params);
 }
 
-pub fn getTexParameterIiv(target: GLenum, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetTexParameterIiv orelse @panic("glGetTexParameterIiv was not bound."))(target, pname, params);
+pub fn getTexParameterIiv(_target: GLenum, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetTexParameterIiv orelse @panic("glGetTexParameterIiv was not bound."))(_target, _pname, _params);
 }
 
-pub fn getTexParameterIuiv(target: GLenum, pname: GLenum, params: [*c]GLuint) void {
-    return (function_pointers.glGetTexParameterIuiv orelse @panic("glGetTexParameterIuiv was not bound."))(target, pname, params);
+pub fn getTexParameterIuiv(_target: GLenum, _pname: GLenum, _params: [*c]GLuint) void {
+    return (function_pointers.glGetTexParameterIuiv orelse @panic("glGetTexParameterIuiv was not bound."))(_target, _pname, _params);
 }
 
-pub fn clearBufferiv(buffer: GLenum, drawbuffer: GLint, value: [*c]const GLint) void {
-    return (function_pointers.glClearBufferiv orelse @panic("glClearBufferiv was not bound."))(buffer, drawbuffer, value);
+pub fn clearBufferiv(_buffer: GLenum, _drawbuffer: GLint, _value: [*c]const GLint) void {
+    return (function_pointers.glClearBufferiv orelse @panic("glClearBufferiv was not bound."))(_buffer, _drawbuffer, _value);
 }
 
-pub fn clearBufferuiv(buffer: GLenum, drawbuffer: GLint, value: [*c]const GLuint) void {
-    return (function_pointers.glClearBufferuiv orelse @panic("glClearBufferuiv was not bound."))(buffer, drawbuffer, value);
+pub fn clearBufferuiv(_buffer: GLenum, _drawbuffer: GLint, _value: [*c]const GLuint) void {
+    return (function_pointers.glClearBufferuiv orelse @panic("glClearBufferuiv was not bound."))(_buffer, _drawbuffer, _value);
 }
 
-pub fn clearBufferfv(buffer: GLenum, drawbuffer: GLint, value: [*c]const GLfloat) void {
-    return (function_pointers.glClearBufferfv orelse @panic("glClearBufferfv was not bound."))(buffer, drawbuffer, value);
+pub fn clearBufferfv(_buffer: GLenum, _drawbuffer: GLint, _value: [*c]const GLfloat) void {
+    return (function_pointers.glClearBufferfv orelse @panic("glClearBufferfv was not bound."))(_buffer, _drawbuffer, _value);
 }
 
-pub fn clearBufferfi(buffer: GLenum, drawbuffer: GLint, depth: GLfloat, stencil: GLint) void {
-    return (function_pointers.glClearBufferfi orelse @panic("glClearBufferfi was not bound."))(buffer, drawbuffer, depth, stencil);
+pub fn clearBufferfi(_buffer: GLenum, _drawbuffer: GLint, _depth: GLfloat, _stencil: GLint) void {
+    return (function_pointers.glClearBufferfi orelse @panic("glClearBufferfi was not bound."))(_buffer, _drawbuffer, _depth, _stencil);
 }
 
-pub fn getStringi(name: GLenum, index: GLuint) [*:0]const GLubyte {
-    return (function_pointers.glGetStringi orelse @panic("glGetStringi was not bound."))(name, index);
+pub fn getStringi(_name: GLenum, _index: GLuint) ?[*:0]const GLubyte {
+    return (function_pointers.glGetStringi orelse @panic("glGetStringi was not bound."))(_name, _index);
 }
 
-pub fn isRenderbuffer(renderbuffer: GLuint) GLboolean {
-    return (function_pointers.glIsRenderbuffer orelse @panic("glIsRenderbuffer was not bound."))(renderbuffer);
+pub fn isRenderbuffer(_renderbuffer: GLuint) GLboolean {
+    return (function_pointers.glIsRenderbuffer orelse @panic("glIsRenderbuffer was not bound."))(_renderbuffer);
 }
 
-pub fn bindRenderbuffer(target: GLenum, renderbuffer: GLuint) void {
-    return (function_pointers.glBindRenderbuffer orelse @panic("glBindRenderbuffer was not bound."))(target, renderbuffer);
+pub fn bindRenderbuffer(_target: GLenum, _renderbuffer: GLuint) void {
+    return (function_pointers.glBindRenderbuffer orelse @panic("glBindRenderbuffer was not bound."))(_target, _renderbuffer);
 }
 
-pub fn deleteRenderbuffers(n: GLsizei, renderbuffers: [*c]const GLuint) void {
-    return (function_pointers.glDeleteRenderbuffers orelse @panic("glDeleteRenderbuffers was not bound."))(n, renderbuffers);
+pub fn deleteRenderbuffers(_n: GLsizei, _renderbuffers: [*c]const GLuint) void {
+    return (function_pointers.glDeleteRenderbuffers orelse @panic("glDeleteRenderbuffers was not bound."))(_n, _renderbuffers);
 }
 
-pub fn genRenderbuffers(n: GLsizei, renderbuffers: [*c]GLuint) void {
-    return (function_pointers.glGenRenderbuffers orelse @panic("glGenRenderbuffers was not bound."))(n, renderbuffers);
+pub fn genRenderbuffers(_n: GLsizei, _renderbuffers: [*c]GLuint) void {
+    return (function_pointers.glGenRenderbuffers orelse @panic("glGenRenderbuffers was not bound."))(_n, _renderbuffers);
 }
 
-pub fn renderbufferStorage(target: GLenum, internalformat: GLenum, width: GLsizei, height: GLsizei) void {
-    return (function_pointers.glRenderbufferStorage orelse @panic("glRenderbufferStorage was not bound."))(target, internalformat, width, height);
+pub fn renderbufferStorage(_target: GLenum, _internalformat: GLenum, _width: GLsizei, _height: GLsizei) void {
+    return (function_pointers.glRenderbufferStorage orelse @panic("glRenderbufferStorage was not bound."))(_target, _internalformat, _width, _height);
 }
 
-pub fn getRenderbufferParameteriv(target: GLenum, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetRenderbufferParameteriv orelse @panic("glGetRenderbufferParameteriv was not bound."))(target, pname, params);
+pub fn getRenderbufferParameteriv(_target: GLenum, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetRenderbufferParameteriv orelse @panic("glGetRenderbufferParameteriv was not bound."))(_target, _pname, _params);
 }
 
-pub fn isFramebuffer(framebuffer: GLuint) GLboolean {
-    return (function_pointers.glIsFramebuffer orelse @panic("glIsFramebuffer was not bound."))(framebuffer);
+pub fn isFramebuffer(_framebuffer: GLuint) GLboolean {
+    return (function_pointers.glIsFramebuffer orelse @panic("glIsFramebuffer was not bound."))(_framebuffer);
 }
 
-pub fn bindFramebuffer(target: GLenum, framebuffer: GLuint) void {
-    return (function_pointers.glBindFramebuffer orelse @panic("glBindFramebuffer was not bound."))(target, framebuffer);
+pub fn bindFramebuffer(_target: GLenum, _framebuffer: GLuint) void {
+    return (function_pointers.glBindFramebuffer orelse @panic("glBindFramebuffer was not bound."))(_target, _framebuffer);
 }
 
-pub fn deleteFramebuffers(n: GLsizei, framebuffers: [*c]const GLuint) void {
-    return (function_pointers.glDeleteFramebuffers orelse @panic("glDeleteFramebuffers was not bound."))(n, framebuffers);
+pub fn deleteFramebuffers(_n: GLsizei, _framebuffers: [*c]const GLuint) void {
+    return (function_pointers.glDeleteFramebuffers orelse @panic("glDeleteFramebuffers was not bound."))(_n, _framebuffers);
 }
 
-pub fn genFramebuffers(n: GLsizei, framebuffers: [*c]GLuint) void {
-    return (function_pointers.glGenFramebuffers orelse @panic("glGenFramebuffers was not bound."))(n, framebuffers);
+pub fn genFramebuffers(_n: GLsizei, _framebuffers: [*c]GLuint) void {
+    return (function_pointers.glGenFramebuffers orelse @panic("glGenFramebuffers was not bound."))(_n, _framebuffers);
 }
 
-pub fn checkFramebufferStatus(target: GLenum) GLenum {
-    return (function_pointers.glCheckFramebufferStatus orelse @panic("glCheckFramebufferStatus was not bound."))(target);
+pub fn checkFramebufferStatus(_target: GLenum) GLenum {
+    return (function_pointers.glCheckFramebufferStatus orelse @panic("glCheckFramebufferStatus was not bound."))(_target);
 }
 
-pub fn framebufferTexture1D(target: GLenum, attachment: GLenum, textarget: GLenum, texture: GLuint, level: GLint) void {
-    return (function_pointers.glFramebufferTexture1D orelse @panic("glFramebufferTexture1D was not bound."))(target, attachment, textarget, texture, level);
+pub fn framebufferTexture1D(_target: GLenum, _attachment: GLenum, _textarget: GLenum, _texture: GLuint, _level: GLint) void {
+    return (function_pointers.glFramebufferTexture1D orelse @panic("glFramebufferTexture1D was not bound."))(_target, _attachment, _textarget, _texture, _level);
 }
 
-pub fn framebufferTexture2D(target: GLenum, attachment: GLenum, textarget: GLenum, texture: GLuint, level: GLint) void {
-    return (function_pointers.glFramebufferTexture2D orelse @panic("glFramebufferTexture2D was not bound."))(target, attachment, textarget, texture, level);
+pub fn framebufferTexture2D(_target: GLenum, _attachment: GLenum, _textarget: GLenum, _texture: GLuint, _level: GLint) void {
+    return (function_pointers.glFramebufferTexture2D orelse @panic("glFramebufferTexture2D was not bound."))(_target, _attachment, _textarget, _texture, _level);
 }
 
-pub fn framebufferTexture3D(target: GLenum, attachment: GLenum, textarget: GLenum, texture: GLuint, level: GLint, zoffset: GLint) void {
-    return (function_pointers.glFramebufferTexture3D orelse @panic("glFramebufferTexture3D was not bound."))(target, attachment, textarget, texture, level, zoffset);
+pub fn framebufferTexture3D(_target: GLenum, _attachment: GLenum, _textarget: GLenum, _texture: GLuint, _level: GLint, _zoffset: GLint) void {
+    return (function_pointers.glFramebufferTexture3D orelse @panic("glFramebufferTexture3D was not bound."))(_target, _attachment, _textarget, _texture, _level, _zoffset);
 }
 
-pub fn framebufferRenderbuffer(target: GLenum, attachment: GLenum, renderbuffertarget: GLenum, renderbuffer: GLuint) void {
-    return (function_pointers.glFramebufferRenderbuffer orelse @panic("glFramebufferRenderbuffer was not bound."))(target, attachment, renderbuffertarget, renderbuffer);
+pub fn framebufferRenderbuffer(_target: GLenum, _attachment: GLenum, _renderbuffertarget: GLenum, _renderbuffer: GLuint) void {
+    return (function_pointers.glFramebufferRenderbuffer orelse @panic("glFramebufferRenderbuffer was not bound."))(_target, _attachment, _renderbuffertarget, _renderbuffer);
 }
 
-pub fn getFramebufferAttachmentParameteriv(target: GLenum, attachment: GLenum, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetFramebufferAttachmentParameteriv orelse @panic("glGetFramebufferAttachmentParameteriv was not bound."))(target, attachment, pname, params);
+pub fn getFramebufferAttachmentParameteriv(_target: GLenum, _attachment: GLenum, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetFramebufferAttachmentParameteriv orelse @panic("glGetFramebufferAttachmentParameteriv was not bound."))(_target, _attachment, _pname, _params);
 }
 
-pub fn generateMipmap(target: GLenum) void {
-    return (function_pointers.glGenerateMipmap orelse @panic("glGenerateMipmap was not bound."))(target);
+pub fn generateMipmap(_target: GLenum) void {
+    return (function_pointers.glGenerateMipmap orelse @panic("glGenerateMipmap was not bound."))(_target);
 }
 
-pub fn blitFramebuffer(srcX0: GLint, srcY0: GLint, srcX1: GLint, srcY1: GLint, dstX0: GLint, dstY0: GLint, dstX1: GLint, dstY1: GLint, mask: GLbitfield, filter: GLenum) void {
-    return (function_pointers.glBlitFramebuffer orelse @panic("glBlitFramebuffer was not bound."))(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
+pub fn blitFramebuffer(_srcX0: GLint, _srcY0: GLint, _srcX1: GLint, _srcY1: GLint, _dstX0: GLint, _dstY0: GLint, _dstX1: GLint, _dstY1: GLint, _mask: GLbitfield, _filter: GLenum) void {
+    return (function_pointers.glBlitFramebuffer orelse @panic("glBlitFramebuffer was not bound."))(_srcX0, _srcY0, _srcX1, _srcY1, _dstX0, _dstY0, _dstX1, _dstY1, _mask, _filter);
 }
 
-pub fn renderbufferStorageMultisample(target: GLenum, samples: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei) void {
-    return (function_pointers.glRenderbufferStorageMultisample orelse @panic("glRenderbufferStorageMultisample was not bound."))(target, samples, internalformat, width, height);
+pub fn renderbufferStorageMultisample(_target: GLenum, _samples: GLsizei, _internalformat: GLenum, _width: GLsizei, _height: GLsizei) void {
+    return (function_pointers.glRenderbufferStorageMultisample orelse @panic("glRenderbufferStorageMultisample was not bound."))(_target, _samples, _internalformat, _width, _height);
 }
 
-pub fn framebufferTextureLayer(target: GLenum, attachment: GLenum, texture: GLuint, level: GLint, layer: GLint) void {
-    return (function_pointers.glFramebufferTextureLayer orelse @panic("glFramebufferTextureLayer was not bound."))(target, attachment, texture, level, layer);
+pub fn framebufferTextureLayer(_target: GLenum, _attachment: GLenum, _texture: GLuint, _level: GLint, _layer: GLint) void {
+    return (function_pointers.glFramebufferTextureLayer orelse @panic("glFramebufferTextureLayer was not bound."))(_target, _attachment, _texture, _level, _layer);
 }
 
-pub fn mapBufferRange(target: GLenum, offset: GLintptr, length: GLsizeiptr, access: GLbitfield) *c_void {
-    return (function_pointers.glMapBufferRange orelse @panic("glMapBufferRange was not bound."))(target, offset, length, access);
+pub fn mapBufferRange(_target: GLenum, _offset: GLintptr, _length: GLsizeiptr, _access: GLbitfield) ?*c_void {
+    return (function_pointers.glMapBufferRange orelse @panic("glMapBufferRange was not bound."))(_target, _offset, _length, _access);
 }
 
-pub fn flushMappedBufferRange(target: GLenum, offset: GLintptr, length: GLsizeiptr) void {
-    return (function_pointers.glFlushMappedBufferRange orelse @panic("glFlushMappedBufferRange was not bound."))(target, offset, length);
+pub fn flushMappedBufferRange(_target: GLenum, _offset: GLintptr, _length: GLsizeiptr) void {
+    return (function_pointers.glFlushMappedBufferRange orelse @panic("glFlushMappedBufferRange was not bound."))(_target, _offset, _length);
 }
 
-pub fn bindVertexArray(array: GLuint) void {
-    return (function_pointers.glBindVertexArray orelse @panic("glBindVertexArray was not bound."))(array);
+pub fn bindVertexArray(_array: GLuint) void {
+    return (function_pointers.glBindVertexArray orelse @panic("glBindVertexArray was not bound."))(_array);
 }
 
-pub fn deleteVertexArrays(n: GLsizei, arrays: [*c]const GLuint) void {
-    return (function_pointers.glDeleteVertexArrays orelse @panic("glDeleteVertexArrays was not bound."))(n, arrays);
+pub fn deleteVertexArrays(_n: GLsizei, _arrays: [*c]const GLuint) void {
+    return (function_pointers.glDeleteVertexArrays orelse @panic("glDeleteVertexArrays was not bound."))(_n, _arrays);
 }
 
-pub fn genVertexArrays(n: GLsizei, arrays: [*c]GLuint) void {
-    return (function_pointers.glGenVertexArrays orelse @panic("glGenVertexArrays was not bound."))(n, arrays);
+pub fn genVertexArrays(_n: GLsizei, _arrays: [*c]GLuint) void {
+    return (function_pointers.glGenVertexArrays orelse @panic("glGenVertexArrays was not bound."))(_n, _arrays);
 }
 
-pub fn isVertexArray(array: GLuint) GLboolean {
-    return (function_pointers.glIsVertexArray orelse @panic("glIsVertexArray was not bound."))(array);
+pub fn isVertexArray(_array: GLuint) GLboolean {
+    return (function_pointers.glIsVertexArray orelse @panic("glIsVertexArray was not bound."))(_array);
 }
 
-pub fn drawArraysInstanced(mode: GLenum, first: GLint, count: GLsizei, instancecount: GLsizei) void {
-    return (function_pointers.glDrawArraysInstanced orelse @panic("glDrawArraysInstanced was not bound."))(mode, first, count, instancecount);
+pub fn drawArraysInstanced(_mode: GLenum, _first: GLint, _count: GLsizei, _instancecount: GLsizei) void {
+    return (function_pointers.glDrawArraysInstanced orelse @panic("glDrawArraysInstanced was not bound."))(_mode, _first, _count, _instancecount);
 }
 
-pub fn drawElementsInstanced(mode: GLenum, count: GLsizei, type: GLenum, indices: *const c_void, instancecount: GLsizei) void {
-    return (function_pointers.glDrawElementsInstanced orelse @panic("glDrawElementsInstanced was not bound."))(mode, count, type, indices, instancecount);
+pub fn drawElementsInstanced(_mode: GLenum, _count: GLsizei, _type: GLenum, _indices: ?*const c_void, _instancecount: GLsizei) void {
+    return (function_pointers.glDrawElementsInstanced orelse @panic("glDrawElementsInstanced was not bound."))(_mode, _count, _type, _indices, _instancecount);
 }
 
-pub fn texBuffer(target: GLenum, internalformat: GLenum, buffer: GLuint) void {
-    return (function_pointers.glTexBuffer orelse @panic("glTexBuffer was not bound."))(target, internalformat, buffer);
+pub fn texBuffer(_target: GLenum, _internalformat: GLenum, _buffer: GLuint) void {
+    return (function_pointers.glTexBuffer orelse @panic("glTexBuffer was not bound."))(_target, _internalformat, _buffer);
 }
 
-pub fn primitiveRestartIndex(index: GLuint) void {
-    return (function_pointers.glPrimitiveRestartIndex orelse @panic("glPrimitiveRestartIndex was not bound."))(index);
+pub fn primitiveRestartIndex(_index: GLuint) void {
+    return (function_pointers.glPrimitiveRestartIndex orelse @panic("glPrimitiveRestartIndex was not bound."))(_index);
 }
 
-pub fn copyBufferSubData(readTarget: GLenum, writeTarget: GLenum, readOffset: GLintptr, writeOffset: GLintptr, size: GLsizeiptr) void {
-    return (function_pointers.glCopyBufferSubData orelse @panic("glCopyBufferSubData was not bound."))(readTarget, writeTarget, readOffset, writeOffset, size);
+pub fn copyBufferSubData(_readTarget: GLenum, _writeTarget: GLenum, _readOffset: GLintptr, _writeOffset: GLintptr, _size: GLsizeiptr) void {
+    return (function_pointers.glCopyBufferSubData orelse @panic("glCopyBufferSubData was not bound."))(_readTarget, _writeTarget, _readOffset, _writeOffset, _size);
 }
 
-pub fn getUniformIndices(program: GLuint, uniformCount: GLsizei, uniformNames: [*c]const [*c]const GLchar, uniformIndices: [*c]GLuint) void {
-    return (function_pointers.glGetUniformIndices orelse @panic("glGetUniformIndices was not bound."))(program, uniformCount, uniformNames, uniformIndices);
+pub fn getUniformIndices(_program: GLuint, _uniformCount: GLsizei, _uniformNames: [*c]const [*c]const GLchar, _uniformIndices: [*c]GLuint) void {
+    return (function_pointers.glGetUniformIndices orelse @panic("glGetUniformIndices was not bound."))(_program, _uniformCount, _uniformNames, _uniformIndices);
 }
 
-pub fn getActiveUniformsiv(program: GLuint, uniformCount: GLsizei, uniformIndices: [*c]const GLuint, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetActiveUniformsiv orelse @panic("glGetActiveUniformsiv was not bound."))(program, uniformCount, uniformIndices, pname, params);
+pub fn getActiveUniformsiv(_program: GLuint, _uniformCount: GLsizei, _uniformIndices: [*c]const GLuint, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetActiveUniformsiv orelse @panic("glGetActiveUniformsiv was not bound."))(_program, _uniformCount, _uniformIndices, _pname, _params);
 }
 
-pub fn getActiveUniformName(program: GLuint, uniformIndex: GLuint, bufSize: GLsizei, length: [*c]GLsizei, uniformName: [*c]GLchar) void {
-    return (function_pointers.glGetActiveUniformName orelse @panic("glGetActiveUniformName was not bound."))(program, uniformIndex, bufSize, length, uniformName);
+pub fn getActiveUniformName(_program: GLuint, _uniformIndex: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _uniformName: [*c]GLchar) void {
+    return (function_pointers.glGetActiveUniformName orelse @panic("glGetActiveUniformName was not bound."))(_program, _uniformIndex, _bufSize, _length, _uniformName);
 }
 
-pub fn getUniformBlockIndex(program: GLuint, uniformBlockName: [*c]const GLchar) GLuint {
-    return (function_pointers.glGetUniformBlockIndex orelse @panic("glGetUniformBlockIndex was not bound."))(program, uniformBlockName);
+pub fn getUniformBlockIndex(_program: GLuint, _uniformBlockName: [*c]const GLchar) GLuint {
+    return (function_pointers.glGetUniformBlockIndex orelse @panic("glGetUniformBlockIndex was not bound."))(_program, _uniformBlockName);
 }
 
-pub fn getActiveUniformBlockiv(program: GLuint, uniformBlockIndex: GLuint, pname: GLenum, params: [*c]GLint) void {
-    return (function_pointers.glGetActiveUniformBlockiv orelse @panic("glGetActiveUniformBlockiv was not bound."))(program, uniformBlockIndex, pname, params);
+pub fn getActiveUniformBlockiv(_program: GLuint, _uniformBlockIndex: GLuint, _pname: GLenum, _params: [*c]GLint) void {
+    return (function_pointers.glGetActiveUniformBlockiv orelse @panic("glGetActiveUniformBlockiv was not bound."))(_program, _uniformBlockIndex, _pname, _params);
 }
 
-pub fn getActiveUniformBlockName(program: GLuint, uniformBlockIndex: GLuint, bufSize: GLsizei, length: [*c]GLsizei, uniformBlockName: [*c]GLchar) void {
-    return (function_pointers.glGetActiveUniformBlockName orelse @panic("glGetActiveUniformBlockName was not bound."))(program, uniformBlockIndex, bufSize, length, uniformBlockName);
+pub fn getActiveUniformBlockName(_program: GLuint, _uniformBlockIndex: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _uniformBlockName: [*c]GLchar) void {
+    return (function_pointers.glGetActiveUniformBlockName orelse @panic("glGetActiveUniformBlockName was not bound."))(_program, _uniformBlockIndex, _bufSize, _length, _uniformBlockName);
 }
 
-pub fn uniformBlockBinding(program: GLuint, uniformBlockIndex: GLuint, uniformBlockBinding: GLuint) void {
-    return (function_pointers.glUniformBlockBinding orelse @panic("glUniformBlockBinding was not bound."))(program, uniformBlockIndex, uniformBlockBinding);
+pub fn uniformBlockBinding(_program: GLuint, _uniformBlockIndex: GLuint, _uniformBlockBinding: GLuint) void {
+    return (function_pointers.glUniformBlockBinding orelse @panic("glUniformBlockBinding was not bound."))(_program, _uniformBlockIndex, _uniformBlockBinding);
 }
 // Extensions:
 
@@ -4318,350 +4318,350 @@ pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]cons
 }
 
 const function_signatures = struct {
-    const glCullFace = fn (mode: GLenum) void;
-    const glFrontFace = fn (mode: GLenum) void;
-    const glHint = fn (target: GLenum, mode: GLenum) void;
-    const glLineWidth = fn (width: GLfloat) void;
-    const glPointSize = fn (size: GLfloat) void;
-    const glPolygonMode = fn (face: GLenum, mode: GLenum) void;
-    const glScissor = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei) void;
-    const glTexParameterf = fn (target: GLenum, pname: GLenum, param: GLfloat) void;
-    const glTexParameterfv = fn (target: GLenum, pname: GLenum, params: [*c]const GLfloat) void;
-    const glTexParameteri = fn (target: GLenum, pname: GLenum, param: GLint) void;
-    const glTexParameteriv = fn (target: GLenum, pname: GLenum, params: [*c]const GLint) void;
-    const glTexImage1D = fn (target: GLenum, level: GLint, internalformat: GLint, width: GLsizei, border: GLint, format: GLenum, type: GLenum, pixels: *const c_void) void;
-    const glTexImage2D = fn (target: GLenum, level: GLint, internalformat: GLint, width: GLsizei, height: GLsizei, border: GLint, format: GLenum, type: GLenum, pixels: *const c_void) void;
-    const glDrawBuffer = fn (buf: GLenum) void;
-    const glClear = fn (mask: GLbitfield) void;
-    const glClearColor = fn (red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat) void;
-    const glClearStencil = fn (s: GLint) void;
-    const glClearDepth = fn (depth: GLdouble) void;
-    const glStencilMask = fn (mask: GLuint) void;
-    const glColorMask = fn (red: GLboolean, green: GLboolean, blue: GLboolean, alpha: GLboolean) void;
-    const glDepthMask = fn (flag: GLboolean) void;
-    const glDisable = fn (cap: GLenum) void;
-    const glEnable = fn (cap: GLenum) void;
+    const glCullFace = fn (_mode: GLenum) void;
+    const glFrontFace = fn (_mode: GLenum) void;
+    const glHint = fn (_target: GLenum, _mode: GLenum) void;
+    const glLineWidth = fn (_width: GLfloat) void;
+    const glPointSize = fn (_size: GLfloat) void;
+    const glPolygonMode = fn (_face: GLenum, _mode: GLenum) void;
+    const glScissor = fn (_x: GLint, _y: GLint, _width: GLsizei, _height: GLsizei) void;
+    const glTexParameterf = fn (_target: GLenum, _pname: GLenum, _param: GLfloat) void;
+    const glTexParameterfv = fn (_target: GLenum, _pname: GLenum, _params: [*c]const GLfloat) void;
+    const glTexParameteri = fn (_target: GLenum, _pname: GLenum, _param: GLint) void;
+    const glTexParameteriv = fn (_target: GLenum, _pname: GLenum, _params: [*c]const GLint) void;
+    const glTexImage1D = fn (_target: GLenum, _level: GLint, _internalformat: GLint, _width: GLsizei, _border: GLint, _format: GLenum, _type: GLenum, _pixels: ?*const c_void) void;
+    const glTexImage2D = fn (_target: GLenum, _level: GLint, _internalformat: GLint, _width: GLsizei, _height: GLsizei, _border: GLint, _format: GLenum, _type: GLenum, _pixels: ?*const c_void) void;
+    const glDrawBuffer = fn (_buf: GLenum) void;
+    const glClear = fn (_mask: GLbitfield) void;
+    const glClearColor = fn (_red: GLfloat, _green: GLfloat, _blue: GLfloat, _alpha: GLfloat) void;
+    const glClearStencil = fn (_s: GLint) void;
+    const glClearDepth = fn (_depth: GLdouble) void;
+    const glStencilMask = fn (_mask: GLuint) void;
+    const glColorMask = fn (_red: GLboolean, _green: GLboolean, _blue: GLboolean, _alpha: GLboolean) void;
+    const glDepthMask = fn (_flag: GLboolean) void;
+    const glDisable = fn (_cap: GLenum) void;
+    const glEnable = fn (_cap: GLenum) void;
     const glFinish = fn () void;
     const glFlush = fn () void;
-    const glBlendFunc = fn (sfactor: GLenum, dfactor: GLenum) void;
-    const glLogicOp = fn (opcode: GLenum) void;
-    const glStencilFunc = fn (func: GLenum, ref: GLint, mask: GLuint) void;
-    const glStencilOp = fn (fail: GLenum, zfail: GLenum, zpass: GLenum) void;
-    const glDepthFunc = fn (func: GLenum) void;
-    const glPixelStoref = fn (pname: GLenum, param: GLfloat) void;
-    const glPixelStorei = fn (pname: GLenum, param: GLint) void;
-    const glReadBuffer = fn (src: GLenum) void;
-    const glReadPixels = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei, format: GLenum, type: GLenum, pixels: *c_void) void;
-    const glGetBooleanv = fn (pname: GLenum, data: [*c]GLboolean) void;
-    const glGetDoublev = fn (pname: GLenum, data: [*c]GLdouble) void;
+    const glBlendFunc = fn (_sfactor: GLenum, _dfactor: GLenum) void;
+    const glLogicOp = fn (_opcode: GLenum) void;
+    const glStencilFunc = fn (_func: GLenum, _ref: GLint, _mask: GLuint) void;
+    const glStencilOp = fn (_fail: GLenum, _zfail: GLenum, _zpass: GLenum) void;
+    const glDepthFunc = fn (_func: GLenum) void;
+    const glPixelStoref = fn (_pname: GLenum, _param: GLfloat) void;
+    const glPixelStorei = fn (_pname: GLenum, _param: GLint) void;
+    const glReadBuffer = fn (_src: GLenum) void;
+    const glReadPixels = fn (_x: GLint, _y: GLint, _width: GLsizei, _height: GLsizei, _format: GLenum, _type: GLenum, _pixels: ?*c_void) void;
+    const glGetBooleanv = fn (_pname: GLenum, _data: [*c]GLboolean) void;
+    const glGetDoublev = fn (_pname: GLenum, _data: [*c]GLdouble) void;
     const glGetError = fn () GLenum;
-    const glGetFloatv = fn (pname: GLenum, data: [*c]GLfloat) void;
-    const glGetIntegerv = fn (pname: GLenum, data: [*c]GLint) void;
-    const glGetString = fn (name: GLenum) [*:0]const GLubyte;
-    const glGetTexImage = fn (target: GLenum, level: GLint, format: GLenum, type: GLenum, pixels: *c_void) void;
-    const glGetTexParameterfv = fn (target: GLenum, pname: GLenum, params: [*c]GLfloat) void;
-    const glGetTexParameteriv = fn (target: GLenum, pname: GLenum, params: [*c]GLint) void;
-    const glGetTexLevelParameterfv = fn (target: GLenum, level: GLint, pname: GLenum, params: [*c]GLfloat) void;
-    const glGetTexLevelParameteriv = fn (target: GLenum, level: GLint, pname: GLenum, params: [*c]GLint) void;
-    const glIsEnabled = fn (cap: GLenum) GLboolean;
-    const glDepthRange = fn (n: GLdouble, f: GLdouble) void;
-    const glViewport = fn (x: GLint, y: GLint, width: GLsizei, height: GLsizei) void;
-    const glDrawArrays = fn (mode: GLenum, first: GLint, count: GLsizei) void;
-    const glDrawElements = fn (mode: GLenum, count: GLsizei, type: GLenum, indices: *const c_void) void;
-    const glPolygonOffset = fn (factor: GLfloat, units: GLfloat) void;
-    const glCopyTexImage1D = fn (target: GLenum, level: GLint, internalformat: GLenum, x: GLint, y: GLint, width: GLsizei, border: GLint) void;
-    const glCopyTexImage2D = fn (target: GLenum, level: GLint, internalformat: GLenum, x: GLint, y: GLint, width: GLsizei, height: GLsizei, border: GLint) void;
-    const glCopyTexSubImage1D = fn (target: GLenum, level: GLint, xoffset: GLint, x: GLint, y: GLint, width: GLsizei) void;
-    const glCopyTexSubImage2D = fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) void;
-    const glTexSubImage1D = fn (target: GLenum, level: GLint, xoffset: GLint, width: GLsizei, format: GLenum, type: GLenum, pixels: *const c_void) void;
-    const glTexSubImage2D = fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: GLenum, type: GLenum, pixels: *const c_void) void;
-    const glBindTexture = fn (target: GLenum, texture: GLuint) void;
-    const glDeleteTextures = fn (n: GLsizei, textures: [*c]const GLuint) void;
-    const glGenTextures = fn (n: GLsizei, textures: [*c]GLuint) void;
-    const glIsTexture = fn (texture: GLuint) GLboolean;
-    const glDrawRangeElements = fn (mode: GLenum, start: GLuint, end: GLuint, count: GLsizei, type: GLenum, indices: *const c_void) void;
-    const glTexImage3D = fn (target: GLenum, level: GLint, internalformat: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, format: GLenum, type: GLenum, pixels: *const c_void) void;
-    const glTexSubImage3D = fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: GLenum, type: GLenum, pixels: *const c_void) void;
-    const glCopyTexSubImage3D = fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, x: GLint, y: GLint, width: GLsizei, height: GLsizei) void;
-    const glActiveTexture = fn (texture: GLenum) void;
-    const glSampleCoverage = fn (value: GLfloat, invert: GLboolean) void;
-    const glCompressedTexImage3D = fn (target: GLenum, level: GLint, internalformat: GLenum, width: GLsizei, height: GLsizei, depth: GLsizei, border: GLint, imageSize: GLsizei, data: *const c_void) void;
-    const glCompressedTexImage2D = fn (target: GLenum, level: GLint, internalformat: GLenum, width: GLsizei, height: GLsizei, border: GLint, imageSize: GLsizei, data: *const c_void) void;
-    const glCompressedTexImage1D = fn (target: GLenum, level: GLint, internalformat: GLenum, width: GLsizei, border: GLint, imageSize: GLsizei, data: *const c_void) void;
-    const glCompressedTexSubImage3D = fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, zoffset: GLint, width: GLsizei, height: GLsizei, depth: GLsizei, format: GLenum, imageSize: GLsizei, data: *const c_void) void;
-    const glCompressedTexSubImage2D = fn (target: GLenum, level: GLint, xoffset: GLint, yoffset: GLint, width: GLsizei, height: GLsizei, format: GLenum, imageSize: GLsizei, data: *const c_void) void;
-    const glCompressedTexSubImage1D = fn (target: GLenum, level: GLint, xoffset: GLint, width: GLsizei, format: GLenum, imageSize: GLsizei, data: *const c_void) void;
-    const glGetCompressedTexImage = fn (target: GLenum, level: GLint, img: *c_void) void;
-    const glVertexAttribP4uiv = fn (index: GLuint, type: GLenum, normalized: GLboolean, value: [*c]const GLuint) void;
-    const glVertexAttribP4ui = fn (index: GLuint, type: GLenum, normalized: GLboolean, value: GLuint) void;
-    const glVertexAttribP3uiv = fn (index: GLuint, type: GLenum, normalized: GLboolean, value: [*c]const GLuint) void;
-    const glVertexAttribP3ui = fn (index: GLuint, type: GLenum, normalized: GLboolean, value: GLuint) void;
-    const glVertexAttribP2uiv = fn (index: GLuint, type: GLenum, normalized: GLboolean, value: [*c]const GLuint) void;
-    const glVertexAttribP2ui = fn (index: GLuint, type: GLenum, normalized: GLboolean, value: GLuint) void;
-    const glVertexAttribP1uiv = fn (index: GLuint, type: GLenum, normalized: GLboolean, value: [*c]const GLuint) void;
-    const glVertexAttribP1ui = fn (index: GLuint, type: GLenum, normalized: GLboolean, value: GLuint) void;
-    const glVertexAttribDivisor = fn (index: GLuint, divisor: GLuint) void;
-    const glGetQueryObjectui64v = fn (id: GLuint, pname: GLenum, params: [*c]GLuint64) void;
-    const glGetQueryObjecti64v = fn (id: GLuint, pname: GLenum, params: [*c]GLint64) void;
-    const glQueryCounter = fn (id: GLuint, target: GLenum) void;
-    const glGetSamplerParameterIuiv = fn (sampler: GLuint, pname: GLenum, params: [*c]GLuint) void;
-    const glGetSamplerParameterfv = fn (sampler: GLuint, pname: GLenum, params: [*c]GLfloat) void;
-    const glGetSamplerParameterIiv = fn (sampler: GLuint, pname: GLenum, params: [*c]GLint) void;
-    const glGetSamplerParameteriv = fn (sampler: GLuint, pname: GLenum, params: [*c]GLint) void;
-    const glSamplerParameterIuiv = fn (sampler: GLuint, pname: GLenum, param: [*c]const GLuint) void;
-    const glSamplerParameterIiv = fn (sampler: GLuint, pname: GLenum, param: [*c]const GLint) void;
-    const glSamplerParameterfv = fn (sampler: GLuint, pname: GLenum, param: [*c]const GLfloat) void;
-    const glSamplerParameterf = fn (sampler: GLuint, pname: GLenum, param: GLfloat) void;
-    const glSamplerParameteriv = fn (sampler: GLuint, pname: GLenum, param: [*c]const GLint) void;
-    const glSamplerParameteri = fn (sampler: GLuint, pname: GLenum, param: GLint) void;
-    const glBindSampler = fn (unit: GLuint, sampler: GLuint) void;
-    const glIsSampler = fn (sampler: GLuint) GLboolean;
-    const glDeleteSamplers = fn (count: GLsizei, samplers: [*c]const GLuint) void;
-    const glGenSamplers = fn (count: GLsizei, samplers: [*c]GLuint) void;
-    const glGetFragDataIndex = fn (program: GLuint, name: [*c]const GLchar) GLint;
-    const glBindFragDataLocationIndexed = fn (program: GLuint, colorNumber: GLuint, index: GLuint, name: [*c]const GLchar) void;
-    const glSampleMaski = fn (maskNumber: GLuint, mask: GLbitfield) void;
-    const glGetMultisamplefv = fn (pname: GLenum, index: GLuint, val: [*c]GLfloat) void;
-    const glTexImage3DMultisample = fn (target: GLenum, samples: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei, depth: GLsizei, fixedsamplelocations: GLboolean) void;
-    const glTexImage2DMultisample = fn (target: GLenum, samples: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei, fixedsamplelocations: GLboolean) void;
-    const glFramebufferTexture = fn (target: GLenum, attachment: GLenum, texture: GLuint, level: GLint) void;
-    const glGetBufferParameteri64v = fn (target: GLenum, pname: GLenum, params: [*c]GLint64) void;
-    const glBlendFuncSeparate = fn (sfactorRGB: GLenum, dfactorRGB: GLenum, sfactorAlpha: GLenum, dfactorAlpha: GLenum) void;
-    const glMultiDrawArrays = fn (mode: GLenum, first: [*c]const GLint, count: [*c]const GLsizei, drawcount: GLsizei) void;
-    const glMultiDrawElements = fn (mode: GLenum, count: [*c]const GLsizei, type: GLenum, indices: [*c]const *const c_void, drawcount: GLsizei) void;
-    const glPointParameterf = fn (pname: GLenum, param: GLfloat) void;
-    const glPointParameterfv = fn (pname: GLenum, params: [*c]const GLfloat) void;
-    const glPointParameteri = fn (pname: GLenum, param: GLint) void;
-    const glPointParameteriv = fn (pname: GLenum, params: [*c]const GLint) void;
-    const glGetInteger64i_v = fn (target: GLenum, index: GLuint, data: [*c]GLint64) void;
-    const glGetSynciv = fn (sync: GLsync, pname: GLenum, count: GLsizei, length: [*c]GLsizei, values: [*c]GLint) void;
-    const glGetInteger64v = fn (pname: GLenum, data: [*c]GLint64) void;
-    const glWaitSync = fn (sync: GLsync, flags: GLbitfield, timeout: GLuint64) void;
-    const glClientWaitSync = fn (sync: GLsync, flags: GLbitfield, timeout: GLuint64) GLenum;
-    const glDeleteSync = fn (sync: GLsync) void;
-    const glIsSync = fn (sync: GLsync) GLboolean;
-    const glFenceSync = fn (condition: GLenum, flags: GLbitfield) GLsync;
-    const glBlendColor = fn (red: GLfloat, green: GLfloat, blue: GLfloat, alpha: GLfloat) void;
-    const glBlendEquation = fn (mode: GLenum) void;
-    const glProvokingVertex = fn (mode: GLenum) void;
-    const glMultiDrawElementsBaseVertex = fn (mode: GLenum, count: [*c]const GLsizei, type: GLenum, indices: [*c]const *const c_void, drawcount: GLsizei, basevertex: [*c]const GLint) void;
-    const glDrawElementsInstancedBaseVertex = fn (mode: GLenum, count: GLsizei, type: GLenum, indices: *const c_void, instancecount: GLsizei, basevertex: GLint) void;
-    const glDrawRangeElementsBaseVertex = fn (mode: GLenum, start: GLuint, end: GLuint, count: GLsizei, type: GLenum, indices: *const c_void, basevertex: GLint) void;
-    const glDrawElementsBaseVertex = fn (mode: GLenum, count: GLsizei, type: GLenum, indices: *const c_void, basevertex: GLint) void;
-    const glGenQueries = fn (n: GLsizei, ids: [*c]GLuint) void;
-    const glDeleteQueries = fn (n: GLsizei, ids: [*c]const GLuint) void;
-    const glIsQuery = fn (id: GLuint) GLboolean;
-    const glBeginQuery = fn (target: GLenum, id: GLuint) void;
-    const glEndQuery = fn (target: GLenum) void;
-    const glGetQueryiv = fn (target: GLenum, pname: GLenum, params: [*c]GLint) void;
-    const glGetQueryObjectiv = fn (id: GLuint, pname: GLenum, params: [*c]GLint) void;
-    const glGetQueryObjectuiv = fn (id: GLuint, pname: GLenum, params: [*c]GLuint) void;
-    const glBindBuffer = fn (target: GLenum, buffer: GLuint) void;
-    const glDeleteBuffers = fn (n: GLsizei, buffers: [*c]const GLuint) void;
-    const glGenBuffers = fn (n: GLsizei, buffers: [*c]GLuint) void;
-    const glIsBuffer = fn (buffer: GLuint) GLboolean;
-    const glBufferData = fn (target: GLenum, size: GLsizeiptr, data: *const c_void, usage: GLenum) void;
-    const glBufferSubData = fn (target: GLenum, offset: GLintptr, size: GLsizeiptr, data: *const c_void) void;
-    const glGetBufferSubData = fn (target: GLenum, offset: GLintptr, size: GLsizeiptr, data: *c_void) void;
-    const glMapBuffer = fn (target: GLenum, access: GLenum) *c_void;
-    const glUnmapBuffer = fn (target: GLenum) GLboolean;
-    const glGetBufferParameteriv = fn (target: GLenum, pname: GLenum, params: [*c]GLint) void;
-    const glGetBufferPointerv = fn (target: GLenum, pname: GLenum, params: **c_void) void;
-    const glBlendEquationSeparate = fn (modeRGB: GLenum, modeAlpha: GLenum) void;
-    const glDrawBuffers = fn (n: GLsizei, bufs: [*c]const GLenum) void;
-    const glStencilOpSeparate = fn (face: GLenum, sfail: GLenum, dpfail: GLenum, dppass: GLenum) void;
-    const glStencilFuncSeparate = fn (face: GLenum, func: GLenum, ref: GLint, mask: GLuint) void;
-    const glStencilMaskSeparate = fn (face: GLenum, mask: GLuint) void;
-    const glAttachShader = fn (program: GLuint, shader: GLuint) void;
-    const glBindAttribLocation = fn (program: GLuint, index: GLuint, name: [*c]const GLchar) void;
-    const glCompileShader = fn (shader: GLuint) void;
+    const glGetFloatv = fn (_pname: GLenum, _data: [*c]GLfloat) void;
+    const glGetIntegerv = fn (_pname: GLenum, _data: [*c]GLint) void;
+    const glGetString = fn (_name: GLenum) ?[*:0]const GLubyte;
+    const glGetTexImage = fn (_target: GLenum, _level: GLint, _format: GLenum, _type: GLenum, _pixels: ?*c_void) void;
+    const glGetTexParameterfv = fn (_target: GLenum, _pname: GLenum, _params: [*c]GLfloat) void;
+    const glGetTexParameteriv = fn (_target: GLenum, _pname: GLenum, _params: [*c]GLint) void;
+    const glGetTexLevelParameterfv = fn (_target: GLenum, _level: GLint, _pname: GLenum, _params: [*c]GLfloat) void;
+    const glGetTexLevelParameteriv = fn (_target: GLenum, _level: GLint, _pname: GLenum, _params: [*c]GLint) void;
+    const glIsEnabled = fn (_cap: GLenum) GLboolean;
+    const glDepthRange = fn (_n: GLdouble, _f: GLdouble) void;
+    const glViewport = fn (_x: GLint, _y: GLint, _width: GLsizei, _height: GLsizei) void;
+    const glDrawArrays = fn (_mode: GLenum, _first: GLint, _count: GLsizei) void;
+    const glDrawElements = fn (_mode: GLenum, _count: GLsizei, _type: GLenum, _indices: ?*const c_void) void;
+    const glPolygonOffset = fn (_factor: GLfloat, _units: GLfloat) void;
+    const glCopyTexImage1D = fn (_target: GLenum, _level: GLint, _internalformat: GLenum, _x: GLint, _y: GLint, _width: GLsizei, _border: GLint) void;
+    const glCopyTexImage2D = fn (_target: GLenum, _level: GLint, _internalformat: GLenum, _x: GLint, _y: GLint, _width: GLsizei, _height: GLsizei, _border: GLint) void;
+    const glCopyTexSubImage1D = fn (_target: GLenum, _level: GLint, _xoffset: GLint, _x: GLint, _y: GLint, _width: GLsizei) void;
+    const glCopyTexSubImage2D = fn (_target: GLenum, _level: GLint, _xoffset: GLint, _yoffset: GLint, _x: GLint, _y: GLint, _width: GLsizei, _height: GLsizei) void;
+    const glTexSubImage1D = fn (_target: GLenum, _level: GLint, _xoffset: GLint, _width: GLsizei, _format: GLenum, _type: GLenum, _pixels: ?*const c_void) void;
+    const glTexSubImage2D = fn (_target: GLenum, _level: GLint, _xoffset: GLint, _yoffset: GLint, _width: GLsizei, _height: GLsizei, _format: GLenum, _type: GLenum, _pixels: ?*const c_void) void;
+    const glBindTexture = fn (_target: GLenum, _texture: GLuint) void;
+    const glDeleteTextures = fn (_n: GLsizei, _textures: [*c]const GLuint) void;
+    const glGenTextures = fn (_n: GLsizei, _textures: [*c]GLuint) void;
+    const glIsTexture = fn (_texture: GLuint) GLboolean;
+    const glDrawRangeElements = fn (_mode: GLenum, _start: GLuint, _end: GLuint, _count: GLsizei, _type: GLenum, _indices: ?*const c_void) void;
+    const glTexImage3D = fn (_target: GLenum, _level: GLint, _internalformat: GLint, _width: GLsizei, _height: GLsizei, _depth: GLsizei, _border: GLint, _format: GLenum, _type: GLenum, _pixels: ?*const c_void) void;
+    const glTexSubImage3D = fn (_target: GLenum, _level: GLint, _xoffset: GLint, _yoffset: GLint, _zoffset: GLint, _width: GLsizei, _height: GLsizei, _depth: GLsizei, _format: GLenum, _type: GLenum, _pixels: ?*const c_void) void;
+    const glCopyTexSubImage3D = fn (_target: GLenum, _level: GLint, _xoffset: GLint, _yoffset: GLint, _zoffset: GLint, _x: GLint, _y: GLint, _width: GLsizei, _height: GLsizei) void;
+    const glActiveTexture = fn (_texture: GLenum) void;
+    const glSampleCoverage = fn (_value: GLfloat, _invert: GLboolean) void;
+    const glCompressedTexImage3D = fn (_target: GLenum, _level: GLint, _internalformat: GLenum, _width: GLsizei, _height: GLsizei, _depth: GLsizei, _border: GLint, _imageSize: GLsizei, _data: ?*const c_void) void;
+    const glCompressedTexImage2D = fn (_target: GLenum, _level: GLint, _internalformat: GLenum, _width: GLsizei, _height: GLsizei, _border: GLint, _imageSize: GLsizei, _data: ?*const c_void) void;
+    const glCompressedTexImage1D = fn (_target: GLenum, _level: GLint, _internalformat: GLenum, _width: GLsizei, _border: GLint, _imageSize: GLsizei, _data: ?*const c_void) void;
+    const glCompressedTexSubImage3D = fn (_target: GLenum, _level: GLint, _xoffset: GLint, _yoffset: GLint, _zoffset: GLint, _width: GLsizei, _height: GLsizei, _depth: GLsizei, _format: GLenum, _imageSize: GLsizei, _data: ?*const c_void) void;
+    const glCompressedTexSubImage2D = fn (_target: GLenum, _level: GLint, _xoffset: GLint, _yoffset: GLint, _width: GLsizei, _height: GLsizei, _format: GLenum, _imageSize: GLsizei, _data: ?*const c_void) void;
+    const glCompressedTexSubImage1D = fn (_target: GLenum, _level: GLint, _xoffset: GLint, _width: GLsizei, _format: GLenum, _imageSize: GLsizei, _data: ?*const c_void) void;
+    const glGetCompressedTexImage = fn (_target: GLenum, _level: GLint, _img: ?*c_void) void;
+    const glVertexAttribP4uiv = fn (_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: [*c]const GLuint) void;
+    const glVertexAttribP4ui = fn (_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: GLuint) void;
+    const glVertexAttribP3uiv = fn (_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: [*c]const GLuint) void;
+    const glVertexAttribP3ui = fn (_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: GLuint) void;
+    const glVertexAttribP2uiv = fn (_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: [*c]const GLuint) void;
+    const glVertexAttribP2ui = fn (_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: GLuint) void;
+    const glVertexAttribP1uiv = fn (_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: [*c]const GLuint) void;
+    const glVertexAttribP1ui = fn (_index: GLuint, _type: GLenum, _normalized: GLboolean, _value: GLuint) void;
+    const glVertexAttribDivisor = fn (_index: GLuint, _divisor: GLuint) void;
+    const glGetQueryObjectui64v = fn (_id: GLuint, _pname: GLenum, _params: [*c]GLuint64) void;
+    const glGetQueryObjecti64v = fn (_id: GLuint, _pname: GLenum, _params: [*c]GLint64) void;
+    const glQueryCounter = fn (_id: GLuint, _target: GLenum) void;
+    const glGetSamplerParameterIuiv = fn (_sampler: GLuint, _pname: GLenum, _params: [*c]GLuint) void;
+    const glGetSamplerParameterfv = fn (_sampler: GLuint, _pname: GLenum, _params: [*c]GLfloat) void;
+    const glGetSamplerParameterIiv = fn (_sampler: GLuint, _pname: GLenum, _params: [*c]GLint) void;
+    const glGetSamplerParameteriv = fn (_sampler: GLuint, _pname: GLenum, _params: [*c]GLint) void;
+    const glSamplerParameterIuiv = fn (_sampler: GLuint, _pname: GLenum, _param: [*c]const GLuint) void;
+    const glSamplerParameterIiv = fn (_sampler: GLuint, _pname: GLenum, _param: [*c]const GLint) void;
+    const glSamplerParameterfv = fn (_sampler: GLuint, _pname: GLenum, _param: [*c]const GLfloat) void;
+    const glSamplerParameterf = fn (_sampler: GLuint, _pname: GLenum, _param: GLfloat) void;
+    const glSamplerParameteriv = fn (_sampler: GLuint, _pname: GLenum, _param: [*c]const GLint) void;
+    const glSamplerParameteri = fn (_sampler: GLuint, _pname: GLenum, _param: GLint) void;
+    const glBindSampler = fn (_unit: GLuint, _sampler: GLuint) void;
+    const glIsSampler = fn (_sampler: GLuint) GLboolean;
+    const glDeleteSamplers = fn (_count: GLsizei, _samplers: [*c]const GLuint) void;
+    const glGenSamplers = fn (_count: GLsizei, _samplers: [*c]GLuint) void;
+    const glGetFragDataIndex = fn (_program: GLuint, _name: [*c]const GLchar) GLint;
+    const glBindFragDataLocationIndexed = fn (_program: GLuint, _colorNumber: GLuint, _index: GLuint, _name: [*c]const GLchar) void;
+    const glSampleMaski = fn (_maskNumber: GLuint, _mask: GLbitfield) void;
+    const glGetMultisamplefv = fn (_pname: GLenum, _index: GLuint, _val: [*c]GLfloat) void;
+    const glTexImage3DMultisample = fn (_target: GLenum, _samples: GLsizei, _internalformat: GLenum, _width: GLsizei, _height: GLsizei, _depth: GLsizei, _fixedsamplelocations: GLboolean) void;
+    const glTexImage2DMultisample = fn (_target: GLenum, _samples: GLsizei, _internalformat: GLenum, _width: GLsizei, _height: GLsizei, _fixedsamplelocations: GLboolean) void;
+    const glFramebufferTexture = fn (_target: GLenum, _attachment: GLenum, _texture: GLuint, _level: GLint) void;
+    const glGetBufferParameteri64v = fn (_target: GLenum, _pname: GLenum, _params: [*c]GLint64) void;
+    const glBlendFuncSeparate = fn (_sfactorRGB: GLenum, _dfactorRGB: GLenum, _sfactorAlpha: GLenum, _dfactorAlpha: GLenum) void;
+    const glMultiDrawArrays = fn (_mode: GLenum, _first: [*c]const GLint, _count: [*c]const GLsizei, _drawcount: GLsizei) void;
+    const glMultiDrawElements = fn (_mode: GLenum, _count: [*c]const GLsizei, _type: GLenum, _indices: [*c]const ?*const c_void, _drawcount: GLsizei) void;
+    const glPointParameterf = fn (_pname: GLenum, _param: GLfloat) void;
+    const glPointParameterfv = fn (_pname: GLenum, _params: [*c]const GLfloat) void;
+    const glPointParameteri = fn (_pname: GLenum, _param: GLint) void;
+    const glPointParameteriv = fn (_pname: GLenum, _params: [*c]const GLint) void;
+    const glGetInteger64i_v = fn (_target: GLenum, _index: GLuint, _data: [*c]GLint64) void;
+    const glGetSynciv = fn (_sync: GLsync, _pname: GLenum, _count: GLsizei, _length: [*c]GLsizei, _values: [*c]GLint) void;
+    const glGetInteger64v = fn (_pname: GLenum, _data: [*c]GLint64) void;
+    const glWaitSync = fn (_sync: GLsync, _flags: GLbitfield, _timeout: GLuint64) void;
+    const glClientWaitSync = fn (_sync: GLsync, _flags: GLbitfield, _timeout: GLuint64) GLenum;
+    const glDeleteSync = fn (_sync: GLsync) void;
+    const glIsSync = fn (_sync: GLsync) GLboolean;
+    const glFenceSync = fn (_condition: GLenum, _flags: GLbitfield) GLsync;
+    const glBlendColor = fn (_red: GLfloat, _green: GLfloat, _blue: GLfloat, _alpha: GLfloat) void;
+    const glBlendEquation = fn (_mode: GLenum) void;
+    const glProvokingVertex = fn (_mode: GLenum) void;
+    const glMultiDrawElementsBaseVertex = fn (_mode: GLenum, _count: [*c]const GLsizei, _type: GLenum, _indices: [*c]const ?*const c_void, _drawcount: GLsizei, _basevertex: [*c]const GLint) void;
+    const glDrawElementsInstancedBaseVertex = fn (_mode: GLenum, _count: GLsizei, _type: GLenum, _indices: ?*const c_void, _instancecount: GLsizei, _basevertex: GLint) void;
+    const glDrawRangeElementsBaseVertex = fn (_mode: GLenum, _start: GLuint, _end: GLuint, _count: GLsizei, _type: GLenum, _indices: ?*const c_void, _basevertex: GLint) void;
+    const glDrawElementsBaseVertex = fn (_mode: GLenum, _count: GLsizei, _type: GLenum, _indices: ?*const c_void, _basevertex: GLint) void;
+    const glGenQueries = fn (_n: GLsizei, _ids: [*c]GLuint) void;
+    const glDeleteQueries = fn (_n: GLsizei, _ids: [*c]const GLuint) void;
+    const glIsQuery = fn (_id: GLuint) GLboolean;
+    const glBeginQuery = fn (_target: GLenum, _id: GLuint) void;
+    const glEndQuery = fn (_target: GLenum) void;
+    const glGetQueryiv = fn (_target: GLenum, _pname: GLenum, _params: [*c]GLint) void;
+    const glGetQueryObjectiv = fn (_id: GLuint, _pname: GLenum, _params: [*c]GLint) void;
+    const glGetQueryObjectuiv = fn (_id: GLuint, _pname: GLenum, _params: [*c]GLuint) void;
+    const glBindBuffer = fn (_target: GLenum, _buffer: GLuint) void;
+    const glDeleteBuffers = fn (_n: GLsizei, _buffers: [*c]const GLuint) void;
+    const glGenBuffers = fn (_n: GLsizei, _buffers: [*c]GLuint) void;
+    const glIsBuffer = fn (_buffer: GLuint) GLboolean;
+    const glBufferData = fn (_target: GLenum, _size: GLsizeiptr, _data: ?*const c_void, _usage: GLenum) void;
+    const glBufferSubData = fn (_target: GLenum, _offset: GLintptr, _size: GLsizeiptr, _data: ?*const c_void) void;
+    const glGetBufferSubData = fn (_target: GLenum, _offset: GLintptr, _size: GLsizeiptr, _data: ?*c_void) void;
+    const glMapBuffer = fn (_target: GLenum, _access: GLenum) ?*c_void;
+    const glUnmapBuffer = fn (_target: GLenum) GLboolean;
+    const glGetBufferParameteriv = fn (_target: GLenum, _pname: GLenum, _params: [*c]GLint) void;
+    const glGetBufferPointerv = fn (_target: GLenum, _pname: GLenum, _params: ?*?*c_void) void;
+    const glBlendEquationSeparate = fn (_modeRGB: GLenum, _modeAlpha: GLenum) void;
+    const glDrawBuffers = fn (_n: GLsizei, _bufs: [*c]const GLenum) void;
+    const glStencilOpSeparate = fn (_face: GLenum, _sfail: GLenum, _dpfail: GLenum, _dppass: GLenum) void;
+    const glStencilFuncSeparate = fn (_face: GLenum, _func: GLenum, _ref: GLint, _mask: GLuint) void;
+    const glStencilMaskSeparate = fn (_face: GLenum, _mask: GLuint) void;
+    const glAttachShader = fn (_program: GLuint, _shader: GLuint) void;
+    const glBindAttribLocation = fn (_program: GLuint, _index: GLuint, _name: [*c]const GLchar) void;
+    const glCompileShader = fn (_shader: GLuint) void;
     const glCreateProgram = fn () GLuint;
-    const glCreateShader = fn (type: GLenum) GLuint;
-    const glDeleteProgram = fn (program: GLuint) void;
-    const glDeleteShader = fn (shader: GLuint) void;
-    const glDetachShader = fn (program: GLuint, shader: GLuint) void;
-    const glDisableVertexAttribArray = fn (index: GLuint) void;
-    const glEnableVertexAttribArray = fn (index: GLuint) void;
-    const glGetActiveAttrib = fn (program: GLuint, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, size: [*c]GLint, type: [*c]GLenum, name: [*c]GLchar) void;
-    const glGetActiveUniform = fn (program: GLuint, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, size: [*c]GLint, type: [*c]GLenum, name: [*c]GLchar) void;
-    const glGetAttachedShaders = fn (program: GLuint, maxCount: GLsizei, count: [*c]GLsizei, shaders: [*c]GLuint) void;
-    const glGetAttribLocation = fn (program: GLuint, name: [*c]const GLchar) GLint;
-    const glGetProgramiv = fn (program: GLuint, pname: GLenum, params: [*c]GLint) void;
-    const glGetProgramInfoLog = fn (program: GLuint, bufSize: GLsizei, length: [*c]GLsizei, infoLog: [*c]GLchar) void;
-    const glGetShaderiv = fn (shader: GLuint, pname: GLenum, params: [*c]GLint) void;
-    const glGetShaderInfoLog = fn (shader: GLuint, bufSize: GLsizei, length: [*c]GLsizei, infoLog: [*c]GLchar) void;
-    const glGetShaderSource = fn (shader: GLuint, bufSize: GLsizei, length: [*c]GLsizei, source: [*c]GLchar) void;
-    const glGetUniformLocation = fn (program: GLuint, name: [*c]const GLchar) GLint;
-    const glGetUniformfv = fn (program: GLuint, location: GLint, params: [*c]GLfloat) void;
-    const glGetUniformiv = fn (program: GLuint, location: GLint, params: [*c]GLint) void;
-    const glGetVertexAttribdv = fn (index: GLuint, pname: GLenum, params: [*c]GLdouble) void;
-    const glGetVertexAttribfv = fn (index: GLuint, pname: GLenum, params: [*c]GLfloat) void;
-    const glGetVertexAttribiv = fn (index: GLuint, pname: GLenum, params: [*c]GLint) void;
-    const glGetVertexAttribPointerv = fn (index: GLuint, pname: GLenum, pointer: **c_void) void;
-    const glIsProgram = fn (program: GLuint) GLboolean;
-    const glIsShader = fn (shader: GLuint) GLboolean;
-    const glLinkProgram = fn (program: GLuint) void;
-    const glShaderSource = fn (shader: GLuint, count: GLsizei, string: [*c]const [*c]const GLchar, length: [*c]const GLint) void;
-    const glUseProgram = fn (program: GLuint) void;
-    const glUniform1f = fn (location: GLint, v0: GLfloat) void;
-    const glUniform2f = fn (location: GLint, v0: GLfloat, v1: GLfloat) void;
-    const glUniform3f = fn (location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat) void;
-    const glUniform4f = fn (location: GLint, v0: GLfloat, v1: GLfloat, v2: GLfloat, v3: GLfloat) void;
-    const glUniform1i = fn (location: GLint, v0: GLint) void;
-    const glUniform2i = fn (location: GLint, v0: GLint, v1: GLint) void;
-    const glUniform3i = fn (location: GLint, v0: GLint, v1: GLint, v2: GLint) void;
-    const glUniform4i = fn (location: GLint, v0: GLint, v1: GLint, v2: GLint, v3: GLint) void;
-    const glUniform1fv = fn (location: GLint, count: GLsizei, value: [*c]const GLfloat) void;
-    const glUniform2fv = fn (location: GLint, count: GLsizei, value: [*c]const GLfloat) void;
-    const glUniform3fv = fn (location: GLint, count: GLsizei, value: [*c]const GLfloat) void;
-    const glUniform4fv = fn (location: GLint, count: GLsizei, value: [*c]const GLfloat) void;
-    const glUniform1iv = fn (location: GLint, count: GLsizei, value: [*c]const GLint) void;
-    const glUniform2iv = fn (location: GLint, count: GLsizei, value: [*c]const GLint) void;
-    const glUniform3iv = fn (location: GLint, count: GLsizei, value: [*c]const GLint) void;
-    const glUniform4iv = fn (location: GLint, count: GLsizei, value: [*c]const GLint) void;
-    const glUniformMatrix2fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void;
-    const glUniformMatrix3fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void;
-    const glUniformMatrix4fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void;
-    const glValidateProgram = fn (program: GLuint) void;
-    const glVertexAttrib1d = fn (index: GLuint, x: GLdouble) void;
-    const glVertexAttrib1dv = fn (index: GLuint, v: [*c]const GLdouble) void;
-    const glVertexAttrib1f = fn (index: GLuint, x: GLfloat) void;
-    const glVertexAttrib1fv = fn (index: GLuint, v: [*c]const GLfloat) void;
-    const glVertexAttrib1s = fn (index: GLuint, x: GLshort) void;
-    const glVertexAttrib1sv = fn (index: GLuint, v: [*c]const GLshort) void;
-    const glVertexAttrib2d = fn (index: GLuint, x: GLdouble, y: GLdouble) void;
-    const glVertexAttrib2dv = fn (index: GLuint, v: [*c]const GLdouble) void;
-    const glVertexAttrib2f = fn (index: GLuint, x: GLfloat, y: GLfloat) void;
-    const glVertexAttrib2fv = fn (index: GLuint, v: [*c]const GLfloat) void;
-    const glVertexAttrib2s = fn (index: GLuint, x: GLshort, y: GLshort) void;
-    const glVertexAttrib2sv = fn (index: GLuint, v: [*c]const GLshort) void;
-    const glVertexAttrib3d = fn (index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble) void;
-    const glVertexAttrib3dv = fn (index: GLuint, v: [*c]const GLdouble) void;
-    const glVertexAttrib3f = fn (index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat) void;
-    const glVertexAttrib3fv = fn (index: GLuint, v: [*c]const GLfloat) void;
-    const glVertexAttrib3s = fn (index: GLuint, x: GLshort, y: GLshort, z: GLshort) void;
-    const glVertexAttrib3sv = fn (index: GLuint, v: [*c]const GLshort) void;
-    const glVertexAttrib4Nbv = fn (index: GLuint, v: [*c]const GLbyte) void;
-    const glVertexAttrib4Niv = fn (index: GLuint, v: [*c]const GLint) void;
-    const glVertexAttrib4Nsv = fn (index: GLuint, v: [*c]const GLshort) void;
-    const glVertexAttrib4Nub = fn (index: GLuint, x: GLubyte, y: GLubyte, z: GLubyte, w: GLubyte) void;
-    const glVertexAttrib4Nubv = fn (index: GLuint, v: [*:0]const GLubyte) void;
-    const glVertexAttrib4Nuiv = fn (index: GLuint, v: [*c]const GLuint) void;
-    const glVertexAttrib4Nusv = fn (index: GLuint, v: [*c]const GLushort) void;
-    const glVertexAttrib4bv = fn (index: GLuint, v: [*c]const GLbyte) void;
-    const glVertexAttrib4d = fn (index: GLuint, x: GLdouble, y: GLdouble, z: GLdouble, w: GLdouble) void;
-    const glVertexAttrib4dv = fn (index: GLuint, v: [*c]const GLdouble) void;
-    const glVertexAttrib4f = fn (index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat, w: GLfloat) void;
-    const glVertexAttrib4fv = fn (index: GLuint, v: [*c]const GLfloat) void;
-    const glVertexAttrib4iv = fn (index: GLuint, v: [*c]const GLint) void;
-    const glVertexAttrib4s = fn (index: GLuint, x: GLshort, y: GLshort, z: GLshort, w: GLshort) void;
-    const glVertexAttrib4sv = fn (index: GLuint, v: [*c]const GLshort) void;
-    const glVertexAttrib4ubv = fn (index: GLuint, v: [*:0]const GLubyte) void;
-    const glVertexAttrib4uiv = fn (index: GLuint, v: [*c]const GLuint) void;
-    const glVertexAttrib4usv = fn (index: GLuint, v: [*c]const GLushort) void;
-    const glVertexAttribPointer = fn (index: GLuint, size: GLint, type: GLenum, normalized: GLboolean, stride: GLsizei, pointer: *const c_void) void;
-    const glUniformMatrix2x3fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void;
-    const glUniformMatrix3x2fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void;
-    const glUniformMatrix2x4fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void;
-    const glUniformMatrix4x2fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void;
-    const glUniformMatrix3x4fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void;
-    const glUniformMatrix4x3fv = fn (location: GLint, count: GLsizei, transpose: GLboolean, value: [*c]const GLfloat) void;
-    const glColorMaski = fn (index: GLuint, r: GLboolean, g: GLboolean, b: GLboolean, a: GLboolean) void;
-    const glGetBooleani_v = fn (target: GLenum, index: GLuint, data: [*c]GLboolean) void;
-    const glGetIntegeri_v = fn (target: GLenum, index: GLuint, data: [*c]GLint) void;
-    const glEnablei = fn (target: GLenum, index: GLuint) void;
-    const glDisablei = fn (target: GLenum, index: GLuint) void;
-    const glIsEnabledi = fn (target: GLenum, index: GLuint) GLboolean;
-    const glBeginTransformFeedback = fn (primitiveMode: GLenum) void;
+    const glCreateShader = fn (_type: GLenum) GLuint;
+    const glDeleteProgram = fn (_program: GLuint) void;
+    const glDeleteShader = fn (_shader: GLuint) void;
+    const glDetachShader = fn (_program: GLuint, _shader: GLuint) void;
+    const glDisableVertexAttribArray = fn (_index: GLuint) void;
+    const glEnableVertexAttribArray = fn (_index: GLuint) void;
+    const glGetActiveAttrib = fn (_program: GLuint, _index: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _size: [*c]GLint, _type: [*c]GLenum, _name: [*c]GLchar) void;
+    const glGetActiveUniform = fn (_program: GLuint, _index: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _size: [*c]GLint, _type: [*c]GLenum, _name: [*c]GLchar) void;
+    const glGetAttachedShaders = fn (_program: GLuint, _maxCount: GLsizei, _count: [*c]GLsizei, _shaders: [*c]GLuint) void;
+    const glGetAttribLocation = fn (_program: GLuint, _name: [*c]const GLchar) GLint;
+    const glGetProgramiv = fn (_program: GLuint, _pname: GLenum, _params: [*c]GLint) void;
+    const glGetProgramInfoLog = fn (_program: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _infoLog: [*c]GLchar) void;
+    const glGetShaderiv = fn (_shader: GLuint, _pname: GLenum, _params: [*c]GLint) void;
+    const glGetShaderInfoLog = fn (_shader: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _infoLog: [*c]GLchar) void;
+    const glGetShaderSource = fn (_shader: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _source: [*c]GLchar) void;
+    const glGetUniformLocation = fn (_program: GLuint, _name: [*c]const GLchar) GLint;
+    const glGetUniformfv = fn (_program: GLuint, _location: GLint, _params: [*c]GLfloat) void;
+    const glGetUniformiv = fn (_program: GLuint, _location: GLint, _params: [*c]GLint) void;
+    const glGetVertexAttribdv = fn (_index: GLuint, _pname: GLenum, _params: [*c]GLdouble) void;
+    const glGetVertexAttribfv = fn (_index: GLuint, _pname: GLenum, _params: [*c]GLfloat) void;
+    const glGetVertexAttribiv = fn (_index: GLuint, _pname: GLenum, _params: [*c]GLint) void;
+    const glGetVertexAttribPointerv = fn (_index: GLuint, _pname: GLenum, _pointer: ?*?*c_void) void;
+    const glIsProgram = fn (_program: GLuint) GLboolean;
+    const glIsShader = fn (_shader: GLuint) GLboolean;
+    const glLinkProgram = fn (_program: GLuint) void;
+    const glShaderSource = fn (_shader: GLuint, _count: GLsizei, _string: [*c]const [*c]const GLchar, _length: [*c]const GLint) void;
+    const glUseProgram = fn (_program: GLuint) void;
+    const glUniform1f = fn (_location: GLint, _v0: GLfloat) void;
+    const glUniform2f = fn (_location: GLint, _v0: GLfloat, _v1: GLfloat) void;
+    const glUniform3f = fn (_location: GLint, _v0: GLfloat, _v1: GLfloat, _v2: GLfloat) void;
+    const glUniform4f = fn (_location: GLint, _v0: GLfloat, _v1: GLfloat, _v2: GLfloat, _v3: GLfloat) void;
+    const glUniform1i = fn (_location: GLint, _v0: GLint) void;
+    const glUniform2i = fn (_location: GLint, _v0: GLint, _v1: GLint) void;
+    const glUniform3i = fn (_location: GLint, _v0: GLint, _v1: GLint, _v2: GLint) void;
+    const glUniform4i = fn (_location: GLint, _v0: GLint, _v1: GLint, _v2: GLint, _v3: GLint) void;
+    const glUniform1fv = fn (_location: GLint, _count: GLsizei, _value: [*c]const GLfloat) void;
+    const glUniform2fv = fn (_location: GLint, _count: GLsizei, _value: [*c]const GLfloat) void;
+    const glUniform3fv = fn (_location: GLint, _count: GLsizei, _value: [*c]const GLfloat) void;
+    const glUniform4fv = fn (_location: GLint, _count: GLsizei, _value: [*c]const GLfloat) void;
+    const glUniform1iv = fn (_location: GLint, _count: GLsizei, _value: [*c]const GLint) void;
+    const glUniform2iv = fn (_location: GLint, _count: GLsizei, _value: [*c]const GLint) void;
+    const glUniform3iv = fn (_location: GLint, _count: GLsizei, _value: [*c]const GLint) void;
+    const glUniform4iv = fn (_location: GLint, _count: GLsizei, _value: [*c]const GLint) void;
+    const glUniformMatrix2fv = fn (_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void;
+    const glUniformMatrix3fv = fn (_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void;
+    const glUniformMatrix4fv = fn (_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void;
+    const glValidateProgram = fn (_program: GLuint) void;
+    const glVertexAttrib1d = fn (_index: GLuint, _x: GLdouble) void;
+    const glVertexAttrib1dv = fn (_index: GLuint, _v: [*c]const GLdouble) void;
+    const glVertexAttrib1f = fn (_index: GLuint, _x: GLfloat) void;
+    const glVertexAttrib1fv = fn (_index: GLuint, _v: [*c]const GLfloat) void;
+    const glVertexAttrib1s = fn (_index: GLuint, _x: GLshort) void;
+    const glVertexAttrib1sv = fn (_index: GLuint, _v: [*c]const GLshort) void;
+    const glVertexAttrib2d = fn (_index: GLuint, _x: GLdouble, _y: GLdouble) void;
+    const glVertexAttrib2dv = fn (_index: GLuint, _v: [*c]const GLdouble) void;
+    const glVertexAttrib2f = fn (_index: GLuint, _x: GLfloat, _y: GLfloat) void;
+    const glVertexAttrib2fv = fn (_index: GLuint, _v: [*c]const GLfloat) void;
+    const glVertexAttrib2s = fn (_index: GLuint, _x: GLshort, _y: GLshort) void;
+    const glVertexAttrib2sv = fn (_index: GLuint, _v: [*c]const GLshort) void;
+    const glVertexAttrib3d = fn (_index: GLuint, _x: GLdouble, _y: GLdouble, _z: GLdouble) void;
+    const glVertexAttrib3dv = fn (_index: GLuint, _v: [*c]const GLdouble) void;
+    const glVertexAttrib3f = fn (_index: GLuint, _x: GLfloat, _y: GLfloat, _z: GLfloat) void;
+    const glVertexAttrib3fv = fn (_index: GLuint, _v: [*c]const GLfloat) void;
+    const glVertexAttrib3s = fn (_index: GLuint, _x: GLshort, _y: GLshort, _z: GLshort) void;
+    const glVertexAttrib3sv = fn (_index: GLuint, _v: [*c]const GLshort) void;
+    const glVertexAttrib4Nbv = fn (_index: GLuint, _v: [*c]const GLbyte) void;
+    const glVertexAttrib4Niv = fn (_index: GLuint, _v: [*c]const GLint) void;
+    const glVertexAttrib4Nsv = fn (_index: GLuint, _v: [*c]const GLshort) void;
+    const glVertexAttrib4Nub = fn (_index: GLuint, _x: GLubyte, _y: GLubyte, _z: GLubyte, _w: GLubyte) void;
+    const glVertexAttrib4Nubv = fn (_index: GLuint, _v: ?[*:0]const GLubyte) void;
+    const glVertexAttrib4Nuiv = fn (_index: GLuint, _v: [*c]const GLuint) void;
+    const glVertexAttrib4Nusv = fn (_index: GLuint, _v: [*c]const GLushort) void;
+    const glVertexAttrib4bv = fn (_index: GLuint, _v: [*c]const GLbyte) void;
+    const glVertexAttrib4d = fn (_index: GLuint, _x: GLdouble, _y: GLdouble, _z: GLdouble, _w: GLdouble) void;
+    const glVertexAttrib4dv = fn (_index: GLuint, _v: [*c]const GLdouble) void;
+    const glVertexAttrib4f = fn (_index: GLuint, _x: GLfloat, _y: GLfloat, _z: GLfloat, _w: GLfloat) void;
+    const glVertexAttrib4fv = fn (_index: GLuint, _v: [*c]const GLfloat) void;
+    const glVertexAttrib4iv = fn (_index: GLuint, _v: [*c]const GLint) void;
+    const glVertexAttrib4s = fn (_index: GLuint, _x: GLshort, _y: GLshort, _z: GLshort, _w: GLshort) void;
+    const glVertexAttrib4sv = fn (_index: GLuint, _v: [*c]const GLshort) void;
+    const glVertexAttrib4ubv = fn (_index: GLuint, _v: ?[*:0]const GLubyte) void;
+    const glVertexAttrib4uiv = fn (_index: GLuint, _v: [*c]const GLuint) void;
+    const glVertexAttrib4usv = fn (_index: GLuint, _v: [*c]const GLushort) void;
+    const glVertexAttribPointer = fn (_index: GLuint, _size: GLint, _type: GLenum, _normalized: GLboolean, _stride: GLsizei, _pointer: ?*const c_void) void;
+    const glUniformMatrix2x3fv = fn (_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void;
+    const glUniformMatrix3x2fv = fn (_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void;
+    const glUniformMatrix2x4fv = fn (_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void;
+    const glUniformMatrix4x2fv = fn (_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void;
+    const glUniformMatrix3x4fv = fn (_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void;
+    const glUniformMatrix4x3fv = fn (_location: GLint, _count: GLsizei, _transpose: GLboolean, _value: [*c]const GLfloat) void;
+    const glColorMaski = fn (_index: GLuint, _r: GLboolean, _g: GLboolean, _b: GLboolean, _a: GLboolean) void;
+    const glGetBooleani_v = fn (_target: GLenum, _index: GLuint, _data: [*c]GLboolean) void;
+    const glGetIntegeri_v = fn (_target: GLenum, _index: GLuint, _data: [*c]GLint) void;
+    const glEnablei = fn (_target: GLenum, _index: GLuint) void;
+    const glDisablei = fn (_target: GLenum, _index: GLuint) void;
+    const glIsEnabledi = fn (_target: GLenum, _index: GLuint) GLboolean;
+    const glBeginTransformFeedback = fn (_primitiveMode: GLenum) void;
     const glEndTransformFeedback = fn () void;
-    const glBindBufferRange = fn (target: GLenum, index: GLuint, buffer: GLuint, offset: GLintptr, size: GLsizeiptr) void;
-    const glBindBufferBase = fn (target: GLenum, index: GLuint, buffer: GLuint) void;
-    const glTransformFeedbackVaryings = fn (program: GLuint, count: GLsizei, varyings: [*c]const [*c]const GLchar, bufferMode: GLenum) void;
-    const glGetTransformFeedbackVarying = fn (program: GLuint, index: GLuint, bufSize: GLsizei, length: [*c]GLsizei, size: [*c]GLsizei, type: [*c]GLenum, name: [*c]GLchar) void;
-    const glClampColor = fn (target: GLenum, clamp: GLenum) void;
-    const glBeginConditionalRender = fn (id: GLuint, mode: GLenum) void;
+    const glBindBufferRange = fn (_target: GLenum, _index: GLuint, _buffer: GLuint, _offset: GLintptr, _size: GLsizeiptr) void;
+    const glBindBufferBase = fn (_target: GLenum, _index: GLuint, _buffer: GLuint) void;
+    const glTransformFeedbackVaryings = fn (_program: GLuint, _count: GLsizei, _varyings: [*c]const [*c]const GLchar, _bufferMode: GLenum) void;
+    const glGetTransformFeedbackVarying = fn (_program: GLuint, _index: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _size: [*c]GLsizei, _type: [*c]GLenum, _name: [*c]GLchar) void;
+    const glClampColor = fn (_target: GLenum, _clamp: GLenum) void;
+    const glBeginConditionalRender = fn (_id: GLuint, _mode: GLenum) void;
     const glEndConditionalRender = fn () void;
-    const glVertexAttribIPointer = fn (index: GLuint, size: GLint, type: GLenum, stride: GLsizei, pointer: *const c_void) void;
-    const glGetVertexAttribIiv = fn (index: GLuint, pname: GLenum, params: [*c]GLint) void;
-    const glGetVertexAttribIuiv = fn (index: GLuint, pname: GLenum, params: [*c]GLuint) void;
-    const glVertexAttribI1i = fn (index: GLuint, x: GLint) void;
-    const glVertexAttribI2i = fn (index: GLuint, x: GLint, y: GLint) void;
-    const glVertexAttribI3i = fn (index: GLuint, x: GLint, y: GLint, z: GLint) void;
-    const glVertexAttribI4i = fn (index: GLuint, x: GLint, y: GLint, z: GLint, w: GLint) void;
-    const glVertexAttribI1ui = fn (index: GLuint, x: GLuint) void;
-    const glVertexAttribI2ui = fn (index: GLuint, x: GLuint, y: GLuint) void;
-    const glVertexAttribI3ui = fn (index: GLuint, x: GLuint, y: GLuint, z: GLuint) void;
-    const glVertexAttribI4ui = fn (index: GLuint, x: GLuint, y: GLuint, z: GLuint, w: GLuint) void;
-    const glVertexAttribI1iv = fn (index: GLuint, v: [*c]const GLint) void;
-    const glVertexAttribI2iv = fn (index: GLuint, v: [*c]const GLint) void;
-    const glVertexAttribI3iv = fn (index: GLuint, v: [*c]const GLint) void;
-    const glVertexAttribI4iv = fn (index: GLuint, v: [*c]const GLint) void;
-    const glVertexAttribI1uiv = fn (index: GLuint, v: [*c]const GLuint) void;
-    const glVertexAttribI2uiv = fn (index: GLuint, v: [*c]const GLuint) void;
-    const glVertexAttribI3uiv = fn (index: GLuint, v: [*c]const GLuint) void;
-    const glVertexAttribI4uiv = fn (index: GLuint, v: [*c]const GLuint) void;
-    const glVertexAttribI4bv = fn (index: GLuint, v: [*c]const GLbyte) void;
-    const glVertexAttribI4sv = fn (index: GLuint, v: [*c]const GLshort) void;
-    const glVertexAttribI4ubv = fn (index: GLuint, v: [*:0]const GLubyte) void;
-    const glVertexAttribI4usv = fn (index: GLuint, v: [*c]const GLushort) void;
-    const glGetUniformuiv = fn (program: GLuint, location: GLint, params: [*c]GLuint) void;
-    const glBindFragDataLocation = fn (program: GLuint, color: GLuint, name: [*c]const GLchar) void;
-    const glGetFragDataLocation = fn (program: GLuint, name: [*c]const GLchar) GLint;
-    const glUniform1ui = fn (location: GLint, v0: GLuint) void;
-    const glUniform2ui = fn (location: GLint, v0: GLuint, v1: GLuint) void;
-    const glUniform3ui = fn (location: GLint, v0: GLuint, v1: GLuint, v2: GLuint) void;
-    const glUniform4ui = fn (location: GLint, v0: GLuint, v1: GLuint, v2: GLuint, v3: GLuint) void;
-    const glUniform1uiv = fn (location: GLint, count: GLsizei, value: [*c]const GLuint) void;
-    const glUniform2uiv = fn (location: GLint, count: GLsizei, value: [*c]const GLuint) void;
-    const glUniform3uiv = fn (location: GLint, count: GLsizei, value: [*c]const GLuint) void;
-    const glUniform4uiv = fn (location: GLint, count: GLsizei, value: [*c]const GLuint) void;
-    const glTexParameterIiv = fn (target: GLenum, pname: GLenum, params: [*c]const GLint) void;
-    const glTexParameterIuiv = fn (target: GLenum, pname: GLenum, params: [*c]const GLuint) void;
-    const glGetTexParameterIiv = fn (target: GLenum, pname: GLenum, params: [*c]GLint) void;
-    const glGetTexParameterIuiv = fn (target: GLenum, pname: GLenum, params: [*c]GLuint) void;
-    const glClearBufferiv = fn (buffer: GLenum, drawbuffer: GLint, value: [*c]const GLint) void;
-    const glClearBufferuiv = fn (buffer: GLenum, drawbuffer: GLint, value: [*c]const GLuint) void;
-    const glClearBufferfv = fn (buffer: GLenum, drawbuffer: GLint, value: [*c]const GLfloat) void;
-    const glClearBufferfi = fn (buffer: GLenum, drawbuffer: GLint, depth: GLfloat, stencil: GLint) void;
-    const glGetStringi = fn (name: GLenum, index: GLuint) [*:0]const GLubyte;
-    const glIsRenderbuffer = fn (renderbuffer: GLuint) GLboolean;
-    const glBindRenderbuffer = fn (target: GLenum, renderbuffer: GLuint) void;
-    const glDeleteRenderbuffers = fn (n: GLsizei, renderbuffers: [*c]const GLuint) void;
-    const glGenRenderbuffers = fn (n: GLsizei, renderbuffers: [*c]GLuint) void;
-    const glRenderbufferStorage = fn (target: GLenum, internalformat: GLenum, width: GLsizei, height: GLsizei) void;
-    const glGetRenderbufferParameteriv = fn (target: GLenum, pname: GLenum, params: [*c]GLint) void;
-    const glIsFramebuffer = fn (framebuffer: GLuint) GLboolean;
-    const glBindFramebuffer = fn (target: GLenum, framebuffer: GLuint) void;
-    const glDeleteFramebuffers = fn (n: GLsizei, framebuffers: [*c]const GLuint) void;
-    const glGenFramebuffers = fn (n: GLsizei, framebuffers: [*c]GLuint) void;
-    const glCheckFramebufferStatus = fn (target: GLenum) GLenum;
-    const glFramebufferTexture1D = fn (target: GLenum, attachment: GLenum, textarget: GLenum, texture: GLuint, level: GLint) void;
-    const glFramebufferTexture2D = fn (target: GLenum, attachment: GLenum, textarget: GLenum, texture: GLuint, level: GLint) void;
-    const glFramebufferTexture3D = fn (target: GLenum, attachment: GLenum, textarget: GLenum, texture: GLuint, level: GLint, zoffset: GLint) void;
-    const glFramebufferRenderbuffer = fn (target: GLenum, attachment: GLenum, renderbuffertarget: GLenum, renderbuffer: GLuint) void;
-    const glGetFramebufferAttachmentParameteriv = fn (target: GLenum, attachment: GLenum, pname: GLenum, params: [*c]GLint) void;
-    const glGenerateMipmap = fn (target: GLenum) void;
-    const glBlitFramebuffer = fn (srcX0: GLint, srcY0: GLint, srcX1: GLint, srcY1: GLint, dstX0: GLint, dstY0: GLint, dstX1: GLint, dstY1: GLint, mask: GLbitfield, filter: GLenum) void;
-    const glRenderbufferStorageMultisample = fn (target: GLenum, samples: GLsizei, internalformat: GLenum, width: GLsizei, height: GLsizei) void;
-    const glFramebufferTextureLayer = fn (target: GLenum, attachment: GLenum, texture: GLuint, level: GLint, layer: GLint) void;
-    const glMapBufferRange = fn (target: GLenum, offset: GLintptr, length: GLsizeiptr, access: GLbitfield) *c_void;
-    const glFlushMappedBufferRange = fn (target: GLenum, offset: GLintptr, length: GLsizeiptr) void;
-    const glBindVertexArray = fn (array: GLuint) void;
-    const glDeleteVertexArrays = fn (n: GLsizei, arrays: [*c]const GLuint) void;
-    const glGenVertexArrays = fn (n: GLsizei, arrays: [*c]GLuint) void;
-    const glIsVertexArray = fn (array: GLuint) GLboolean;
-    const glDrawArraysInstanced = fn (mode: GLenum, first: GLint, count: GLsizei, instancecount: GLsizei) void;
-    const glDrawElementsInstanced = fn (mode: GLenum, count: GLsizei, type: GLenum, indices: *const c_void, instancecount: GLsizei) void;
-    const glTexBuffer = fn (target: GLenum, internalformat: GLenum, buffer: GLuint) void;
-    const glPrimitiveRestartIndex = fn (index: GLuint) void;
-    const glCopyBufferSubData = fn (readTarget: GLenum, writeTarget: GLenum, readOffset: GLintptr, writeOffset: GLintptr, size: GLsizeiptr) void;
-    const glGetUniformIndices = fn (program: GLuint, uniformCount: GLsizei, uniformNames: [*c]const [*c]const GLchar, uniformIndices: [*c]GLuint) void;
-    const glGetActiveUniformsiv = fn (program: GLuint, uniformCount: GLsizei, uniformIndices: [*c]const GLuint, pname: GLenum, params: [*c]GLint) void;
-    const glGetActiveUniformName = fn (program: GLuint, uniformIndex: GLuint, bufSize: GLsizei, length: [*c]GLsizei, uniformName: [*c]GLchar) void;
-    const glGetUniformBlockIndex = fn (program: GLuint, uniformBlockName: [*c]const GLchar) GLuint;
-    const glGetActiveUniformBlockiv = fn (program: GLuint, uniformBlockIndex: GLuint, pname: GLenum, params: [*c]GLint) void;
-    const glGetActiveUniformBlockName = fn (program: GLuint, uniformBlockIndex: GLuint, bufSize: GLsizei, length: [*c]GLsizei, uniformBlockName: [*c]GLchar) void;
-    const glUniformBlockBinding = fn (program: GLuint, uniformBlockIndex: GLuint, uniformBlockBinding: GLuint) void;
+    const glVertexAttribIPointer = fn (_index: GLuint, _size: GLint, _type: GLenum, _stride: GLsizei, _pointer: ?*const c_void) void;
+    const glGetVertexAttribIiv = fn (_index: GLuint, _pname: GLenum, _params: [*c]GLint) void;
+    const glGetVertexAttribIuiv = fn (_index: GLuint, _pname: GLenum, _params: [*c]GLuint) void;
+    const glVertexAttribI1i = fn (_index: GLuint, _x: GLint) void;
+    const glVertexAttribI2i = fn (_index: GLuint, _x: GLint, _y: GLint) void;
+    const glVertexAttribI3i = fn (_index: GLuint, _x: GLint, _y: GLint, _z: GLint) void;
+    const glVertexAttribI4i = fn (_index: GLuint, _x: GLint, _y: GLint, _z: GLint, _w: GLint) void;
+    const glVertexAttribI1ui = fn (_index: GLuint, _x: GLuint) void;
+    const glVertexAttribI2ui = fn (_index: GLuint, _x: GLuint, _y: GLuint) void;
+    const glVertexAttribI3ui = fn (_index: GLuint, _x: GLuint, _y: GLuint, _z: GLuint) void;
+    const glVertexAttribI4ui = fn (_index: GLuint, _x: GLuint, _y: GLuint, _z: GLuint, _w: GLuint) void;
+    const glVertexAttribI1iv = fn (_index: GLuint, _v: [*c]const GLint) void;
+    const glVertexAttribI2iv = fn (_index: GLuint, _v: [*c]const GLint) void;
+    const glVertexAttribI3iv = fn (_index: GLuint, _v: [*c]const GLint) void;
+    const glVertexAttribI4iv = fn (_index: GLuint, _v: [*c]const GLint) void;
+    const glVertexAttribI1uiv = fn (_index: GLuint, _v: [*c]const GLuint) void;
+    const glVertexAttribI2uiv = fn (_index: GLuint, _v: [*c]const GLuint) void;
+    const glVertexAttribI3uiv = fn (_index: GLuint, _v: [*c]const GLuint) void;
+    const glVertexAttribI4uiv = fn (_index: GLuint, _v: [*c]const GLuint) void;
+    const glVertexAttribI4bv = fn (_index: GLuint, _v: [*c]const GLbyte) void;
+    const glVertexAttribI4sv = fn (_index: GLuint, _v: [*c]const GLshort) void;
+    const glVertexAttribI4ubv = fn (_index: GLuint, _v: ?[*:0]const GLubyte) void;
+    const glVertexAttribI4usv = fn (_index: GLuint, _v: [*c]const GLushort) void;
+    const glGetUniformuiv = fn (_program: GLuint, _location: GLint, _params: [*c]GLuint) void;
+    const glBindFragDataLocation = fn (_program: GLuint, _color: GLuint, _name: [*c]const GLchar) void;
+    const glGetFragDataLocation = fn (_program: GLuint, _name: [*c]const GLchar) GLint;
+    const glUniform1ui = fn (_location: GLint, _v0: GLuint) void;
+    const glUniform2ui = fn (_location: GLint, _v0: GLuint, _v1: GLuint) void;
+    const glUniform3ui = fn (_location: GLint, _v0: GLuint, _v1: GLuint, _v2: GLuint) void;
+    const glUniform4ui = fn (_location: GLint, _v0: GLuint, _v1: GLuint, _v2: GLuint, _v3: GLuint) void;
+    const glUniform1uiv = fn (_location: GLint, _count: GLsizei, _value: [*c]const GLuint) void;
+    const glUniform2uiv = fn (_location: GLint, _count: GLsizei, _value: [*c]const GLuint) void;
+    const glUniform3uiv = fn (_location: GLint, _count: GLsizei, _value: [*c]const GLuint) void;
+    const glUniform4uiv = fn (_location: GLint, _count: GLsizei, _value: [*c]const GLuint) void;
+    const glTexParameterIiv = fn (_target: GLenum, _pname: GLenum, _params: [*c]const GLint) void;
+    const glTexParameterIuiv = fn (_target: GLenum, _pname: GLenum, _params: [*c]const GLuint) void;
+    const glGetTexParameterIiv = fn (_target: GLenum, _pname: GLenum, _params: [*c]GLint) void;
+    const glGetTexParameterIuiv = fn (_target: GLenum, _pname: GLenum, _params: [*c]GLuint) void;
+    const glClearBufferiv = fn (_buffer: GLenum, _drawbuffer: GLint, _value: [*c]const GLint) void;
+    const glClearBufferuiv = fn (_buffer: GLenum, _drawbuffer: GLint, _value: [*c]const GLuint) void;
+    const glClearBufferfv = fn (_buffer: GLenum, _drawbuffer: GLint, _value: [*c]const GLfloat) void;
+    const glClearBufferfi = fn (_buffer: GLenum, _drawbuffer: GLint, _depth: GLfloat, _stencil: GLint) void;
+    const glGetStringi = fn (_name: GLenum, _index: GLuint) ?[*:0]const GLubyte;
+    const glIsRenderbuffer = fn (_renderbuffer: GLuint) GLboolean;
+    const glBindRenderbuffer = fn (_target: GLenum, _renderbuffer: GLuint) void;
+    const glDeleteRenderbuffers = fn (_n: GLsizei, _renderbuffers: [*c]const GLuint) void;
+    const glGenRenderbuffers = fn (_n: GLsizei, _renderbuffers: [*c]GLuint) void;
+    const glRenderbufferStorage = fn (_target: GLenum, _internalformat: GLenum, _width: GLsizei, _height: GLsizei) void;
+    const glGetRenderbufferParameteriv = fn (_target: GLenum, _pname: GLenum, _params: [*c]GLint) void;
+    const glIsFramebuffer = fn (_framebuffer: GLuint) GLboolean;
+    const glBindFramebuffer = fn (_target: GLenum, _framebuffer: GLuint) void;
+    const glDeleteFramebuffers = fn (_n: GLsizei, _framebuffers: [*c]const GLuint) void;
+    const glGenFramebuffers = fn (_n: GLsizei, _framebuffers: [*c]GLuint) void;
+    const glCheckFramebufferStatus = fn (_target: GLenum) GLenum;
+    const glFramebufferTexture1D = fn (_target: GLenum, _attachment: GLenum, _textarget: GLenum, _texture: GLuint, _level: GLint) void;
+    const glFramebufferTexture2D = fn (_target: GLenum, _attachment: GLenum, _textarget: GLenum, _texture: GLuint, _level: GLint) void;
+    const glFramebufferTexture3D = fn (_target: GLenum, _attachment: GLenum, _textarget: GLenum, _texture: GLuint, _level: GLint, _zoffset: GLint) void;
+    const glFramebufferRenderbuffer = fn (_target: GLenum, _attachment: GLenum, _renderbuffertarget: GLenum, _renderbuffer: GLuint) void;
+    const glGetFramebufferAttachmentParameteriv = fn (_target: GLenum, _attachment: GLenum, _pname: GLenum, _params: [*c]GLint) void;
+    const glGenerateMipmap = fn (_target: GLenum) void;
+    const glBlitFramebuffer = fn (_srcX0: GLint, _srcY0: GLint, _srcX1: GLint, _srcY1: GLint, _dstX0: GLint, _dstY0: GLint, _dstX1: GLint, _dstY1: GLint, _mask: GLbitfield, _filter: GLenum) void;
+    const glRenderbufferStorageMultisample = fn (_target: GLenum, _samples: GLsizei, _internalformat: GLenum, _width: GLsizei, _height: GLsizei) void;
+    const glFramebufferTextureLayer = fn (_target: GLenum, _attachment: GLenum, _texture: GLuint, _level: GLint, _layer: GLint) void;
+    const glMapBufferRange = fn (_target: GLenum, _offset: GLintptr, _length: GLsizeiptr, _access: GLbitfield) ?*c_void;
+    const glFlushMappedBufferRange = fn (_target: GLenum, _offset: GLintptr, _length: GLsizeiptr) void;
+    const glBindVertexArray = fn (_array: GLuint) void;
+    const glDeleteVertexArrays = fn (_n: GLsizei, _arrays: [*c]const GLuint) void;
+    const glGenVertexArrays = fn (_n: GLsizei, _arrays: [*c]GLuint) void;
+    const glIsVertexArray = fn (_array: GLuint) GLboolean;
+    const glDrawArraysInstanced = fn (_mode: GLenum, _first: GLint, _count: GLsizei, _instancecount: GLsizei) void;
+    const glDrawElementsInstanced = fn (_mode: GLenum, _count: GLsizei, _type: GLenum, _indices: ?*const c_void, _instancecount: GLsizei) void;
+    const glTexBuffer = fn (_target: GLenum, _internalformat: GLenum, _buffer: GLuint) void;
+    const glPrimitiveRestartIndex = fn (_index: GLuint) void;
+    const glCopyBufferSubData = fn (_readTarget: GLenum, _writeTarget: GLenum, _readOffset: GLintptr, _writeOffset: GLintptr, _size: GLsizeiptr) void;
+    const glGetUniformIndices = fn (_program: GLuint, _uniformCount: GLsizei, _uniformNames: [*c]const [*c]const GLchar, _uniformIndices: [*c]GLuint) void;
+    const glGetActiveUniformsiv = fn (_program: GLuint, _uniformCount: GLsizei, _uniformIndices: [*c]const GLuint, _pname: GLenum, _params: [*c]GLint) void;
+    const glGetActiveUniformName = fn (_program: GLuint, _uniformIndex: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _uniformName: [*c]GLchar) void;
+    const glGetUniformBlockIndex = fn (_program: GLuint, _uniformBlockName: [*c]const GLchar) GLuint;
+    const glGetActiveUniformBlockiv = fn (_program: GLuint, _uniformBlockIndex: GLuint, _pname: GLenum, _params: [*c]GLint) void;
+    const glGetActiveUniformBlockName = fn (_program: GLuint, _uniformBlockIndex: GLuint, _bufSize: GLsizei, _length: [*c]GLsizei, _uniformBlockName: [*c]GLchar) void;
+    const glUniformBlockBinding = fn (_program: GLuint, _uniformBlockIndex: GLuint, _uniformBlockBinding: GLuint) void;
 };
 
 const function_pointers = struct {
@@ -5013,4 +5013,6 @@ const function_pointers = struct {
 
 test "" {
     _ = load;
+    @setEvalBranchQuota(100_000); // Yes, this is necessary. OpenGL gets quite large!
+    std.testing.refAllDecls(@This());
 }

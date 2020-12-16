@@ -27,6 +27,8 @@ class Program
 
     var target_feature = registry.Features.First(f => f.Name == api_version);
 
+    var api = target_feature.API;
+
     var required_features = registry.Features
       .Where(f => f.API == target_feature.API)
       .Where(f => f.Number.CompareTo(target_feature.Number) <= 0)
@@ -69,12 +71,12 @@ class Program
     {
       var empty = new FeatureComponent[0];
 
-      foreach (var item in feat.GetRemovedComponents(profile))
+      foreach (var item in feat.GetRemovedComponents(api, profile))
       {
         final_feature_set.Remove(item);
       }
 
-      foreach (var item in feat.GetRequiredComponents(profile))
+      foreach (var item in feat.GetRequiredComponents(api, profile))
       {
         final_feature_set.Add(item);
       }
@@ -88,7 +90,7 @@ class Program
       var empty = new FeatureComponent[0];
       gl_extensions.Add(Tuple.Create(
           ext.Name,
-          ExtractedFeatureSet.Create(registry, ext.GetRequiredComponents(profile))
+          ExtractedFeatureSet.Create(registry, ext.GetRequiredComponents(api, profile))
       ));
     }
 
@@ -155,6 +157,8 @@ class Program
 
       stream.WriteLine("test \"\" {");
       stream.WriteLine("    _ = load;");
+      stream.WriteLine("    @setEvalBranchQuota(100_000); // Yes, this is necessary. OpenGL gets quite large!");
+      stream.WriteLine("    std.testing.refAllDecls(@This());");
       stream.WriteLine("}");
     }
 
@@ -210,7 +214,7 @@ class Program
         {
           if (i > 0)
             stream.Write(", ");
-          stream.Write(param.Name);
+          stream.Write("_{0}", param.Name);
           i += 1;
         }
       }
@@ -240,10 +244,20 @@ class Program
 
   public static string MakeZigIdent(string text)
   {
-    if (!char.IsLetter(text[0]))
-      return "@\"" + text + "\"";
-    else
-      return text;
+    var type_pat = new Regex(@"(f|u|i)\d+");
+
+    if (type_pat.IsMatch(text))
+      return "_" + text;
+
+    switch (text)
+    {
+      case "type": return "_type";
+      default:
+        if (!char.IsLetter(text[0]))
+          return "@\"" + text + "\"";
+        else
+          return text;
+    }
   }
 
   public static string RemovePrefix(string text)
@@ -293,7 +307,7 @@ class Program
       {
         if ((i > 0 && tokens[i - 1] == "void") || (i > 1 && tokens[i - 2] == "void"))
         {
-          result += "*";
+          result += "?*";
         }
         else
         {
@@ -319,7 +333,7 @@ class Program
     if (result == "[*c]const GLubyte")
     {
       // assume a string:
-      return "[*:0]const GLubyte";
+      return "?[*:0]const GLubyte";
     }
     return result;
   }
@@ -364,15 +378,15 @@ pub const GLsync = *opaque {};
 pub const _cl_context = opaque {};
 pub const _cl_event = opaque {};
 
-pub const GLDEBUGPROC = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: *c_void) callconv(.C) void;
-pub const GLDEBUGPROCARB = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: *c_void) callconv(.C) void;
-pub const GLDEBUGPROCKHR = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: *c_void) callconv(.C) void;
+pub const GLDEBUGPROC = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*c_void) callconv(.C) void;
+pub const GLDEBUGPROCARB = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*c_void) callconv(.C) void;
+pub const GLDEBUGPROCKHR = fn (source: GLenum, type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*c_void) callconv(.C) void;
 
-pub const GLDEBUGPROCAMD = fn (id: GLuint, category: GLenum, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: *c_void) callconv(.C) void;
+pub const GLDEBUGPROCAMD = fn (id: GLuint, category: GLenum, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*c_void) callconv(.C) void;
 
 pub const GLhalfNV = u16;
 pub const GLvdpauSurfaceNV = GLintptr;
-pub const GLVULKANPROCNV = fn (void) callconv(.C) void;";
+pub const GLVULKANPROCNV = fn () callconv(.C) void;";
 }
 
 [XmlRoot("registry")]
@@ -492,7 +506,7 @@ public class Command
         if (count > 0)
           stream.Write(", ");
 
-        stream.Write("{0}: {1}", name, type);
+        stream.Write("_{0}: {1}", name, type);
 
         count += 1;
       }
@@ -565,18 +579,15 @@ public class Feature
   [XmlElement("remove")]
   public FeatureSetList[] Removes { get; set; }
 
-  public IEnumerable<FeatureComponent> GetRequiredComponents(string profile)
-  {
-    if (Requires == null)
-      return new FeatureComponent[0];
-    return Requires.Where(f => f.Items != null).Where(f => f.HasProfile(profile)).SelectMany(f => f.Items);
-  }
+  public IEnumerable<FeatureComponent> GetRequiredComponents(string api, string profile) => Filter(api, profile, Requires);
 
-  public IEnumerable<FeatureComponent> GetRemovedComponents(string profile)
+  public IEnumerable<FeatureComponent> GetRemovedComponents(string api, string profile) => Filter(api, profile, Removes);
+
+  IEnumerable<FeatureComponent> Filter(string api, string profile, IEnumerable<FeatureSetList> input)
   {
-    if (Removes == null)
+    if (input == null)
       return new FeatureComponent[0];
-    return Removes.Where(f => f.Items != null).Where(f => f.HasProfile(profile)).SelectMany(f => f.Items);
+    return input.Where(f => f.Items != null).Where(f => f.HasAPI(api) && f.HasProfile(profile)).SelectMany(f => f.Items);
   }
 
   public bool IsCompatibleTo(Feature other)
@@ -590,6 +601,9 @@ public class FeatureSetList
   [XmlAttribute("comment")]
   public string Comment { get; set; }
 
+  [XmlAttribute("api")]
+  public string Api { get; set; }
+
   [XmlAttribute("profile")]
   public string Profile { get; set; }
 
@@ -597,6 +611,17 @@ public class FeatureSetList
   [XmlElement("type", typeof(TypeFeature))]
   [XmlElement("command", typeof(CommandFeature))]
   public FeatureComponent[] Items { get; set; }
+
+  public bool HasAPI(string wanted_api)
+  {
+    if (wanted_api == null)
+      return true;
+    var this_api = Api?.ToLower();
+    if (this_api == null)
+      return true; // no restrictions
+    else
+      return this_api == wanted_api;
+  }
 
   public bool HasProfile(string wanted_profile)
   {
