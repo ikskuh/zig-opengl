@@ -40,20 +40,29 @@ jobs:
           dotnet publish -r linux-arm -c Release -p:PublishReadyToRun=true
           dotnet publish -r linux-arm64 -c Release -p:PublishReadyToRun=true
 
-      - name: Prepare bundle
-        run: |
-          mkdir -p release
-          mv bin/Release/net5.0/linux-x64/publish/generator release/release-linux-x64
-          mv bin/Release/net5.0/linux-arm/publish/generator release/release-linux-arm
-          mv bin/Release/net5.0/linux-arm64/publish/generator release/release-linux-arm64
-          mv bin/Release/net5.0/win-x64/publish/generator.exe release/release-win-x64.exe
-          mv bin/Release/net5.0/win-x64/publish/*.dll release/
-
-      - name: Bundle executables
+      - name: Bundle linux-x64 executables
         uses: actions/upload-artifact@v2
         with:
-          name: generator
-          path: release/*
+          name: generator-linux-x64
+          path: bin/Release/net5.0/linux-x64/publish/
+
+      - name: Bundle linux-arm executables
+        uses: actions/upload-artifact@v2
+        with:
+          name: generator-linux-arm
+          path: bin/Release/net5.0/linux-arm/publish/
+
+      - name: Bundle linux-arm64 executables
+        uses: actions/upload-artifact@v2
+        with:
+          name: generator-linux-arm64
+          path: bin/Release/net5.0/linux-arm64/publish/
+
+      - name: Bundle win-x64 executables
+        uses: actions/upload-artifact@v2
+        with:
+          name: generator-win-x64
+          path: bin/Release/net5.0/win-x64/publish/
 
       - name: Bundle pregenerated loaders
         uses: actions/upload-artifact@v2
