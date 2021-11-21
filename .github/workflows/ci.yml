@@ -43,18 +43,20 @@ jobs:
       - name: Prepare bundle
         run: |
           mkdir -p release
-          mv bin/Release/net5.0/linux-linux-x64/publish/generator release/release-linux-x64
-          mv bin/Release/net5.0/linux-linux-arm/publish/generator release/release-linux-arm
-          mv bin/Release/net5.0/linux-linux-arm64/publish/generator release/release-linux-arm64
+          mv bin/Release/net5.0/linux-x64/publish/generator release/release-linux-x64
+          mv bin/Release/net5.0/linux-arm/publish/generator release/release-linux-arm
+          mv bin/Release/net5.0/linux-arm64/publish/generator release/release-linux-arm64
           mv bin/Release/net5.0/win-x64/publish/generator.exe release/release-win-x64.exe
           mv bin/Release/net5.0/win-x64/publish/*.dll release/
 
-      - uses: actions/upload-artifact@v2
+      - name: Bundle executables
+        uses: actions/upload-artifact@v2
         with:
           name: generator
           path: release/*
 
-      - uses: actions/upload-artifact@v2
+      - name: Bundle pregenerated loaders
+        uses: actions/upload-artifact@v2
         with:
           name: loaders
           path: exports/*
