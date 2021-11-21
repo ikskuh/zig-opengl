@@ -53,3 +53,8 @@ jobs:
         with:
           name: generator
           path: release/*
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: loaders
+          path: exports/*

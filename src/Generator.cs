@@ -114,6 +114,7 @@ class Program
     using (var stream = new StreamWriter(result_file, false, Encoding.UTF8))
     {
       stream.WriteLine("const std = @import(\"std\");");
+      stream.WriteLine("const builtin = @import(\"builtin\");");
       stream.WriteLine("const log = std.log.scoped(.OpenGL);");
       stream.WriteLine();
       stream.WriteLine(preamble);
@@ -365,7 +366,7 @@ pub const GLeglImageOES = void;
 pub const GLchar = u8;
 pub const GLcharARB = u8;
 
-pub const GLhandleARB = if (std.builtin.os.tag == .macos) *c_void else c_uint;
+pub const GLhandleARB = if (builtin.os.tag == .macos) *c_void else c_uint;
 
 pub const GLhalf = u16;
 pub const GLhalfARB = u16;
