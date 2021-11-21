@@ -22,13 +22,16 @@ jobs:
         with:
           version: master
 
-      - name:
+      - name: Install dotnet 5.0
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '5.0.x' # SDK Version to use; x will use the latest version of the 3.1 channel
 
       - name: Build the generator
-        run: dotnet build
+        run: |
+          pwd
+          ls
+          dotnet build generator.csproj
 
       - name: Generate all default files
         run: make
