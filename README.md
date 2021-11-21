@@ -7,10 +7,33 @@ It uses the official [OpenGL Registry](https://github.com/KhronosGroup/OpenGL-Re
 Right now, it does minimal adjustments like removing the `gl` prefix from functions or the `GL_` prefix from constants. Everything else is the same as the C API.
 
 There is a single non-OpenGL function exported:
+
 ```zig
 pub fn load(load_ctx: anytype, get_proc_address: fn(@TypeOf(load_ctx), [:0]const u8) ?*c_void) !void {
 ```
+
 This function will load all OpenGL entry points with the help of `get_proc_address`. It receives the `load_ctx` as well as the function name.
+
+## Example
+
+This example uses [ZWL](https://github.com/Aransentin/ZWL/) by @Aransentin.
+
+```zig
+const zwl = @import("zwl");
+
+const Platform = zwl.Platform(…);
+
+pub fn initAndDraw(window: Platform.Window) !void {
+  try gl.load(window.platform, Platform.getOpenGlProcAddress);
+
+  while(true) {
+    gl.clearColor(1, 0, 1, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    try window.present();
+  }
+}
+```
 
 ## Pregenerated Loaders
 
@@ -18,17 +41,28 @@ This repository contains pre-generated bindings for all extension-free OpenGL ve
 
 ## Generating your own loader
 
-Use the `Makefile` to compile the `generator.exe` (`make generator.exe`), then call the generator:
+### From source
 
-```sh
-generator.exe \
+To generate your own loader, you have to clone this repository and build the generator with `dotnet`:
+
+````sh-console
+user@machine:~/zig-opengl$ dotnet run
+Usage: generator <registry> <result> <api_version> [<extension>] [<extension>] ...
+user@machine:~/zig-opengl$ dotnet run OpenGL-Registry/xml/gl.xml gl3v3.zig GL_VERSION_3_3
+Final API has 344 commands and 818 enums types.
+user@machine:~/zig-opengl$
+```
+
+```sh-console
+dotnet run \
   OpenGL-Registry/xml/gl.xml \ # path to the opengl registry
   my_binding.zig             \ # path to the generated file
   GL_VERSION_3_3             \ # feature level, options listed below
   …                            # Add your extensions here, each as a single arg. Or let them out, you don't need extensions
-```
+````
 
 Possible feature levels (at the time of writing) are:
+
 - `GL_VERSION_1_0`
 - `GL_VERSION_1_1`
 - `GL_VERSION_1_2`
@@ -55,30 +89,10 @@ Possible feature levels (at the time of writing) are:
 - `GL_ES_VERSION_3_2`
 - `GL_SC_VERSION_2_0`
 
-## Example
+## Contribution
 
-This example uses [ZWL](https://github.com/Aransentin/ZWL/) by @Aransentin.
-
-```zig
-const zwl = @import("zwl");
-
-const Platform = zwl.Platform(…);
-
-pub fn initAndDraw(window: Platform.Window) !void {
-  try gl.load(window.platform, Platform.getOpenGlProcAddress);
-
-  while(true) {
-    gl.clearColor(1, 0, 1, 1);
-    gl.clear(gl.COLOR_BUFFER_BIT);
-
-    try window.present();
-  }
-}
-```
-
-## Development
-
-This library uses a small C# script that generates the Zig bindings.
+This library uses a small C# script that generates the Zig bindings. It is located in `src/Generator.cs`
 
 ## What is missing right now?
+
 - Option to specify `core` or `compatibility` profile.

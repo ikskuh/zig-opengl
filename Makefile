@@ -26,20 +26,17 @@ all: \
 		 exports/gl_es_3v1.zig \
 		 exports/gl_es_3v2.zig
 
-exports/gl_%.zig: generator.exe $(REGISTRY)
-	mono generator.exe $(REGISTRY) $@ GL_VERSION_$(subst exports/gl_,,$(subst v,_,${@:.zig=})) $(EXTENSIONS)
+exports/gl_%.zig: $(REGISTRY)
+	dotnet run $(REGISTRY) $@ GL_VERSION_$(subst exports/gl_,,$(subst v,_,${@:.zig=})) $(EXTENSIONS)
 	zig fmt $@
 	zig test $@
 
-exports/gl_es_1v0.zig: generator.exe $(REGISTRY)
-	mono generator.exe $(REGISTRY) $@ GL_VERSION_ES_CM_1_0 $(EXTENSIONS)
+exports/gl_es_1v0.zig: $(REGISTRY)
+	dotnet run $(REGISTRY) $@ GL_VERSION_ES_CM_1_0 $(EXTENSIONS)
 	zig fmt $@
 	zig test $@
 
-exports/gl_es_%.zig: generator.exe $(REGISTRY)
-	mono generator.exe $(REGISTRY) $@ GL_ES_VERSION_$(subst exports/gl_es_,,$(subst v,_,${@:.zig=})) $(EXTENSIONS)
+exports/gl_es_%.zig: $(REGISTRY)
+	dotnet run $(REGISTRY) $@ GL_ES_VERSION_$(subst exports/gl_es_,,$(subst v,_,${@:.zig=})) $(EXTENSIONS)
 	zig fmt $@
 	zig test $@
-
-generator.exe: src/main.cs
-	csc /debug:full "/out:$@" /r:System.Xml.Serialization.dll $^

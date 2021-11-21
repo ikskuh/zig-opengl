@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: '0 5 * * *' # run at 5 AM UTC
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: Setup Zig
+        uses: goto-bus-stop/setup-zig@v1
+        with:
+          version: master
+
+      - name:
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.x' # SDK Version to use; x will use the latest version of the 3.1 channel
+
+      - name: Build the generator
+        run: dotnet build
+
+      - name: Generate all default files
+        run: make
+
+      - name: Compile release variants for the generator
+        run: |
+          dotnet publish -r win-x64 -c Release -p:PublishReadyToRun=false
+          dotnet publish -r linux-x64 -c Release -p:PublishReadyToRun=true
+          dotnet publish -r linux-arm -c Release -p:PublishReadyToRun=true
+          dotnet publish -r linux-arm64 -c Release -p:PublishReadyToRun=true
+
+      - name: Prepare bundle
+        run: |
+          mkdir -p release
+          mv bin/Release/net5.0/linux-linux-x64/publish/generator release/release-linux-x64
+          mv bin/Release/net5.0/linux-linux-arm/publish/generator release/release-linux-arm
+          mv bin/Release/net5.0/linux-linux-arm64/publish/generator release/release-linux-arm64
+          mv bin/Release/net5.0/win-x64/publish/generator.exe release/release-win-x64.exe
+          mv bin/Release/net5.0/win-x64/publish/*.dll release/
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: generator
+          path: release/*

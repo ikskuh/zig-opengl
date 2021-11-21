@@ -11,6 +11,12 @@ class Program
 {
   static int Main(string[] args)
   {
+    if (args.Length < 3)
+    {
+      Console.Error.WriteLine("Usage: generator <registry> <result> <api_version> [<extension>] [<extension>] ...");
+      return 1;
+    }
+
     string registry_file = args[0];
     string result_file = args[1];
     string api_version = args[2];
