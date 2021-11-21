@@ -1,4 +1,3 @@
 zig-cache/
-generator.*
 obj/
 bin/

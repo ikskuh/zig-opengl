@@ -9,7 +9,7 @@ on:
     - cron: '0 5 * * *' # run at 5 AM UTC
 
 jobs:
-  build-linux:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,10 +28,7 @@ jobs:
           dotnet-version: '5.0.x' # SDK Version to use; x will use the latest version of the 3.1 channel
 
       - name: Build the generator
-        run: |
-          pwd
-          ls
-          dotnet build generator.csproj
+        run: dotnet build
 
       - name: Generate all default files
         run: make
