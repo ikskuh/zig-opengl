@@ -1,4 +1,5 @@
 const std = @import("std");
+const builtin = @import("builtin");
 const log = std.log.scoped(.OpenGL);
 
 pub const GLenum = c_uint;
@@ -21,7 +22,7 @@ pub const GLeglImageOES = void;
 pub const GLchar = u8;
 pub const GLcharARB = u8;
 
-pub const GLhandleARB = if (std.builtin.os.tag == .macos) *c_void else c_uint;
+pub const GLhandleARB = if (builtin.os.tag == .macos) *c_void else c_uint;
 
 pub const GLhalf = u16;
 pub const GLhalfARB = u16;
@@ -2500,7 +2501,7 @@ pub fn blendEquation(_mode: GLenum) void {
 // Extensions:
 
 // Loader API:
-pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]const u8) ?*c_void) !void {
+pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]const u8) ?*const c_void) !void {
     var success = true;
     if (get_proc_address(load_ctx, "glCullFace")) |proc| {
         function_pointers.glCullFace = @ptrCast(?function_signatures.glCullFace, proc);

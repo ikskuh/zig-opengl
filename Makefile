@@ -1,6 +1,8 @@
 REGISTRY?=OpenGL-Registry/xml/gl.xml
 EXTENSIONS?=
 
+GENERATOR?=dotnet run
+
 all: \
 		 exports/gl_1v1.zig \
 		 exports/gl_1v2.zig \
@@ -27,16 +29,16 @@ all: \
 		 exports/gl_es_3v2.zig
 
 exports/gl_%.zig: $(REGISTRY)
-	dotnet run $(REGISTRY) $@ GL_VERSION_$(subst exports/gl_,,$(subst v,_,${@:.zig=})) $(EXTENSIONS)
+	$(GENERATOR) $(REGISTRY) $@ GL_VERSION_$(subst exports/gl_,,$(subst v,_,${@:.zig=})) $(EXTENSIONS)
 	zig fmt $@
 	zig test $@
 
 exports/gl_es_1v0.zig: $(REGISTRY)
-	dotnet run $(REGISTRY) $@ GL_VERSION_ES_CM_1_0 $(EXTENSIONS)
+	$(GENERATOR) $(REGISTRY) $@ GL_VERSION_ES_CM_1_0 $(EXTENSIONS)
 	zig fmt $@
 	zig test $@
 
 exports/gl_es_%.zig: $(REGISTRY)
-	dotnet run $(REGISTRY) $@ GL_ES_VERSION_$(subst exports/gl_es_,,$(subst v,_,${@:.zig=})) $(EXTENSIONS)
+	$(GENERATOR) $(REGISTRY) $@ GL_ES_VERSION_$(subst exports/gl_es_,,$(subst v,_,${@:.zig=})) $(EXTENSIONS)
 	zig fmt $@
 	zig test $@
