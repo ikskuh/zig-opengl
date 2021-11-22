@@ -9,10 +9,12 @@ Right now, it does minimal adjustments like removing the `gl` prefix from functi
 There is a single non-OpenGL function exported:
 
 ```zig
-pub fn load(load_ctx: anytype, get_proc_address: fn(@TypeOf(load_ctx), [:0]const u8) ?*c_void) !void {
+pub fn load(load_ctx: anytype, get_proc_address: fn(@TypeOf(load_ctx), [:0]const u8) ?*const c_void) !void {
 ```
 
 This function will load all OpenGL entry points with the help of `get_proc_address`. It receives the `load_ctx` as well as the function name.
+
+**NOTE:** Please do not reference `zig-opengl` as a submodule or a package. Generate a binding and copy the output of that into your repository and update the file on demand. The OpenGL Registry is just too huge to be used conveniently.
 
 ## Example
 
