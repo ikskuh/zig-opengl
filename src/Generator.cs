@@ -21,7 +21,7 @@ class Program
     string result_file = args[1];
     string api_version = args[2];
     string[] extensions = args.Skip(3).ToArray();
-    string profile = "core"; // 
+    string profile = "core"; //
 
     var serializer = new XmlSerializer(typeof(Registry));
 
@@ -233,7 +233,7 @@ class Program
 
   public static void WriteLoader(TextWriter stream, IEnumerable<Command> commands)
   {
-    stream.WriteLine("pub fn load(load_ctx: anytype, get_proc_address: fn(@TypeOf(load_ctx), [:0]const u8) ?*const c_void) !void {");
+    stream.WriteLine("pub fn load(load_ctx: anytype, get_proc_address: fn(@TypeOf(load_ctx), [:0]const u8) ?*const anyopaque) !void {");
     stream.WriteLine("    var success = true;");
     foreach (var cmd in commands)
     {
@@ -327,7 +327,7 @@ class Program
       {
         switch (tok)
         {
-          case "void": result += "c_void"; break;
+          case "void": result += "anyopaque"; break;
           case "int": result += "c_int"; break;
           case "short": result += "c_short"; break;
           case "long": result += "c_long"; break;
@@ -366,7 +366,7 @@ pub const GLeglImageOES = void;
 pub const GLchar = u8;
 pub const GLcharARB = u8;
 
-pub const GLhandleARB = if (builtin.os.tag == .macos) *c_void else c_uint;
+pub const GLhandleARB = if (builtin.os.tag == .macos) *anyopaque else c_uint;
 
 pub const GLhalf = u16;
 pub const GLhalfARB = u16;
@@ -385,11 +385,11 @@ pub const GLsync = *opaque {};
 pub const _cl_context = opaque {};
 pub const _cl_event = opaque {};
 
-pub const GLDEBUGPROC = fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*c_void) callconv(.C) void;
-pub const GLDEBUGPROCARB = fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*c_void) callconv(.C) void;
-pub const GLDEBUGPROCKHR = fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*c_void) callconv(.C) void;
+pub const GLDEBUGPROC = fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
+pub const GLDEBUGPROCARB = fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
+pub const GLDEBUGPROCKHR = fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
 
-pub const GLDEBUGPROCAMD = fn (id: GLuint, category: GLenum, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*c_void) callconv(.C) void;
+pub const GLDEBUGPROCAMD = fn (id: GLuint, category: GLenum, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
 
 pub const GLhalfNV = u16;
 pub const GLvdpauSurfaceNV = GLintptr;
