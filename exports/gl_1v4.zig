@@ -5977,7 +5977,7 @@ const function_pointers = struct {
     var glBlendEquation: ?function_signatures.glBlendEquation = null;
 };
 
-test "121" {
+test {
     _ = load;
     @setEvalBranchQuota(100_000); // Yes, this is necessary. OpenGL gets quite large!
     std.testing.refAllDecls(@This());

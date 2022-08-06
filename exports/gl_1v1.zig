@@ -4626,7 +4626,7 @@ const function_pointers = struct {
     var glPushClientAttrib: ?function_signatures.glPushClientAttrib = null;
 };
 
-test "121" {
+test {
     _ = load;
     @setEvalBranchQuota(100_000); // Yes, this is necessary. OpenGL gets quite large!
     std.testing.refAllDecls(@This());
