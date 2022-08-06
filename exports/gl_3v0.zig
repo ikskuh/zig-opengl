@@ -8795,7 +8795,7 @@ const function_pointers = struct {
     var glIsVertexArray: ?function_signatures.glIsVertexArray = null;
 };
 
-test "" {
+test "121" {
     _ = load;
     @setEvalBranchQuota(100_000); // Yes, this is necessary. OpenGL gets quite large!
     std.testing.refAllDecls(@This());
