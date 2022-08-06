@@ -162,7 +162,7 @@ class Program
 
       stream.WriteLine();
 
-      stream.WriteLine("test \"\" {");
+      stream.WriteLine("test \"121\" {");
       stream.WriteLine("    _ = load;");
       stream.WriteLine("    @setEvalBranchQuota(100_000); // Yes, this is necessary. OpenGL gets quite large!");
       stream.WriteLine("    std.testing.refAllDecls(@This());");
