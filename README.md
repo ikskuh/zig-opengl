@@ -36,7 +36,7 @@ pub fn initAndDraw(window: Platform.Window) !void {
   }
 }
 ```
-This example uses [mach-glfw]("https://github.com/hexops/mach-glfw")
+This example uses [mach-glfw](https://github.com/hexops/mach-glfw)
 
 ```zig
   const glfw = @import("glfw");
