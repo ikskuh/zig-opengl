@@ -5,9 +5,7 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
-  schedule:
-    - cron: '0 5 * * *' # run at 5 AM UTC
-
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,10 +20,10 @@ jobs:
         with:
           version: master
 
-      - name: Install dotnet 5.0
+      - name: Install dotnet 6.0
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '5.0.x' # SDK Version to use; x will use the latest version of the 3.1 channel
+          dotnet-version: '6.0.x' # SDK Version to use; x will use the latest version of the 3.1 channel
 
       - name: Build the generator
         run: dotnet build
@@ -44,25 +42,25 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: generator-linux-x64
-          path: bin/Release/net5.0/linux-x64/publish/
+          path: bin/Release/net6.0/linux-x64/publish/
 
       - name: Bundle linux-arm executables
         uses: actions/upload-artifact@v2
         with:
           name: generator-linux-arm
-          path: bin/Release/net5.0/linux-arm/publish/
+          path: bin/Release/net6.0/linux-arm/publish/
 
       - name: Bundle linux-arm64 executables
         uses: actions/upload-artifact@v2
         with:
           name: generator-linux-arm64
-          path: bin/Release/net5.0/linux-arm64/publish/
+          path: bin/Release/net6.0/linux-arm64/publish/
 
       - name: Bundle win-x64 executables
         uses: actions/upload-artifact@v2
         with:
           name: generator-win-x64
-          path: bin/Release/net5.0/win-x64/publish/
+          path: bin/Release/net6.0/win-x64/publish/
 
       - name: Bundle pregenerated loaders
         uses: actions/upload-artifact@v2
