@@ -36,7 +36,26 @@ pub fn initAndDraw(window: Platform.Window) !void {
   }
 }
 ```
+This example uses [mach-glfw]
 
+```zig
+  const glfw = @import("glfw");
+  fn glGetProcAddress(p: glfw.GLProc, proc: [:0]const u8) ?*const anyopaque {
+    _ = p;
+    return glfw.getProcAddress(proc);
+  }
+  pub fn draw(window: glfw.Window) !void {
+    const proc: glfw.GLProc = undefined;
+    try gl.load(proc, glGetProcAddress);
+    
+    while (!window.shouldClose()) {
+      gl.clearColor(1, 0, 1, 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      
+      try window.swapBuffers();
+    }
+  }
+```
 ## Pregenerated Loaders
 
 This repository contains pre-generated bindings for all extension-free OpenGL versions.
