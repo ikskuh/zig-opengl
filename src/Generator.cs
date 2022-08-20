@@ -156,7 +156,7 @@ class Program
       stream.WriteLine("const function_pointers = struct {");
       foreach (var cmd in all_commands)
       {
-        stream.WriteLine("    var {0}: ?function_signatures.{0} = null;", cmd.Prototype.Name);
+        stream.WriteLine("    var {0}: ?*const function_signatures.{0} = null;", cmd.Prototype.Name);
       }
       stream.WriteLine("};");
 
@@ -238,7 +238,7 @@ class Program
     foreach (var cmd in commands)
     {
       stream.WriteLine("    if(get_proc_address(load_ctx, \"{0}\")) |proc| {{", cmd.Prototype.Name);
-      stream.WriteLine("        function_pointers.{0} = @ptrCast(?function_signatures.{0},  proc);", cmd.Prototype.Name);
+      stream.WriteLine("        function_pointers.{0} = @ptrCast(@TypeOf(function_pointers.{0}),  proc);", cmd.Prototype.Name);
       stream.WriteLine("    } else {");
       stream.WriteLine("        log.err(\"entry point {0} not found!\", .{{}});", cmd.Prototype.Name);
       stream.WriteLine("        success = false;");
@@ -385,15 +385,15 @@ pub const GLsync = *opaque {};
 pub const _cl_context = opaque {};
 pub const _cl_event = opaque {};
 
-pub const GLDEBUGPROC = fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
-pub const GLDEBUGPROCARB = fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
-pub const GLDEBUGPROCKHR = fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
+pub const GLDEBUGPROC = *const fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
+pub const GLDEBUGPROCARB = *const (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
+pub const GLDEBUGPROCKHR = *const (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
 
-pub const GLDEBUGPROCAMD = fn (id: GLuint, category: GLenum, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
+pub const GLDEBUGPROCAMD = *const fn (id: GLuint, category: GLenum, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
 
 pub const GLhalfNV = u16;
 pub const GLvdpauSurfaceNV = GLintptr;
-pub const GLVULKANPROCNV = fn () callconv(.C) void;";
+pub const GLVULKANPROCNV = *const fn () callconv(.C) void;";
 }
 
 [XmlRoot("registry")]
