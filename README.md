@@ -9,7 +9,7 @@ Right now, it does minimal adjustments like removing the `gl` prefix from functi
 There is a single non-OpenGL function exported:
 
 ```zig
-pub fn load(load_ctx: anytype, get_proc_address: fn(@TypeOf(load_ctx), [:0]const u8) ?*const c_void) !void {
+pub fn load(load_ctx: anytype, get_proc_address: fn(@TypeOf(load_ctx), [:0]const u8) ?*FunctionPointer) !void {
 ```
 
 This function will load all OpenGL entry points with the help of `get_proc_address`. It receives the `load_ctx` as well as the function name.
@@ -36,26 +36,28 @@ pub fn initAndDraw(window: Platform.Window) !void {
   }
 }
 ```
+
 This example uses [mach-glfw](https://github.com/hexops/mach-glfw)
 
 ```zig
   const glfw = @import("glfw");
-  fn glGetProcAddress(p: glfw.GLProc, proc: [:0]const u8) ?*const anyopaque {
+  fn glGetProcAddress(p: glfw.GLProc, proc: [:0]const u8) ?gl.FunctionPointer {
     _ = p;
     return glfw.getProcAddress(proc);
   }
   pub fn draw(window: glfw.Window) !void {
     const proc: glfw.GLProc = undefined;
     try gl.load(proc, glGetProcAddress);
-    
+
     while (!window.shouldClose()) {
       gl.clearColor(1, 0, 1, 1);
       gl.clear(gl.COLOR_BUFFER_BIT);
-      
+
       try window.swapBuffers();
     }
   }
 ```
+
 ## Pregenerated Loaders
 
 This repository contains pre-generated bindings for all extension-free OpenGL versions.

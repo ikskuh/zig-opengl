@@ -233,7 +233,7 @@ class Program
 
   public static void WriteLoader(TextWriter stream, IEnumerable<Command> commands)
   {
-    stream.WriteLine("pub fn load(load_ctx: anytype, get_proc_address: fn(@TypeOf(load_ctx), [:0]const u8) ?*const anyopaque) !void {");
+    stream.WriteLine("pub fn load(load_ctx: anytype, get_proc_address: fn(@TypeOf(load_ctx), [:0]const u8) ?FunctionPointer) !void {");
     stream.WriteLine("    var success = true;");
     foreach (var cmd in commands)
     {
@@ -346,7 +346,17 @@ class Program
   }
 
   const string preamble =
-  @"pub const GLenum = c_uint;
+  @"pub const FunctionPointer: type = blk: {
+    const BaseFunc = fn (u32) callconv(.C) u32;
+    const SpecializedFnPtr = FnPtr(BaseFunc);
+    const fnptr_type = @typeInfo(SpecializedFnPtr);
+    var generic_type = fnptr_type;
+    std.debug.assert(generic_type.Pointer.size == .One);
+    generic_type.Pointer.child = anyopaque;
+    break :blk @Type(generic_type);
+};
+
+pub const GLenum = c_uint;
 pub const GLboolean = u8;
 pub const GLbitfield = c_uint;
 pub const GLbyte = i8;

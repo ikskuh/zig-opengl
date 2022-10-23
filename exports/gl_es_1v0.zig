@@ -41,15 +41,22 @@ pub const GLsync = *opaque {};
 pub const _cl_context = opaque {};
 pub const _cl_event = opaque {};
 
-pub const GLDEBUGPROC = fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
-pub const GLDEBUGPROCARB = fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
-pub const GLDEBUGPROCKHR = fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
+pub const GLDEBUGPROC = FnPtr(fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void);
+pub const GLDEBUGPROCARB = FnPtr(fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void);
+pub const GLDEBUGPROCKHR = FnPtr(fn (source: GLenum, _type: GLenum, id: GLuint, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void);
 
-pub const GLDEBUGPROCAMD = fn (id: GLuint, category: GLenum, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void;
+pub const GLDEBUGPROCAMD = FnPtr(fn (id: GLuint, category: GLenum, severity: GLenum, length: GLsizei, message: [*:0]const u8, userParam: ?*anyopaque) callconv(.C) void);
 
 pub const GLhalfNV = u16;
 pub const GLvdpauSurfaceNV = GLintptr;
-pub const GLVULKANPROCNV = fn () callconv(.C) void;
+pub const GLVULKANPROCNV = *const fn () callconv(.C) void;
+
+fn FnPtr(comptime Fn: type) type {
+    return if (@import("builtin").zig_backend != .stage1)
+        *const Fn
+    else
+        Fn;
+}
 
 pub const VERSION_ES_CL_1_0 = 1;
 pub const VERSION_ES_CM_1_1 = 1;
@@ -966,865 +973,865 @@ pub fn viewport(_x: GLint, _y: GLint, _width: GLsizei, _height: GLsizei) void {
 pub fn load(load_ctx: anytype, get_proc_address: fn (@TypeOf(load_ctx), [:0]const u8) ?*const anyopaque) !void {
     var success = true;
     if (get_proc_address(load_ctx, "glAlphaFunc")) |proc| {
-        function_pointers.glAlphaFunc = @ptrCast(?function_signatures.glAlphaFunc, proc);
+        function_pointers.glAlphaFunc = @ptrCast(@TypeOf(function_pointers.glAlphaFunc), proc);
     } else {
         log.err("entry point glAlphaFunc not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glClearColor")) |proc| {
-        function_pointers.glClearColor = @ptrCast(?function_signatures.glClearColor, proc);
+        function_pointers.glClearColor = @ptrCast(@TypeOf(function_pointers.glClearColor), proc);
     } else {
         log.err("entry point glClearColor not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glClearDepthf")) |proc| {
-        function_pointers.glClearDepthf = @ptrCast(?function_signatures.glClearDepthf, proc);
+        function_pointers.glClearDepthf = @ptrCast(@TypeOf(function_pointers.glClearDepthf), proc);
     } else {
         log.err("entry point glClearDepthf not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glClipPlanef")) |proc| {
-        function_pointers.glClipPlanef = @ptrCast(?function_signatures.glClipPlanef, proc);
+        function_pointers.glClipPlanef = @ptrCast(@TypeOf(function_pointers.glClipPlanef), proc);
     } else {
         log.err("entry point glClipPlanef not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glColor4f")) |proc| {
-        function_pointers.glColor4f = @ptrCast(?function_signatures.glColor4f, proc);
+        function_pointers.glColor4f = @ptrCast(@TypeOf(function_pointers.glColor4f), proc);
     } else {
         log.err("entry point glColor4f not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glDepthRangef")) |proc| {
-        function_pointers.glDepthRangef = @ptrCast(?function_signatures.glDepthRangef, proc);
+        function_pointers.glDepthRangef = @ptrCast(@TypeOf(function_pointers.glDepthRangef), proc);
     } else {
         log.err("entry point glDepthRangef not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glFogf")) |proc| {
-        function_pointers.glFogf = @ptrCast(?function_signatures.glFogf, proc);
+        function_pointers.glFogf = @ptrCast(@TypeOf(function_pointers.glFogf), proc);
     } else {
         log.err("entry point glFogf not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glFogfv")) |proc| {
-        function_pointers.glFogfv = @ptrCast(?function_signatures.glFogfv, proc);
+        function_pointers.glFogfv = @ptrCast(@TypeOf(function_pointers.glFogfv), proc);
     } else {
         log.err("entry point glFogfv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glFrustumf")) |proc| {
-        function_pointers.glFrustumf = @ptrCast(?function_signatures.glFrustumf, proc);
+        function_pointers.glFrustumf = @ptrCast(@TypeOf(function_pointers.glFrustumf), proc);
     } else {
         log.err("entry point glFrustumf not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetClipPlanef")) |proc| {
-        function_pointers.glGetClipPlanef = @ptrCast(?function_signatures.glGetClipPlanef, proc);
+        function_pointers.glGetClipPlanef = @ptrCast(@TypeOf(function_pointers.glGetClipPlanef), proc);
     } else {
         log.err("entry point glGetClipPlanef not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetFloatv")) |proc| {
-        function_pointers.glGetFloatv = @ptrCast(?function_signatures.glGetFloatv, proc);
+        function_pointers.glGetFloatv = @ptrCast(@TypeOf(function_pointers.glGetFloatv), proc);
     } else {
         log.err("entry point glGetFloatv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetLightfv")) |proc| {
-        function_pointers.glGetLightfv = @ptrCast(?function_signatures.glGetLightfv, proc);
+        function_pointers.glGetLightfv = @ptrCast(@TypeOf(function_pointers.glGetLightfv), proc);
     } else {
         log.err("entry point glGetLightfv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetMaterialfv")) |proc| {
-        function_pointers.glGetMaterialfv = @ptrCast(?function_signatures.glGetMaterialfv, proc);
+        function_pointers.glGetMaterialfv = @ptrCast(@TypeOf(function_pointers.glGetMaterialfv), proc);
     } else {
         log.err("entry point glGetMaterialfv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetTexEnvfv")) |proc| {
-        function_pointers.glGetTexEnvfv = @ptrCast(?function_signatures.glGetTexEnvfv, proc);
+        function_pointers.glGetTexEnvfv = @ptrCast(@TypeOf(function_pointers.glGetTexEnvfv), proc);
     } else {
         log.err("entry point glGetTexEnvfv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetTexParameterfv")) |proc| {
-        function_pointers.glGetTexParameterfv = @ptrCast(?function_signatures.glGetTexParameterfv, proc);
+        function_pointers.glGetTexParameterfv = @ptrCast(@TypeOf(function_pointers.glGetTexParameterfv), proc);
     } else {
         log.err("entry point glGetTexParameterfv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glLightModelf")) |proc| {
-        function_pointers.glLightModelf = @ptrCast(?function_signatures.glLightModelf, proc);
+        function_pointers.glLightModelf = @ptrCast(@TypeOf(function_pointers.glLightModelf), proc);
     } else {
         log.err("entry point glLightModelf not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glLightModelfv")) |proc| {
-        function_pointers.glLightModelfv = @ptrCast(?function_signatures.glLightModelfv, proc);
+        function_pointers.glLightModelfv = @ptrCast(@TypeOf(function_pointers.glLightModelfv), proc);
     } else {
         log.err("entry point glLightModelfv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glLightf")) |proc| {
-        function_pointers.glLightf = @ptrCast(?function_signatures.glLightf, proc);
+        function_pointers.glLightf = @ptrCast(@TypeOf(function_pointers.glLightf), proc);
     } else {
         log.err("entry point glLightf not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glLightfv")) |proc| {
-        function_pointers.glLightfv = @ptrCast(?function_signatures.glLightfv, proc);
+        function_pointers.glLightfv = @ptrCast(@TypeOf(function_pointers.glLightfv), proc);
     } else {
         log.err("entry point glLightfv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glLineWidth")) |proc| {
-        function_pointers.glLineWidth = @ptrCast(?function_signatures.glLineWidth, proc);
+        function_pointers.glLineWidth = @ptrCast(@TypeOf(function_pointers.glLineWidth), proc);
     } else {
         log.err("entry point glLineWidth not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glLoadMatrixf")) |proc| {
-        function_pointers.glLoadMatrixf = @ptrCast(?function_signatures.glLoadMatrixf, proc);
+        function_pointers.glLoadMatrixf = @ptrCast(@TypeOf(function_pointers.glLoadMatrixf), proc);
     } else {
         log.err("entry point glLoadMatrixf not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glMaterialf")) |proc| {
-        function_pointers.glMaterialf = @ptrCast(?function_signatures.glMaterialf, proc);
+        function_pointers.glMaterialf = @ptrCast(@TypeOf(function_pointers.glMaterialf), proc);
     } else {
         log.err("entry point glMaterialf not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glMaterialfv")) |proc| {
-        function_pointers.glMaterialfv = @ptrCast(?function_signatures.glMaterialfv, proc);
+        function_pointers.glMaterialfv = @ptrCast(@TypeOf(function_pointers.glMaterialfv), proc);
     } else {
         log.err("entry point glMaterialfv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glMultMatrixf")) |proc| {
-        function_pointers.glMultMatrixf = @ptrCast(?function_signatures.glMultMatrixf, proc);
+        function_pointers.glMultMatrixf = @ptrCast(@TypeOf(function_pointers.glMultMatrixf), proc);
     } else {
         log.err("entry point glMultMatrixf not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glMultiTexCoord4f")) |proc| {
-        function_pointers.glMultiTexCoord4f = @ptrCast(?function_signatures.glMultiTexCoord4f, proc);
+        function_pointers.glMultiTexCoord4f = @ptrCast(@TypeOf(function_pointers.glMultiTexCoord4f), proc);
     } else {
         log.err("entry point glMultiTexCoord4f not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glNormal3f")) |proc| {
-        function_pointers.glNormal3f = @ptrCast(?function_signatures.glNormal3f, proc);
+        function_pointers.glNormal3f = @ptrCast(@TypeOf(function_pointers.glNormal3f), proc);
     } else {
         log.err("entry point glNormal3f not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glOrthof")) |proc| {
-        function_pointers.glOrthof = @ptrCast(?function_signatures.glOrthof, proc);
+        function_pointers.glOrthof = @ptrCast(@TypeOf(function_pointers.glOrthof), proc);
     } else {
         log.err("entry point glOrthof not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glPointParameterf")) |proc| {
-        function_pointers.glPointParameterf = @ptrCast(?function_signatures.glPointParameterf, proc);
+        function_pointers.glPointParameterf = @ptrCast(@TypeOf(function_pointers.glPointParameterf), proc);
     } else {
         log.err("entry point glPointParameterf not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glPointParameterfv")) |proc| {
-        function_pointers.glPointParameterfv = @ptrCast(?function_signatures.glPointParameterfv, proc);
+        function_pointers.glPointParameterfv = @ptrCast(@TypeOf(function_pointers.glPointParameterfv), proc);
     } else {
         log.err("entry point glPointParameterfv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glPointSize")) |proc| {
-        function_pointers.glPointSize = @ptrCast(?function_signatures.glPointSize, proc);
+        function_pointers.glPointSize = @ptrCast(@TypeOf(function_pointers.glPointSize), proc);
     } else {
         log.err("entry point glPointSize not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glPolygonOffset")) |proc| {
-        function_pointers.glPolygonOffset = @ptrCast(?function_signatures.glPolygonOffset, proc);
+        function_pointers.glPolygonOffset = @ptrCast(@TypeOf(function_pointers.glPolygonOffset), proc);
     } else {
         log.err("entry point glPolygonOffset not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glRotatef")) |proc| {
-        function_pointers.glRotatef = @ptrCast(?function_signatures.glRotatef, proc);
+        function_pointers.glRotatef = @ptrCast(@TypeOf(function_pointers.glRotatef), proc);
     } else {
         log.err("entry point glRotatef not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glScalef")) |proc| {
-        function_pointers.glScalef = @ptrCast(?function_signatures.glScalef, proc);
+        function_pointers.glScalef = @ptrCast(@TypeOf(function_pointers.glScalef), proc);
     } else {
         log.err("entry point glScalef not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTexEnvf")) |proc| {
-        function_pointers.glTexEnvf = @ptrCast(?function_signatures.glTexEnvf, proc);
+        function_pointers.glTexEnvf = @ptrCast(@TypeOf(function_pointers.glTexEnvf), proc);
     } else {
         log.err("entry point glTexEnvf not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTexEnvfv")) |proc| {
-        function_pointers.glTexEnvfv = @ptrCast(?function_signatures.glTexEnvfv, proc);
+        function_pointers.glTexEnvfv = @ptrCast(@TypeOf(function_pointers.glTexEnvfv), proc);
     } else {
         log.err("entry point glTexEnvfv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTexParameterf")) |proc| {
-        function_pointers.glTexParameterf = @ptrCast(?function_signatures.glTexParameterf, proc);
+        function_pointers.glTexParameterf = @ptrCast(@TypeOf(function_pointers.glTexParameterf), proc);
     } else {
         log.err("entry point glTexParameterf not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTexParameterfv")) |proc| {
-        function_pointers.glTexParameterfv = @ptrCast(?function_signatures.glTexParameterfv, proc);
+        function_pointers.glTexParameterfv = @ptrCast(@TypeOf(function_pointers.glTexParameterfv), proc);
     } else {
         log.err("entry point glTexParameterfv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTranslatef")) |proc| {
-        function_pointers.glTranslatef = @ptrCast(?function_signatures.glTranslatef, proc);
+        function_pointers.glTranslatef = @ptrCast(@TypeOf(function_pointers.glTranslatef), proc);
     } else {
         log.err("entry point glTranslatef not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glActiveTexture")) |proc| {
-        function_pointers.glActiveTexture = @ptrCast(?function_signatures.glActiveTexture, proc);
+        function_pointers.glActiveTexture = @ptrCast(@TypeOf(function_pointers.glActiveTexture), proc);
     } else {
         log.err("entry point glActiveTexture not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glAlphaFuncx")) |proc| {
-        function_pointers.glAlphaFuncx = @ptrCast(?function_signatures.glAlphaFuncx, proc);
+        function_pointers.glAlphaFuncx = @ptrCast(@TypeOf(function_pointers.glAlphaFuncx), proc);
     } else {
         log.err("entry point glAlphaFuncx not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glBindBuffer")) |proc| {
-        function_pointers.glBindBuffer = @ptrCast(?function_signatures.glBindBuffer, proc);
+        function_pointers.glBindBuffer = @ptrCast(@TypeOf(function_pointers.glBindBuffer), proc);
     } else {
         log.err("entry point glBindBuffer not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glBindTexture")) |proc| {
-        function_pointers.glBindTexture = @ptrCast(?function_signatures.glBindTexture, proc);
+        function_pointers.glBindTexture = @ptrCast(@TypeOf(function_pointers.glBindTexture), proc);
     } else {
         log.err("entry point glBindTexture not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glBlendFunc")) |proc| {
-        function_pointers.glBlendFunc = @ptrCast(?function_signatures.glBlendFunc, proc);
+        function_pointers.glBlendFunc = @ptrCast(@TypeOf(function_pointers.glBlendFunc), proc);
     } else {
         log.err("entry point glBlendFunc not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glBufferData")) |proc| {
-        function_pointers.glBufferData = @ptrCast(?function_signatures.glBufferData, proc);
+        function_pointers.glBufferData = @ptrCast(@TypeOf(function_pointers.glBufferData), proc);
     } else {
         log.err("entry point glBufferData not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glBufferSubData")) |proc| {
-        function_pointers.glBufferSubData = @ptrCast(?function_signatures.glBufferSubData, proc);
+        function_pointers.glBufferSubData = @ptrCast(@TypeOf(function_pointers.glBufferSubData), proc);
     } else {
         log.err("entry point glBufferSubData not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glClear")) |proc| {
-        function_pointers.glClear = @ptrCast(?function_signatures.glClear, proc);
+        function_pointers.glClear = @ptrCast(@TypeOf(function_pointers.glClear), proc);
     } else {
         log.err("entry point glClear not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glClearColorx")) |proc| {
-        function_pointers.glClearColorx = @ptrCast(?function_signatures.glClearColorx, proc);
+        function_pointers.glClearColorx = @ptrCast(@TypeOf(function_pointers.glClearColorx), proc);
     } else {
         log.err("entry point glClearColorx not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glClearDepthx")) |proc| {
-        function_pointers.glClearDepthx = @ptrCast(?function_signatures.glClearDepthx, proc);
+        function_pointers.glClearDepthx = @ptrCast(@TypeOf(function_pointers.glClearDepthx), proc);
     } else {
         log.err("entry point glClearDepthx not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glClearStencil")) |proc| {
-        function_pointers.glClearStencil = @ptrCast(?function_signatures.glClearStencil, proc);
+        function_pointers.glClearStencil = @ptrCast(@TypeOf(function_pointers.glClearStencil), proc);
     } else {
         log.err("entry point glClearStencil not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glClientActiveTexture")) |proc| {
-        function_pointers.glClientActiveTexture = @ptrCast(?function_signatures.glClientActiveTexture, proc);
+        function_pointers.glClientActiveTexture = @ptrCast(@TypeOf(function_pointers.glClientActiveTexture), proc);
     } else {
         log.err("entry point glClientActiveTexture not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glClipPlanex")) |proc| {
-        function_pointers.glClipPlanex = @ptrCast(?function_signatures.glClipPlanex, proc);
+        function_pointers.glClipPlanex = @ptrCast(@TypeOf(function_pointers.glClipPlanex), proc);
     } else {
         log.err("entry point glClipPlanex not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glColor4ub")) |proc| {
-        function_pointers.glColor4ub = @ptrCast(?function_signatures.glColor4ub, proc);
+        function_pointers.glColor4ub = @ptrCast(@TypeOf(function_pointers.glColor4ub), proc);
     } else {
         log.err("entry point glColor4ub not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glColor4x")) |proc| {
-        function_pointers.glColor4x = @ptrCast(?function_signatures.glColor4x, proc);
+        function_pointers.glColor4x = @ptrCast(@TypeOf(function_pointers.glColor4x), proc);
     } else {
         log.err("entry point glColor4x not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glColorMask")) |proc| {
-        function_pointers.glColorMask = @ptrCast(?function_signatures.glColorMask, proc);
+        function_pointers.glColorMask = @ptrCast(@TypeOf(function_pointers.glColorMask), proc);
     } else {
         log.err("entry point glColorMask not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glColorPointer")) |proc| {
-        function_pointers.glColorPointer = @ptrCast(?function_signatures.glColorPointer, proc);
+        function_pointers.glColorPointer = @ptrCast(@TypeOf(function_pointers.glColorPointer), proc);
     } else {
         log.err("entry point glColorPointer not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glCompressedTexImage2D")) |proc| {
-        function_pointers.glCompressedTexImage2D = @ptrCast(?function_signatures.glCompressedTexImage2D, proc);
+        function_pointers.glCompressedTexImage2D = @ptrCast(@TypeOf(function_pointers.glCompressedTexImage2D), proc);
     } else {
         log.err("entry point glCompressedTexImage2D not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glCompressedTexSubImage2D")) |proc| {
-        function_pointers.glCompressedTexSubImage2D = @ptrCast(?function_signatures.glCompressedTexSubImage2D, proc);
+        function_pointers.glCompressedTexSubImage2D = @ptrCast(@TypeOf(function_pointers.glCompressedTexSubImage2D), proc);
     } else {
         log.err("entry point glCompressedTexSubImage2D not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glCopyTexImage2D")) |proc| {
-        function_pointers.glCopyTexImage2D = @ptrCast(?function_signatures.glCopyTexImage2D, proc);
+        function_pointers.glCopyTexImage2D = @ptrCast(@TypeOf(function_pointers.glCopyTexImage2D), proc);
     } else {
         log.err("entry point glCopyTexImage2D not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glCopyTexSubImage2D")) |proc| {
-        function_pointers.glCopyTexSubImage2D = @ptrCast(?function_signatures.glCopyTexSubImage2D, proc);
+        function_pointers.glCopyTexSubImage2D = @ptrCast(@TypeOf(function_pointers.glCopyTexSubImage2D), proc);
     } else {
         log.err("entry point glCopyTexSubImage2D not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glCullFace")) |proc| {
-        function_pointers.glCullFace = @ptrCast(?function_signatures.glCullFace, proc);
+        function_pointers.glCullFace = @ptrCast(@TypeOf(function_pointers.glCullFace), proc);
     } else {
         log.err("entry point glCullFace not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glDeleteBuffers")) |proc| {
-        function_pointers.glDeleteBuffers = @ptrCast(?function_signatures.glDeleteBuffers, proc);
+        function_pointers.glDeleteBuffers = @ptrCast(@TypeOf(function_pointers.glDeleteBuffers), proc);
     } else {
         log.err("entry point glDeleteBuffers not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glDeleteTextures")) |proc| {
-        function_pointers.glDeleteTextures = @ptrCast(?function_signatures.glDeleteTextures, proc);
+        function_pointers.glDeleteTextures = @ptrCast(@TypeOf(function_pointers.glDeleteTextures), proc);
     } else {
         log.err("entry point glDeleteTextures not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glDepthFunc")) |proc| {
-        function_pointers.glDepthFunc = @ptrCast(?function_signatures.glDepthFunc, proc);
+        function_pointers.glDepthFunc = @ptrCast(@TypeOf(function_pointers.glDepthFunc), proc);
     } else {
         log.err("entry point glDepthFunc not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glDepthMask")) |proc| {
-        function_pointers.glDepthMask = @ptrCast(?function_signatures.glDepthMask, proc);
+        function_pointers.glDepthMask = @ptrCast(@TypeOf(function_pointers.glDepthMask), proc);
     } else {
         log.err("entry point glDepthMask not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glDepthRangex")) |proc| {
-        function_pointers.glDepthRangex = @ptrCast(?function_signatures.glDepthRangex, proc);
+        function_pointers.glDepthRangex = @ptrCast(@TypeOf(function_pointers.glDepthRangex), proc);
     } else {
         log.err("entry point glDepthRangex not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glDisable")) |proc| {
-        function_pointers.glDisable = @ptrCast(?function_signatures.glDisable, proc);
+        function_pointers.glDisable = @ptrCast(@TypeOf(function_pointers.glDisable), proc);
     } else {
         log.err("entry point glDisable not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glDisableClientState")) |proc| {
-        function_pointers.glDisableClientState = @ptrCast(?function_signatures.glDisableClientState, proc);
+        function_pointers.glDisableClientState = @ptrCast(@TypeOf(function_pointers.glDisableClientState), proc);
     } else {
         log.err("entry point glDisableClientState not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glDrawArrays")) |proc| {
-        function_pointers.glDrawArrays = @ptrCast(?function_signatures.glDrawArrays, proc);
+        function_pointers.glDrawArrays = @ptrCast(@TypeOf(function_pointers.glDrawArrays), proc);
     } else {
         log.err("entry point glDrawArrays not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glDrawElements")) |proc| {
-        function_pointers.glDrawElements = @ptrCast(?function_signatures.glDrawElements, proc);
+        function_pointers.glDrawElements = @ptrCast(@TypeOf(function_pointers.glDrawElements), proc);
     } else {
         log.err("entry point glDrawElements not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glEnable")) |proc| {
-        function_pointers.glEnable = @ptrCast(?function_signatures.glEnable, proc);
+        function_pointers.glEnable = @ptrCast(@TypeOf(function_pointers.glEnable), proc);
     } else {
         log.err("entry point glEnable not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glEnableClientState")) |proc| {
-        function_pointers.glEnableClientState = @ptrCast(?function_signatures.glEnableClientState, proc);
+        function_pointers.glEnableClientState = @ptrCast(@TypeOf(function_pointers.glEnableClientState), proc);
     } else {
         log.err("entry point glEnableClientState not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glFinish")) |proc| {
-        function_pointers.glFinish = @ptrCast(?function_signatures.glFinish, proc);
+        function_pointers.glFinish = @ptrCast(@TypeOf(function_pointers.glFinish), proc);
     } else {
         log.err("entry point glFinish not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glFlush")) |proc| {
-        function_pointers.glFlush = @ptrCast(?function_signatures.glFlush, proc);
+        function_pointers.glFlush = @ptrCast(@TypeOf(function_pointers.glFlush), proc);
     } else {
         log.err("entry point glFlush not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glFogx")) |proc| {
-        function_pointers.glFogx = @ptrCast(?function_signatures.glFogx, proc);
+        function_pointers.glFogx = @ptrCast(@TypeOf(function_pointers.glFogx), proc);
     } else {
         log.err("entry point glFogx not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glFogxv")) |proc| {
-        function_pointers.glFogxv = @ptrCast(?function_signatures.glFogxv, proc);
+        function_pointers.glFogxv = @ptrCast(@TypeOf(function_pointers.glFogxv), proc);
     } else {
         log.err("entry point glFogxv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glFrontFace")) |proc| {
-        function_pointers.glFrontFace = @ptrCast(?function_signatures.glFrontFace, proc);
+        function_pointers.glFrontFace = @ptrCast(@TypeOf(function_pointers.glFrontFace), proc);
     } else {
         log.err("entry point glFrontFace not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glFrustumx")) |proc| {
-        function_pointers.glFrustumx = @ptrCast(?function_signatures.glFrustumx, proc);
+        function_pointers.glFrustumx = @ptrCast(@TypeOf(function_pointers.glFrustumx), proc);
     } else {
         log.err("entry point glFrustumx not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetBooleanv")) |proc| {
-        function_pointers.glGetBooleanv = @ptrCast(?function_signatures.glGetBooleanv, proc);
+        function_pointers.glGetBooleanv = @ptrCast(@TypeOf(function_pointers.glGetBooleanv), proc);
     } else {
         log.err("entry point glGetBooleanv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetBufferParameteriv")) |proc| {
-        function_pointers.glGetBufferParameteriv = @ptrCast(?function_signatures.glGetBufferParameteriv, proc);
+        function_pointers.glGetBufferParameteriv = @ptrCast(@TypeOf(function_pointers.glGetBufferParameteriv), proc);
     } else {
         log.err("entry point glGetBufferParameteriv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetClipPlanex")) |proc| {
-        function_pointers.glGetClipPlanex = @ptrCast(?function_signatures.glGetClipPlanex, proc);
+        function_pointers.glGetClipPlanex = @ptrCast(@TypeOf(function_pointers.glGetClipPlanex), proc);
     } else {
         log.err("entry point glGetClipPlanex not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGenBuffers")) |proc| {
-        function_pointers.glGenBuffers = @ptrCast(?function_signatures.glGenBuffers, proc);
+        function_pointers.glGenBuffers = @ptrCast(@TypeOf(function_pointers.glGenBuffers), proc);
     } else {
         log.err("entry point glGenBuffers not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGenTextures")) |proc| {
-        function_pointers.glGenTextures = @ptrCast(?function_signatures.glGenTextures, proc);
+        function_pointers.glGenTextures = @ptrCast(@TypeOf(function_pointers.glGenTextures), proc);
     } else {
         log.err("entry point glGenTextures not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetError")) |proc| {
-        function_pointers.glGetError = @ptrCast(?function_signatures.glGetError, proc);
+        function_pointers.glGetError = @ptrCast(@TypeOf(function_pointers.glGetError), proc);
     } else {
         log.err("entry point glGetError not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetFixedv")) |proc| {
-        function_pointers.glGetFixedv = @ptrCast(?function_signatures.glGetFixedv, proc);
+        function_pointers.glGetFixedv = @ptrCast(@TypeOf(function_pointers.glGetFixedv), proc);
     } else {
         log.err("entry point glGetFixedv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetIntegerv")) |proc| {
-        function_pointers.glGetIntegerv = @ptrCast(?function_signatures.glGetIntegerv, proc);
+        function_pointers.glGetIntegerv = @ptrCast(@TypeOf(function_pointers.glGetIntegerv), proc);
     } else {
         log.err("entry point glGetIntegerv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetLightxv")) |proc| {
-        function_pointers.glGetLightxv = @ptrCast(?function_signatures.glGetLightxv, proc);
+        function_pointers.glGetLightxv = @ptrCast(@TypeOf(function_pointers.glGetLightxv), proc);
     } else {
         log.err("entry point glGetLightxv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetMaterialxv")) |proc| {
-        function_pointers.glGetMaterialxv = @ptrCast(?function_signatures.glGetMaterialxv, proc);
+        function_pointers.glGetMaterialxv = @ptrCast(@TypeOf(function_pointers.glGetMaterialxv), proc);
     } else {
         log.err("entry point glGetMaterialxv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetPointerv")) |proc| {
-        function_pointers.glGetPointerv = @ptrCast(?function_signatures.glGetPointerv, proc);
+        function_pointers.glGetPointerv = @ptrCast(@TypeOf(function_pointers.glGetPointerv), proc);
     } else {
         log.err("entry point glGetPointerv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetString")) |proc| {
-        function_pointers.glGetString = @ptrCast(?function_signatures.glGetString, proc);
+        function_pointers.glGetString = @ptrCast(@TypeOf(function_pointers.glGetString), proc);
     } else {
         log.err("entry point glGetString not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetTexEnviv")) |proc| {
-        function_pointers.glGetTexEnviv = @ptrCast(?function_signatures.glGetTexEnviv, proc);
+        function_pointers.glGetTexEnviv = @ptrCast(@TypeOf(function_pointers.glGetTexEnviv), proc);
     } else {
         log.err("entry point glGetTexEnviv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetTexEnvxv")) |proc| {
-        function_pointers.glGetTexEnvxv = @ptrCast(?function_signatures.glGetTexEnvxv, proc);
+        function_pointers.glGetTexEnvxv = @ptrCast(@TypeOf(function_pointers.glGetTexEnvxv), proc);
     } else {
         log.err("entry point glGetTexEnvxv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetTexParameteriv")) |proc| {
-        function_pointers.glGetTexParameteriv = @ptrCast(?function_signatures.glGetTexParameteriv, proc);
+        function_pointers.glGetTexParameteriv = @ptrCast(@TypeOf(function_pointers.glGetTexParameteriv), proc);
     } else {
         log.err("entry point glGetTexParameteriv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glGetTexParameterxv")) |proc| {
-        function_pointers.glGetTexParameterxv = @ptrCast(?function_signatures.glGetTexParameterxv, proc);
+        function_pointers.glGetTexParameterxv = @ptrCast(@TypeOf(function_pointers.glGetTexParameterxv), proc);
     } else {
         log.err("entry point glGetTexParameterxv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glHint")) |proc| {
-        function_pointers.glHint = @ptrCast(?function_signatures.glHint, proc);
+        function_pointers.glHint = @ptrCast(@TypeOf(function_pointers.glHint), proc);
     } else {
         log.err("entry point glHint not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glIsBuffer")) |proc| {
-        function_pointers.glIsBuffer = @ptrCast(?function_signatures.glIsBuffer, proc);
+        function_pointers.glIsBuffer = @ptrCast(@TypeOf(function_pointers.glIsBuffer), proc);
     } else {
         log.err("entry point glIsBuffer not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glIsEnabled")) |proc| {
-        function_pointers.glIsEnabled = @ptrCast(?function_signatures.glIsEnabled, proc);
+        function_pointers.glIsEnabled = @ptrCast(@TypeOf(function_pointers.glIsEnabled), proc);
     } else {
         log.err("entry point glIsEnabled not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glIsTexture")) |proc| {
-        function_pointers.glIsTexture = @ptrCast(?function_signatures.glIsTexture, proc);
+        function_pointers.glIsTexture = @ptrCast(@TypeOf(function_pointers.glIsTexture), proc);
     } else {
         log.err("entry point glIsTexture not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glLightModelx")) |proc| {
-        function_pointers.glLightModelx = @ptrCast(?function_signatures.glLightModelx, proc);
+        function_pointers.glLightModelx = @ptrCast(@TypeOf(function_pointers.glLightModelx), proc);
     } else {
         log.err("entry point glLightModelx not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glLightModelxv")) |proc| {
-        function_pointers.glLightModelxv = @ptrCast(?function_signatures.glLightModelxv, proc);
+        function_pointers.glLightModelxv = @ptrCast(@TypeOf(function_pointers.glLightModelxv), proc);
     } else {
         log.err("entry point glLightModelxv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glLightx")) |proc| {
-        function_pointers.glLightx = @ptrCast(?function_signatures.glLightx, proc);
+        function_pointers.glLightx = @ptrCast(@TypeOf(function_pointers.glLightx), proc);
     } else {
         log.err("entry point glLightx not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glLightxv")) |proc| {
-        function_pointers.glLightxv = @ptrCast(?function_signatures.glLightxv, proc);
+        function_pointers.glLightxv = @ptrCast(@TypeOf(function_pointers.glLightxv), proc);
     } else {
         log.err("entry point glLightxv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glLineWidthx")) |proc| {
-        function_pointers.glLineWidthx = @ptrCast(?function_signatures.glLineWidthx, proc);
+        function_pointers.glLineWidthx = @ptrCast(@TypeOf(function_pointers.glLineWidthx), proc);
     } else {
         log.err("entry point glLineWidthx not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glLoadIdentity")) |proc| {
-        function_pointers.glLoadIdentity = @ptrCast(?function_signatures.glLoadIdentity, proc);
+        function_pointers.glLoadIdentity = @ptrCast(@TypeOf(function_pointers.glLoadIdentity), proc);
     } else {
         log.err("entry point glLoadIdentity not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glLoadMatrixx")) |proc| {
-        function_pointers.glLoadMatrixx = @ptrCast(?function_signatures.glLoadMatrixx, proc);
+        function_pointers.glLoadMatrixx = @ptrCast(@TypeOf(function_pointers.glLoadMatrixx), proc);
     } else {
         log.err("entry point glLoadMatrixx not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glLogicOp")) |proc| {
-        function_pointers.glLogicOp = @ptrCast(?function_signatures.glLogicOp, proc);
+        function_pointers.glLogicOp = @ptrCast(@TypeOf(function_pointers.glLogicOp), proc);
     } else {
         log.err("entry point glLogicOp not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glMaterialx")) |proc| {
-        function_pointers.glMaterialx = @ptrCast(?function_signatures.glMaterialx, proc);
+        function_pointers.glMaterialx = @ptrCast(@TypeOf(function_pointers.glMaterialx), proc);
     } else {
         log.err("entry point glMaterialx not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glMaterialxv")) |proc| {
-        function_pointers.glMaterialxv = @ptrCast(?function_signatures.glMaterialxv, proc);
+        function_pointers.glMaterialxv = @ptrCast(@TypeOf(function_pointers.glMaterialxv), proc);
     } else {
         log.err("entry point glMaterialxv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glMatrixMode")) |proc| {
-        function_pointers.glMatrixMode = @ptrCast(?function_signatures.glMatrixMode, proc);
+        function_pointers.glMatrixMode = @ptrCast(@TypeOf(function_pointers.glMatrixMode), proc);
     } else {
         log.err("entry point glMatrixMode not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glMultMatrixx")) |proc| {
-        function_pointers.glMultMatrixx = @ptrCast(?function_signatures.glMultMatrixx, proc);
+        function_pointers.glMultMatrixx = @ptrCast(@TypeOf(function_pointers.glMultMatrixx), proc);
     } else {
         log.err("entry point glMultMatrixx not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glMultiTexCoord4x")) |proc| {
-        function_pointers.glMultiTexCoord4x = @ptrCast(?function_signatures.glMultiTexCoord4x, proc);
+        function_pointers.glMultiTexCoord4x = @ptrCast(@TypeOf(function_pointers.glMultiTexCoord4x), proc);
     } else {
         log.err("entry point glMultiTexCoord4x not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glNormal3x")) |proc| {
-        function_pointers.glNormal3x = @ptrCast(?function_signatures.glNormal3x, proc);
+        function_pointers.glNormal3x = @ptrCast(@TypeOf(function_pointers.glNormal3x), proc);
     } else {
         log.err("entry point glNormal3x not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glNormalPointer")) |proc| {
-        function_pointers.glNormalPointer = @ptrCast(?function_signatures.glNormalPointer, proc);
+        function_pointers.glNormalPointer = @ptrCast(@TypeOf(function_pointers.glNormalPointer), proc);
     } else {
         log.err("entry point glNormalPointer not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glOrthox")) |proc| {
-        function_pointers.glOrthox = @ptrCast(?function_signatures.glOrthox, proc);
+        function_pointers.glOrthox = @ptrCast(@TypeOf(function_pointers.glOrthox), proc);
     } else {
         log.err("entry point glOrthox not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glPixelStorei")) |proc| {
-        function_pointers.glPixelStorei = @ptrCast(?function_signatures.glPixelStorei, proc);
+        function_pointers.glPixelStorei = @ptrCast(@TypeOf(function_pointers.glPixelStorei), proc);
     } else {
         log.err("entry point glPixelStorei not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glPointParameterx")) |proc| {
-        function_pointers.glPointParameterx = @ptrCast(?function_signatures.glPointParameterx, proc);
+        function_pointers.glPointParameterx = @ptrCast(@TypeOf(function_pointers.glPointParameterx), proc);
     } else {
         log.err("entry point glPointParameterx not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glPointParameterxv")) |proc| {
-        function_pointers.glPointParameterxv = @ptrCast(?function_signatures.glPointParameterxv, proc);
+        function_pointers.glPointParameterxv = @ptrCast(@TypeOf(function_pointers.glPointParameterxv), proc);
     } else {
         log.err("entry point glPointParameterxv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glPointSizex")) |proc| {
-        function_pointers.glPointSizex = @ptrCast(?function_signatures.glPointSizex, proc);
+        function_pointers.glPointSizex = @ptrCast(@TypeOf(function_pointers.glPointSizex), proc);
     } else {
         log.err("entry point glPointSizex not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glPolygonOffsetx")) |proc| {
-        function_pointers.glPolygonOffsetx = @ptrCast(?function_signatures.glPolygonOffsetx, proc);
+        function_pointers.glPolygonOffsetx = @ptrCast(@TypeOf(function_pointers.glPolygonOffsetx), proc);
     } else {
         log.err("entry point glPolygonOffsetx not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glPopMatrix")) |proc| {
-        function_pointers.glPopMatrix = @ptrCast(?function_signatures.glPopMatrix, proc);
+        function_pointers.glPopMatrix = @ptrCast(@TypeOf(function_pointers.glPopMatrix), proc);
     } else {
         log.err("entry point glPopMatrix not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glPushMatrix")) |proc| {
-        function_pointers.glPushMatrix = @ptrCast(?function_signatures.glPushMatrix, proc);
+        function_pointers.glPushMatrix = @ptrCast(@TypeOf(function_pointers.glPushMatrix), proc);
     } else {
         log.err("entry point glPushMatrix not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glReadPixels")) |proc| {
-        function_pointers.glReadPixels = @ptrCast(?function_signatures.glReadPixels, proc);
+        function_pointers.glReadPixels = @ptrCast(@TypeOf(function_pointers.glReadPixels), proc);
     } else {
         log.err("entry point glReadPixels not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glRotatex")) |proc| {
-        function_pointers.glRotatex = @ptrCast(?function_signatures.glRotatex, proc);
+        function_pointers.glRotatex = @ptrCast(@TypeOf(function_pointers.glRotatex), proc);
     } else {
         log.err("entry point glRotatex not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glSampleCoverage")) |proc| {
-        function_pointers.glSampleCoverage = @ptrCast(?function_signatures.glSampleCoverage, proc);
+        function_pointers.glSampleCoverage = @ptrCast(@TypeOf(function_pointers.glSampleCoverage), proc);
     } else {
         log.err("entry point glSampleCoverage not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glSampleCoveragex")) |proc| {
-        function_pointers.glSampleCoveragex = @ptrCast(?function_signatures.glSampleCoveragex, proc);
+        function_pointers.glSampleCoveragex = @ptrCast(@TypeOf(function_pointers.glSampleCoveragex), proc);
     } else {
         log.err("entry point glSampleCoveragex not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glScalex")) |proc| {
-        function_pointers.glScalex = @ptrCast(?function_signatures.glScalex, proc);
+        function_pointers.glScalex = @ptrCast(@TypeOf(function_pointers.glScalex), proc);
     } else {
         log.err("entry point glScalex not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glScissor")) |proc| {
-        function_pointers.glScissor = @ptrCast(?function_signatures.glScissor, proc);
+        function_pointers.glScissor = @ptrCast(@TypeOf(function_pointers.glScissor), proc);
     } else {
         log.err("entry point glScissor not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glShadeModel")) |proc| {
-        function_pointers.glShadeModel = @ptrCast(?function_signatures.glShadeModel, proc);
+        function_pointers.glShadeModel = @ptrCast(@TypeOf(function_pointers.glShadeModel), proc);
     } else {
         log.err("entry point glShadeModel not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glStencilFunc")) |proc| {
-        function_pointers.glStencilFunc = @ptrCast(?function_signatures.glStencilFunc, proc);
+        function_pointers.glStencilFunc = @ptrCast(@TypeOf(function_pointers.glStencilFunc), proc);
     } else {
         log.err("entry point glStencilFunc not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glStencilMask")) |proc| {
-        function_pointers.glStencilMask = @ptrCast(?function_signatures.glStencilMask, proc);
+        function_pointers.glStencilMask = @ptrCast(@TypeOf(function_pointers.glStencilMask), proc);
     } else {
         log.err("entry point glStencilMask not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glStencilOp")) |proc| {
-        function_pointers.glStencilOp = @ptrCast(?function_signatures.glStencilOp, proc);
+        function_pointers.glStencilOp = @ptrCast(@TypeOf(function_pointers.glStencilOp), proc);
     } else {
         log.err("entry point glStencilOp not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTexCoordPointer")) |proc| {
-        function_pointers.glTexCoordPointer = @ptrCast(?function_signatures.glTexCoordPointer, proc);
+        function_pointers.glTexCoordPointer = @ptrCast(@TypeOf(function_pointers.glTexCoordPointer), proc);
     } else {
         log.err("entry point glTexCoordPointer not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTexEnvi")) |proc| {
-        function_pointers.glTexEnvi = @ptrCast(?function_signatures.glTexEnvi, proc);
+        function_pointers.glTexEnvi = @ptrCast(@TypeOf(function_pointers.glTexEnvi), proc);
     } else {
         log.err("entry point glTexEnvi not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTexEnvx")) |proc| {
-        function_pointers.glTexEnvx = @ptrCast(?function_signatures.glTexEnvx, proc);
+        function_pointers.glTexEnvx = @ptrCast(@TypeOf(function_pointers.glTexEnvx), proc);
     } else {
         log.err("entry point glTexEnvx not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTexEnviv")) |proc| {
-        function_pointers.glTexEnviv = @ptrCast(?function_signatures.glTexEnviv, proc);
+        function_pointers.glTexEnviv = @ptrCast(@TypeOf(function_pointers.glTexEnviv), proc);
     } else {
         log.err("entry point glTexEnviv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTexEnvxv")) |proc| {
-        function_pointers.glTexEnvxv = @ptrCast(?function_signatures.glTexEnvxv, proc);
+        function_pointers.glTexEnvxv = @ptrCast(@TypeOf(function_pointers.glTexEnvxv), proc);
     } else {
         log.err("entry point glTexEnvxv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTexImage2D")) |proc| {
-        function_pointers.glTexImage2D = @ptrCast(?function_signatures.glTexImage2D, proc);
+        function_pointers.glTexImage2D = @ptrCast(@TypeOf(function_pointers.glTexImage2D), proc);
     } else {
         log.err("entry point glTexImage2D not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTexParameteri")) |proc| {
-        function_pointers.glTexParameteri = @ptrCast(?function_signatures.glTexParameteri, proc);
+        function_pointers.glTexParameteri = @ptrCast(@TypeOf(function_pointers.glTexParameteri), proc);
     } else {
         log.err("entry point glTexParameteri not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTexParameterx")) |proc| {
-        function_pointers.glTexParameterx = @ptrCast(?function_signatures.glTexParameterx, proc);
+        function_pointers.glTexParameterx = @ptrCast(@TypeOf(function_pointers.glTexParameterx), proc);
     } else {
         log.err("entry point glTexParameterx not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTexParameteriv")) |proc| {
-        function_pointers.glTexParameteriv = @ptrCast(?function_signatures.glTexParameteriv, proc);
+        function_pointers.glTexParameteriv = @ptrCast(@TypeOf(function_pointers.glTexParameteriv), proc);
     } else {
         log.err("entry point glTexParameteriv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTexParameterxv")) |proc| {
-        function_pointers.glTexParameterxv = @ptrCast(?function_signatures.glTexParameterxv, proc);
+        function_pointers.glTexParameterxv = @ptrCast(@TypeOf(function_pointers.glTexParameterxv), proc);
     } else {
         log.err("entry point glTexParameterxv not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTexSubImage2D")) |proc| {
-        function_pointers.glTexSubImage2D = @ptrCast(?function_signatures.glTexSubImage2D, proc);
+        function_pointers.glTexSubImage2D = @ptrCast(@TypeOf(function_pointers.glTexSubImage2D), proc);
     } else {
         log.err("entry point glTexSubImage2D not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glTranslatex")) |proc| {
-        function_pointers.glTranslatex = @ptrCast(?function_signatures.glTranslatex, proc);
+        function_pointers.glTranslatex = @ptrCast(@TypeOf(function_pointers.glTranslatex), proc);
     } else {
         log.err("entry point glTranslatex not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glVertexPointer")) |proc| {
-        function_pointers.glVertexPointer = @ptrCast(?function_signatures.glVertexPointer, proc);
+        function_pointers.glVertexPointer = @ptrCast(@TypeOf(function_pointers.glVertexPointer), proc);
     } else {
         log.err("entry point glVertexPointer not found!", .{});
         success = false;
     }
     if (get_proc_address(load_ctx, "glViewport")) |proc| {
-        function_pointers.glViewport = @ptrCast(?function_signatures.glViewport, proc);
+        function_pointers.glViewport = @ptrCast(@TypeOf(function_pointers.glViewport), proc);
     } else {
         log.err("entry point glViewport not found!", .{});
         success = false;
@@ -1981,150 +1988,150 @@ const function_signatures = struct {
 };
 
 const function_pointers = struct {
-    var glAlphaFunc: ?function_signatures.glAlphaFunc = null;
-    var glClearColor: ?function_signatures.glClearColor = null;
-    var glClearDepthf: ?function_signatures.glClearDepthf = null;
-    var glClipPlanef: ?function_signatures.glClipPlanef = null;
-    var glColor4f: ?function_signatures.glColor4f = null;
-    var glDepthRangef: ?function_signatures.glDepthRangef = null;
-    var glFogf: ?function_signatures.glFogf = null;
-    var glFogfv: ?function_signatures.glFogfv = null;
-    var glFrustumf: ?function_signatures.glFrustumf = null;
-    var glGetClipPlanef: ?function_signatures.glGetClipPlanef = null;
-    var glGetFloatv: ?function_signatures.glGetFloatv = null;
-    var glGetLightfv: ?function_signatures.glGetLightfv = null;
-    var glGetMaterialfv: ?function_signatures.glGetMaterialfv = null;
-    var glGetTexEnvfv: ?function_signatures.glGetTexEnvfv = null;
-    var glGetTexParameterfv: ?function_signatures.glGetTexParameterfv = null;
-    var glLightModelf: ?function_signatures.glLightModelf = null;
-    var glLightModelfv: ?function_signatures.glLightModelfv = null;
-    var glLightf: ?function_signatures.glLightf = null;
-    var glLightfv: ?function_signatures.glLightfv = null;
-    var glLineWidth: ?function_signatures.glLineWidth = null;
-    var glLoadMatrixf: ?function_signatures.glLoadMatrixf = null;
-    var glMaterialf: ?function_signatures.glMaterialf = null;
-    var glMaterialfv: ?function_signatures.glMaterialfv = null;
-    var glMultMatrixf: ?function_signatures.glMultMatrixf = null;
-    var glMultiTexCoord4f: ?function_signatures.glMultiTexCoord4f = null;
-    var glNormal3f: ?function_signatures.glNormal3f = null;
-    var glOrthof: ?function_signatures.glOrthof = null;
-    var glPointParameterf: ?function_signatures.glPointParameterf = null;
-    var glPointParameterfv: ?function_signatures.glPointParameterfv = null;
-    var glPointSize: ?function_signatures.glPointSize = null;
-    var glPolygonOffset: ?function_signatures.glPolygonOffset = null;
-    var glRotatef: ?function_signatures.glRotatef = null;
-    var glScalef: ?function_signatures.glScalef = null;
-    var glTexEnvf: ?function_signatures.glTexEnvf = null;
-    var glTexEnvfv: ?function_signatures.glTexEnvfv = null;
-    var glTexParameterf: ?function_signatures.glTexParameterf = null;
-    var glTexParameterfv: ?function_signatures.glTexParameterfv = null;
-    var glTranslatef: ?function_signatures.glTranslatef = null;
-    var glActiveTexture: ?function_signatures.glActiveTexture = null;
-    var glAlphaFuncx: ?function_signatures.glAlphaFuncx = null;
-    var glBindBuffer: ?function_signatures.glBindBuffer = null;
-    var glBindTexture: ?function_signatures.glBindTexture = null;
-    var glBlendFunc: ?function_signatures.glBlendFunc = null;
-    var glBufferData: ?function_signatures.glBufferData = null;
-    var glBufferSubData: ?function_signatures.glBufferSubData = null;
-    var glClear: ?function_signatures.glClear = null;
-    var glClearColorx: ?function_signatures.glClearColorx = null;
-    var glClearDepthx: ?function_signatures.glClearDepthx = null;
-    var glClearStencil: ?function_signatures.glClearStencil = null;
-    var glClientActiveTexture: ?function_signatures.glClientActiveTexture = null;
-    var glClipPlanex: ?function_signatures.glClipPlanex = null;
-    var glColor4ub: ?function_signatures.glColor4ub = null;
-    var glColor4x: ?function_signatures.glColor4x = null;
-    var glColorMask: ?function_signatures.glColorMask = null;
-    var glColorPointer: ?function_signatures.glColorPointer = null;
-    var glCompressedTexImage2D: ?function_signatures.glCompressedTexImage2D = null;
-    var glCompressedTexSubImage2D: ?function_signatures.glCompressedTexSubImage2D = null;
-    var glCopyTexImage2D: ?function_signatures.glCopyTexImage2D = null;
-    var glCopyTexSubImage2D: ?function_signatures.glCopyTexSubImage2D = null;
-    var glCullFace: ?function_signatures.glCullFace = null;
-    var glDeleteBuffers: ?function_signatures.glDeleteBuffers = null;
-    var glDeleteTextures: ?function_signatures.glDeleteTextures = null;
-    var glDepthFunc: ?function_signatures.glDepthFunc = null;
-    var glDepthMask: ?function_signatures.glDepthMask = null;
-    var glDepthRangex: ?function_signatures.glDepthRangex = null;
-    var glDisable: ?function_signatures.glDisable = null;
-    var glDisableClientState: ?function_signatures.glDisableClientState = null;
-    var glDrawArrays: ?function_signatures.glDrawArrays = null;
-    var glDrawElements: ?function_signatures.glDrawElements = null;
-    var glEnable: ?function_signatures.glEnable = null;
-    var glEnableClientState: ?function_signatures.glEnableClientState = null;
-    var glFinish: ?function_signatures.glFinish = null;
-    var glFlush: ?function_signatures.glFlush = null;
-    var glFogx: ?function_signatures.glFogx = null;
-    var glFogxv: ?function_signatures.glFogxv = null;
-    var glFrontFace: ?function_signatures.glFrontFace = null;
-    var glFrustumx: ?function_signatures.glFrustumx = null;
-    var glGetBooleanv: ?function_signatures.glGetBooleanv = null;
-    var glGetBufferParameteriv: ?function_signatures.glGetBufferParameteriv = null;
-    var glGetClipPlanex: ?function_signatures.glGetClipPlanex = null;
-    var glGenBuffers: ?function_signatures.glGenBuffers = null;
-    var glGenTextures: ?function_signatures.glGenTextures = null;
-    var glGetError: ?function_signatures.glGetError = null;
-    var glGetFixedv: ?function_signatures.glGetFixedv = null;
-    var glGetIntegerv: ?function_signatures.glGetIntegerv = null;
-    var glGetLightxv: ?function_signatures.glGetLightxv = null;
-    var glGetMaterialxv: ?function_signatures.glGetMaterialxv = null;
-    var glGetPointerv: ?function_signatures.glGetPointerv = null;
-    var glGetString: ?function_signatures.glGetString = null;
-    var glGetTexEnviv: ?function_signatures.glGetTexEnviv = null;
-    var glGetTexEnvxv: ?function_signatures.glGetTexEnvxv = null;
-    var glGetTexParameteriv: ?function_signatures.glGetTexParameteriv = null;
-    var glGetTexParameterxv: ?function_signatures.glGetTexParameterxv = null;
-    var glHint: ?function_signatures.glHint = null;
-    var glIsBuffer: ?function_signatures.glIsBuffer = null;
-    var glIsEnabled: ?function_signatures.glIsEnabled = null;
-    var glIsTexture: ?function_signatures.glIsTexture = null;
-    var glLightModelx: ?function_signatures.glLightModelx = null;
-    var glLightModelxv: ?function_signatures.glLightModelxv = null;
-    var glLightx: ?function_signatures.glLightx = null;
-    var glLightxv: ?function_signatures.glLightxv = null;
-    var glLineWidthx: ?function_signatures.glLineWidthx = null;
-    var glLoadIdentity: ?function_signatures.glLoadIdentity = null;
-    var glLoadMatrixx: ?function_signatures.glLoadMatrixx = null;
-    var glLogicOp: ?function_signatures.glLogicOp = null;
-    var glMaterialx: ?function_signatures.glMaterialx = null;
-    var glMaterialxv: ?function_signatures.glMaterialxv = null;
-    var glMatrixMode: ?function_signatures.glMatrixMode = null;
-    var glMultMatrixx: ?function_signatures.glMultMatrixx = null;
-    var glMultiTexCoord4x: ?function_signatures.glMultiTexCoord4x = null;
-    var glNormal3x: ?function_signatures.glNormal3x = null;
-    var glNormalPointer: ?function_signatures.glNormalPointer = null;
-    var glOrthox: ?function_signatures.glOrthox = null;
-    var glPixelStorei: ?function_signatures.glPixelStorei = null;
-    var glPointParameterx: ?function_signatures.glPointParameterx = null;
-    var glPointParameterxv: ?function_signatures.glPointParameterxv = null;
-    var glPointSizex: ?function_signatures.glPointSizex = null;
-    var glPolygonOffsetx: ?function_signatures.glPolygonOffsetx = null;
-    var glPopMatrix: ?function_signatures.glPopMatrix = null;
-    var glPushMatrix: ?function_signatures.glPushMatrix = null;
-    var glReadPixels: ?function_signatures.glReadPixels = null;
-    var glRotatex: ?function_signatures.glRotatex = null;
-    var glSampleCoverage: ?function_signatures.glSampleCoverage = null;
-    var glSampleCoveragex: ?function_signatures.glSampleCoveragex = null;
-    var glScalex: ?function_signatures.glScalex = null;
-    var glScissor: ?function_signatures.glScissor = null;
-    var glShadeModel: ?function_signatures.glShadeModel = null;
-    var glStencilFunc: ?function_signatures.glStencilFunc = null;
-    var glStencilMask: ?function_signatures.glStencilMask = null;
-    var glStencilOp: ?function_signatures.glStencilOp = null;
-    var glTexCoordPointer: ?function_signatures.glTexCoordPointer = null;
-    var glTexEnvi: ?function_signatures.glTexEnvi = null;
-    var glTexEnvx: ?function_signatures.glTexEnvx = null;
-    var glTexEnviv: ?function_signatures.glTexEnviv = null;
-    var glTexEnvxv: ?function_signatures.glTexEnvxv = null;
-    var glTexImage2D: ?function_signatures.glTexImage2D = null;
-    var glTexParameteri: ?function_signatures.glTexParameteri = null;
-    var glTexParameterx: ?function_signatures.glTexParameterx = null;
-    var glTexParameteriv: ?function_signatures.glTexParameteriv = null;
-    var glTexParameterxv: ?function_signatures.glTexParameterxv = null;
-    var glTexSubImage2D: ?function_signatures.glTexSubImage2D = null;
-    var glTranslatex: ?function_signatures.glTranslatex = null;
-    var glVertexPointer: ?function_signatures.glVertexPointer = null;
-    var glViewport: ?function_signatures.glViewport = null;
+    var glAlphaFunc: ?FnPtr(function_signatures.glAlphaFunc) = null;
+    var glClearColor: ?FnPtr(function_signatures.glClearColor) = null;
+    var glClearDepthf: ?FnPtr(function_signatures.glClearDepthf) = null;
+    var glClipPlanef: ?FnPtr(function_signatures.glClipPlanef) = null;
+    var glColor4f: ?FnPtr(function_signatures.glColor4f) = null;
+    var glDepthRangef: ?FnPtr(function_signatures.glDepthRangef) = null;
+    var glFogf: ?FnPtr(function_signatures.glFogf) = null;
+    var glFogfv: ?FnPtr(function_signatures.glFogfv) = null;
+    var glFrustumf: ?FnPtr(function_signatures.glFrustumf) = null;
+    var glGetClipPlanef: ?FnPtr(function_signatures.glGetClipPlanef) = null;
+    var glGetFloatv: ?FnPtr(function_signatures.glGetFloatv) = null;
+    var glGetLightfv: ?FnPtr(function_signatures.glGetLightfv) = null;
+    var glGetMaterialfv: ?FnPtr(function_signatures.glGetMaterialfv) = null;
+    var glGetTexEnvfv: ?FnPtr(function_signatures.glGetTexEnvfv) = null;
+    var glGetTexParameterfv: ?FnPtr(function_signatures.glGetTexParameterfv) = null;
+    var glLightModelf: ?FnPtr(function_signatures.glLightModelf) = null;
+    var glLightModelfv: ?FnPtr(function_signatures.glLightModelfv) = null;
+    var glLightf: ?FnPtr(function_signatures.glLightf) = null;
+    var glLightfv: ?FnPtr(function_signatures.glLightfv) = null;
+    var glLineWidth: ?FnPtr(function_signatures.glLineWidth) = null;
+    var glLoadMatrixf: ?FnPtr(function_signatures.glLoadMatrixf) = null;
+    var glMaterialf: ?FnPtr(function_signatures.glMaterialf) = null;
+    var glMaterialfv: ?FnPtr(function_signatures.glMaterialfv) = null;
+    var glMultMatrixf: ?FnPtr(function_signatures.glMultMatrixf) = null;
+    var glMultiTexCoord4f: ?FnPtr(function_signatures.glMultiTexCoord4f) = null;
+    var glNormal3f: ?FnPtr(function_signatures.glNormal3f) = null;
+    var glOrthof: ?FnPtr(function_signatures.glOrthof) = null;
+    var glPointParameterf: ?FnPtr(function_signatures.glPointParameterf) = null;
+    var glPointParameterfv: ?FnPtr(function_signatures.glPointParameterfv) = null;
+    var glPointSize: ?FnPtr(function_signatures.glPointSize) = null;
+    var glPolygonOffset: ?FnPtr(function_signatures.glPolygonOffset) = null;
+    var glRotatef: ?FnPtr(function_signatures.glRotatef) = null;
+    var glScalef: ?FnPtr(function_signatures.glScalef) = null;
+    var glTexEnvf: ?FnPtr(function_signatures.glTexEnvf) = null;
+    var glTexEnvfv: ?FnPtr(function_signatures.glTexEnvfv) = null;
+    var glTexParameterf: ?FnPtr(function_signatures.glTexParameterf) = null;
+    var glTexParameterfv: ?FnPtr(function_signatures.glTexParameterfv) = null;
+    var glTranslatef: ?FnPtr(function_signatures.glTranslatef) = null;
+    var glActiveTexture: ?FnPtr(function_signatures.glActiveTexture) = null;
+    var glAlphaFuncx: ?FnPtr(function_signatures.glAlphaFuncx) = null;
+    var glBindBuffer: ?FnPtr(function_signatures.glBindBuffer) = null;
+    var glBindTexture: ?FnPtr(function_signatures.glBindTexture) = null;
+    var glBlendFunc: ?FnPtr(function_signatures.glBlendFunc) = null;
+    var glBufferData: ?FnPtr(function_signatures.glBufferData) = null;
+    var glBufferSubData: ?FnPtr(function_signatures.glBufferSubData) = null;
+    var glClear: ?FnPtr(function_signatures.glClear) = null;
+    var glClearColorx: ?FnPtr(function_signatures.glClearColorx) = null;
+    var glClearDepthx: ?FnPtr(function_signatures.glClearDepthx) = null;
+    var glClearStencil: ?FnPtr(function_signatures.glClearStencil) = null;
+    var glClientActiveTexture: ?FnPtr(function_signatures.glClientActiveTexture) = null;
+    var glClipPlanex: ?FnPtr(function_signatures.glClipPlanex) = null;
+    var glColor4ub: ?FnPtr(function_signatures.glColor4ub) = null;
+    var glColor4x: ?FnPtr(function_signatures.glColor4x) = null;
+    var glColorMask: ?FnPtr(function_signatures.glColorMask) = null;
+    var glColorPointer: ?FnPtr(function_signatures.glColorPointer) = null;
+    var glCompressedTexImage2D: ?FnPtr(function_signatures.glCompressedTexImage2D) = null;
+    var glCompressedTexSubImage2D: ?FnPtr(function_signatures.glCompressedTexSubImage2D) = null;
+    var glCopyTexImage2D: ?FnPtr(function_signatures.glCopyTexImage2D) = null;
+    var glCopyTexSubImage2D: ?FnPtr(function_signatures.glCopyTexSubImage2D) = null;
+    var glCullFace: ?FnPtr(function_signatures.glCullFace) = null;
+    var glDeleteBuffers: ?FnPtr(function_signatures.glDeleteBuffers) = null;
+    var glDeleteTextures: ?FnPtr(function_signatures.glDeleteTextures) = null;
+    var glDepthFunc: ?FnPtr(function_signatures.glDepthFunc) = null;
+    var glDepthMask: ?FnPtr(function_signatures.glDepthMask) = null;
+    var glDepthRangex: ?FnPtr(function_signatures.glDepthRangex) = null;
+    var glDisable: ?FnPtr(function_signatures.glDisable) = null;
+    var glDisableClientState: ?FnPtr(function_signatures.glDisableClientState) = null;
+    var glDrawArrays: ?FnPtr(function_signatures.glDrawArrays) = null;
+    var glDrawElements: ?FnPtr(function_signatures.glDrawElements) = null;
+    var glEnable: ?FnPtr(function_signatures.glEnable) = null;
+    var glEnableClientState: ?FnPtr(function_signatures.glEnableClientState) = null;
+    var glFinish: ?FnPtr(function_signatures.glFinish) = null;
+    var glFlush: ?FnPtr(function_signatures.glFlush) = null;
+    var glFogx: ?FnPtr(function_signatures.glFogx) = null;
+    var glFogxv: ?FnPtr(function_signatures.glFogxv) = null;
+    var glFrontFace: ?FnPtr(function_signatures.glFrontFace) = null;
+    var glFrustumx: ?FnPtr(function_signatures.glFrustumx) = null;
+    var glGetBooleanv: ?FnPtr(function_signatures.glGetBooleanv) = null;
+    var glGetBufferParameteriv: ?FnPtr(function_signatures.glGetBufferParameteriv) = null;
+    var glGetClipPlanex: ?FnPtr(function_signatures.glGetClipPlanex) = null;
+    var glGenBuffers: ?FnPtr(function_signatures.glGenBuffers) = null;
+    var glGenTextures: ?FnPtr(function_signatures.glGenTextures) = null;
+    var glGetError: ?FnPtr(function_signatures.glGetError) = null;
+    var glGetFixedv: ?FnPtr(function_signatures.glGetFixedv) = null;
+    var glGetIntegerv: ?FnPtr(function_signatures.glGetIntegerv) = null;
+    var glGetLightxv: ?FnPtr(function_signatures.glGetLightxv) = null;
+    var glGetMaterialxv: ?FnPtr(function_signatures.glGetMaterialxv) = null;
+    var glGetPointerv: ?FnPtr(function_signatures.glGetPointerv) = null;
+    var glGetString: ?FnPtr(function_signatures.glGetString) = null;
+    var glGetTexEnviv: ?FnPtr(function_signatures.glGetTexEnviv) = null;
+    var glGetTexEnvxv: ?FnPtr(function_signatures.glGetTexEnvxv) = null;
+    var glGetTexParameteriv: ?FnPtr(function_signatures.glGetTexParameteriv) = null;
+    var glGetTexParameterxv: ?FnPtr(function_signatures.glGetTexParameterxv) = null;
+    var glHint: ?FnPtr(function_signatures.glHint) = null;
+    var glIsBuffer: ?FnPtr(function_signatures.glIsBuffer) = null;
+    var glIsEnabled: ?FnPtr(function_signatures.glIsEnabled) = null;
+    var glIsTexture: ?FnPtr(function_signatures.glIsTexture) = null;
+    var glLightModelx: ?FnPtr(function_signatures.glLightModelx) = null;
+    var glLightModelxv: ?FnPtr(function_signatures.glLightModelxv) = null;
+    var glLightx: ?FnPtr(function_signatures.glLightx) = null;
+    var glLightxv: ?FnPtr(function_signatures.glLightxv) = null;
+    var glLineWidthx: ?FnPtr(function_signatures.glLineWidthx) = null;
+    var glLoadIdentity: ?FnPtr(function_signatures.glLoadIdentity) = null;
+    var glLoadMatrixx: ?FnPtr(function_signatures.glLoadMatrixx) = null;
+    var glLogicOp: ?FnPtr(function_signatures.glLogicOp) = null;
+    var glMaterialx: ?FnPtr(function_signatures.glMaterialx) = null;
+    var glMaterialxv: ?FnPtr(function_signatures.glMaterialxv) = null;
+    var glMatrixMode: ?FnPtr(function_signatures.glMatrixMode) = null;
+    var glMultMatrixx: ?FnPtr(function_signatures.glMultMatrixx) = null;
+    var glMultiTexCoord4x: ?FnPtr(function_signatures.glMultiTexCoord4x) = null;
+    var glNormal3x: ?FnPtr(function_signatures.glNormal3x) = null;
+    var glNormalPointer: ?FnPtr(function_signatures.glNormalPointer) = null;
+    var glOrthox: ?FnPtr(function_signatures.glOrthox) = null;
+    var glPixelStorei: ?FnPtr(function_signatures.glPixelStorei) = null;
+    var glPointParameterx: ?FnPtr(function_signatures.glPointParameterx) = null;
+    var glPointParameterxv: ?FnPtr(function_signatures.glPointParameterxv) = null;
+    var glPointSizex: ?FnPtr(function_signatures.glPointSizex) = null;
+    var glPolygonOffsetx: ?FnPtr(function_signatures.glPolygonOffsetx) = null;
+    var glPopMatrix: ?FnPtr(function_signatures.glPopMatrix) = null;
+    var glPushMatrix: ?FnPtr(function_signatures.glPushMatrix) = null;
+    var glReadPixels: ?FnPtr(function_signatures.glReadPixels) = null;
+    var glRotatex: ?FnPtr(function_signatures.glRotatex) = null;
+    var glSampleCoverage: ?FnPtr(function_signatures.glSampleCoverage) = null;
+    var glSampleCoveragex: ?FnPtr(function_signatures.glSampleCoveragex) = null;
+    var glScalex: ?FnPtr(function_signatures.glScalex) = null;
+    var glScissor: ?FnPtr(function_signatures.glScissor) = null;
+    var glShadeModel: ?FnPtr(function_signatures.glShadeModel) = null;
+    var glStencilFunc: ?FnPtr(function_signatures.glStencilFunc) = null;
+    var glStencilMask: ?FnPtr(function_signatures.glStencilMask) = null;
+    var glStencilOp: ?FnPtr(function_signatures.glStencilOp) = null;
+    var glTexCoordPointer: ?FnPtr(function_signatures.glTexCoordPointer) = null;
+    var glTexEnvi: ?FnPtr(function_signatures.glTexEnvi) = null;
+    var glTexEnvx: ?FnPtr(function_signatures.glTexEnvx) = null;
+    var glTexEnviv: ?FnPtr(function_signatures.glTexEnviv) = null;
+    var glTexEnvxv: ?FnPtr(function_signatures.glTexEnvxv) = null;
+    var glTexImage2D: ?FnPtr(function_signatures.glTexImage2D) = null;
+    var glTexParameteri: ?FnPtr(function_signatures.glTexParameteri) = null;
+    var glTexParameterx: ?FnPtr(function_signatures.glTexParameterx) = null;
+    var glTexParameteriv: ?FnPtr(function_signatures.glTexParameteriv) = null;
+    var glTexParameterxv: ?FnPtr(function_signatures.glTexParameterxv) = null;
+    var glTexSubImage2D: ?FnPtr(function_signatures.glTexSubImage2D) = null;
+    var glTranslatex: ?FnPtr(function_signatures.glTranslatex) = null;
+    var glVertexPointer: ?FnPtr(function_signatures.glVertexPointer) = null;
+    var glViewport: ?FnPtr(function_signatures.glViewport) = null;
 };
 
 test {
