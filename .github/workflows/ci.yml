@@ -31,7 +31,9 @@ jobs:
         run: dotnet build
 
       - name: Generate all default files
-        run: make
+        run: |
+          mkdir -p exports
+          make
 
       - name: Compile release variants for the generator
         run: |
