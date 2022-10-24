@@ -113,6 +113,11 @@ class Program
 
     using (var stream = new StreamWriter(result_file, false, Encoding.UTF8))
     {
+      stream.WriteLine("//");
+      stream.WriteLine("// This code file is licenced under any of Public Domain, WTFPL or CC0.");
+      stream.WriteLine("// There are no restrictions in the use of this file.");
+      stream.WriteLine("//");
+      stream.WriteLine("");
       stream.WriteLine("const std = @import(\"std\");");
       stream.WriteLine("const builtin = @import(\"builtin\");");
       stream.WriteLine("const log = std.log.scoped(.OpenGL);");
