@@ -541,7 +541,7 @@ public class Command
         count += 1;
       }
     }
-    stream.Write(") ");
+    stream.Write(") callconv(.C) ");
 
     stream.Write(Program.TranslateC(return_type));
 
