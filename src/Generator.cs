@@ -11,17 +11,13 @@ class Program
 {
   static int Main(string[] args)
   {
-    if (args.Length < 3)
+    if (args.Length < 1)
     {
       Console.Error.WriteLine("Usage: generator <registry> <result> <api_version> [<extension>] [<extension>] ...");
       return 1;
     }
 
     string registry_file = args[0];
-    string result_file = args[1];
-    string api_version = args[2];
-    string[] extensions = args.Skip(3).ToArray();
-    string profile = "core"; //
 
     var serializer = new XmlSerializer(typeof(Registry));
 
@@ -30,6 +26,27 @@ class Program
     {
       registry = (Registry)serializer.Deserialize(sr);
     }
+
+    if (args.Length == 1)
+    {
+      Console.WriteLine("Available features are:");
+      foreach (var feat in registry.Features)
+      {
+        Console.WriteLine("- {0}", feat.Name);
+      }
+    }
+
+
+    if (args.Length < 3)
+    {
+      Console.Error.WriteLine("Usage: generator <registry> <result> <api_version> [<extension>] [<extension>] ...");
+      return 1;
+    }
+
+    string result_file = args[1];
+    string api_version = args[2];
+    string[] extensions = args.Skip(3).ToArray();
+    string profile = "core"; //
 
     var target_feature = registry.Features.First(f => f.Name == api_version);
 
@@ -117,6 +134,17 @@ class Program
       stream.WriteLine("// This code file is licenced under any of Public Domain, WTFPL or CC0.");
       stream.WriteLine("// There are no restrictions in the use of this file.");
       stream.WriteLine("//");
+      stream.WriteLine("");
+      stream.WriteLine("//");
+      stream.WriteLine("// Generation parameters:");
+      stream.WriteLine("// API:        {0}", api_version);
+      stream.WriteLine("// Profile:    {0}", profile);
+      stream.WriteLine("// Extensions: {0}", string.Join(", ", extensions));
+      stream.WriteLine("//");
+      stream.WriteLine("");
+
+      stream.WriteLine("// This file was generated with the following command line:");
+      stream.WriteLine("// generator {0}", string.Join(" ", args.Select(a => a.Contains(" ") ? "\"" + a + "\"" : a)));
       stream.WriteLine("");
       stream.WriteLine("const std = @import(\"std\");");
       stream.WriteLine("const builtin = @import(\"builtin\");");
