@@ -142,9 +142,10 @@ class Program
       stream.WriteLine("// Extensions: {0}", string.Join(", ", extensions));
       stream.WriteLine("//");
       stream.WriteLine("");
-
+      stream.WriteLine("//");
       stream.WriteLine("// This file was generated with the following command line:");
-      stream.WriteLine("// generator {0}", string.Join(" ", args.Select(a => a.Contains(" ") ? "\"" + a + "\"" : a)));
+      stream.WriteLine("// generator {0}", Environment.CommandLine); // string.Join(" ", args.Select(a => a.Contains(" ") ? "\"" + a + "\"" : a)));
+      stream.WriteLine("//");
       stream.WriteLine("");
       stream.WriteLine("const std = @import(\"std\");");
       stream.WriteLine("const builtin = @import(\"builtin\");");
