@@ -37,26 +37,9 @@ pub fn initAndDraw(window: Platform.Window) !void {
 }
 ```
 
-This example uses [mach-glfw](https://github.com/hexops/mach-glfw)
+### Usage with mach-glfw
 
-```zig
-  const glfw = @import("glfw");
-  fn glGetProcAddress(p: glfw.GLProc, proc: [:0]const u8) ?gl.FunctionPointer {
-    _ = p;
-    return glfw.getProcAddress(proc);
-  }
-  pub fn draw(window: glfw.Window) !void {
-    const proc: glfw.GLProc = undefined;
-    try gl.load(proc, glGetProcAddress);
-
-    while (!window.shouldClose()) {
-      gl.clearColor(1, 0, 1, 1);
-      gl.clear(gl.COLOR_BUFFER_BIT);
-
-      try window.swapBuffers();
-    }
-  }
-```
+There is an example of `mach-glfw` + `zig-opengl` usage available here: https://github.com/hexops/mach-glfw-opengl-example
 
 ## Pregenerated Loaders
 
