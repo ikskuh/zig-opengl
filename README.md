@@ -51,7 +51,7 @@ This repository contains pre-generated bindings for all extension-free OpenGL ve
 
 To generate your own loader, you have to clone this repository and build the generator with `dotnet`:
 
-````sh-console
+```sh-session
 user@machine:~/zig-opengl$ dotnet run
 Usage: generator <registry> <result> <api_version> [<extension>] [<extension>] ...
 user@machine:~/zig-opengl$ dotnet run OpenGL-Registry/xml/gl.xml gl3v3.zig GL_VERSION_3_3
@@ -59,13 +59,13 @@ Final API has 344 commands and 818 enums types.
 user@machine:~/zig-opengl$
 ```
 
-```sh-console
+```sh-session
 dotnet run \
   OpenGL-Registry/xml/gl.xml \ # path to the opengl registry
   my_binding.zig             \ # path to the generated file
   GL_VERSION_3_3             \ # feature level, options listed below
   …                            # Add your extensions here, each as a single arg. Or let them out, you don't need extensions
-````
+```
 
 Possible feature levels (at the time of writing) are:
 
