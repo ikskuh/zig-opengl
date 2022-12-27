@@ -247,6 +247,7 @@ class Program
       stream.Write(cmd.GetSignature(true));
       stream.WriteLine(" {");
 
+      stream.WriteLine("    if (builtin.mode != .Debug and function_pointers.{0} == null) unreachable;", cmd.Prototype.Name);
       stream.Write("    return (function_pointers.{0} orelse @panic(\"{0} was not bound.\"))(", cmd.Prototype.Name);
       if (cmd.Parameters != null)
       {
