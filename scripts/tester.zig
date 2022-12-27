@@ -10,7 +10,12 @@ export fn dummy() void {
     gl.load({}, fakeLoader) catch {};
 }
 
-fn fakeLoader(_: void, name: [:0]const u8) ?gl.FunctionPointer {
-    _ = name;
-    return null;
+comptime {
+    @export(gl.getIntegerv, .{ .name = "glGetIntegerv" });
 }
+
+fn fakeLoader(_: void, name: [:0]const u8) ?gl.FunctionPointer {
+    return magic_loader(name.ptr);
+}
+
+export var magic_loader: *const fn (name: [*:0]const u8) ?gl.FunctionPointer = undefined;

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 
 class Program
 {
+
   static int Main(string[] args)
   {
     if (args.Length < 1)
@@ -190,7 +191,7 @@ class Program
       stream.WriteLine("const function_pointers = struct {");
       foreach (var cmd in all_commands)
       {
-        stream.WriteLine("    var {0}: ?FnPtr(function_signatures.{0}) = null;", cmd.Prototype.Name);
+        stream.WriteLine("    var {0}: FnPtr(function_signatures.{0}) = undefined;", cmd.Prototype.Name);
       }
       stream.WriteLine("};");
 
@@ -247,8 +248,7 @@ class Program
       stream.Write(cmd.GetSignature(true));
       stream.WriteLine(" {");
 
-      stream.WriteLine("    if (builtin.mode != .Debug and function_pointers.{0} == null) unreachable;", cmd.Prototype.Name);
-      stream.Write("    return (function_pointers.{0} orelse @panic(\"{0} was not bound.\"))(", cmd.Prototype.Name);
+      stream.Write("    return @call(.always_tail, function_pointers.{0}, .{{", cmd.Prototype.Name);
       if (cmd.Parameters != null)
       {
         int i = 0;
@@ -260,7 +260,7 @@ class Program
           i += 1;
         }
       }
-      stream.WriteLine(");");
+      stream.WriteLine("});");
 
       stream.WriteLine("}");
     }
