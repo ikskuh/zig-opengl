@@ -11,5 +11,5 @@ cd temp/
 
 for target in $PLATFORMS; do
   echo "build for ${target}..."
-  zig build-lib -dynamic -target "${target}" ../scripts/tester.zig --pkg-begin opengl "../$1" --pkg-end 
+  zig build-lib -dynamic -target "${target}" ../scripts/tester.zig --mod "opengl::../$1" --deps opengl
 done
