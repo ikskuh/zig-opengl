@@ -273,7 +273,7 @@ class Program
     foreach (var cmd in commands)
     {
       stream.WriteLine("    if(get_proc_address(load_ctx, \"{0}\")) |proc| {{", cmd.Prototype.Name);
-      stream.WriteLine("        function_pointers.{0} = @ptrCast(@TypeOf(function_pointers.{0}),  proc);", cmd.Prototype.Name);
+      stream.WriteLine("        function_pointers.{0} = @ptrCast(proc);", cmd.Prototype.Name);
       stream.WriteLine("    } else {");
       stream.WriteLine("        log.err(\"entry point {0} not found!\", .{{}});", cmd.Prototype.Name);
       stream.WriteLine("        success = false;");
