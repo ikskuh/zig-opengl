@@ -3,7 +3,7 @@ EXTENSIONS?=
 
 NOTEST?=n
 
-EXE=bin/Debug/net6.0/generator
+EXE=bin/Debug/net7.0/generator
 GENERATOR?=$(EXE)
 
 

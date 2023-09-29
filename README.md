@@ -16,6 +16,12 @@ This function will load all OpenGL entry points with the help of `get_proc_addre
 
 **NOTE:** Please do not reference `zig-opengl` as a submodule or a package. Generate a binding and copy the output of that into your repository and update the file on demand. The OpenGL Registry is just too huge to be used conveniently.
 
+Cloning submodules is required, so use `--recursive`:
+
+```bash
+git clone --recursive https://github.com/MasterQ32/zig-opengl.git
+```
+
 ## Example
 
 This example uses [ZWL](https://github.com/Aransentin/ZWL/) by @Aransentin.
