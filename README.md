@@ -19,7 +19,7 @@ This function will load all OpenGL entry points with the help of `get_proc_addre
 Cloning submodules is required, so use `--recursive`:
 
 ```bash
-git clone --recursive https://github.com/MasterQ32/zig-opengl.git
+git clone --recursive https://github.com/ikskuh/zig-opengl.git
 ```
 
 ## Example
